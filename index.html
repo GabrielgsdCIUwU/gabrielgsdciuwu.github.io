@@ -7,24 +7,40 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <link
-      href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet" />
 
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 
-    <script
-      type="module"
-      src="https://unpkg.com/@splinetool/viewer@1.9.5/build/spline-viewer.js"
-    ></script>
+    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.5/build/spline-viewer.js"></script>
     <style>
+
+      ::-webkit-scrollbar {
+        width: 12px;
+        background-color: #f0f0f0;
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background-color: #4a90e2;
+        border-radius: 10px;
+        border: 2px solid #f0f0f0;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background-color: #357abd; 
+      }
+
+      ::-webkit-scrollbar-track {
+        background-color: #e0e0e0; 
+        border-radius: 10px; 
+      }
+
       body,
       html {
         font-family: "Comic Neue", cursive, sans-serif;
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow-y: auto;
       }
 
       .fa-ko-fi::before {
@@ -47,10 +63,8 @@
       }
     </style>
   </head>
-  <body class="bg-gray-200 h-screen flex flex-col">
-    <header
-      class="bg-blue-400 text-white flex justify-between items-center p-4 relative z-10"
-    >
+  <body class="bg-gray-200 flex flex-col min-h-screen">
+    <header class="bg-blue-400 text-white flex justify-between items-center p-4 relative z-10">
       <div class="flex items-center space-x-4">
         <button id="menu-toggle" class="focus:outline-none">
           <i id="menu-icon" class="fas fa-bars"></i>
@@ -58,67 +72,102 @@
         <span class="text-xl">Gabrielgsd</span>
       </div>
       <div class="flex space-x-4">
-        <a href="#" class="text-white hover:text-gray-300">
+        <a href="https://github.com/GabrielgsdCIUwU" target="_blank" class="text-white hover:text-gray-300">
+          <i class="fab fa-github"></i>
+        </a>
+        <a href="https://www.twitch.tv/gabrielgsd_ci" target="_blank" class="text-white hover:text-gray-300">
           <i class="fab fa-twitch"></i>
         </a>
-        <a href="#" class="text-white hover:text-gray-300">
+        <a href="https://www.youtube.com/@gabrielgsd" target="_blank" class="text-white hover:text-gray-300">
           <i class="fab fa-youtube"></i>
         </a>
-        <a href="#" class="text-white hover:text-gray-300 relative">
+        <a href="https://ko-fi.com/gabrielgsd" target="_blank" class="text-white hover:text-gray-300 relative">
           <i class="fas fa-ko-fi"></i>
         </a>
       </div>
     </header>
 
-    <div class="flex-1 flex overflow-hidden relative">
+    <div class="flex-1 flex flex-col overflow-y-auto">
       <nav
         id="sidebar"
-        class="bg-blue-400 text-white w-48 h-full fixed transform -translate-x-full transition-transform duration-300 z-20"
-      >
+        class="bg-blue-400 text-white w-48 h-full fixed transform -translate-x-full transition-transform duration-300 z-20">
         <ul class="space-y-2 mt-4 p-4">
           <li class="text-xl font-bold text-white mb-4">Menú</li>
+
           <li class="menu-item text-center">
-            <a
-              href="#"
-              class="block p-4 text-white hover:bg-blue-600 hover:text-white transition-colors duration-300"
+            <a href="#" class="block p-4 text-white hover:bg-blue-600 hover:text-white transition-colors duration-300"
               >About Me</a
             >
           </li>
+
           <li class="menu-item text-center">
             <a
-              href="#"
+              href="#projects-section"
               class="block p-4 text-white hover:bg-blue-600 hover:text-white transition-colors duration-300"
               >Proyectos</a
             >
           </li>
+
           <li class="menu-item text-center">
-            <a
-              href="#"
-              class="block p-4 text-white hover:bg-blue-600 hover:text-white transition-colors duration-300"
+            <a href="#" class="block p-4 text-white hover:bg-blue-600 hover:text-white transition-colors duration-300"
               >Opiniones</a
             >
           </li>
+
           <li class="menu-item text-center">
-            <a
-              href="#"
-              class="block p-4 text-white hover:bg-blue-600 hover:text-white transition-colors duration-300"
+            <a href="#" class="block p-4 text-white hover:bg-blue-600 hover:text-white transition-colors duration-300"
               >Contacto</a
             >
           </li>
+
         </ul>
       </nav>
 
-      <main
-        id="main-content"
-        class="flex-1 flex justify-center items-center relative transition-all duration-300 ml-0"
-      >
-        <div id="spline-container" class="w-full h-full">
-          <spline-viewer
-            id="spline-viewer"
-            url="https://prod.spline.design/7W4P3fHeuiIc0No0/scene.splinecode"
-            class="w-full h-full"
-          ></spline-viewer>
-        </div>
+      <main id="main-content" class="flex-1 flex flex-col relative transition-all duration-300 ml-0">
+        <!-- Spline Viewer Section -->
+        <section id="spline-section" class="w-full h-screen">
+          <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.5/build/spline-viewer.js"></script>
+          <spline-viewer url="https://prod.spline.design/7W4P3fHeuiIc0No0/scene.splinecode"></spline-viewer>
+        </section>
+
+        <div class="block w-full h-10 bg-blue-400"></div>
+
+        <!--Proyects Section-->
+        <section id="projects-section" class="w-full bg-gray-100 p-8 mt-0 text-center rounded-lg shadow-lg">
+          <h2 class="text-3xl font-extrabold text-gray-800 mb-4">Proyectos Destacados</h2>
+          <p class="text-lg text-gray-600 mb-8">Explora algunos de los proyectos más destacados que he desarrollado.</p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+            <div class="bg-white p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300">
+              <div class="w-full h-48 bg-gray-200 rounded-lg flex items-center justify-center overflow-hidden">
+                <img
+                  class="fas fa-image text-gray-300 text-5xl"
+                  src="./resources/img/Presentation.png"
+                  alt="Icono Baraja Española VRChat" />
+              </div>
+              <h3 class="text-2xl font-bold mt-6 text-gray-700">Baraja española VRChat</h3>
+              <p class="text-gray-500 mt-2">Mundo para jugar a la baraja española en VRChat</p>
+              <p class="text-gray-500 mt-2">31/7/2024 - Actualmente</p>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300">
+              <div class="w-full h-48 bg-gray-200 rounded-lg flex items-center justify-center overflow-hidden">
+                <img src="./resources/img/KofiBanner.png" alt="Rusky" class="object-cover w-full h-full" />
+              </div>
+              <h3 class="text-2xl font-bold mt-6 text-gray-700">Rusky</h3>
+              <p class="text-gray-500 mt-2">Un avatar hecho para VRChat.</p>
+              <p class="text-gray-500 mt-2">10/04/2023 - ⏸️ 25/07/2024</p>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300">
+              <div class="w-full h-48 bg-gray-200 rounded-lg flex items-center justify-center overflow-hidden">
+                <img src="./resources/img/Azirax.png" alt="Azirax Logo" class="object-cover w-full h-full" />
+              </div>
+              <h3 class="text-2xl font-bold mt-6 text-gray-700">Azirax</h3>
+              <p class="text-gray-500 mt-2">Bot de Discord multifunción en español</p>
+              <p class="text-gray-500 mt-2">29/08/2020 - ⏸️ 03/08/2024</p>
+            </div>
+          </div>
+        </section>
       </main>
     </div>
 
