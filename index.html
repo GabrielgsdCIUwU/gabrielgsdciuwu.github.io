@@ -1,80 +1,164 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Gabrielgsd</title>
+    <!-- TailwindCSS desde CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Comic Neue -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <!-- Spline Viewer -->
+    <script
+      type="module"
+      src="https://unpkg.com/@splinetool/viewer@1.9.5/build/spline-viewer.js"
+    ></script>
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
-        body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            background-color: #2E4E68; 
-            font-family: "Comic Neue", Courier, monospace;
-            color: white;
-        }
-        header {
-            width: 100%;
-            padding: 10px;
-            box-sizing: border-box;
-            font-size: 1.5rem;
-            background-color: #2E4E68;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .container {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-        }
-        .icons {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-        }
-        .icons a {
-            color: white;
-            text-decoration: none;
-        }
-        .icons a img {
-            width: 2.5rem;
-            height: 2.5rem;
-        }
-        spline-viewer {
-            width: 100%;
-            height: 100%;
-            max-width: 100vw;
-            max-height: 100vh;
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <div>Gabrielgsd</div>
-        <div class="icons">
-            
-            <a href="https://www.twitch.tv/gabrielgsd_ci" target="_blank" title="Twitch">
-                <img src="./resources/svg/twitch-icon.svg" alt="Twitch">
-            </a>
-            <a href="https://www.youtube.com/@gabrielgsd" target="_blank" title="YouTube">
-                <img src="./resources/svg/youtube-icon.svg" alt="YouTube">
-            </a>
-            <a href="https://ko-fi.com/gabrielgsd" target="_blank" title="Ko-fi">
-                <img src="./resources/svg/ko-fi-icon.svg" alt="Ko-fi">
-            </a>
-        </div>
+      /* Aplicar Comic Neue como fuente */
+      body,
+      html {
+        font-family: "Comic Neue", cursive, sans-serif;
+      }
 
+      /* Estilo para iconos de redes sociales */
+      .fa-ko-fi::before {
+        content: "\f0f4";
+        display: inline-block;
+        font-size: 1.1em;
+        line-height: 0.45em;
+        margin: -0.45em 0 0 -0.2em;
+        overflow-y: hidden;
+        padding-top: 0.45em;
+      }
+
+      .fa-ko-fi::after {
+        color: #000;
+        content: "\f004";
+        font-size: 50%;
+        font-weight: 900;
+        margin: 0.5em 0 0 -2em;
+        position: absolute;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-200 h-screen flex flex-col">
+    <!-- Barra superior -->
+    <header
+      class="bg-blue-400 text-white flex justify-between items-center p-4 relative z-10"
+    >
+      <div class="flex items-center space-x-4">
+        <button id="menu-toggle" class="focus:outline-none">
+          <!-- Icono de menú -->
+          <i id="menu-icon" class="fas fa-bars"></i>
+        </button>
+        <span class="text-xl">Gabrielgsd</span>
+      </div>
+      <div class="flex space-x-4">
+        <!-- Iconos de redes sociales -->
+        <a href="#" class="text-white hover:text-gray-300">
+          <i class="fab fa-twitch"></i>
+        </a>
+        <a href="#" class="text-white hover:text-gray-300">
+          <i class="fab fa-youtube"></i>
+        </a>
+        <a href="#" class="text-white hover:text-gray-300 relative">
+          <i class="fas fa-ko-fi"></i>
+        </a>
+      </div>
     </header>
-    <div class="container">
-        <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.5/build/spline-viewer.js"></script>
-        <spline-viewer url="https://prod.spline.design/7W4P3fHeuiIc0No0/scene.splinecode"></spline-viewer>
+
+    <!-- Contenedor principal -->
+    <div class="flex-1 flex overflow-hidden relative">
+      <!-- Menú lateral (oculto por defecto) -->
+      <nav
+        id="sidebar"
+        class="bg-blue-400 text-white w-48 h-full fixed transform -translate-x-full transition-transform duration-300 z-20"
+      >
+        <ul class="space-y-2 mt-4 p-4">
+          <li class="text-xl font-bold text-white mb-4">Menú</li>
+          <li class="menu-item text-center">
+            <a
+              href="#"
+              class="block p-4 text-white hover:bg-blue-600 hover:text-white transition-colors duration-300"
+              >About Me</a
+            >
+          </li>
+          <li class="menu-item text-center">
+            <a
+              href="#"
+              class="block p-4 text-white hover:bg-blue-600 hover:text-white transition-colors duration-300"
+              >Proyectos</a
+            >
+          </li>
+          <li class="menu-item text-center">
+            <a
+              href="#"
+              class="block p-4 text-white hover:bg-blue-600 hover:text-white transition-colors duration-300"
+              >Opiniones</a
+            >
+          </li>
+          <li class="menu-item text-center">
+            <a
+              href="#"
+              class="block p-4 text-white hover:bg-blue-600 hover:text-white transition-colors duration-300"
+              >Contacto</a
+            >
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Contenido principal -->
+      <main
+        id="main-content"
+        class="flex-1 flex justify-center items-center relative transition-all duration-300 ml-0"
+      >
+        <div id="spline-container" class="w-full h-full">
+          <!-- Spline Viewer ocupando todo el espacio disponible -->
+          <spline-viewer
+            id="spline-viewer"
+            url="https://prod.spline.design/7W4P3fHeuiIc0No0/scene.splinecode"
+            class="w-full h-full"
+          ></spline-viewer>
+        </div>
+      </main>
     </div>
-</body>
+
+    <!-- JavaScript para el menú -->
+    <script>
+      const menuToggle = document.getElementById("menu-toggle");
+      const sidebar = document.getElementById("sidebar");
+      const mainContent = document.getElementById("main-content");
+      const menuIcon = document.getElementById("menu-icon");
+
+      function adjustMainContentMargin() {
+        if (sidebar.classList.contains("-translate-x-full")) {
+          mainContent.style.marginLeft = "0";
+        } else {
+          const sidebarWidth = sidebar.offsetWidth;
+          mainContent.style.marginLeft = `${sidebarWidth}px`;
+        }
+      }
+
+      menuToggle.addEventListener("click", () => {
+        sidebar.classList.toggle("-translate-x-full");
+        adjustMainContentMargin();
+        menuIcon.classList.toggle("fa-bars");
+        menuIcon.classList.toggle("fa-times");
+      });
+
+      // Ajuste inicial al cargar la página
+      window.addEventListener("resize", adjustMainContentMargin);
+
+      // Ajuste inicial para asegurarse de que el margen sea correcto
+      adjustMainContentMargin();
+    </script>
+  </body>
 </html>
