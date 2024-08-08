@@ -4,31 +4,29 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Gabrielgsd</title>
-    <!-- TailwindCSS desde CDN -->
+
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Comic Neue -->
+
     <link
       href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap"
       rel="stylesheet"
     />
-    <!-- Font Awesome -->
+
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     />
-    <!-- Spline Viewer -->
+
     <script
       type="module"
       src="https://unpkg.com/@splinetool/viewer@1.9.5/build/spline-viewer.js"
     ></script>
     <style>
-      /* Aplicar Comic Neue como fuente */
       body,
       html {
         font-family: "Comic Neue", cursive, sans-serif;
       }
 
-      /* Estilo para iconos de redes sociales */
       .fa-ko-fi::before {
         content: "\f0f4";
         display: inline-block;
@@ -50,19 +48,16 @@
     </style>
   </head>
   <body class="bg-gray-200 h-screen flex flex-col">
-    <!-- Barra superior -->
     <header
       class="bg-blue-400 text-white flex justify-between items-center p-4 relative z-10"
     >
       <div class="flex items-center space-x-4">
         <button id="menu-toggle" class="focus:outline-none">
-          <!-- Icono de menú -->
           <i id="menu-icon" class="fas fa-bars"></i>
         </button>
         <span class="text-xl">Gabrielgsd</span>
       </div>
       <div class="flex space-x-4">
-        <!-- Iconos de redes sociales -->
         <a href="#" class="text-white hover:text-gray-300">
           <i class="fab fa-twitch"></i>
         </a>
@@ -75,9 +70,7 @@
       </div>
     </header>
 
-    <!-- Contenedor principal -->
     <div class="flex-1 flex overflow-hidden relative">
-      <!-- Menú lateral (oculto por defecto) -->
       <nav
         id="sidebar"
         class="bg-blue-400 text-white w-48 h-full fixed transform -translate-x-full transition-transform duration-300 z-20"
@@ -115,13 +108,11 @@
         </ul>
       </nav>
 
-      <!-- Contenido principal -->
       <main
         id="main-content"
         class="flex-1 flex justify-center items-center relative transition-all duration-300 ml-0"
       >
         <div id="spline-container" class="w-full h-full">
-          <!-- Spline Viewer ocupando todo el espacio disponible -->
           <spline-viewer
             id="spline-viewer"
             url="https://prod.spline.design/7W4P3fHeuiIc0No0/scene.splinecode"
@@ -131,7 +122,6 @@
       </main>
     </div>
 
-    <!-- JavaScript para el menú -->
     <script>
       const menuToggle = document.getElementById("menu-toggle");
       const sidebar = document.getElementById("sidebar");
@@ -154,10 +144,8 @@
         menuIcon.classList.toggle("fa-times");
       });
 
-      // Ajuste inicial al cargar la página
       window.addEventListener("resize", adjustMainContentMargin);
 
-      // Ajuste inicial para asegurarse de que el margen sea correcto
       adjustMainContentMargin();
     </script>
   </body>
