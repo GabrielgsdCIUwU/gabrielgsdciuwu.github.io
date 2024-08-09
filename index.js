@@ -9,7 +9,7 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.use(express.static(path.join(__dirname, "resources")));
+app.use('/resources', express.static(path.join(__dirname, 'resources')));
 
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
