@@ -1,2 +1,4 @@
 node_modules
 BrainStorm.txt
+.env
+/resources/json/comentarios.json

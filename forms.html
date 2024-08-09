@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Comentarios</title>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+      integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"></script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .container {
+        max-width: 600px;
+        width: 100%;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin-top: 20px;
+      }
+      .form-group {
+        margin-bottom: 15px;
+      }
+      .form-group label {
+        display: block;
+        margin-bottom: 5px;
+      }
+      .form-group input,
+      .form-group textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+      }
+      .form-group button {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        background-color: #007bff;
+        color: #fff;
+        font-size: 16px;
+        cursor: pointer;
+      }
+      .form-group button:hover {
+        background-color: #0056b3;
+      }
+      .comments-container {
+        margin-top: 20px;
+        width: 100%;
+      }
+      .comment {
+        padding: 15px;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Comentarios</h1>
+
+      <!-- Formulario para añadir comentarios -->
+      <div class="form-group">
+        <label for="name">Nombre:</label>
+        <input type="text" id="name" name="name" required />
+      </div>
+      <div class="form-group">
+        <label for="comment">Comentario:</label>
+        <textarea id="comment" name="comment" rows="4" required></textarea>
+      </div>
+      <div class="form-group">
+        <button onclick="submitComment()">Enviar Comentario</button>
+      </div>
+
+      <!-- Formulario para eliminar comentarios -->
+      <div class="form-group">
+        <label for="commentId">ID del Comentario:</label>
+        <input type="text" id="commentId" name="commentId" required />
+      </div>
+      <div class="form-group">
+        <label for="authUser">Usuario:</label>
+        <input type="text" id="authUser" name="authUser" required />
+      </div>
+      <div class="form-group">
+        <label for="authPass">Contraseña:</label>
+        <input type="password" id="authPass" name="authPass" required />
+      </div>
+      <div class="form-group">
+        <button onclick="deleteComment()">Eliminar Comentario</button>
+      </div>
+
+      <!-- Botón para cargar comentarios -->
+      <div class="form-group">
+        <button onclick="fetchComments()">Cargar Comentarios</button>
+      </div>
+
+      <!-- Contenedor para comentarios -->
+      <div id="comments" class="comments-container"></div>
+    </div>
+
+    <script>
+      async function submitComment() {
+        const name = document.getElementById("name").value;
+        const comment = document.getElementById("comment").value;
+
+        if (!name || !comment) {
+          alert("Por favor, completa todos los campos.");
+          return;
+        }
+
+        try {
+          const response = await fetch("/api/comments", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ nombre: name, comentario: comment }),
+          });
+
+          const result = await response.json();
+          if (response.ok) {
+            alert(result.message);
+            document.getElementById("name").value = "";
+            document.getElementById("comment").value = "";
+          } else {
+            alert(`Error: ${result.error}`);
+          }
+        } catch (error) {
+          console.error("Error al enviar el comentario:", error);
+          alert("Error al enviar el comentario.");
+        }
+      }
+
+      async function deleteComment() {
+        const id = document.getElementById("commentId").value;
+        const user = document.getElementById("authUser").value;
+        const password = document.getElementById("authPass").value;
+
+        if (!id || !user || !password) {
+          alert("Por favor, completa todos los campos.");
+          return;
+        }
+
+        try {
+          const response = await fetch("/api/comments", {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Basic " + btoa(user + ":" + password),
+            },
+            body: JSON.stringify({ id }),
+          });
+
+          const result = await response.json();
+          if (response.ok) {
+            alert(result.message);
+            document.getElementById("commentId").value = "";
+            document.getElementById("authUser").value = "";
+            document.getElementById("authPass").value = "";
+          } else {
+            alert(`Error: ${result.error}`);
+          }
+        } catch (error) {
+          console.error("Error al eliminar el comentario:", error);
+          alert("Error al eliminar el comentario.");
+        }
+      }
+
+      async function fetchComments() {
+        try {
+          const response = await fetch("/api/comments");
+          const comments = await response.json();
+          const commentsContainer = document.getElementById("comments");
+
+          commentsContainer.innerHTML = "";
+
+          comments.forEach((comment) => {
+            const commentDiv = document.createElement("div");
+            commentDiv.className = "comment";
+            commentDiv.innerHTML = `<strong>${comment.nombre}</strong><p>${comment.comentario}</p>`;
+            commentsContainer.appendChild(commentDiv);
+          });
+        } catch (error) {
+          console.error("Error al cargar los comentarios:", error);
+          alert("Error al cargar los comentarios.");
+        }
+      }
+    </script>
+  </body>
+</html>
