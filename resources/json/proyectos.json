@@ -3,7 +3,7 @@
     "title": "Baraja española VRChat",
     "description": "Mundo para jugar a la baraja española en VRChat",
     "date": "31/7/2024 - Actualmente",
-    "image": "./resources/img/Presentation.png",
+    "image": "./resources/img/Presentation.jpg",
     "alt": "Icono Baraja Española VRChat",
     "link": "https://vrchat.com/home/world/wrld_d7752dab-3af2-4444-b9e8-9d83ffa222d1"
   },
@@ -11,7 +11,7 @@
     "title": "Rusky",
     "description": "Un avatar hecho para VRChat.",
     "date": "10/04/2023 - ⏸️ 25/07/2024",
-    "image": "./resources/img/KofiBanner.png",
+    "image": "./resources/img/KofiBanner.jpg",
     "alt": "Rusky",
     "link": "https://vrchat.com/home/avatar/avtr_d73fc045-aa44-4c87-8fd5-8433cccaa168"
   },
@@ -19,7 +19,7 @@
     "title": "Azirax",
     "description": "Bot de Discord multifunción en español",
     "date": "29/08/2020 - ⏸️ 03/08/2024",
-    "image": "./resources/img/Azirax.png",
+    "image": "./resources/img/Azirax.jpg",
     "alt": "Azirax Logo",
     "link": "https://azirax.site"
   }

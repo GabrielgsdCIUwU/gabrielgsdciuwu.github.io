@@ -133,6 +133,28 @@
     </div>
 
     <script>
+      function handleSplineFallback() {
+        const splineSection = document.getElementById("spline-section");
+
+        if (window.innerWidth < 768) {
+          splineSection.innerHTML = `
+        <div class="w-full h-screen flex items-center justify-center bg-gray-200">
+          <video autoplay muted loop class="w-full h-full object-cover">
+            <source src="./resources/video/Rusky-Web-Mobile.mp4" type="video/mp4">
+              Tu navegador no soporta la reproducción de videos.
+          </video>
+        </div>
+
+      `;
+        } else {
+          splineSection.innerHTML = `
+          <spline-viewer url="https://prod.spline.design/7W4P3fHeuiIc0No0/scene.splinecode"></spline-viewer>`;
+  }
+      }
+
+      window.addEventListener("resize", handleSplineFallback);
+      window.addEventListener("DOMContentLoaded", handleSplineFallback);
+
       async function cargarProyectos() {
         try {
           const response = await fetch("./resources/json/proyectos.json");
