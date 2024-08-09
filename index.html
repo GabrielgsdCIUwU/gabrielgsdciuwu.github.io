@@ -129,27 +129,124 @@
           <p class="text-lg text-gray-600 mb-8">Explora algunos de los proyectos más destacados que he desarrollado.</p>
           <div id="projects-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8"></div>
         </section>
+
+        <div class="block w-full h-10 bg-blue-400"></div>
+
+        <section id="about-me" class="w-full bg-gray-100 p-8 mt-0 text-center rounded-lg shadow-lg">
+          <h2 class="text-3xl font-extrabold text-gray-800 mb-4">Sobre Mí</h2>
+          <p class="text-lg text-gray-600 mb-8">
+            ¡Hola! Soy Gabrielgsd, un apasionado desarrollador con un amor por la tecnología y la creatividad.
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+            <div class="bg-white p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300">
+              <h3 class="text-2xl font-bold text-gray-700 mb-4">¿Quién soy?</h3>
+              <p class="text-gray-500">
+                Soy un desarrollador con experiencia en múltiples lenguajes de programación y tecnologías. Siempre estoy
+                buscando maneras de innovar y mejorar en cada proyecto que emprendo.
+              </p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300">
+              <h3 class="text-2xl font-bold text-gray-700 mb-4">Mi Misión</h3>
+              <p class="text-gray-500">
+                Mi misión es convertir ideas en proyectos reales, creando experiencias digitales únicas con un fuerte
+                enfoque en el diseño y la funcionalidad.
+              </p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300">
+              <h3 class="text-2xl font-bold text-gray-700 mb-4">Mis Valores</h3>
+              <p class="text-gray-500">
+                Creo en la importancia de mantenerse actualizado con las últimas tendencias y herramientas, y disfruto
+                compartir mi conocimiento con otros a través de streams y tutoriales.
+              </p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300">
+              <h3 class="text-2xl font-bold text-gray-700 mb-4">Habilidades</h3>
+              <p class="text-gray-500">
+                Desarrollo web, programación, diseño UI/UX, optimización de rendimiento, y más. Siempre estoy
+                aprendiendo y mejorando en lo que hago.
+              </p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300">
+              <h3 class="text-2xl font-bold text-gray-700 mb-4">Proyectos Destacados</h3>
+              <p class="text-gray-500">
+                Algunos de mis proyectos más destacados incluyen aplicaciones web interactivas y soluciones
+                personalizadas para clientes en diversas industrias.
+              </p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300">
+              <h3 class="text-2xl font-bold text-gray-700 mb-4">¿Quieres Conectar?</h3>
+              <p class="text-gray-500">
+                Si tienes un proyecto interesante o quieres colaborar, ¡no dudes en contactarme! Estoy siempre abierto a
+                nuevas oportunidades.
+              </p>
+            </div>
+          </div>
+        </section>
       </main>
     </div>
 
     <script>
+      function detectGraphicsCard() {
+        let canvas = document.createElement("canvas");
+        let gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
+
+        if (gl) {
+          let debugInfo = gl.getExtension("WEBGL_debug_renderer_info");
+          let renderer = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
+          let vendor = gl.getParameter(debugInfo.UNMASKED_VENDOR_WEBGL);
+
+          console.log("Renderer:", renderer);
+          console.log("Vendor:", vendor);
+
+          if (renderer.toLowerCase().includes("intel arc")) {
+            return "dedicated";
+          } else if (renderer.toLowerCase().includes("intel")) {
+            return "integrated";
+          } else if (renderer.toLowerCase().includes("nvidia")) {
+            return "dedicated";
+          } else if (renderer.toLowerCase().includes("amd") || renderer.toLowerCase().includes("radeon")) {
+            if (renderer.toLowerCase().includes("rx") || renderer.toLowerCase().includes("pro")) {
+              return "dedicated";
+            } else if (renderer.toLowerCase().includes("vega") || renderer.toLowerCase().includes("graphics")) {
+              return "integrated";
+            } else {
+              return "unknown";
+            }
+          } else {
+            return "unknown";
+          }
+        } else {
+          return "no_webgl";
+        }
+      }
+
       function handleSplineFallback() {
         const splineSection = document.getElementById("spline-section");
 
-        if (window.innerWidth < 768) {
+        const deviceMemory = navigator.deviceMemory || 4;
+        const cpuCores = navigator.hardwareConcurrency || 4;
+        const graphicsCardType = detectGraphicsCard();
+
+        if (
+          window.innerWidth < 768 ||
+          deviceMemory < 4 ||
+          cpuCores < 4 ||
+          graphicsCardType === "integrated" ||
+          graphicsCardType === "unknown" ||
+          graphicsCardType === "no_webgl"
+        ) {
           splineSection.innerHTML = `
         <div class="w-full h-screen flex items-center justify-center bg-gray-200">
-          <video autoplay muted loop class="w-full h-full object-cover">
-            <source src="./resources/video/Rusky-Web-Mobile.mp4" type="video/mp4">
-              Tu navegador no soporta la reproducción de videos.
-          </video>
+            <video autoplay muted loop class="w-full h-full object-cover">
+                <source src="./resources/video/Rusky-Web-Mobile.mp4" type="video/mp4">
+                Tu navegador no soporta la reproducción de videos.
+            </video>
         </div>
-
-      `;
+        `;
         } else {
           splineSection.innerHTML = `
-          <spline-viewer url="https://prod.spline.design/7W4P3fHeuiIc0No0/scene.splinecode"></spline-viewer>`;
-  }
+        <spline-viewer url="https://prod.spline.design/7W4P3fHeuiIc0No0/scene.splinecode"></spline-viewer>`;
+        }
       }
 
       window.addEventListener("resize", handleSplineFallback);
