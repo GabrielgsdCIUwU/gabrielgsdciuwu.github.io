@@ -1,0 +1,175 @@
+::-webkit-scrollbar {
+  width: 12px;
+  background-color: #f0f0f0;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #4a90e2;
+  border-radius: 10px;
+  border: 2px solid #f0f0f0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #357abd;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #e0e0e0;
+  border-radius: 10px;
+}
+
+body,
+html {
+  font-family: "Comic Neue", cursive, sans-serif;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.fa-ko-fi::before {
+  content: "\f0f4";
+  display: inline-block;
+  font-size: 1.1em;
+  line-height: 0.45em;
+  margin: -0.45em 0 0 -0.2em;
+  overflow-y: hidden;
+  padding-top: 0.45em;
+}
+
+.fa-ko-fi::after {
+  color: #000;
+  content: "\f004";
+  font-size: 50%;
+  font-weight: 900;
+  margin: 0.5em 0 0 -2em;
+  position: absolute;
+}
+/* Personalización del carrusel */
+#testimonials-carousel {
+  position: relative;
+  max-width: 600px; /* Ajusta el ancho máximo según el diseño */
+  margin: 0 auto;
+}
+
+#carousel-inner {
+  display: flex;
+}
+
+#carousel-inner > div {
+  flex-shrink: 0;
+  width: 100%;
+}
+
+.tweet-style {
+  background-color: #ffffff;
+  border: 1px solid #e1e8ed;
+  border-radius: 10px;
+  padding: 16px;
+  text-align: left;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.tweet-style .user-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.tweet-style .user-info img {
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  margin-right: 12px;
+}
+
+.tweet-style .user-info .username {
+  font-weight: bold;
+  color: #1da1f2;
+  font-size: 1.1em;
+}
+
+.tweet-style .user-info .handle {
+  color: #657786;
+  margin-left: 8px;
+  font-size: 0.9em;
+}
+
+.tweet-style .content {
+  margin-bottom: 12px;
+}
+
+.tweet-style .date {
+  color: #657786;
+  font-size: 0.9em;
+}
+
+/* Estilos para los botones del carrusel */
+#prev-slide,
+#next-slide {
+  background-color: rgba(0, 0, 0, 0.6);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  z-index: 10;
+}
+
+#prev-slide:hover,
+#next-slide:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Estilo para el botón de edición */
+#edit-comment-btn {
+  background-color: #1da1f2; /* Azul de Twitter */
+  border: none;
+  padding: 8px 16px;
+  border-radius: 50px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#edit-comment-btn:hover {
+  background-color: #0d8de1; /* Azul más oscuro al hacer hover */
+}
+
+/* Estilo para el textarea editable */
+.tweet-style textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #e1e8ed;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 1em;
+  color: #333;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s ease;
+}
+
+.tweet-style textarea:focus {
+  border-color: #1da1f2; /* Azul de Twitter */
+  outline: none;
+}
+
+/* Estilo para el botón de guardar cambios */
+.tweet-style .save-button {
+  background-color: #28a745; /* Verde de guardar */
+  color: white;
+  padding: 8px 16px;
+  border-radius: 50px;
+  margin-top: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.tweet-style .save-button:hover {
+  background-color: #218838; /* Verde más oscuro al hacer hover */
+}
+.carousel-transition {
+  transition: transform 0.5s ease-in-out;
+}
+
+.no-transition {
+  transition: none;
+}
