@@ -125,4 +125,3 @@ menuToggle.addEventListener("click", () => {
 
 window.addEventListener("resize", adjustMainContentMargin);
 adjustMainContentMargin();
-

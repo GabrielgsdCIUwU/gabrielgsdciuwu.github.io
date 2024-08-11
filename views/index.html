@@ -10,6 +10,9 @@
     <link rel="icon" href="./resources/img/Gabri-Watching-Icon.jpg" type="image/png" />
     <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.5/build/spline-viewer.js"></script>
     <link rel="stylesheet" href="./resources/css/style.css" />
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
   </head>
 
   <body class="bg-gray-200 flex flex-col min-h-screen">
@@ -132,30 +135,25 @@
         <section id="testimonials-section" class="w-full bg-gray-100 p-8 mt-0 text-center rounded-lg shadow-lg">
           <h2 class="text-3xl font-extrabold text-gray-800 mb-4">Comentarios</h2>
 
-          <div class="flex justify-center space-x-8">
-            <!-- Primer Carrusel -->
-            <div class="relative w-1/3">
-              <div id="testimonials-carousel-1" class="overflow-hidden">
-                <div class="flex transition-transform duration-500 ease-in-out" id="carousel-inner-1">
-                  <!-- Los comentarios se cargarán aquí dinámicamente -->
+          <div class="carousel-container">
+            <div id="carousel1" class="carousel-wrapper">
+              <div class="carousel">
+                <div class="carousel-inner">
+                  <!-- Comentarios se cargarán aquí dinámicamente -->
                 </div>
               </div>
             </div>
-
-            <!-- Segundo Carrusel -->
-            <div class="relative w-1/3">
-              <div id="testimonials-carousel-2" class="overflow-hidden">
-                <div class="flex transition-transform duration-500 ease-in-out" id="carousel-inner-2">
-                  <!-- Los comentarios se cargarán aquí dinámicamente -->
+            <div id="carousel2" class="carousel-wrapper">
+              <div class="carousel">
+                <div class="carousel-inner">
+                  <!-- Comentarios se cargarán aquí dinámicamente -->
                 </div>
               </div>
             </div>
-
-            <!-- Tercer Carrusel -->
-            <div class="relative w-1/3">
-              <div id="testimonials-carousel-3" class="overflow-hidden">
-                <div class="flex transition-transform duration-500 ease-in-out" id="carousel-inner-3">
-                  <!-- Los comentarios se cargarán aquí dinámicamente -->
+            <div id="carousel3" class="carousel-wrapper">
+              <div class="carousel">
+                <div class="carousel-inner">
+                  <!-- Comentarios se cargarán aquí dinámicamente -->
                 </div>
               </div>
             </div>
@@ -163,23 +161,47 @@
 
           <!-- Controles del Carrusel Externos -->
           <div class="flex justify-center mt-6 space-x-4">
-            <button
-              id="prev-slide"
-              class="p-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 focus:outline-none">
+            <button id="prev-slide" class="p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none">
               <i class="fas fa-chevron-left"></i>
             </button>
             <button
               id="edit-comment-btn"
-              class="p-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 focus:outline-none">
+              class="p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none">
               Añade tu comentario
             </button>
-            <button
-              id="next-slide"
-              class="p-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 focus:outline-none">
+            <button id="next-slide" class="p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none">
               <i class="fas fa-chevron-right"></i>
             </button>
           </div>
         </section>
+
+        <!-- Formulario de Comentario -->
+        <div
+          id="comment-form"
+          class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center z-50">
+          <div class="bg-white p-8 rounded-md shadow-lg">
+            <input
+              id="comment-name"
+              type="text"
+              placeholder="Pon tu nombre aquí"
+              class="p-2 mb-4 border border-gray-300 rounded-md w-full" required/>
+            <textarea
+              id="comment-text"
+              placeholder="Pon tu comentario aquí"
+              class="p-2 mb-4 border border-gray-300 rounded-md w-full"
+              rows="4" required></textarea>
+            <button
+              id="submit-comment"
+              class="p-2 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none w-full">
+              Enviar
+            </button>
+            <button
+              id="cancel-comment"
+              class="p-2 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none mt-4 w-full">
+              Cancelar
+            </button>
+          </div>
+        </div>
 
         <div class="block w-full h-10 bg-blue-400"></div>
 
