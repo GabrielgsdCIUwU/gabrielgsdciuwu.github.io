@@ -40,8 +40,13 @@ async function cargarComentarios() {
     let isAutoSliding = true;
 
     function updateCarousels() {
+      const isVertical = window.innerWidth < 1000;
       carousels.forEach(carousel => {
-        carousel.style.transform = `translateX(-${currentIndex * 100}%)`;
+        if (isVertical) {
+          carousel.style.transform = `translateX(-${currentIndex * 100}%)`; // Desplazamiento horizontal
+        } else {
+          carousel.style.transform = `translateX(-${currentIndex * 100}%)`; // Desplazamiento horizontal
+        }
       });
     }
 
@@ -120,10 +125,10 @@ async function cargarComentarios() {
           }
         } catch (error) {
           console.error('Error al enviar el comentario:', error);
-         toastr.error('Hubo un problema al enviar tu comentario. Por favor, intenta de nuevo.', 'Error:');
+          toastr.error('Hubo un problema al enviar tu comentario. Por favor, intenta de nuevo.', 'Error:');
         }
       } else {
-       toastr.warning('Tienes que rellenar ambos campos!')
+        toastr.warning('Tienes que rellenar ambos campos!');
       }
     });
 

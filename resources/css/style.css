@@ -49,24 +49,33 @@ html {
 /* Personalización del carrusel */
 .carousel-container {
   display: flex;
+  flex-direction: row; /* Por defecto, horizontal */
   gap: 16px; /* Espacio entre los carruseles */
+  overflow-x: auto; /* Permitir desplazamiento horizontal si es necesario */
+  overflow-y: hidden; /* Evitar el desplazamiento vertical */
 }
+
 .carousel-wrapper {
   flex: 1;
   min-width: 300px; /* Ajusta el ancho mínimo según tu diseño */
 }
+
 .carousel {
   position: relative;
   overflow: hidden;
 }
+
 .carousel-inner {
   display: flex;
+  flex-direction: row; /* Desplazamiento horizontal dentro del carrusel */
   transition: transform 0.5s ease;
 }
+
 .carousel-slide {
   min-width: 100%;
   box-sizing: border-box;
 }
+
 .carousel-content {
   background: white;
   padding: 16px;
@@ -74,19 +83,23 @@ html {
   box-shadow: 0 2px rgba(0, 0, 0, 0.1);
   font-family: Arial, sans-serif; /* Fuente similar a Twitter */
 }
+
 .carousel-content .name {
   font-weight: bold;
   color: #1da1f2; /* Color de nombre similar al de Twitter */
   margin-bottom: 8px; /* Espacio entre nombre y comentario */
 }
+
 .carousel-content .comment {
   color: #657786; /* Color de texto de comentario similar al de Twitter */
 }
+
 .carousel-controls {
   display: flex;
   justify-content: center;
   margin-top: 16px;
 }
+
 .carousel-controls button {
   background: #007bff;
   color: white;
@@ -97,19 +110,19 @@ html {
   cursor: pointer;
   transition: background 0.3s;
 }
+
 .carousel-controls button:hover {
   background: #0056b3;
 }
 
 /* Formulario de Comentario */
 
-
 #comment-form .form-content {
   background: white;
   padding: 16px;
   border-radius: 8px;
   box-shadow: 0 2px rgba(0, 0, 0, 0.1);
-  max-width: 600px; 
+  max-width: 600px;
   width: 100%;
 }
 
@@ -123,7 +136,18 @@ html {
 }
 
 #comment-form textarea {
-  resize: none; 
-  max-height: 200px; 
-  overflow-y: auto; 
+  resize: none;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+/* Estilos para pantallas menores a 1000px */
+@media (max-width: 1000px) {
+  .carousel-container {
+    flex-direction: column; /* Cambiar a vertical en pantallas pequeñas */
+  }
+
+  .carousel-inner {
+    flex-direction: row; /* Desplazamiento horizontal dentro del carrusel */
+  }
 }
