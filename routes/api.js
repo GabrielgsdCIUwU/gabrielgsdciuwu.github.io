@@ -240,7 +240,7 @@ router.post("/manage", authenticate, (req, res) => {
           let unixTimestamp = Math.floor(ts.getTime() / 1000);
 
           const embed = new EmbedBuilder()
-            .setTitle("Comentario aprovado:")
+            .setTitle("Comentario aprobado:")
             .addFields({
               name: `ID:`,
               value: `${comentarioMovido.id}`,
