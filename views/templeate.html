@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gabrielgsd</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="icon" href="./resources/img/Gabri-Watching-Icon.jpg" type="image/png" />
+    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.5/build/spline-viewer.js"></script>
+    <link rel="stylesheet" href="../resources/css/templeate.css" />
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+  </head>
+
+  <body class="bg-gray-200 flex flex-col min-h-screen">
+    <header class="bg-blue-400 text-white flex justify-between items-center p-4 relative z-10">
+      <div class="flex items-center space-x-4">
+        <button id="menu-toggle" class="focus:outline-none">
+          <i id="menu-icon" class="fas fa-bars"></i>
+        </button>
+        <a href="#spline-section"><span class="text-xl">Gabrielgsd</span></a>
+      </div>
+      <div class="flex space-x-4">
+        <a href="https://github.com/GabrielgsdCIUwU" target="_blank" class="text-white hover:text-gray-300">
+          <i class="fab fa-github"></i>
+        </a>
+        <a href="https://www.twitch.tv/gabrielgsd_ci" target="_blank" class="text-white hover:text-gray-300">
+          <i class="fab fa-twitch"></i>
+        </a>
+        <a href="https://www.youtube.com/@gabrielgsd" target="_blank" class="text-white hover:text-gray-300">
+          <i class="fab fa-youtube"></i>
+        </a>
+        <a href="https://ko-fi.com/gabrielgsd" target="_blank" class="text-white hover:text-gray-300 relative">
+          <i class="fas fa-ko-fi"></i>
+        </a>
+      </div>
+    </header>
+
+    <div class="flex-1 flex flex-col overflow-y-auto">
+      <nav
+        id="sidebar"
+        class="bg-blue-400 text-white w-48 h-full fixed transform -translate-x-full transition-transform duration-300 z-20">
+        <ul class="space-y-2 mt-4 p-4">
+          <li class="text-xl font-bold text-white mb-4">Menú</li>
+          <li class="menu-item text-center">
+            <a
+              href="./index.html"
+              class="block p-4 text-white hover:bg-blue-600 hover:text-white transition-colors duration-300"
+              >Inicio</a
+            >
+          </li>
+        </ul>
+      </nav>
+
+      <main id="main-content" class="flex-1 flex flex-col relative transition-all duration-300 ml-0">
+        <section id="about-me" class="w-full bg-gray-100 p-8 mt-0 text-center rounded-lg shadow-lg">
+          <h2 class="text-3xl font-extrabold text-gray-800 mb-4">Lorem ipsum</h2>
+          <p class="text-lg text-gray-600 mb-8">
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatem nihil doloribus delectus fugiat minus iusto blanditiis nulla vitae pariatur
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+            <div class="bg-white p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300">
+              <h3 class="text-2xl font-bold text-gray-700 mb-4">Lorem ipsum</h3>
+              <p class="text-gray-500">
+               Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatem nihil doloribus delectus fugiat minus iusto blanditiis nulla vitae pariatur
+              </p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300">
+              <h3 class="text-2xl font-bold text-gray-700 mb-4">Lorem ipsum</h3>
+              <p class="text-gray-500">
+               Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatem nihil doloribus delectus fugiat minus iusto blanditiis nulla vitae pariatur
+              </p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300">
+              <h3 class="text-2xl font-bold text-gray-700 mb-4">Lorem ipsum</h3>
+              <p class="text-gray-500">
+               Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatem nihil doloribus delectus fugiat minus iusto blanditiis nulla vitae pariatur
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <div class="block w-full h-10 bg-blue-400"></div>
+
+        <footer class="bg-blue-400 text-white p-4 flex justify-between items-center">
+          <div class="text-lg font-bold">© <span id="current-year"></span> Gabrielgsd</div>
+          <div class="space-x-4">
+            <a href="https://github.com/GabrielgsdCIUwU" target="_blank" class="text-white hover:text-gray-300">
+              <i class="fab fa-github"></i>
+            </a>
+            <a href="https://www.twitch.tv/gabrielgsd_ci" target="_blank" class="text-white hover:text-gray-300">
+              <i class="fab fa-twitch"></i>
+            </a>
+            <a href="https://www.youtube.com/@gabrielgsd" target="_blank" class="text-white hover:text-gray-300">
+              <i class="fab fa-youtube"></i>
+            </a>
+            <a href="https://ko-fi.com/gabrielgsd" target="_blank" class="text-white hover:text-gray-300 relative">
+              <i class="fas fa-ko-fi"></i>
+            </a>
+          </div>
+        </footer>
+
+        <script>
+          document.getElementById("current-year").textContent = new Date().getFullYear();
+        </script>
+        <script src="../resources/js/templeate.js"></script>
+      </main>
+    </div>
+  </body>
+</html>

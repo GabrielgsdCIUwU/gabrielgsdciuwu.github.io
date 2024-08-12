@@ -46,6 +46,30 @@ html {
   position: absolute;
 }
 
+// Sección conocimientos
+
+#knowledge-grid {
+  display: grid;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+#knowledge-grid.visible {
+  opacity: 1;
+}
+
+.knowledge-card {
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+.knowledge-card.visible {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
 /* Personalización del carrusel */
 .carousel-container {
   display: flex;

@@ -102,6 +102,82 @@ async function cargarProyectos() {
 
 window.addEventListener("DOMContentLoaded", cargarProyectos);
 
+async function loadKnowledge() {
+  try {
+    const response = await fetch("./resources/json/conocimientos.json");
+    const data = await response.json();
+    const section = document.getElementById("my-knowledge");
+
+    const introDiv = document.getElementById("knowledge-intro");
+
+    const title = document.createElement("h2");
+    title.className = "text-3xl font-extrabold text-gray-800 mb-4";
+    title.textContent = data.title;
+    introDiv.appendChild(title);
+
+    const description = document.createElement("p");
+    description.className = "text-lg text-gray-600 mb-8";
+    description.textContent = data.description;
+    introDiv.appendChild(description);
+
+    const grid = document.getElementById("knowledge-grid");
+
+    const renderItems = (category) => {
+      grid.classList.remove("visible");
+
+      setTimeout(() => {
+        grid.innerHTML = "";
+        const filteredItems = data.knowledge.filter((item) => category === "all" || item.category === category);
+        filteredItems.forEach((item, index) => {
+          const card = document.createElement("div");
+          card.className =
+            "bg-white p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300 flex flex-col items-center knowledge-card";
+
+          const img = document.createElement("img");
+          img.src = item.icon;
+          img.alt = `${item.name} icon`;
+          img.className = "mb-4";
+          card.appendChild(img);
+
+          const name = document.createElement("h3");
+          name.className = "text-2xl font-bold text-gray-700 mb-4";
+          name.textContent = item.name;
+          card.appendChild(name);
+
+          const level = document.createElement("p");
+          level.className = `text-${item.color} font-bold`;
+          level.textContent = `Nivel: ${item.level}`;
+          card.appendChild(level);
+
+          grid.appendChild(card);
+
+          // Aplica la animación de aparición con un retraso
+          setTimeout(() => {
+            card.classList.add("visible");
+          }, index * 100); // Retraso de 100 ms entre cada tarjeta
+        });
+
+        requestAnimationFrame(() => {
+          grid.classList.add("visible");
+        });
+      }, 300); // Tiempo de retraso para la animación de salida
+    };
+
+    renderItems("all");
+
+    document.querySelectorAll(".filter-button").forEach((button) => {
+      button.addEventListener("click", () => {
+        const category = button.getAttribute("data-category");
+        renderItems(category);
+      });
+    });
+  } catch (error) {
+    console.error("Error al cargar el archivo JSON:", error);
+  }
+}
+
+document.addEventListener("DOMContentLoaded", loadKnowledge);
+
 const menuToggle = document.getElementById("menu-toggle");
 const sidebar = document.getElementById("sidebar");
 const mainContent = document.getElementById("main-content");

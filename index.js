@@ -25,7 +25,7 @@ app.use("/api", apirouter)
 
 
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "index.html"));
+  res.sendFile(path.join(__dirname, "./views/index.html"));
 });
 
 app.listen(port, () => {

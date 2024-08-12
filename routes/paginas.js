@@ -16,8 +16,11 @@ router.get("/forms", (req, res) => {
   res.sendFile(path.join(__dirname, "../views/forms.html"));
 });
 
-router.get("/comentario", (req, res) => {
-  res.sendFile(path.join(__dirname, "../views/comentario.html"));
+router.get("/templeate", (req, res) => {
+  res.sendFile(path.join(__dirname, "../views/templeate.html"));
 });
 
+router.get("/rusky", (req, res) => {
+  res.sendFile(path.join(__dirname, "../views/rusky.html"));
+});
 export default router;

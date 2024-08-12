@@ -1,0 +1,69 @@
+{
+  "title": "Mis conocimientos",
+  "description": "Aquí te menciono mis conocimientos en lenguajes de programación y programas que se usar o que estoy aprendiendo.",
+  "knowledge": [
+    {
+      "name": "Unity",
+      "icon": "../resources/svg/unity-icon.svg",
+      "level": "Alto",
+      "color": "green-400",
+      "category": "Desarrollo"
+    },
+    {
+      "name": "Filmora",
+      "icon": "../resources/svg/filmora-icon.svg",
+      "level": "Alto",
+      "color": "green-400",
+      "category": "Edición"
+    },
+    {
+      "name": "GIMP",
+      "icon": "../resources/svg/gimp-icon.svg",
+      "level": "Alto",
+      "color": "green-400",
+      "category": "Diseño"
+    },
+    {
+      "name": "NodeJS",
+      "icon": "../resources/svg/nodejs-icon.svg",
+      "level": "Alto",
+      "color": "green-400",
+      "category": "Desarrollo"
+    },
+    {
+      "name": "JavaScript",
+      "icon": "../resources/svg/javascript-icon.svg",
+      "level": "Medio-Alto",
+      "color": "lime-400",
+      "category": "Desarrollo"
+    },
+    {
+      "name": "HTML5",
+      "icon": "../resources/svg/html5-icon.svg",
+      "level": "Medio-Alto",
+      "color": "lime-400",
+      "category": "Desarrollo"
+    },
+    {
+      "name": "After Effects 2022",
+      "icon": "../resources/svg/after-effects-icon.svg",
+      "level": "Medio",
+      "color": "orange-400",
+      "category": "Edición"
+    },
+    {
+      "name": "Tailwindcss",
+      "icon": "../resources/svg/tailwindcss-icon.svg",
+      "level": "Bajo",
+      "color": "red-400",
+      "category": "Desarrollo"
+    },
+    {
+      "name": "Blender",
+      "icon": "../resources/svg/blender-icon.svg",
+      "level": "Bajo",
+      "color": "red-400",
+      "category": "Diseño"
+    }
+  ]
+}

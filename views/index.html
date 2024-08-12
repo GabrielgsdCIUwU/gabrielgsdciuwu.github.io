@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <link rel="icon" href="./resources/img/Gabri-Watching-Icon.jpg" type="image/png" />
     <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.5/build/spline-viewer.js"></script>
-    <link rel="stylesheet" href="./resources/css/style.css" />
+    <link rel="stylesheet" href="../resources/css/style.css" />
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
@@ -61,6 +61,13 @@
           </li>
           <li class="menu-item text-center">
             <a
+              href="#my-knowledge"
+              class="block p-4 text-white hover:bg-blue-600 hover:text-white transition-colors duration-300"
+              >Conocimientos</a
+            >
+          </li>
+          <li class="menu-item text-center">
+            <a
               href="#projects-section"
               class="block p-4 text-white hover:bg-blue-600 hover:text-white transition-colors duration-300"
               >Proyectos</a
@@ -94,14 +101,14 @@
         <section id="about-me" class="w-full bg-gray-100 p-8 mt-0 text-center rounded-lg shadow-lg">
           <h2 class="text-3xl font-extrabold text-gray-800 mb-4">Sobre Mí</h2>
           <p class="text-lg text-gray-600 mb-8">
-            Soy Gabrielgsd, un programador, editor de avatares y creador de mundos de VRChat.
+            Soy Gabrielgsd, un creador de contenido, programador, editor de avatares y creador de mundos de VRChat.
           </p>
           <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
             <div class="bg-white p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300">
-              <h3 class="text-2xl font-bold text-gray-700 mb-4">Mis conocimientos</h3>
+              <h3 class="text-2xl font-bold text-gray-700 mb-4">Idiomas</h3>
               <p class="text-gray-500">
-                Actualmente trabajo con: <br />
-                Unity, Blender, NodeJS, Adobe After Effects, Filmora y GIMP
+                Nativo: Español, Gallego.<br />
+                B1: Inglés.
               </p>
             </div>
             <div class="bg-white p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300">
@@ -119,6 +126,29 @@
               </p>
             </div>
           </div>
+        </section>
+
+        <div class="block w-full h-10 bg-blue-400"></div>
+
+        <section id="my-knowledge" class="w-full bg-gray-100 p-8 mt-0 text-center rounded-lg shadow-lg">
+          <div id="knowledge-intro"></div>
+
+          <div class="flex justify-center mt-8">
+            <button class="filter-button bg-blue-500 text-white px-4 py-2 mx-2 rounded" data-category="all">
+              Todos
+            </button>
+            <button class="filter-button bg-blue-500 text-white px-4 py-2 mx-2 rounded" data-category="Desarrollo">
+              Desarrollo
+            </button>
+            <button class="filter-button bg-blue-500 text-white px-4 py-2 mx-2 rounded" data-category="Edición">
+              Edición
+            </button>
+            <button class="filter-button bg-blue-500 text-white px-4 py-2 mx-2 rounded" data-category="Diseño">
+              Diseño
+            </button>
+          </div>
+
+          <div id="knowledge-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mt-8"></div>
         </section>
 
         <div class="block w-full h-10 bg-blue-400"></div>
@@ -184,12 +214,14 @@
               id="comment-name"
               type="text"
               placeholder="Pon tu nombre aquí"
-              class="p-2 mb-4 border border-gray-300 rounded-md w-full" required/>
+              class="p-2 mb-4 border border-gray-300 rounded-md w-full"
+              required />
             <textarea
               id="comment-text"
               placeholder="Pon tu comentario aquí"
               class="p-2 mb-4 border border-gray-300 rounded-md w-full"
-              rows="4" required></textarea>
+              rows="4"
+              required></textarea>
             <button
               id="submit-comment"
               class="p-2 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none w-full">
@@ -236,8 +268,8 @@
           document.getElementById("current-year").textContent = new Date().getFullYear();
         </script>
 
-        <script src="./resources/js/main.js"></script>
-        <script src="./resources/js/comentarios.js"></script>
+        <script src="../resources/js/main.js"></script>
+        <script src="../resources/js/comentarios.js"></script>
       </main>
     </div>
   </body>
