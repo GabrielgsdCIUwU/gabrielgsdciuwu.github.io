@@ -1,0 +1,16 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "npm",
+      "script": "server",
+      "problemMatcher": [],
+      "isBackground": true,
+      "label": "npm: server",
+      "detail": "npx nodemon index.js",
+      "runOptions": {
+        "runOn": "folderOpen"
+      }
+    }
+  ]
+}

@@ -46,6 +46,15 @@ html {
   position: absolute;
 }
 
+#toggle-view {
+  z-index: 10;
+}
+
+#spline-viewer {
+  z-index: 1;
+  position: relative;
+}
+
 // Sección conocimientos
 
 #knowledge-grid {
@@ -140,6 +149,9 @@ html {
 }
 
 /* Formulario de Comentario */
+.hidden {
+  display: none;
+}
 
 #comment-form .form-content {
   background: white;

@@ -14,6 +14,7 @@ dotenv.config({ path: envFilePath });
 
 const app = express();
 app.use(express.json()); 
+app.disable("x-powered-by");
 
 const port = process.env.PORT || 3000;
 

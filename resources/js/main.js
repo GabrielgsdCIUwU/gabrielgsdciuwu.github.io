@@ -7,9 +7,6 @@ function detectGraphicsCard() {
     let renderer = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
     let vendor = gl.getParameter(debugInfo.UNMASKED_VENDOR_WEBGL);
 
-    console.log("Renderer:", renderer);
-    console.log("Vendor:", vendor);
-
     if (renderer.toLowerCase().includes("intel arc")) {
       return "dedicated";
     } else if (renderer.toLowerCase().includes("intel")) {
@@ -34,11 +31,13 @@ function detectGraphicsCard() {
 
 function handleSplineFallback() {
   const splineSection = document.getElementById("spline-section");
+  const toggleViewButton = document.getElementById("toggle-view");
 
   const deviceMemory = navigator.deviceMemory || 4;
   const cpuCores = navigator.hardwareConcurrency || 4;
   const graphicsCardType = detectGraphicsCard();
 
+  let initialView;
   if (
     window.innerWidth < 768 ||
     deviceMemory < 4 ||
@@ -47,18 +46,40 @@ function handleSplineFallback() {
     graphicsCardType === "unknown" ||
     graphicsCardType === "no_webgl"
   ) {
+    initialView = "fallback";
     splineSection.innerHTML = `
-        <div class="w-full h-screen flex items-center justify-center bg-gray-200">
-            <video autoplay muted loop class="w-full h-full object-cover">
-                <source src="./resources/video/Rusky-Web-Mobile.mp4" type="video/mp4">
-                Tu navegador no soporta la reproducción de videos.
-            </video>
-        </div>
-        `;
+      <div id="fallback-content" class="w-full h-screen flex items-center justify-center bg-gray-200">
+        <video autoplay muted loop class="w-full h-full object-cover">
+          <source src="./resources/video/Rusky-Web-Mobile.mp4" type="video/mp4">
+          Tu navegador no soporta la reproducción de videos.
+        </video>
+      </div>`;
   } else {
+    initialView = "spline";
     splineSection.innerHTML = `
-        <spline-viewer url="https://prod.spline.design/7W4P3fHeuiIc0No0/scene.splinecode"></spline-viewer>`;
+      <spline-viewer id="spline-viewer" url="https://prod.spline.design/7W4P3fHeuiIc0No0/scene.splinecode"></spline-viewer>`;
   }
+
+  toggleViewButton.textContent = initialView === "spline" ? "3D" : "2D";
+
+  toggleViewButton.onclick = function () {
+    if (initialView === "spline") {
+      splineSection.innerHTML = `
+        <div id="fallback-content" class="w-full h-screen flex items-center justify-center bg-gray-200">
+          <video autoplay muted loop class="w-full h-full object-cover">
+            <source src="./resources/video/Rusky-Web-Mobile.mp4" type="video/mp4">
+            Tu navegador no soporta la reproducción de videos.
+          </video>
+        </div>`;
+      toggleViewButton.textContent = "2D";
+      initialView = "fallback";
+    } else {
+      splineSection.innerHTML = `
+        <spline-viewer id="spline-viewer" url="https://prod.spline.design/7W4P3fHeuiIc0No0/scene.splinecode"></spline-viewer>`;
+      toggleViewButton.textContent = "3D";
+      initialView = "spline";
+    }
+  };
 }
 
 window.addEventListener("resize", handleSplineFallback);
