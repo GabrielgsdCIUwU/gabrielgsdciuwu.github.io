@@ -1,5 +1,5 @@
 let autoSlideInterval;
-const slideInterval = 8000; // 8 segundos
+const slideInterval = 10000; // 8 segundos
 // Configurar los carruseles
 const carousels = document.querySelectorAll(".carousel-inner");
 const prevButton = document.getElementById("prev-slide");

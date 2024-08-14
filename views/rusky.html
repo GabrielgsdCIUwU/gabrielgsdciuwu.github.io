@@ -4,15 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Gabrielgsd</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-    <link rel="icon" href="./resources/img/Gabri-Watching-Icon.jpg" type="image/png" />
-    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.5/build/spline-viewer.js"></script>
-    <link rel="stylesheet" href="../resources/css/rusky.css" />
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <link rel="icon" href="/resources/img/Gabri-Watching-Icon.jpg" type="image/png" />
+    <link rel="stylesheet" href="/resources/css/output-rusky.css" />
+    <script src="/resources/js/lite-youtube.js" type="module"></script>
   </head>
 
   <body class="bg-gray-200 flex flex-col min-h-screen">
@@ -94,66 +90,119 @@
           </p>
           <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
             <div class="bg-white p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300">
-              <h3 class="text-2xl font-bold text-gray-700 mb-4">Modelo base conocido:</h3>
-              <p class="text-gray-500">
-                El modelo llamado "Rusk" es popular en VRChat, con 15,016 personas que han expresado su gusto por él.
-                Actualmente, existen más de 1,177 avatares basados en este modelo en la plataforma.
-              </p>
+              <button id="rusk-model-button">
+                <h3 class="text-2xl font-bold text-gray-700 mb-4">Modelo base conocido:</h3>
+                <p class="text-gray-500">
+                  El modelo llamado "Rusk" es popular en VRChat, con 15,016 personas que han expresado su gusto por él.
+                  Actualmente, existen más de 1,177 avatares basados en este modelo en la plataforma.
+                </p>
+              </button>
             </div>
             <div class="bg-white p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300">
-              <h3 class="text-2xl font-bold text-gray-700 mb-4">Personalización</h3>
-              <p class="text-gray-500">
-                Puedes cambiar el color del pelo, orejas, ojos, gafas, horquilla y sudadera. Además, es posible
-                modificar el logo de la sudadera. También tienes la opción de quitar los zapatos, las orejas, el cordón
-                de la sudadera o las medias.
-              </p>
+              <button id="rusk-custom-button">
+                <h3 class="text-2xl font-bold text-gray-700 mb-4">Personalización</h3>
+                <p class="text-gray-500">
+                  Puedes cambiar el color del pelo, orejas, ojos, gafas, horquilla y sudadera. Además, es posible
+                  modificar el logo de la sudadera. También tienes la opción de quitar los zapatos, las orejas, el
+                  cordón de la sudadera o las medias.
+                </p>
+              </button>
             </div>
             <div class="bg-white p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300">
-              <h3 class="text-2xl font-bold text-gray-700 mb-4">Bailes</h3>
-              <p class="text-gray-500">
-                El avatar cuenta con un total de 78 bailes diferentes en los que si varias personas utilizan este
-                avatar, se sincronizarán y bailarán al mismo tiempo. <br />
-                Además, según el lugar en el que te encuentres, la animación puede cambiar automáticamente.
-              </p>
+              <button id="rusk-dances-button">
+                <h3 class="text-2xl font-bold text-gray-700 mb-4">Bailes</h3>
+                <p class="text-gray-500">
+                  El avatar cuenta con un total de 78 bailes diferentes en los que si varias personas utilizan este
+                  avatar, se sincronizarán y bailarán al mismo tiempo. <br />
+                  Además, según el lugar en el que te encuentres, la animación puede cambiar automáticamente.
+                </p>
+              </button>
             </div>
 
             <div class="bg-white p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300 text-center">
-              <h3 class="text-2xl font-bold text-gray-700 mb-4">Accesorios</h3>
-              <p class="text-gray-500">
-                El avatar cuenta con accesorios que llegan a ser útiles en ciertos casos, como por ejemplo:<br />
-                un lápiz, una pistola, una espada, una vela, una linterna, una rosa, un refresco, unas barras
-                fluorescentes, unas gorras y muchos más!
-              </p>
+              <button id="rusk-props-button">
+                <h3 class="text-2xl font-bold text-gray-700 mb-4">Accesorios</h3>
+                <p class="text-gray-500">
+                  El avatar cuenta con accesorios que llegan a ser útiles en ciertos casos, como por ejemplo:<br />
+                  un lápiz, una pistola, una espada, una vela, una linterna, una rosa, un refresco, unas barras
+                  fluorescentes, unas gorras y muchos más!
+                </p>
+              </button>
             </div>
 
             <div class="bg-white p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300 text-center">
-              <h3 class="text-2xl font-bold text-gray-700 mb-4">Interacciones</h3>
-              <p class="text-gray-500">
-                Este avatar cuenta con varias interacciones, permitiendo que le puedas agarrar de las orejas, que le
-                puedas dar en la nariz de payaso que tiene y muchas otras que podrás descubrir!
-              </p>
+              <button id="rusk-interacts-button">
+                <h3 class="text-2xl font-bold text-gray-700 mb-4">Interacciones</h3>
+                <p class="text-gray-500">
+                  Este avatar cuenta con varias interacciones, permitiendo que le puedas agarrar de las orejas, que le
+                  puedas dar en la nariz de payaso que tiene y muchas otras que podrás descubrir!
+                </p>
+              </button>
             </div>
 
-            <button id="easter-button">
-              <div class="bg-white p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300 text-center">
+            <div class="bg-white p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300 text-center">
+              <button id="easter-button">
                 <h3 class="text-2xl font-bold text-gray-700 mb-4">Easter eggs</h3>
                 <p class="text-gray-500">
                   Este avatar incluye detalles ocultos que invitan a los usuarios a investigarlo y despertar su
                   curiosidad.
                 </p>
-              </div>
-            </button>
+              </button>
+            </div>
+
             <div
               id="easter-egg"
               class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center z-50">
               <div class="bg-white p-8 rounded-md shadow-lg">
                 <h3 class="text-2xl font-bold text-gray-700 mb-4">PIENSA...</h3>
-                <p class="text-red-700">Solo lo podrás comprobar dentro de VRChat!</p><br>
-                <p class="text-2xl font-bold text-gray-700 mb-4">Pista easter egg:</p><br>
+                <p class="text-red-700">Solo lo podrás comprobar dentro de VRChat!</p>
+                <br />
+                <p class="text-2xl font-bold text-gray-700 mb-4">Pista easter egg:</p>
+                <br />
                 <p>
-                  Siempre te acompaña desde que naces, reside en tu interior y es una parte única de ti.<br> 
+                  Siempre te acompaña desde que naces, reside en tu interior y es una parte única de ti.<br />
                   Llama a tu amigo para comprobarlo y te darás cuenta que es una patata.
                 </p>
+              </div>
+            </div>
+
+            <div
+              id="rusk-model"
+              class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center z-50">
+              <div class="relative w-5/6 max-w-3xl h-auto bg-white p-4 rounded-lg">
+                <lite-youtube videoid="_P9nO7IHKFg" params="controls=1"></lite-youtube>
+              </div>
+            </div>
+
+            <div
+              id="rusk-custom"
+              class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center z-50">
+              <div class="relative w-5/6 max-w-3xl h-auto bg-white p-4 rounded-lg">
+                <lite-youtube videoid="aT1FXVcWTPc" params="controls=1"></lite-youtube>
+              </div>
+            </div>
+
+            <div
+              id="rusk-dances"
+              class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center z-50">
+              <div class="relative w-5/6 max-w-3xl h-auto bg-white p-4 rounded-lg">
+                <lite-youtube videoid="_yD2V_QUJc8" params="controls=1"></lite-youtube>
+              </div>
+            </div>
+
+            <div
+              id="rusk-props"
+              class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center z-50">
+              <div class="relative w-5/6 max-w-3xl h-auto bg-white p-4 rounded-lg">
+                <lite-youtube videoid="UeQwm46m7-8" params="controls=1"></lite-youtube>
+              </div>
+            </div>
+
+            <div
+              id="rusk-interacts"
+              class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center z-50">
+              <div class="relative w-5/6 max-w-3xl h-auto bg-white p-4 rounded-lg">
+                <lite-youtube videoid="d8j4d_N0_lk" params="controls=1"></lite-youtube>
               </div>
             </div>
           </div>
@@ -165,28 +214,28 @@
           <h2 class="text-3xl font-extrabold text-gray-800 mb-4">¿Dónde se puede encontrar?</h2>
           <p class="text-lg text-gray-600 mb-8">Puedes encontrarlo en estos sitios:</p>
           <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-            <a href="https://vrchat.com/home/avatar/avtr_d73fc045-aa44-4c87-8fd5-8433cccaa168">
-              <div class="bg-white p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300 text-center">
+            <div class="bg-white p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300 text-center">
+              <a href="https://vrchat.com/home/avatar/avtr_d73fc045-aa44-4c87-8fd5-8433cccaa168">
                 <h3 class="text-2xl font-bold text-gray-700 mb-4">VRChat Web</h3>
                 <p class="text-gray-500">Accede directamente al avatar desde aquí.</p>
-              </div>
-            </a>
+              </a>
+            </div>
 
-            <a href="https://vrchat.com/home/world/wrld_ca06bece-0320-4b7d-815a-e1f188272318">
-              <div class="bg-white p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300 text-center">
+            <div class="bg-white p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300 text-center">
+              <a href="https://vrchat.com/home/world/wrld_ca06bece-0320-4b7d-815a-e1f188272318">
                 <h3 class="text-2xl font-bold text-gray-700 mb-4">Gabrielgsd avatars</h3>
                 <p class="text-gray-500">Accede desde mi mundo de avatares.</p>
-              </div>
-            </a>
+              </a>
+            </div>
 
-            <a href="https://vrchat.com/home/world/wrld_57514404-7f4e-4aee-a50a-57f55d3084bf">
-              <div class="bg-white p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300 text-center">
+            <div class="bg-white p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300 text-center">
+              <a href="https://vrchat.com/home/world/wrld_57514404-7f4e-4aee-a50a-57f55d3084bf">
                 <h3 class="text-2xl font-bold text-gray-700 mb-4">Prismic's Avatar Search</h3>
                 <p class="text-gray-500">
                   Accede desde el mundo de buscador de avatares y busca por "Rusk", "Rusky" o por "Gabrielgsd".
                 </p>
-              </div>
-            </a>
+              </a>
+            </div>
           </div>
         </section>
 

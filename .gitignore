@@ -3,3 +3,4 @@ BrainStorm.txt
 .env
 /resources/json/comentarios.json
 /resources/json/queue-comments.json
+views/force-tw.html
