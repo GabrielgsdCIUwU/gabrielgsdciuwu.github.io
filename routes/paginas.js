@@ -23,4 +23,9 @@ router.get("/templeate", (req, res) => {
 router.get("/rusky", (req, res) => {
   res.sendFile(path.join(__dirname, "../views/rusky.html"));
 });
+
+router.get("/soundboard", (req, res) => {
+  res.sendFile(path.join(__dirname, "../views/soundboard.html"));
+});
+
 export default router;
