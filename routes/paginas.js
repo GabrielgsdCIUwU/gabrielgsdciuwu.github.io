@@ -28,4 +28,8 @@ router.get("/soundboard", (req, res) => {
   res.sendFile(path.join(__dirname, "../views/soundboard.html"));
 });
 
+router.get("/google430ed71687e8d816.html", (req, res) => {
+  res.sendFile(path.join(__dirname, "../views/google430ed71687e8d816.html"));
+});
+
 export default router;
