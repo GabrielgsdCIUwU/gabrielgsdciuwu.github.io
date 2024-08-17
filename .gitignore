@@ -4,3 +4,4 @@ BrainStorm.txt
 /resources/json/comentarios.json
 /resources/json/queue-comments.json
 views/force-tw.html
+resources/json/users.json

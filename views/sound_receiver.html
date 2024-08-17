@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sound Receiver</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+      #playButton {
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Sound Receiver</h1>
+    <button id="playButton">Start Audio Playback</button>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      const socket = io(); // Conectar al servidor
+      const playButton = document.getElementById("playButton");
+
+      // Variable para verificar si el usuario ha interactuado
+      let userInteracted = false;
+
+      // Array para almacenar los audios activos
+      let activeAudios = [];
+
+      // Función para iniciar la reproducción
+      function playSound(url) {
+        if (userInteracted) {
+          // Detener todos los sonidos actuales
+          stopAllSounds();
+
+          // Crear y reproducir el nuevo audio
+          const audio = new Audio(url);
+          activeAudios.push(audio); // Guardar el audio en el array de audios activos
+          audio.play().catch((error) => console.error("Error playing sound:", error));
+
+          // Limpiar el array de audios activos una vez que el audio haya terminado
+          audio.addEventListener("ended", () => {
+            activeAudios = activeAudios.filter((a) => a !== audio);
+          });
+        } else {
+          console.warn("User has not interacted with the page yet.");
+        }
+      }
+
+      // Configurar el botón para permitir la interacción del usuario
+      playButton.addEventListener("click", () => {
+        userInteracted = true; // El usuario ha interactuado con la página
+        playButton.style.display = "none"; // Ocultar el botón después de la interacción
+      });
+
+      // Reproducir sonido recibido
+      socket.on("playSound", (data) => {
+        console.log("Playing sound:", data.url);
+        playSound(data.url);
+      });
+
+      // Detener todos los sonidos
+      socket.on("stopAll", () => {
+        console.log("Stopping all sounds");
+        stopAllSounds();
+      });
+
+      // Aplicar cambios de volumen
+      socket.on("volumeChange", (volume) => {
+        setVolume(volume);
+      });
+
+      // Función para detener todos los sonidos
+      function stopAllSounds() {
+        // Detener todos los audios activos
+        activeAudios.forEach((audio) => {
+          audio.pause();
+          audio.currentTime = 0;
+        });
+        // Limpiar el array de audios activos
+        activeAudios = [];
+      }
+
+      // Función para establecer el volumen
+      function setVolume(volume) {
+        activeAudios.forEach((audio) => {
+          audio.volume = volume;
+        });
+      }
+    </script>
+  </body>
+</html>
