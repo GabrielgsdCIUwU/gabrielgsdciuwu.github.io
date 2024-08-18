@@ -1,9 +1,9 @@
 import express from "express";
-import session from "express-session";
 import path from "path";
 import { fileURLToPath } from "url";
 import webrouter from "./routes/paginas.js"; 
 import apirouter from "./routes/api.js";
+import soundrouter from "./routes/soundrouter.js"
 import dotenv from "dotenv";
 import { Server as SocketIOServer } from "socket.io"; 
 import http from "http"; 
@@ -27,7 +27,7 @@ app.use("/resources", express.static(path.join(__dirname, "resources")));
 
 app.use(webrouter);
 app.use("/api", apirouter);
-
+app.use(soundrouter);
 
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "./views/index.html"));
