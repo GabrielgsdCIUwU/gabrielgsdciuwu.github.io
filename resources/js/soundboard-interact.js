@@ -14,6 +14,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const launchpad = document.getElementById("launchpad");
   const stopAllButton = document.getElementById("stop-all");
   const volumeControl = document.getElementById("volume");
+
+  const addSoundButton = document.getElementById("add-sound");
+  const modal = document.getElementById("add-sound-modal");
+  const closeButton = document.querySelector(".close-button");
+  const form = document.getElementById("add-sound-form");
+  const folderList = document.getElementById("folder-list");
+
   let activeSounds = [];
 
   let folders = {};
@@ -117,5 +124,51 @@ document.addEventListener("DOMContentLoaded", () => {
 
   volumeControl.addEventListener("input", () => {
     activeSounds.forEach(({ audio }) => (audio.volume = volumeControl.value));
+  });
+
+  // Mostrar el modal
+  addSoundButton.addEventListener("click", () => {
+    modal.style.display = "flex";
+    // Llenar la lista de carpetas
+    folderList.innerHTML = "";
+    for (const folderName in folders) {
+      const option = document.createElement("option");
+      option.value = folderName;
+      folderList.appendChild(option);
+    }
+  });
+
+  // Cerrar el modal
+  closeButton.addEventListener("click", () => {
+    modal.style.display = "none";
+  });
+
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const youtubeUrl = document.getElementById("youtube-url").value;
+    const folderName = document.getElementById("folder-name").value.trim() || "download";
+
+    try {
+      // Aquí harías una llamada a tu backend para descargar el audio de YouTube y subirlo a GitHub
+      const response = await fetch("/api/add-sounds", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ youtubeUrl, folderName }),
+      });
+
+      const result = await response.json();
+      console.log(result);
+      if (result.code === 200) {
+        alert("Sonido añadido exitosamente!");
+        modal.style.display = "none";
+      } else {
+        alert("Hubo un problema al añadir el sonido.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Hubo un error al procesar tu solicitud.");
+    }
   });
 });

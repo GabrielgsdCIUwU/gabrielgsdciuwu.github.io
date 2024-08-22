@@ -109,12 +109,14 @@
         <button onclick="deleteComment()">Eliminar Comentario</button>
         <button onclick="verifyComment()">Verificar Comentario</button>
         <button onclick="deleteCommentQueue()">Eliminar Comentario de Queue</button>
+        <button onclick="deleteSounds()">Eliminar Sonidos</button>
       </div>
 
       <!-- Botón para cargar comentarios -->
       <div class="form-group">
         <button onclick="fetchComments()">Cargar Comentarios</button>
         <button onclick="showAuthForm()">Cargar Comentarios de Queue</button>
+        <button onclick="fetchSounds()">Cargar Sonidos</button>
       </div>
 
       <!-- Formulario de autenticación -->
@@ -331,12 +333,85 @@
             commentsContainer.appendChild(commentDiv);
           });
 
-          hideAuthForm();  // Oculta el formulario de autenticación después de cargar los comentarios
+          hideAuthForm(); // Oculta el formulario de autenticación después de cargar los comentarios
         } catch (error) {
           console.error("Error al cargar los comentarios:", error);
           alert("Error al cargar los comentarios.");
         }
       }
-    </script>
+
+
+        async function fetchSounds() {
+        const user = document.getElementById("authUser").value;
+        const password = document.getElementById("authPass").value;
+
+        if (!user || !password) {
+          alert("Por favor, completa todos los campos.");
+          return;
+        }
+
+        try {
+          const response = await fetch("/api/get-sounds", {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Basic " + btoa(user + ":" + password),
+            },
+          });
+          const comments = await response.json();
+          const commentsContainer = document.getElementById("comments");
+
+          commentsContainer.innerHTML = "";
+
+          comments.forEach((comment) => {
+            const commentDiv = document.createElement("div");
+            commentDiv.className = "comment";
+            commentDiv.innerHTML = `<strong>${comment.youtubeUrl}</strong><p>${comment.folderName}</p>`;
+            commentsContainer.appendChild(commentDiv);
+          });
+
+          hideAuthForm(); // Oculta el formulario de autenticación después de cargar los comentarios
+        } catch (error) {
+          console.error("Error al cargar los comentarios:", error);
+          alert("Error al cargar los comentarios.");
+        }
+      }
+
+      async function deleteSounds() {
+        const id = document.getElementById("commentId").value;
+        const user = document.getElementById("authUser").value;
+        const password = document.getElementById("authPass").value;
+
+        if (!id || !user || !password) {
+          alert("Por favor, completa todos los campos.");
+          return;
+        }
+
+        try {
+          const response = await fetch("/api/delete-sounds", {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Basic " + btoa(user + ":" + password),
+            },
+            body: JSON.stringify({ id }),
+          });
+
+          const result = await response.json();
+          if (response.ok) {
+            alert(result.message);
+            document.getElementById("commentId").value = "";
+            document.getElementById("authUser").value = "";
+            document.getElementById("authPass").value = "";
+          } else {
+            alert(`Error: ${result.error}`);
+          }
+        } catch (error) {
+          console.error("Error al eliminar el comentario:", error);
+          alert("Error al eliminar el comentario.");
+        }
+      }
+ 
+      </script>
   </body>
 </html>

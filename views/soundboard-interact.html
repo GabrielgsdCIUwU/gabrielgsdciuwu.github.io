@@ -11,6 +11,7 @@
   <body>
     <div class="controls">
       <button id="stop-all">STOP ALL</button>
+      <button id="add-sound">Add Sounds</button>
       <div class="volume-controls">
         <label for="volume">Volume:</label>
         <input type="range" id="volume" min="0" max="1" step="0.01" value="1" />
@@ -23,6 +24,26 @@
 
     <div id="launchpad" class="launchpad">
       <!-- Botones dinámicos se generarán aquí -->
+    </div>
+
+    <div id="add-sound-modal" class="modal">
+      <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <h2>Añadir Sonido de YouTube</h2>
+        <form id="add-sound-form">
+          <label for="youtube-url">YouTube URL:</label>
+          <input type="text" id="youtube-url" required />
+          <br>
+          <label for="folder-name">Choose or make a folder:</label>
+          <input type="text" id="folder-name" placeholder="Ej: Nueva carpeta" required list="folder-list" />
+
+          <datalist id="folder-list">
+            <!-- Carpetas dinámicas se generarán aquí -->
+          </datalist>
+
+          <button type="submit">Add</button>
+        </form>
+      </div>
     </div>
 
     <footer class="footer">
@@ -48,6 +69,5 @@
     </script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="/resources/js/soundboard-interact.js"></script>
-    
   </body>
 </html>

@@ -16,6 +16,7 @@ dotenv.config({ path: envFilePath });
 const router = express.Router();
 const filePath = path.join(__dirname, "../resources/json/comentarios.json");
 const QueuefilePath = path.join(__dirname, "../resources/json/queue-comments.json");
+const soundfilePath = path.join(__dirname, "../resources/json/sounds.json");
 
 // Función para generar un ID único alfanumérico
 function generateUniqueId(length = 8) {
@@ -31,6 +32,9 @@ function generateUniqueId(length = 8) {
 // Función para verificar si un ID ya existe
 function idExists(id, comentarios) {
   return comentarios.some((comentario) => comentario.id === id);
+}
+function idExistsSound(id, sound) {
+  return sound.some((sounds) => sounds.id === id);
 }
 
 // Middleware para la autenticación básica
@@ -333,6 +337,146 @@ router.delete("/manage", authenticate, (req, res) => {
         .addFields({
           name: `Mensaje:`,
           value: `${comentarioEliminado.comentario}`,
+        })
+        .addFields({
+          name: `⌚ Timestamp:`,
+          value: `<t:${unixTimestamp}:f>`,
+        })
+        .setColor(process.env.alertcolor);
+
+      webhook.send({ embeds: [embed] });
+    });
+  });
+});
+
+//Ruta para añadir sonidos a la Queue => POST || Link, carpeta || id
+router.post("/add-sounds", (req, res) => {
+  const { youtubeUrl, folderName } = req.body;
+
+  if (!youtubeUrl || !folderName) {
+    return res.status(400).json({ error: "El link y la carpeta son requeridos." });
+  }
+
+  fs.readFile(soundfilePath, "utf8", (err, data) => {
+    if (err) {
+      console.error("Error al leer el archivo JSON:", err);
+      return res.status(500).json({ error: "Error al leer el archivo JSON" });
+    }
+
+    let audios = JSON.parse(data);
+
+    let newId;
+    do {
+      newId = generateUniqueId();
+    } while (idExistsSound(newId, audios));
+
+    audios.push({ id: newId, youtubeUrl, folderName });
+
+    fs.writeFile(soundfilePath, JSON.stringify(audios, null, 2), (err) => {
+      if (err) {
+        console.error("Error al escribir en el archivo JSON:", err);
+        return res.status(500).json({ error: "Error al guardar el comentario" });
+      }
+
+      const webhook = new WebhookClient({ url: process.env.soundwebhook });
+
+      let ts = new Date(Date.now());
+      let unixTimestamp = Math.floor(ts.getTime() / 1000);
+
+      const embed = new EmbedBuilder()
+        .setTitle("Nuevo sonido:")
+        .addFields({
+          name: `ID:`,
+          value: `${newId}`,
+        })
+        .addFields({
+          name: `URL:`,
+          value: `${youtubeUrl}`,
+        })
+        .addFields({
+          name: `Carpeta:`,
+          value: `${folderName}`,
+        })
+        .addFields({
+          name: `⌚ Timestamp:`,
+          value: `<t:${unixTimestamp}:f>`,
+        })
+        .setColor(process.env.warningcolor);
+
+      webhook.send({ embeds: [embed] });
+      res.status(200).json({ message: "Se ha enviado el sonido a la cola exitosamente", code: 200 });
+    });
+  });
+});
+
+//Ruta para obtener los sonidos
+router.get("/get-sounds", authenticate, (req, res) => {
+  const { start = 0, end = 12 } = req.query;
+
+  fs.readFile(soundfilePath, "utf8", (err, data) => {
+    if (err) {
+      return res.status(500).send(err.message);
+    }
+
+    let sonidos = JSON.parse(data);
+    const startIndex = parseInt(start, 10) || 0;
+    const endIndex = parseInt(end, 10) || 10;
+
+    const paginatedsounds = sonidos.slice(startIndex, endIndex);
+
+    res.json(paginatedsounds);
+  });
+});
+
+router.delete("/delete-sounds", authenticate, (req, res) => {
+  const { id } = req.body;
+
+  if (!id) {
+    return res.status(400).json({ error: "El ID del comentario es requerido." });
+  }
+
+  fs.readFile(soundfilePath, "utf8", (err, data) => {
+    if (err) {
+      console.error("Error al leer el archivo JSON:", err);
+      return res.status(500).send("Error al leer el archivo JSON");
+    }
+
+    let sonidos = JSON.parse(data);
+    const index = sonidos.findIndex((sonido) => sonido.id === id);
+
+    if (index === -1) {
+      return res.status(404).json({ error: "Sonido no encontrado." });
+    }
+
+    const sonidoEliminado = sonidos[index];
+
+    sonidos.splice(index, 1);
+
+    fs.writeFile(soundfilePath, JSON.stringify(sonidos, null, 2), (err) => {
+      if (err) {
+        console.error("Error al escribir en el archivo JSON:", err);
+        return res.status(500).send("Error al eliminar el comentario");
+      }
+      res.status(200).json({ message: "Sonido eliminado exitosamente" });
+
+      const webhook = new WebhookClient({ url: process.env.soundwebhook });
+
+      let ts = new Date(Date.now());
+      let unixTimestamp = Math.floor(ts.getTime() / 1000);
+
+      const embed = new EmbedBuilder()
+        .setTitle("Sonido borrado:")
+        .addFields({
+          name: `ID:`,
+          value: `${sonidoEliminado.id}`,
+        })
+        .addFields({
+          name: `URL:`,
+          value: `${sonidoEliminado.youtubeUrl}`,
+        })
+        .addFields({
+          name: `Carpeta:`,
+          value: `${sonidoEliminado.folderName}`,
         })
         .addFields({
           name: `⌚ Timestamp:`,
