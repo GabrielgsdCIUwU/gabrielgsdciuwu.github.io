@@ -90,6 +90,9 @@ async function cargarProyectos() {
     const response = await fetch("./resources/json/proyectos.json");
     const proyectos = await response.json();
     const projectsContainer = document.getElementById("projects-container");
+    const knowledge = await fetch("./resources/json/conocimientos.json");
+    const conocimientos = await knowledge.json();
+
 
     proyectos.forEach((proyecto) => {
       const projectLink = document.createElement("a");
@@ -101,10 +104,18 @@ async function cargarProyectos() {
         "rounded-lg",
         "shadow",
         "hover:shadow-xl",
+        "hover:bg-blue-50",
         "transition-shadow",
         "duration-300"
       );
 
+      let knowledgeIcons = '';
+      proyecto.skills.forEach((skillname) => {
+        const skill = conocimientos.knowledge.find(k => k.name === skillname);
+        if (skill) {
+          knowledgeIcons += `<img src="${skill.icon}" alt="${skill.name}" class="w-6 h-6" title="${skill.name}"/>`;
+        }
+      });
       projectLink.innerHTML = `
         <div class="w-full h-48 bg-gray-200 rounded-lg flex items-center justify-center overflow-hidden">
           <img src="${proyecto.image}" alt="${proyecto.alt}" class="object-cover w-full h-full" />
@@ -112,6 +123,7 @@ async function cargarProyectos() {
         <h3 class="text-2xl font-bold mt-6 text-gray-700">${proyecto.title}</h3>
         <p class="text-gray-500 mt-2">${proyecto.description}</p>
         <p class="text-gray-500 mt-2">${proyecto.date}</p>
+        <div class="flex justify-center mt-6 space-x-4">${knowledgeIcons}</div>
       `;
 
       projectsContainer.appendChild(projectLink);

@@ -6,8 +6,19 @@
       "script": "server",
       "problemMatcher": [],
       "isBackground": true,
-      "label": "npm: server",
+      "label": "Server",
       "detail": "npx nodemon index.js",
+      "runOptions": {
+        "runOn": "folderOpen"
+      }
+    },
+    {
+      "type": "npm",
+      "script": "css",
+      "problemMatcher": [],
+      "isBackground": true,
+      "label": "CSS",
+      "detail": "concurrently \"npx tailwindcss -i ./resources/css/rusky.css -o ./resources/css/output-rusky.css --watch\" \"npx tailwindcss -i ./resources/css/style.css -o ./resources/css/output-index.css --watch\"",
       "runOptions": {
         "runOn": "folderOpen"
       }

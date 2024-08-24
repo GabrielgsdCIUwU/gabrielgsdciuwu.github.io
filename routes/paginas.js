@@ -39,6 +39,8 @@ router.get("/google430ed71687e8d816.html", (req, res) => {
   res.sendFile(path.join(__dirname, "../views/google430ed71687e8d816.html"));
 });
 
-
+router.get("/info", (req, res) => {
+  res.sendFile(path.join(__dirname, "../views/info.html"));
+});
 
 export default router;
