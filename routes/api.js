@@ -17,6 +17,7 @@ const router = express.Router();
 const filePath = path.join(__dirname, "../resources/json/comentarios.json");
 const QueuefilePath = path.join(__dirname, "../resources/json/queue-comments.json");
 const soundfilePath = path.join(__dirname, "../resources/json/sounds.json");
+const userFilePath = path.join(__dirname, "../resources/json/users.json");
 
 // Función para generar un ID único alfanumérico
 function generateUniqueId(length = 8) {
@@ -428,6 +429,7 @@ router.get("/get-sounds", authenticate, (req, res) => {
   });
 });
 
+//Ruta para eliminar sonidos
 router.delete("/delete-sounds", authenticate, (req, res) => {
   const { id } = req.body;
 
@@ -477,6 +479,121 @@ router.delete("/delete-sounds", authenticate, (req, res) => {
         .addFields({
           name: `Carpeta:`,
           value: `${sonidoEliminado.folderName}`,
+        })
+        .addFields({
+          name: `⌚ Timestamp:`,
+          value: `<t:${unixTimestamp}:f>`,
+        })
+        .setColor(process.env.alertcolor);
+
+      webhook.send({ embeds: [embed] });
+    });
+  });
+});
+
+//Ruta para añadir usuarios a la whitelist
+router.post("/add-user", authenticate,(req, res) => {
+  const { userid } = req.body;
+
+  if (!userid) {
+    return res.status(400).json({ error: "La ID del usuario es requerido." });
+  }
+
+  fs.readFile(userFilePath, "utf8", (err, data) => {
+    if (err) {
+      console.error("Error al leer el archivo JSON:", err);
+      return res.status(500).json({ error: "Error al leer el archivo JSON" });
+    }
+
+    let usuarios = JSON.parse(data);
+
+    const exists = usuarios.some((user) => user.userid === userid);
+
+    if(exists) {
+      return res.status(400).json({ error: "El usuario ya existe en la lista."});
+    }
+
+    usuarios.push({ userid });
+
+    fs.writeFile(userFilePath, JSON.stringify(usuarios, null, 2), (err) => {
+      if (err) {
+        console.error("Error al escribir en el archivo JSON:", err);
+        return res.status(500).json({ error: "Error al guardar el usuario" });
+      }
+
+      const webhook = new WebhookClient({ url: process.env.userwebhook });
+
+      let ts = new Date(Date.now());
+      let unixTimestamp = Math.floor(ts.getTime() / 1000);
+
+      const embed = new EmbedBuilder()
+        .setTitle("Nuevo Usuario:")
+        .addFields({
+          name: `ID:`,
+          value: `${userid}`,
+        })
+        .addFields({
+          name: `User:`,
+          value: `<@${userid}>`
+        })
+        .addFields({
+          name: `⌚ Timestamp:`,
+          value: `<t:${unixTimestamp}:f>`,
+        })
+        .setColor(process.env.warningcolor);
+
+      webhook.send({ embeds: [embed] });
+      res.status(200).json({ message: "Se ha añadido el usuario correctamente", code: 200 });
+    });
+  });
+});
+
+//Ruta para eliminar usuarios de la whitelist
+router.delete("/delete-user", authenticate, (req, res) => {
+  const { userid } = req.body;
+  console.log(userid)
+  if (!userid) {
+    return res.status(400).json({ error: "El ID del usuario es requerido." });
+  }
+
+  fs.readFile(userFilePath, "utf8", (err, data) => {
+    if (err) {
+      console.error("Error al leer el archivo JSON:", err);
+      return res.status(500).send("Error al leer el archivo JSON");
+    }
+
+    let usuarios = JSON.parse(data);
+    const index = usuarios.findIndex((user) => user.userid === userid);
+
+    if (index === -1) {
+      return res.status(404).json({ error: "Usuario no encontrado." });
+    }
+
+    const UserEliminado = usuarios[index];
+
+    usuarios.splice(index, 1);
+
+    fs.writeFile(userFilePath, JSON.stringify(usuarios, null, 2), (err) => {
+      if (err) {
+        console.error("Error al escribir en el archivo JSON:", err);
+        return res.status(500).send("Error al eliminar el comentario");
+      }
+      res.status(200).json({ message: "Usuario eliminado exitosamente" });
+
+      const webhook = new WebhookClient({ url: process.env.userwebhook });
+
+      let ts = new Date(Date.now());
+      let unixTimestamp = Math.floor(ts.getTime() / 1000);
+
+      const embed = new EmbedBuilder()
+        .setTitle("Usuario borrado:")
+        .addFields({
+          name: `ID:`,
+          value: `${UserEliminado.userid}`,
+        })
+        .addFields({
+          name: `User:`,
+          value: `<@${UserEliminado.userid}>`
         })
         .addFields({
           name: `⌚ Timestamp:`,

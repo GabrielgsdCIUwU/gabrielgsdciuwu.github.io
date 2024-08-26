@@ -92,7 +92,7 @@
         <button onclick="submitComment()">Enviar Comentario</button>
       </div>
 
-      <!-- Formulario para eliminar comentarios -->
+      <!-- Formulario para funciones con permisos -->
       <div class="form-group">
         <label for="commentId">ID del Comentario:</label>
         <input type="text" id="commentId" name="commentId" required />
@@ -110,6 +110,8 @@
         <button onclick="verifyComment()">Verificar Comentario</button>
         <button onclick="deleteCommentQueue()">Eliminar Comentario de Queue</button>
         <button onclick="deleteSounds()">Eliminar Sonidos</button>
+        <button onclick="deleteUser()">Eliminar Usuario</button>
+        <button onclick="addUser()">Añadir Usuario</button>
       </div>
 
       <!-- Botón para cargar comentarios -->
@@ -340,8 +342,7 @@
         }
       }
 
-
-        async function fetchSounds() {
+      async function fetchSounds() {
         const user = document.getElementById("authUser").value;
         const password = document.getElementById("authPass").value;
 
@@ -411,7 +412,76 @@
           alert("Error al eliminar el comentario.");
         }
       }
- 
-      </script>
+
+      async function deleteUser() {
+        const userid = document.getElementById("commentId").value;
+        const user = document.getElementById("authUser").value;
+        const password = document.getElementById("authPass").value;
+
+        if (!userid || !user || !password) {
+          alert("Por favor, completa todos los campos.");
+          return;
+        }
+
+        try {
+          const response = await fetch("/api/delete-user", {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Basic " + btoa(user + ":" + password),
+            },
+            body: JSON.stringify({ userid }),
+          });
+
+          const result = await response.json();
+          if (response.ok) {
+            alert(result.message);
+            document.getElementById("commentId").value = "";
+            document.getElementById("authUser").value = "";
+            document.getElementById("authPass").value = "";
+          } else {
+            alert(`Error: ${result.error}`);
+          }
+        } catch (error) {
+          console.error("Error al eliminar el usuario:", error);
+          alert("Error al eliminar el usuario.");
+        }
+      }
+
+      async function addUser() {
+        const userid = document.getElementById("commentId").value;
+        const user = document.getElementById("authUser").value;
+        const password = document.getElementById("authPass").value;
+
+        if (!userid || !user || !password) {
+          alert("Por favor, completa todos los campos.");
+          return;
+        }
+
+        try {
+          const response = await fetch("/api/add-user", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Basic " + btoa(user + ":" + password),
+            },
+            body: JSON.stringify({ userid }),
+          });
+
+          const result = await response.json();
+          if (response.ok) {
+            alert(result.message);
+            document.getElementById("commentId").value = "";
+            document.getElementById("authUser").value = "";
+            document.getElementById("authPass").value = "";
+          } else {
+            alert(`Error: ${result.error}`);
+          }
+        } catch (error) {
+          console.error("Error al añadir el usuario:", error);
+          alert("Error al añadir el usuario.");
+        }
+      }
+    </script>
   </body>
 </html>
