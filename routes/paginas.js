@@ -1,9 +1,6 @@
 import express from "express";
 import path from "path";
-import fs from "fs";
 import { fileURLToPath } from "url";
-import basicAuth from "basic-auth";
-import { encrypt, decrypt } from "../resources/js/security.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -32,11 +29,6 @@ router.get("/rusky", (req, res) => {
 
 router.get("/soundboard", (req, res) => {
   res.sendFile(path.join(__dirname, "../views/soundboard.html"));
-});
-
-
-router.get("/google430ed71687e8d816.html", (req, res) => {
-  res.sendFile(path.join(__dirname, "../views/google430ed71687e8d816.html"));
 });
 
 router.get("/info", (req, res) => {

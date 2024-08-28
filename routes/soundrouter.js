@@ -12,7 +12,7 @@ const envFilePath = path.join(__dirname, ".env");
 dotenv.config({ path: envFilePath });
 
 const router = express.Router();
-router.use(express.urlencoded({ extended: true}));
+router.use(express.urlencoded({ extended: true }));
 
 router.use(
   session({
@@ -28,10 +28,12 @@ router.use(passport.session());
 router.get("/auth/discord", passport.authenticate("discord"));
 
 router.get("/auth/discord/callback", passport.authenticate("discord", { failureRedirect: "/" }), (req, res) => {
-  res.sendFile(path.join(__dirname, "../views/soundselector.html"));
+  res.redirect("/soundselector")
 });
 
-
+router.get("/soundselector", authenticate, (req, res) => {
+  res.sendFile(path.join(__dirname, "../views/soundselector.html"));
+});
 
 router.post("/soundselector", (req, res) => {
   const chosenOption = req.body.option;
@@ -40,7 +42,7 @@ router.post("/soundselector", (req, res) => {
   } else if (chosenOption === "sound-receiver") {
     res.redirect("/sound-receiver");
   } else {
-    res.redirect("/")
+    res.redirect("/");
   }
 });
 
@@ -52,10 +54,10 @@ router.get("/sound-receiver", authenticate, (req, res) => {
   res.sendFile(path.join(__dirname, "../views/sound_receiver.html"));
 });
 
-function authenticate ( req, res, next) {
+function authenticate(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
   }
-  res.redirect("/auth")
+  res.redirect("/auth");
 }
 export default router;

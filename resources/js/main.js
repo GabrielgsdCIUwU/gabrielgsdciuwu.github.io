@@ -93,7 +93,6 @@ async function cargarProyectos() {
     const knowledge = await fetch("./resources/json/conocimientos.json");
     const conocimientos = await knowledge.json();
 
-
     proyectos.forEach((proyecto) => {
       const projectLink = document.createElement("a");
       projectLink.href = proyecto.link || "#";
@@ -109,9 +108,9 @@ async function cargarProyectos() {
         "duration-300"
       );
 
-      let knowledgeIcons = '';
+      let knowledgeIcons = "";
       proyecto.skills.forEach((skillname) => {
-        const skill = conocimientos.knowledge.find(k => k.name === skillname);
+        const skill = conocimientos.knowledge.find((k) => k.name === skillname);
         if (skill) {
           knowledgeIcons += `<img src="${skill.icon}" alt="${skill.name}" class="w-6 h-6" title="${skill.name}"/>`;
         }
@@ -177,8 +176,23 @@ async function loadKnowledge() {
           name.textContent = item.name;
           card.appendChild(name);
 
+          let itemcolor;
+          switch (item.level) {
+            case "Alto":
+              itemcolor = "text-green-400";
+              break;
+            case "Medio-Alto":
+              itemcolor = "text-lime-400";
+              break;
+            case "Medio":
+              itemcolor = "text-orange-400";
+              break;
+            case "Bajo":
+              itemcolor = "text-red-400";
+              break;
+          }
           const level = document.createElement("p");
-          level.className = `text-${item.color} font-bold`;
+          level.className = `${itemcolor} font-bold`;
           level.textContent = `Nivel: ${item.level}`;
           card.appendChild(level);
 

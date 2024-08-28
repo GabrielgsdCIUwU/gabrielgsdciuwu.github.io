@@ -28,6 +28,7 @@ html {
   padding: 0;
   height: 100%;
   overflow-y: auto;
+  scroll-behavior: smooth;
 }
 
 .fa-ko-fi::before {
@@ -119,7 +120,7 @@ html {
   box-shadow: 0 2px rgba(0, 0, 0, 0.1);
   font-family: Arial, sans-serif;
   max-height: 200px;
-  overflow-y: auto; 
+  overflow-y: auto;
 }
 
 .carousel-content .name {
@@ -130,7 +131,7 @@ html {
 
 .carousel-content .comment {
   color: #657786; /* Color de texto de comentario similar al de Twitter */
-   white-space: pre-wrap;
+  white-space: pre-wrap;
 }
 
 .carousel-controls {
