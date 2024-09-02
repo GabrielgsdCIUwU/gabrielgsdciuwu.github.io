@@ -56,5 +56,12 @@
       "level": "Bajo",
       "category": "Diseño"
     }
+    ,
+    {
+      "name": "EJS",
+      "icon": "../resources/svg/ejs-icon.svg",
+      "level": "Bajo",
+      "category": "Desarrollo"
+    }
   ]
 }

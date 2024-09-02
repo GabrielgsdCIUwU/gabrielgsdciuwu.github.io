@@ -1,5 +1,14 @@
 [
   {
+    "title": "Bonfire Lounge",
+    "description": "Página web para un bar del vrchat",
+    "date": "21/8/2024 - Actualmente",
+    "image": "./resources/img/Bonfire.avif",
+    "alt": "Bonfire lounge",
+    "link": "https://bonfire.alexdevuwu.com/",
+    "skills": ["HTML5", "JavaScript", "NodeJS", "EJS"]
+  },
+  {
     "title": "Baraja española VRChat",
     "description": "Mundo para jugar a la baraja española en VRChat",
     "date": "3/7/2024 - ⏸️ 31/7/2024",
