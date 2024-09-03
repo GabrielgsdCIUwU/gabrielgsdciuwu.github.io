@@ -82,9 +82,6 @@ function handleSplineFallback() {
   };
 }
 
-window.addEventListener("resize", handleSplineFallback);
-window.addEventListener("DOMContentLoaded", handleSplineFallback);
-
 async function cargarProyectos() {
   try {
     const response = await fetch("./resources/json/proyectos.json");
@@ -131,8 +128,6 @@ async function cargarProyectos() {
     console.error("Error al cargar los proyectos:", error);
   }
 }
-
-window.addEventListener("DOMContentLoaded", cargarProyectos);
 
 async function loadKnowledge() {
   try {
@@ -191,23 +186,23 @@ async function loadKnowledge() {
               itemcolor = "text-red-400";
               break;
           }
-          const level = document.createElement("p");
-          level.className = `${itemcolor} font-bold`;
-          level.textContent = `Nivel: ${item.level}`;
-          card.appendChild(level);
+
+          const description = document.createElement("p");
+          description.className = `text-gray-500`;
+          description.textContent = `${item.description}`;
+          card.appendChild(description);
 
           grid.appendChild(card);
 
-          // Aplica la animación de aparición con un retraso
           setTimeout(() => {
             card.classList.add("visible");
-          }, index * 100); // Retraso de 100 ms entre cada tarjeta
+          }, index * 100);
         });
 
         requestAnimationFrame(() => {
           grid.classList.add("visible");
         });
-      }, 300); // Tiempo de retraso para la animación de salida
+      }, 300);
     };
 
     renderItems("all");
@@ -223,7 +218,11 @@ async function loadKnowledge() {
   }
 }
 
-document.addEventListener("DOMContentLoaded", loadKnowledge);
+window.addEventListener("load", () => {
+  handleSplineFallback();
+  cargarProyectos();
+  loadKnowledge();
+});
 
 const menuToggle = document.getElementById("menu-toggle");
 const sidebar = document.getElementById("sidebar");

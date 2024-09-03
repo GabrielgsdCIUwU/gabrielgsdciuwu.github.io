@@ -5,63 +5,62 @@
     {
       "name": "Unity",
       "icon": "../resources/svg/unity-icon.svg",
-      "level": "Alto",
-      "category": "Desarrollo"
+      "category": "Desarrollo",
+      "description": "Desarrollo de proyectos que involucran VR, incluyendo la creación y animación de modelos 3D, así como la implementación de texturas y efectos de sonido, especialmente en el contexto del SDK de VRChat."
     },
     {
       "name": "Filmora",
       "icon": "../resources/svg/filmora-icon.svg",
-      "level": "Alto",
-      "category": "Edición"
+      "category": "Edición",
+      "description": "Edición de video que abarca montaje, aplicación de efectos visuales, transiciones, subtítulos y ajuste de audio."
     },
     {
       "name": "GIMP",
       "icon": "../resources/svg/gimp-icon.svg",
-      "level": "Alto",
-      "category": "Diseño"
+      "category": "Diseño",
+      "description": "Edición avanzada de imágenes, incluyendo retoques fotográficos, manipulación de capas y creación de rutas para un diseño gráfico detallado y profesional."
     },
     {
       "name": "NodeJS",
       "icon": "../resources/svg/nodejs-icon.svg",
-      "level": "Alto",
-      "category": "Desarrollo"
+      "category": "Desarrollo",
+      "description": "Desarrollo de aplicaciones del lado del servidor, como bots para Discord y páginas web dinámicas y escalables."
     },
     {
       "name": "JavaScript",
       "icon": "../resources/svg/javascript-icon.svg",
-      "level": "Medio-Alto",
-      "category": "Desarrollo"
+      "category": "Desarrollo",
+      "description": "Programación web que incluye el desarrollo de interfaces interactivas y lógica de backend para aplicaciones completas."
     },
     {
       "name": "HTML5",
       "icon": "../resources/svg/html5-icon.svg",
-      "level": "Medio-Alto",
-      "category": "Desarrollo"
+      "category": "Desarrollo",
+      "description": "Creación de estructuras web semánticas, incluyendo el uso avanzado de formularios y multimedia para desarrollar sitios web accesibles y funcionales."
     },
     {
       "name": "After Effects 2022",
       "icon": "../resources/svg/after-effects-icon.svg",
-      "level": "Medio",
-      "category": "Edición"
+      "category": "Edición",
+      "description": "Creación de animaciones sofisticadas y efectos de chroma key, mejorando la calidad visual de videos mediante técnicas avanzadas de composición."
     },
     {
       "name": "Tailwindcss",
       "icon": "../resources/svg/tailwindcss-icon.svg",
-      "level": "Bajo",
-      "category": "Desarrollo"
+      "category": "Desarrollo",
+      "description": "Diseño web utilizando un enfoque basado en utilidades, aplicando estilos directamente en el HTML5 para lograr interfaces limpias y modernas."
     },
     {
       "name": "Blender",
       "icon": "../resources/svg/blender-icon.svg",
-      "level": "Bajo",
-      "category": "Diseño"
-    }
-    ,
+      "category": "Diseño",
+      "description": "Modelado 3D, incluyendo la creación y edición de shape keys (blendshapes) y la adaptación de modelos para su integración en plataformas de VTubing como VSeeFace."
+    },
     {
       "name": "EJS",
       "icon": "../resources/svg/ejs-icon.svg",
-      "level": "Bajo",
-      "category": "Desarrollo"
+      "category": "Desarrollo",
+      "description": "Integración de plantillas para aplicaciones web, facilitando la generación dinámica de contenido y la personalización de vistas en el desarrollo del lado del servidor."
     }
   ]
 }
