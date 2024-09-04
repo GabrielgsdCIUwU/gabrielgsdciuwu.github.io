@@ -1,7 +1,7 @@
 [
   {
     "title": "Bonfire Lounge",
-    "description": "Página web para un bar del vrchat",
+    "description": "Página web para un bar del VRChat.",
     "date": "21/8/2024 - Actualmente",
     "image": "./resources/img/Bonfire.avif",
     "alt": "Bonfire lounge",
@@ -10,7 +10,7 @@
   },
   {
     "title": "Baraja española VRChat",
-    "description": "Mundo para jugar a la baraja española en VRChat",
+    "description": "Mundo para jugar a la baraja española en VRChat.",
     "date": "3/7/2024 - ⏸️ 31/7/2024",
     "image": "./resources/img/Presentation.avif",
     "alt": "Icono Baraja Española VRChat",
@@ -28,7 +28,7 @@
   },
   {
     "title": "Azirax",
-    "description": "Bot de Discord multifunción en español",
+    "description": "Bot de Discord multifunción en español.",
     "date": "29/08/2020 - ⏸️ 03/08/2024",
     "image": "./resources/img/Azirax.avif",
     "alt": "Azirax Logo",
