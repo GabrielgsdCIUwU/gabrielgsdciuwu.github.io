@@ -46,7 +46,11 @@ app.use(webrouter);
 app.use("/api", apirouter);
 app.use(soundrouter);
 
-app.get("*", (req, res) => {
+app.use((req, res, next) => {
+  res.sendFile(path.join(__dirname, "./views/index.html"));
+});
+
+app.use((err, req, res, next) => {
   res.sendFile(path.join(__dirname, "./views/index.html"));
 });
 
