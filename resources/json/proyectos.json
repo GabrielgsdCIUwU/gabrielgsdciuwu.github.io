@@ -9,15 +9,6 @@
     "skills": ["HTML5", "JavaScript", "NodeJS", "EJS"]
   },
   {
-    "title": "Baraja española VRChat",
-    "description": "Mundo para jugar a la baraja española en VRChat.",
-    "date": "3/7/2024 - ⏸️ 31/7/2024",
-    "image": "./resources/img/Presentation.avif",
-    "alt": "Icono Baraja Española VRChat",
-    "link": "https://vrchat.com/home/world/wrld_d7752dab-3af2-4444-b9e8-9d83ffa222d1",
-    "skills": ["Unity", "GIMP", "Blender"]
-  },
-  {
     "title": "Rusky",
     "description": "Un avatar hecho para VRChat.",
     "date": "10/04/2023 - ⏸️ 25/07/2024",

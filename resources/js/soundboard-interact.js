@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const launchpad = document.getElementById("launchpad");
   const stopAllButton = document.getElementById("stop-all");
   const volumeControl = document.getElementById("volume");
+  const volumeControlRemote = document.getElementById("volume-wl");
 
   const addSoundButton = document.getElementById("add-sound");
   const modal = document.getElementById("add-sound-modal");
@@ -94,7 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
     audio.play().catch((error) => console.error("Error playing sound:", error));
 
     // Emitir evento para reproducir el sonido
-    socket.emit("playSound", { url: url, volume: volumeControl.value });
+    socket.emit("playSound", { url: url });
 
     activeSounds.push({ audio, button });
 
@@ -124,6 +125,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   volumeControl.addEventListener("input", () => {
     activeSounds.forEach(({ audio }) => (audio.volume = volumeControl.value));
+  });
+
+  volumeControlRemote.addEventListener("input", () => {
+    socket.emit("volumeChange", {volume: volumeControlRemote.value})
   });
 
   // Mostrar el modal
