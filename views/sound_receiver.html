@@ -86,8 +86,9 @@
 
       // Función para establecer el volumen
       function setVolume(volume) {
+        const numnericVolume = parseFloat(volume);
         activeAudios.forEach((audio) => {
-          audio.volume = volume;
+          audio.volume = numnericVolume;
         });
       }
     </script>

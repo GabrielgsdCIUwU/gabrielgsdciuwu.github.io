@@ -128,7 +128,8 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   volumeControlRemote.addEventListener("input", () => {
-    socket.emit("volumeChange", {volume: volumeControlRemote.value})
+    const volumen = parseFloat(volumeControlRemote.value);
+    socket.emit("volumeChange", volumen)
   });
 
   // Mostrar el modal
