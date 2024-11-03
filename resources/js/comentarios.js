@@ -1,6 +1,5 @@
 let autoSlideInterval;
-const slideInterval = 10000; // 8 segundos
-// Configurar los carruseles
+const slideInterval = 10000;
 const carousels = document.querySelectorAll(".carousel-inner");
 const prevButton = document.getElementById("prev-slide");
 const nextButton = document.getElementById("next-slide");
@@ -15,12 +14,10 @@ async function cargarComentarios() {
     const response = await fetch("/api/comments");
     const comentarios = await response.json();
 
-    // Dividir los comentarios entre los tres carruseles
     const carrusel1 = comentarios.filter((_, index) => index % 3 === 0);
     const carrusel2 = comentarios.filter((_, index) => index % 3 === 1);
     const carrusel3 = comentarios.filter((_, index) => index % 3 === 2);
 
-    // Función para agregar comentarios a un carrusel
     function agregarComentarios(carrusel, comentarios) {
       const inner = carrusel.querySelector(".carousel-inner");
       inner.innerHTML = comentarios
@@ -37,19 +34,13 @@ async function cargarComentarios() {
         .join("");
     }
 
-    // Agregar comentarios a cada carrusel
     agregarComentarios(document.getElementById("carousel1"), carrusel1);
     agregarComentarios(document.getElementById("carousel2"), carrusel2);
     agregarComentarios(document.getElementById("carousel3"), carrusel3);
 
     function updateCarousels() {
-      const isVertical = window.innerWidth < 1000;
       carousels.forEach((carousel) => {
-        if (isVertical) {
-          carousel.style.transform = `translateX(-${currentIndex * 100}%)`; // Desplazamiento horizontal
-        } else {
-          carousel.style.transform = `translateX(-${currentIndex * 100}%)`; // Desplazamiento horizontal
-        }
+        carousel.style.transform = `translateX(-${currentIndex * 100}%)`;
       });
     }
 
@@ -62,41 +53,41 @@ async function cargarComentarios() {
       }, slideInterval);
     }
 
-    function resetAutoSlide() {
+    function stopAutoSlide() {
       clearInterval(autoSlideInterval);
+    }
+
+    function resetAutoSlide() {
+      stopAutoSlide();
       startAutoSlide();
     }
 
     prevButton.addEventListener("click", () => {
       currentIndex = currentIndex > 0 ? currentIndex - 1 : carousels[0].children.length - 1;
       updateCarousels();
-      resetAutoSlide(); // Reiniciar temporizador
+      resetAutoSlide();
     });
 
     nextButton.addEventListener("click", () => {
       currentIndex = currentIndex < carousels[0].children.length - 1 ? currentIndex + 1 : 0;
       updateCarousels();
-      resetAutoSlide(); // Reiniciar temporizador
+      resetAutoSlide();
     });
 
     editCommentBtn.addEventListener("click", () => {
-      isAutoSliding = false; // Detener el carrusel automático
-      commentForm.classList.remove("hidden"); // Mostrar el formulario de comentario
+      isAutoSliding = false;
+      commentForm.classList.remove("hidden");
       const activeCarousel = document.querySelector(".carousel-inner").parentElement;
       const offsetTop = activeCarousel.getBoundingClientRect().top + window.pageYOffset;
-      window.scrollTo({ top: offsetTop, behavior: "smooth" }); // Desplazar al carrusel activo
+      window.scrollTo({ top: offsetTop, behavior: "smooth" });
     });
 
     cancelCommentBtn.addEventListener("click", () => {
-      // Ocultar el formulario de comentario
       commentForm.classList.add("hidden");
-
-      // Reiniciar el deslizador automático
       isAutoSliding = true;
       resetAutoSlide();
     });
 
-    // Manejar envío del comentario
     document.getElementById("submit-comment").addEventListener("click", async () => {
       const name = document.getElementById("comment-name").value;
       const comment = document.getElementById("comment-text").value;
@@ -112,22 +103,16 @@ async function cargarComentarios() {
           });
 
           if (response.ok) {
-            console.log("Comentario enviado con éxito");
-            // Mostrar mensaje de agradecimiento
             toastr.success("Gracias por tu comentario ❤️", "Enviado");
-
-            // Resetear el formulario
             document.getElementById("comment-name").value = "";
             document.getElementById("comment-text").value = "";
             commentForm.classList.add("hidden");
-            isAutoSliding = true; // Reiniciar el carrusel automático
-            resetAutoSlide(); // Reiniciar temporizador
+            isAutoSliding = true;
+            resetAutoSlide();
           } else {
-            console.error("Error al enviar el comentario");
             toastr.error("Hubo un problema al enviar tu comentario. Por favor, intenta de nuevo.", "Error:");
           }
         } catch (error) {
-          console.error("Error al enviar el comentario:", error);
           toastr.error("Hubo un problema al enviar tu comentario. Por favor, intenta de nuevo.", "Error:");
         }
       } else {
@@ -135,7 +120,15 @@ async function cargarComentarios() {
       }
     });
 
-    // Inicializar carruseles y temporizador
+    carousels.forEach((carousel) => {
+      carousel.addEventListener("mouseenter", () => {
+        stopAutoSlide();
+      });
+      carousel.addEventListener("mouseleave", () => {
+        resetAutoSlide();
+      });
+    });
+
     updateCarousels();
     startAutoSlide();
   } catch (error) {
@@ -143,15 +136,13 @@ async function cargarComentarios() {
   }
 }
 
-// Cargar comentarios al inicio
 cargarComentarios();
-
 
 document.addEventListener("click", handleClickForm);
 
 function handleClickForm(event) {
   if (!commentForm.classList.contains("hidden")) {
-
+    
     if (event.target === editCommentBtn) return;
 
     if (!commentForm.querySelector(".bg-white").contains(event.target)) {
