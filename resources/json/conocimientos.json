@@ -61,6 +61,12 @@
       "icon": "../resources/svg/ejs-icon.svg",
       "category": "Desarrollo",
       "description": "Integración de plantillas para aplicaciones web, facilitando la generación dinámica de contenido y la personalización de vistas en el desarrollo del lado del servidor."
+    },
+    {
+      "name": "Python",
+      "icon": "../resources/svg/python-logo-only.svg",
+      "category": "Desarrollo",
+      "description": "Desarrollo soluciones en Python para problemas de complejidad moderada, optimizando código limpio y eficiente."
     }
   ]
 }
