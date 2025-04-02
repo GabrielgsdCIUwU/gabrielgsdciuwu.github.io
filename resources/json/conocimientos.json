@@ -67,6 +67,12 @@
       "icon": "../resources/svg/python-logo-only.svg",
       "category": "Desarrollo",
       "description": "Desarrollo soluciones en Python para problemas de complejidad moderada, optimizando código limpio y eficiente."
+    },
+    {
+      "name": "Java",
+      "icon": "../resources/svg/java-icon.svg",
+      "category": "Desarrollo",
+      "description": "Desarrollo soluciones en Java enfocándome en la optimización del código y la implementación de soluciones eficientes para diversas necesidades."
     }
   ]
 }
