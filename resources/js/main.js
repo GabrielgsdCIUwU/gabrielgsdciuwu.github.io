@@ -207,12 +207,30 @@ async function loadKnowledge() {
 
     renderItems("all");
 
+    document.addEventListener("DOMContentLoaded", () => {
+      const allButton = document.querySelector('.filter-button[data-category="all"]');
+      if (allButton) {
+        allButton.classList.add("active");
+      }
+    });
+
     document.querySelectorAll(".filter-button").forEach((button) => {
       button.addEventListener("click", () => {
+        document.querySelectorAll(".filter-button").forEach((btn) => {
+          btn.classList.remove("active");
+        });
+
+        button.classList.add("active");
+
         const category = button.getAttribute("data-category");
         renderItems(category);
       });
     });
+
+    const allButton = document.querySelector('.filter-button[data-category="all"]');
+    if (allButton) {
+      allButton.classList.add("active");
+    }
   } catch (error) {
     console.error("Error al cargar el archivo JSON:", error);
   }
