@@ -6,3 +6,5 @@ BrainStorm.txt
 resources/json/users.json
 resources/json/sounds.json
 sessions
+
+.vscode
