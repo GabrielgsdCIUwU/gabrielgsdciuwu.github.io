@@ -8,23 +8,11 @@ const __dirname = path.dirname(__filename);
 const router = express.Router();
 
 router.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "../views/index.html"));
-});
-
-router.get("/auth", (req, res) => {
-  res.sendFile(path.join(__dirname, "../views/auth.html"));
+  res.render(path.join(__dirname, "../views/index.ejs"))
 });
 
 router.get("/forms", (req, res) => {
   res.sendFile(path.join(__dirname, "../views/forms.html"));
-});
-
-router.get("/templeate", (req, res) => {
-  res.sendFile(path.join(__dirname, "../views/templeate.html"));
-});
-
-router.get("/rusky", (req, res) => {
-  res.sendFile(path.join(__dirname, "../views/rusky.html"));
 });
 
 router.get("/soundboard", (req, res) => {
@@ -32,7 +20,7 @@ router.get("/soundboard", (req, res) => {
 });
 
 router.get("/info", (req, res) => {
-  res.sendFile(path.join(__dirname, "../views/info.html"));
+  res.render(path.join(__dirname, "../views/info.ejs"));
 });
 
 export default router;
