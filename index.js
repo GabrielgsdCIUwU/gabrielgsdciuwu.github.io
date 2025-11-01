@@ -1,12 +1,12 @@
 import express from "express";
-import path from "path";
-import { fileURLToPath } from "url";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import webrouter from "./routes/paginas.js";
 import apirouter from "./routes/api.js";
 import soundrouter from "./routes/soundrouter.js";
 import dotenv from "dotenv";
 import { Server as SocketIOServer } from "socket.io";
-import http from "http";
+import http from "node:http";
 import session from "express-session";
 import fileStore from "session-file-store";
 

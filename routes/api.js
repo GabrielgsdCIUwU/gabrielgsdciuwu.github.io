@@ -1,7 +1,7 @@
 import express from "express";
-import path from "path";
-import fs from "fs";
-import { fileURLToPath } from "url";
+import path from "node:path";
+import fs from "node:fs";
+import { fileURLToPath } from "node:url";
 import basicAuth from "basic-auth";
 import { WebhookClient, EmbedBuilder } from "discord.js";
 
