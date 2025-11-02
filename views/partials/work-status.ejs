@@ -1,0 +1,26 @@
+<div id="status-container"
+    class="absolute -bottom-6 left-1/2 -translate-x-1/2 bg-green-500 text-white text-xs md:text-sm font-semibold px-2 py-1.5 rounded-full shadow-lg flex items-center gap-2 whitespace-nowrap">
+    <span id="status-dot"
+        class="w-2.5 h-2.5 min-w-2.5 min-h-2.5 bg-white rounded-full animate-pulse flex-shrink-0"></span>
+    <span id="status-text"></span>
+</div>
+
+<script>
+    fetch('/resources/json/status.json')
+        .then(response => response.json())
+        .then(data => {
+            const statusContainer = document.getElementById("status-container");
+            const statusDot = document.getElementById("status-dot");
+            const statusText = document.getElementById("status-text");
+
+            if (data.working) {
+                statusContainer.classList.add("bg-yellow-500");
+                statusText.textContent = "Ocupado trabajando"
+                statusDot.classList.add("bg-white");
+            } else {
+                statusContainer.classList.add("bg-green-500");
+                statusText.textContent = "Disponible para trabajar";
+                statusDot.classList.add("bg-whit")
+            }
+        });
+</script>
