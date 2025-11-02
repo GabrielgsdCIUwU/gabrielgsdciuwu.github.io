@@ -24,14 +24,6 @@ app.use("/resources", express.static(path.join(__dirname, "resources")));
 app.use(webrouter);
 app.use("/api", apirouter);
 
-app.use((req, res, next) => {
-  res.sendFile(path.join(__dirname, "./views/index.html"));
-});
-
-app.use((err, req, res, next) => {
-  res.sendFile(path.join(__dirname, "./views/index.html"));
-});
-
 server.listen(port, () => {
   console.log(`Servidor escuchando en el puerto ${port}`);
 });
