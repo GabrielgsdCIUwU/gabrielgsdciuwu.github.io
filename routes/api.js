@@ -15,6 +15,7 @@ dotenv.config({ path: envFilePath });
 const router = express.Router();
 const filePath = path.join(__dirname, "../resources/json/comentarios.json");
 const QueuefilePath = path.join(__dirname, "../resources/json/queue-comments.json");
+const avatarPath = path.join(__dirname, "../resources/img/avatar_lq.jpg");
 
 // Middleware para la autenticación básica
 const authenticate = (req, res, next) => {
@@ -326,6 +327,14 @@ router.delete("/manage", authenticate, (req, res) => {
       webhook.send({ embeds: [embed] });
     });
   });
+});
+
+
+//Ruta para obtener el avatar en baja calidad
+router.get("/avatar", (req, res) => {
+  if (!fs.existsSync(avatarPath)) res.status(404).json({ error: "Avatar not found"});
+
+  res.sendFile(avatarPath);
 });
 
 export default router;

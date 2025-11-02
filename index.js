@@ -5,6 +5,7 @@ import webrouter from "./routes/paginas.js";
 import apirouter from "./routes/api.js";
 import dotenv from "dotenv";
 import http from "node:http";
+import "./utils/avatar.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
