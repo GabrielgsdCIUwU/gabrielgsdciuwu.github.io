@@ -5,6 +5,7 @@ BrainStorm.txt
 /resources/json/queue-comments.json
 resources/json/users.json
 resources/json/sounds.json
+resources/json/status.json
 sessions
 
 .vscode
