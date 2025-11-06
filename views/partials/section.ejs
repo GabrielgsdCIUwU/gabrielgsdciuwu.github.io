@@ -1,3 +1,60 @@
 <section id="<%= id %>" class="w-full bg-gray-100 p-8 mt-0 text-center rounded-lg shadow-lg">
-    <%- content %>
+    <h2 class="text-3xl font-extrabold text-gray-800 mb-4">
+        <%= content.title %>
+    </h2>
+    <p class="text-lg text-gray-600 mb-8">
+        <%= content.description %>
+    </p>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+
+        <% content.cards.forEach(card=> { %>
+            <% if (card.type==='info' ) { %>
+                <div class="bg-white p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300">
+                    <h3 class="text-2xl font-bold text-gray-700 mb-4">
+                        <%= card.title %>
+                    </h3>
+                    <p class="text-gray-500">
+                        <%= card.description %>
+                    </p>
+                </div>
+                <%} else if (card.type==='link' ) { %>
+                    <a href="<%= card.href %>" target="<%= card.target %>"
+                        class="group relative bg-gradient-to-br from-blue-400 to-blue-500 p-6 rounded-lg shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 cursor-pointer overflow-hidden">
+                        <div
+                            class="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity duration-300">
+                        </div>
+
+                        <div class="relative z-10">
+                            <div class="flex items-start justify-between mb-4">
+                                <h3 class="text-2xl font-bold text-white">
+                                    <%= card.title %>
+                                </h3>
+                                <svg class="w-6 h-6 text-white group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                                </svg>
+                            </div>
+
+                            <p class="text-blue-50 mb-3">
+                                <%= card.description %>
+                            </p>
+
+                            <div
+                                class="flex items-center text-white font-semibold group-hover:gap-2 transition-all duration-300">
+                                <span>
+                                    <%= card.buttonText %>
+                                </span>
+                                <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 5l7 7-7 7"></path>
+                                </svg>
+                            </div>
+                        </div>
+                    </a>
+                <%} %>
+        <%}) %>
+    </div>
 </section>
