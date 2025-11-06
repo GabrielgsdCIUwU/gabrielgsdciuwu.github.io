@@ -50,15 +50,6 @@ html {
   position: absolute;
 }
 
-#toggle-view {
-  z-index: 10;
-}
-
-#spline-viewer {
-  z-index: 1;
-  position: relative;
-}
-
 /* Sección conocimientos*/
 
 #knowledge-grid {
@@ -66,6 +57,23 @@ html {
   opacity: 0;
   transition: opacity 0.5s ease-in-out;
 }
+
+#knowledge-grid > div {
+  transition: 
+    opacity 0.4s ease-in-out,
+    max-height 0.4s ease-in-out,
+    transform 0.4s ease-in-out;
+  overflow: hidden;
+  max-height: 500px;
+  opacity: 1;
+}
+
+#knowledge-grid > div:not(.visible) {
+  opacity: 0;
+  max-height: 0;
+  transform: scale(0.95);
+}
+
 
 #knowledge-grid.visible {
   opacity: 1;
