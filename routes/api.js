@@ -3,6 +3,7 @@ import path from "node:path";
 import fs from "node:fs";
 import basicAuth from "basic-auth";
 import { fileURLToPath } from "node:url";
+import { WebhookClient, EmbedBuilder } from "discord.js";
 
 import dotenv from "dotenv";
 
@@ -76,34 +77,39 @@ router.post("/comments", (req, res) => {
         console.error("Error al escribir en el archivo JSON:", err);
         return res.status(500).json({ error: "Error al guardar el comentario" });
       }
-      res.status(201).json({ message: "Comentario añadido exitosamente" });
 
-      const webhook = new WebhookClient({ url: process.env.commentswebhook });
+      try {
+        const webhook = new WebhookClient({ url: process.env.commentswebhook });
 
-      let ts = new Date(Date.now());
-      let unixTimestamp = Math.floor(ts.getTime() / 1000);
+        let ts = new Date(Date.now());
+        let unixTimestamp = Math.floor(ts.getTime() / 1000);
 
-      const embed = new EmbedBuilder()
-        .setTitle("Nuevo comentario:")
-        .addFields({
-          name: `ID:`,
-          value: `${newId}`,
-        })
-        .addFields({
-          name: `Nombre:`,
-          value: `${nombre}`,
-        })
-        .addFields({
-          name: `Mensaje:`,
-          value: `${comentario}`,
-        })
-        .addFields({
-          name: `⌚ Timestamp:`,
-          value: `<t:${unixTimestamp}:f>`,
-        })
-        .setColor(process.env.warningcolor);
+        const embed = new EmbedBuilder()
+          .setTitle("Nuevo comentario:")
+          .addFields({
+            name: `ID:`,
+            value: `${newId}`,
+          })
+          .addFields({
+            name: `Nombre:`,
+            value: `${nombre}`,
+          })
+          .addFields({
+            name: `Mensaje:`,
+            value: `${comentario}`,
+          })
+          .addFields({
+            name: `⌚ Timestamp:`,
+            value: `<t:${unixTimestamp}:f>`,
+          })
+          .setColor(process.env.warningcolor);
 
-      webhook.send({ embeds: [embed] });
+        webhook.send({ embeds: [embed] });
+        res.status(201).json({ message: "Comentario añadido exitosamente" });
+      } catch (error) {
+        console.log(error);
+        res.status(500).json({message: "Error al guardar el comentario"});
+      }
     });
   });
 });
