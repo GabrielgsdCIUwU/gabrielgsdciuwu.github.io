@@ -6,7 +6,16 @@
         <%= content.description %>
     </p>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+    <%
+        const cardsCount = content.cards.length;
+        let gridClasses = "";
+
+        if (cardsCount === 1) gridClasses = "grid grid-cols-1 place-items-center";
+        else if (cardsCount === 2) gridClasses = "grid grid-cols-2 gap-8 justify-items-stretch";
+        else gridClasses = 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8';
+    %>
+
+    <div class="<%= gridClasses %>">
 
         <% content.cards.forEach(card=> { %>
             <% if (card.type==='info' ) { %>
