@@ -103,20 +103,21 @@ async function cargarComentarios() {
           });
 
           if (response.ok) {
-            toastr.success("Gracias por tu comentario ❤️", "Enviado");
+            toastr.success(toastrMessages.successMessage, toastrMessages.successTitle);
             document.getElementById("comment-name").value = "";
             document.getElementById("comment-text").value = "";
             commentForm.classList.add("hidden");
             isAutoSliding = true;
             resetAutoSlide();
           } else {
-            toastr.error("Hubo un problema al enviar tu comentario. Por favor, intenta de nuevo.", "Error:");
+            toastr.error(toastrMessages.errorMessage, toastrMessages.errorTitle);
           }
         } catch (error) {
-          toastr.error("Hubo un problema al enviar tu comentario. Por favor, intenta de nuevo.", "Error:");
+          console.log(error);
+          toastr.error(toastrMessages.errorMessage, toastrMessages.errorTitle);
         }
       } else {
-        toastr.warning("Tienes que rellenar ambos campos!");
+        toastr.warning(toastrMessages.warningMessage);
       }
     });
 
