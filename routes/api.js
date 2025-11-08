@@ -351,10 +351,9 @@ router.delete("/manage", authenticate, (req, res) => {
   });
 });
 
-
 //Ruta para obtener el avatar en baja calidad
 router.get("/avatar", (req, res) => {
-  if (!fs.existsSync(avatarPath)) res.status(404).json({ error: "Avatar not found"});
+  if (!fs.existsSync(avatarPath)) res.status(404).json({ error: "Avatar not found" });
 
   res.sendFile(avatarPath);
 });
