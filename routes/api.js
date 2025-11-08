@@ -17,6 +17,22 @@ const filePath = path.join(__dirname, "../resources/json/comentarios.json");
 const QueuefilePath = path.join(__dirname, "../resources/json/queue-comments.json");
 const avatarPath = path.join(__dirname, "../resources/img/avatar_lq.jpg");
 
+// Función para generar un ID único alfanumérico
+function generateUniqueId(length = 8) {
+  const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  let result = "";
+  for (let i = 0; i < length; i++) {
+    const randomIndex = Math.floor(Math.random() * characters.length);
+    result += characters[randomIndex];
+  }
+  return result;
+}
+
+// Función para verificar si un ID ya existe
+function idExists(id, comentarios) {
+  return comentarios.some((comentario) => comentario.id === id);
+}
+
 // Middleware para la autenticación básica
 const authenticate = (req, res, next) => {
   const user = basicAuth(req);
