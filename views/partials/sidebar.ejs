@@ -1,12 +1,14 @@
 <nav id="sidebar"
     class="bg-blue-400 text-white w-48 h-full fixed transform -translate-x-full transition-transform duration-300 z-20">
     <ul class="space-y-2 mt-4 p-4">
-        <li class="text-xl font-bold text-white mb-4">Menú</li>
+        <li class="text-xl font-bold text-white mb-4"><%= content.menu %></li>
         
         <% if (menuItems && menuItems.length) { %>
             <% menuItems.forEach(item => { %>
-                <li class="menu-item text-center">
-                    <%- item %>
+                <li class="menu-item text-center border-b border-blue-200/50 last:border-b-0">
+                    <a href="#<%= item.id %>" class="block p-4 text-white hover:bg-blue-600 transition-colors duration-300">
+                        <%= item.name %>
+                    </a>
                 </li>
             <% }) %>
         <% } %>
