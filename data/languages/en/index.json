@@ -13,7 +13,11 @@
     "role": "Junior Backend & Mobile Applications Developer",
     "description": "Developer passionate about automating repetitive tasks and building practical tools aimed at communities",
     "cv": "Download CV",
-    "projects": "Projects"
+    "projects": "Projects",
+    "status": {
+      "available": "Available to work",
+      "busy": "Currently working"
+    }
   },
   "about": {
     "title": "About Me",
@@ -119,12 +123,7 @@
         "image": "/resources/img/Bonfire.avif",
         "alt": "Bonfire lounge",
         "link": "https://bonfirelounge.com/",
-        "skills": [
-          "HTML5",
-          "JavaScript",
-          "NodeJS",
-          "EJS"
-        ]
+        "skills": ["HTML5", "JavaScript", "NodeJS", "EJS"]
       },
       {
         "title": "Rusky",
@@ -133,10 +132,7 @@
         "image": "/resources/img/KofiBanner.avif",
         "alt": "Rusky",
         "link": "/rusky",
-        "skills": [
-          "Unity",
-          "Blender"
-        ]
+        "skills": ["Unity", "Blender"]
       },
       {
         "title": "Azirax",
@@ -145,11 +141,7 @@
         "image": "/resources/img/Azirax.avif",
         "alt": "Azirax Logo",
         "link": "https://azirax.oops.wtf",
-        "skills": [
-          "NodeJS",
-          "JavaScript",
-          "HTML5"
-        ]
+        "skills": ["NodeJS", "JavaScript", "HTML5"]
       }
     ]
   },

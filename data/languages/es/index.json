@@ -13,7 +13,11 @@
     "role": "Programador Junior en Backend & Aplicaciones Móviles",
     "description": "Desarrollador apasionado por la automatización de tareas repetitivas y la creación de herramientas prácticas orientadas a comunidades",
     "cv": "Descargar CV",
-    "projects": "Proyectos"
+    "projects": "Proyectos",
+    "status": {
+      "available": "Disponible para trabajar",
+      "busy": "Ocupado trabajando"
+    }
   },
   "about": {
     "title": "Sobre Mí",
