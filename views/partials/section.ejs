@@ -24,8 +24,9 @@
                         <%= card.title %>
                     </h3>
                     <p class="text-gray-500">
-                        <%= card.description %>
+                        <%- card.description %>
                     </p>
+                    <p><%= card.additional %></p>
                 </div>
                 <%} else if (card.type==='link' ) { %>
                     <a href="<%= card.href %>" target="<%= card.target %>"
