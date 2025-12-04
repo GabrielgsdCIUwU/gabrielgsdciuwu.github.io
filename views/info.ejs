@@ -22,10 +22,18 @@
 
       <%- include('partials/sidebar.ejs', {
         menuItems: [
-          '<a href="/" class="block p-4 text-white hover:bg-blue-600 hover:text-white transition-colors duration-300">Inicio</a>',
-          '<a href="#formation" class="block p-4 text-white hover:bg-blue-600 hover:text-white transition-colors duration-300">Formación</a>',
-          '<a href="#experience" class="block p-4 text-white hover:bg-blue-600 hover:text-white transition-colors duration-300">Experiencia</a>',
-
+          {
+            "href": "/",
+            "name": content.main
+          },
+          {
+            "href": "#formation",
+            "name": content.formation.title
+          },
+          {
+            "href": "#hobbies",
+            "name": content.hobbies.title
+          }
         ]
       }) %>
 
@@ -33,68 +41,14 @@
 
         <%- include('./partials/section.ejs', {
           id: 'formation',
-          content: `
-            <h2 class="text-3xl font-extrabold text-gray-800 mb-4">Formación</h2>
-            <p class="text-lg text-gray-600 mb-8">Esto son las formaciónes que tengo o actualmente estoy cursando.</p>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-              <div class="bg-white p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300">
-                <h3 class="text-2xl font-bold text-gray-700 mb-4">FP Superior DAM</h3>
-                <p class="text-gray-500">
-                  Actualmente cursando en: <br />Formación Profesional Superior de Desarrollo de Aplicaciones
-                  Multiplataforma.
-                </p>
-                <br />
-                <p>2024 - Actualmente</p>
-              </div>
-              <div class="bg-white p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300">
-                <h3 class="text-2xl font-bold text-gray-700 mb-4">FP Medio SMR</h3>
-                <p class="text-gray-500">
-                  Cursado en IES Pazo da Mercé: <br />Formación Profesional Medio de Sistemas Microinformáticos y Redes.
-                </p>
-                <br />
-                <p>2022 - 2024</p>
-              </div>
-              <div class="bg-white p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300">
-                <h3 class="text-2xl font-bold text-gray-700 mb-4">Erasmus+</h3>
-                <p class="text-gray-500">Participé en Erasmus+ en Praga: <br />Experiencia en la empresa Neus Lab.</p>
-                <br />
-                <p>3 meses</p>
-              </div>
-            </div>
-          `
+          content: content.formation
         }) %>
 
         <%- include('./partials/section-separator.ejs') %>
 
         <%- include('./partials/section.ejs', {
           id: 'hobbies',
-          content: `
-            <h2 class="text-3xl font-extrabold text-gray-800 mb-4">Pasatiempos</h2>
-            <p class="text-lg text-gray-600 mb-8">Esto son algunos de mis pasatiempos que hago en el día a día.</p>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-              <div class="bg-white p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300">
-                <h3 class="text-2xl font-bold text-gray-700 mb-4">Tendencias tecnológicas</h3>
-                <p class="text-gray-500">
-                  Me dedico a estar informado sobre las últimas novedades sobre: <br />Realidad virtual, programación e
-                  inteligencia artificial.
-                </p>
-              </div>
-              <div class="bg-white p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300">
-                <h3 class="text-2xl font-bold text-gray-700 mb-4">Entretenimiento</h3>
-                <p class="text-gray-500">
-                  Disfruto entretener a los demás en un bar virtual en VRChat. <br />Aunque lo hago por pasión, me tomo en
-                  serio el rol, creando experiencias memorables y fomentando una comunidad divertida y respetuosa.
-                </p>
-              </div>
-              <div class="bg-white p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300">
-                <h3 class="text-2xl font-bold text-gray-700 mb-4">Gaming</h3>
-                <p class="text-gray-500">
-                  Me apasionan los juegos de estrategia y los juegos rítmicos, donde disfruto combinar planificación,
-                  coordinación y análisis, siempre buscando superar mis propios límites.
-                </p>
-              </div>
-            </div>
-          `
+          content: content.hobbies
         }) %>
 
         <%- include('./partials/footer.ejs') %>

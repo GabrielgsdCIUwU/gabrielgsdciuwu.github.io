@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="<%= content.headDetails.lang %>">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Gabrielgsd: Creación de contenido, programación, edición de avatares y mundos VRChat. Experticia en desarrollo, diseño y edición. Proyectos innovadores y comentarios de usuarios." />
-    <meta property="og:title" content="Gabrielgsd | Portafolio" />
+      content="<%= content.headDetails.description %>" />
+    <meta property="og:title" content="<%= content.headDetails.ogTitle %>" />
     <meta
       property="og:description"
-      content="Hola! Soy Gabrielgsd, un programador Junior, editor de avatares y de mundos de VRChat. Si quieres saber más sobre mi o lo que hago, entra a mi portafolio." />
+      content="<%= content.headDetails.ogDescription %>" />
     <meta property="og:image" content="/resources/img/Gabri-Watching-Icon.jpg" />
     <meta property="og:url" content="https://gabrielgsd.developer.li" />
     <meta property="og:type" content="website" />
@@ -30,218 +30,93 @@
     <div class="flex-1 flex flex-col overflow-y-auto">
       
       <%- include('partials/sidebar.ejs', {
+        content: content.sidebar,
         menuItems: [
-          '<a href="#spline-section" class="block p-4 text-white hover:bg-blue-600 transition-colors duration-300">Inicio</a>',
-          '<a href="#about-me" class="block p-4 text-white hover:bg-blue-600 transition-colors duration-300">Sobre mí</a>',
-          '<a href="#my-knowledge" class="block p-4 text-white hover:bg-blue-600 transition-colors duration-300">Conocimientos</a>',
-          '<a href="#projects-section" class="block p-4 text-white hover:bg-blue-600 transition-colors duration-300">Proyectos</a>',
-          '<a href="#testimonials-section" class="block p-4 text-white hover:bg-blue-600 transition-colors duration-300">Comentarios</a>',
-          '<a href="#contact-section" class="block p-4 text-white hover:bg-blue-600 transition-colors duration-300">Contacto</a>'
+          {
+            "href": "#hero-section",
+            "name": content.hero.section
+          },
+          {
+            "href": "#about-me",
+            "name": content.about.title
+          },
+          {
+            "href": "#knowledge-section",
+            name: content.knowledge.title
+          }, 
+          {
+            "href": "#projects-section",
+            "name": content.projects.title
+          },
+          {
+            "href": "#testimonials-section",
+            "name": content.comments.title
+          },
+          {
+            "href": "#contact-section",
+            name: content.contact.title
+          }
         ]
       }) %>
 
       <main id="main-content" class="flex-1 flex flex-col relative transition-all duration-300 ml-0">
-        <section id="spline-section" class="w-full h-screen relative">
-          <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.5/build/spline-viewer.js"></script>     
-        </section>
-        <button id="toggle-view" class="absolute top-4 right-4 bg-blue-500 text-white p-2 rounded z-10"></button>
+        
+        <%- include('./partials/hero-section.ejs', {
+          content: content.hero,
+          skills: content.knowledge.knowledge
+        }) %>  
 
         <%- include('./partials/section-separator.ejs') %>
 
         <%- include('./partials/section.ejs', {
           id: 'about-me',
-          content: `
-            <h2 class="text-3xl font-extrabold text-gray-800 mb-4">Sobre Mí</h2>
-            <p class="text-lg text-gray-600 mb-8">
-              Soy Gabrielgsd, un creador de contenido, programador, editor de avatares y creador de mundos de VRChat.
-            </p>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-              <div class="bg-white p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300">
-                <h3 class="text-2xl font-bold text-gray-700 mb-4">Idiomas</h3>
-                <p class="text-gray-500">
-                  Nativo: Español, Gallego.<br />
-                  B1: Inglés.
-                </p>
-              </div>
-              <div class="bg-white p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300">
-                <h3 class="text-2xl font-bold text-gray-700 mb-4">Mi motivación</h3>
-                <p class="text-gray-500">
-                  Estoy motivado por el deseo constante de aprender y adquirir nuevos conocimientos. Disfruto cada
-                  oportunidad de crecimiento y valoro los buenos momentos que esto me brinda. Además, me apasiona poder
-                  utilizar lo aprendido para contribuir y ayudar a los demás.
-                </p>
-              </div>
-              <a
-                href="/info"
-                target="_self"
-                class="bg-white p-6 rounded-lg shadow hover:shadow-xl hover:bg-blue-50 transition-shadow duration-300">
-                <div>
-                  <h3 class="text-2xl font-bold text-gray-700 mb-4">Más datos</h3>
-                  <p class="text-gray-500">¿Te gustaría conocer más datos sobre mi?</p>
-                  <br />
-                  <p class="text-gray-500">Entonces haz click aquí para tener más información.</p>
-                </div>
-              </a>
-            </div>
-          `
-        }) %>
+          content: content.about}) %>
 
         <%- include('./partials/section-separator.ejs') %>
 
-        <%- include('./partials/section.ejs', {
-          id: 'my-knowledge',
-          content: `
-            <div id="knowledge-intro"></div>
-          <div class="flex flex-wrap justify-center mt-8">
-            <button
-              class="filter-button bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 mx-2 my-2 rounded"
-              data-category="all">
-              Todos
-            </button>
-            <button
-              class="filter-button bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 mx-2 my-2 rounded"
-              data-category="Desarrollo">
-              Desarrollo
-            </button>
-            <button
-              class="filter-button bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 mx-2 my-2 rounded"
-              data-category="Edición">
-              Edición
-            </button>
-            <button
-              class="filter-button bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 mx-2 my-2 rounded"
-              data-category="Diseño">
-              Diseño
-            </button>
-          </div>
-
-          <div id="knowledge-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mt-8"></div>
-          `
+        <%- include('./partials/knowledge-section.ejs', {
+          id: 'knowledge-section',
+          content: content.knowledge
         }) %>
 
         <%- include('./partials/section-separator.ejs') %>
-
-        <%- include('./partials/section.ejs', {
+        
+        <%- include('./partials/projects-section.ejs', {
           id: 'projects-section',
-          content: `
-            <h2 class="text-3xl font-extrabold text-gray-800 mb-4">Proyectos Destacados</h2>
-            <p class="text-lg text-gray-600 mb-8">Explora algunos de los proyectos más destacados que he desarrollado.</p>
-            <div id="projects-container" class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 gap-8"></div>
-          `
+          content: content.projects,
+          knowledge: content.knowledge
         }) %>
 
         <%- include('./partials/section-separator.ejs') %>
-
-        <!-- Sección de comentarios -->
-        <%- include('./partials/section.ejs', {
+        
+        <%- include('./partials/testimonials-section.ejs', {
           id: 'testimonials-section',
-          content: `
-            <h2 class="text-3xl font-extrabold text-gray-800 mb-4">Comentarios</h2>
+          content: content.comments
+        }) %>
 
-            <div class="carousel-container">
-              <div id="carousel1" class="carousel-wrapper">
-                <div class="carousel">
-                  <div class="carousel-inner">
-                    <!-- Comentarios se cargarán aquí dinámicamente -->
-                  </div>
-                </div>
-              </div>
-              <div id="carousel2" class="carousel-wrapper">
-                <div class="carousel">
-                  <div class="carousel-inner">
-                    <!-- Comentarios se cargarán aquí dinámicamente -->
-                  </div>
-                </div>
-              </div>
-              <div id="carousel3" class="carousel-wrapper">
-                <div class="carousel">
-                  <div class="carousel-inner">
-                    <!-- Comentarios se cargarán aquí dinámicamente -->
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Controles del Carrusel Externos -->
-            <div class="flex justify-center mt-6 space-x-4">
-              <button
-                id="prev-slide"
-                class="p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none"
-                aria-label="Anterior lista comentarios">
-                <i class="fas fa-chevron-left"></i>
-              </button>
-              <button
-                id="edit-comment-btn"
-                class="p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none">
-                Añade tu comentario
-              </button>
-              <button
-                id="next-slide"
-                class="p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none"
-                aria-label="Posterior lista comentarios">
-                <i class="fas fa-chevron-right"></i>
-              </button>
-            </div>
-            
-            <!-- Formulario de Comentario -->
-            <div
-              id="comment-form"
-              class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center z-50">
-              <div class="bg-white p-8 rounded-md shadow-lg">
-                <input
-                  id="comment-name"
-                  type="text"
-                  placeholder="Pon tu nombre aquí"
-                  class="p-2 mb-4 border border-gray-300 rounded-md w-full"
-                  required />
-                <textarea
-                  id="comment-text"
-                  placeholder="Pon tu comentario aquí"
-                  class="p-2 mb-4 border border-gray-300 rounded-md w-full"
-                  rows="4"
-                  required></textarea>
-                <button
-                  id="submit-comment"
-                  class="p-2 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none w-full">
-                  Enviar
-                </button>
-                <button
-                  id="cancel-comment"
-                  class="p-2 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none mt-4 w-full">
-                  Cancelar
-                </button>
-              </div>
-            </div>
-          `
+        <%- include('./partials/form-comments.ejs', {
+          id: 'comment-form',
+          idCommentName: 'comment-name',
+          idCommentText: 'comment-text',
+          idCommentSubmit: 'submit-comment',
+          idCommentCancel: 'cancel-comment',
+          content: content.comments.formComments
         }) %>
 
         <%- include('./partials/section-separator.ejs') %>
 
         <%- include('./partials/section.ejs', {
           id: 'contact-section',
-          content: `
-            <h2 class="text-3xl font-extrabold text-gray-800 mb-4">Contacto</h2>
-            <p class="text-lg text-gray-600 mb-8">
-              Puedes ponerte en contacto conmigo a través de los siguientes canales:
-            </p>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-8">
-              <div class="bg-white p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300">
-                <h3 class="text-2xl font-bold text-gray-700 mb-4">Correo electrónico</h3>
-                <p class="text-gray-500">
-                  <a href="mailto:ciavatarsvr@gmail.com" class="text-blue-500 hover:underline">ciavatarsvr@gmail.com</a>
-                </p>
-              </div>
-              <div class="bg-white p-6 rounded-lg shadow hover:shadow-xl transition-shadow duration-300">
-                <h3 class="text-2xl font-bold text-gray-700 mb-4">Discord</h3>
-                <p class="text-gray-500">Añádeme en Discord: @gabrielgsdci</p>
-              </div>
-            </div>
-          `
+          content: content.contact
         }) %>
 
         <%- include('./partials/footer.ejs') %>
 
         <script src="../resources/js/main.js"></script>
+        
+        <%- include('./partials/toastr-messages.ejs', {
+          alerts: content.comments.alerts
+        }) %>
         <script src="../resources/js/comentarios.js"></script>
       </main>
     </div>
