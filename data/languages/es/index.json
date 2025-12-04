@@ -1,0 +1,180 @@
+{
+  "headDetails": {
+    "lang": "es",
+    "description": "Gabrielgsd: Creación de contenido, programación, edición de avatares y mundos VRChat. Experticia en desarrollo, diseño y edición. Proyectos innovadores y comentarios de usuarios.",
+    "ogTitle": "Gabrielgsd | Portafolio",
+    "ogDescription": "Hola! Soy Gabrielgsd, un programador Junior, editor de avatares y de mundos de VRChat. Si quieres saber más sobre mi o lo que hago, entra a mi portafolio."
+  },
+  "sidebar": {
+    "menu": "Menú"
+  },
+  "hero": {
+    "section": "Inicio",
+    "role": "Programador Junior en Backend & Aplicaciones Móviles",
+    "description": "Desarrollador apasionado por la automatización de tareas repetitivas y la creación de herramientas prácticas orientadas a comunidades",
+    "cv": "Descargar CV",
+    "projects": "Proyectos"
+  },
+  "about": {
+    "title": "Sobre Mí",
+    "description": "Soy Gabrielgsd, programador junior especializado en desarrollo backend y aplicaciones móviles. Me apasiona crear herramientas que simplifiquen procesos, optimicen tareas y aporten valor a las comunidades tecnológicas. Disfruto aprendiendo nuevas tecnologías y enfrentando desafíos que me permitan crecer profesionalmente mientras contribuyo a proyectos con impacto real.",
+    "cards": [
+      {
+        "type": "info",
+        "title": "Mi motivación",
+        "description": "Estoy motivado por el deseo constante de aprender y adquirir nuevos conocimientos. Disfruto cada oportunidad de crecimiento y me apasiona poder aplicar lo aprendido para ayudar a los demás y crear soluciones útiles."
+      },
+      {
+        "type": "info",
+        "title": "Idiomas",
+        "description": "Nativo: Español, Gallego. B1: Inglés."
+      },
+      {
+        "type": "link",
+        "title": "Más sobre mí",
+        "description": "Explora información adicional sobre mi formación y pasatiempos.",
+        "href": "/info",
+        "target": "_self",
+        "buttonText": "Ver más"
+      }
+    ]
+  },
+  "knowledge": {
+    "title": "Mis conocimientos",
+    "description": "Aquí te menciono mis conocimientos en lenguajes de programación y programas que se usar o que estoy aprendiendo.",
+    "filters": {
+      "all": "Todos"
+    },
+    "knowledge": [
+      
+      {
+        "name": "NodeJS",
+        "icon": "/resources/svg/nodejs-icon.svg",
+        "category": "Desarrollo",
+        "description": "Desarrollo de aplicaciones del lado del servidor, como bots para Discord y páginas web dinámicas y escalables.",
+        "displayOnHero": true
+      },
+      {
+        "name": "JavaScript",
+        "icon": "/resources/svg/javascript-icon.svg",
+        "category": "Desarrollo",
+        "description": "Programación web que incluye el desarrollo de interfaces interactivas y lógica de backend para aplicaciones completas.",
+        "displayOnHero": true
+      },
+      {
+        "name": "HTML5",
+        "icon": "/resources/svg/html5-icon.svg",
+        "category": "Desarrollo",
+        "description": "Creación de estructuras web semánticas, incluyendo el uso avanzado de formularios y multimedia para desarrollar sitios web accesibles y funcionales."
+      },
+      {
+        "name": "Tailwindcss",
+        "icon": "/resources/svg/tailwindcss-icon.svg",
+        "category": "Desarrollo",
+        "description": "Diseño web utilizando un enfoque basado en utilidades, aplicando estilos directamente en el HTML5 para lograr interfaces limpias y modernas."
+      },
+      {
+        "name": "EJS",
+        "icon": "/resources/svg/ejs-icon.svg",
+        "category": "Desarrollo",
+        "description": "Integración de plantillas para aplicaciones web, facilitando la generación dinámica de contenido y la personalización de vistas en el desarrollo del lado del servidor."
+      },
+      {
+        "name": "Python",
+        "icon": "/resources/svg/python-logo-only.svg",
+        "category": "Desarrollo",
+        "description": "Desarrollo soluciones en Python para problemas de complejidad moderada, optimizando código limpio y eficiente.",
+        "displayOnHero": true
+      },
+      {
+        "name": "Java",
+        "icon": "/resources/svg/java-icon.svg",
+        "category": "Desarrollo",
+        "description": "Desarrollo soluciones en Java enfocándome en la optimización del código y la implementación de soluciones eficientes para diversas necesidades.",
+        "displayOnHero": true
+      },
+      {
+        "name": "Unity",
+        "icon": "/resources/svg/unity-icon.svg",
+        "category": "Diseño y 3D",
+        "description": "Desarrollo de proyectos que involucran VR, incluyendo la creación y animación de modelos 3D, así como la implementación de texturas y efectos de sonido, especialmente en el contexto del SDK de VRChat.",
+        "displayOnHero": true
+      },
+      {
+        "name": "Blender",
+        "icon": "/resources/svg/blender-icon.svg",
+        "category": "Diseño y 3D",
+        "description": "Modelado 3D, incluyendo la creación y edición de shape keys (blendshapes) y la adaptación de modelos para su integración en plataformas de VTubing como VSeeFace."
+      }
+    ]
+  },
+  "projects": {
+    "title": "Proyectos Destacados",
+    "description": "Explora algunos de los proyectos más destacados que he desarrollado.",
+    "seeProject": "Ver proyecto",
+    "projects": [
+      {
+        "title": "Bonfire Lounge",
+        "description": "Página web para un bar del VRChat.",
+        "date": "21/8/2024 - ⏸️ 13/01/2025",
+        "image": "/resources/img/Bonfire.avif",
+        "alt": "Bonfire lounge",
+        "link": "https://bonfirelounge.com/",
+        "skills": ["HTML5", "JavaScript", "NodeJS", "EJS"]
+      },
+      {
+        "title": "Rusky",
+        "description": "Un avatar hecho para VRChat.",
+        "date": "10/04/2023 - ⏸️ 25/07/2024",
+        "image": "/resources/img/KofiBanner.avif",
+        "alt": "Rusky",
+        "link": "/rusky",
+        "skills": ["Unity", "Blender"]
+      },
+      {
+        "title": "Azirax",
+        "description": "Bot de Discord multifunción en español.",
+        "date": "29/08/2020 - Actualmente",
+        "image": "/resources/img/Azirax.avif",
+        "alt": "Azirax Logo",
+        "link": "https://azirax.oops.wtf",
+        "skills": ["NodeJS", "JavaScript", "HTML5"]
+      }
+    ]
+  },
+  "comments": {
+    "title": "Comentarios",
+    "ariaLabelPrev": "Anterior lista de comentarios",
+    "commentButton": "Añade tu comentario",
+    "ariaLabelNext": "Posterior lista de comentarios",
+    "formComments": {
+      "namePlaceHolder": "Pon tu nombre aquí",
+      "textPlaceHolder": "Pon tu comentario aquí",
+      "buttonSend": "Enviar",
+      "buttonCancel": "Cancelar"
+    },
+    "alerts": {
+      "successTitle": "Enviado",
+      "successMessage": "Gracias por tu comentario ❤️",
+      "errorTitle": "Error:",
+      "errorMessage": "Hubo un problema al enviar tu comentario. Por favor, intenta de nuevo.",
+      "warningMessage": "Tienes que rellenar ambos campos!"
+    }
+  },
+  "contact": {
+    "title": "Contacto",
+    "description": "Puedes ponerte en contacto conmigo a través de los siguientes canales:",
+    "cards": [
+      {
+        "type": "info",
+        "title": "Correo electrónico",
+        "description": "contacto.gabrielsuarezdominguez@gmail.com"
+      },
+      {
+        "type": "info",
+        "title": "Discord",
+        "description": "Añádeme en Discord: @gabrielgsdci"
+      }
+    ]
+  }
+}
