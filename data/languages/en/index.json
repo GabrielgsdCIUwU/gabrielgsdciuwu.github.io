@@ -1,0 +1,191 @@
+{
+  "headDetails": {
+    "lang": "en",
+    "description": "Gabrielgsd: Content creation, programming, avatar and VRChat world editing. Expertise in development, design and editing. Innovative projects and user feedback.",
+    "ogTitle": "Gabrielgsd | Portfolio",
+    "ogDescription": "Hi! I'm Gabrielgsd, a junior programmer, avatar and VRChat world editor. If you want to know more about me or what I do, check out my portfolio."
+  },
+  "sidebar": {
+    "menu": "Menu"
+  },
+  "hero": {
+    "section": "Home",
+    "role": "Junior Backend & Mobile Applications Developer",
+    "description": "Developer passionate about automating repetitive tasks and building practical tools aimed at communities",
+    "cv": "Download CV",
+    "projects": "Projects"
+  },
+  "about": {
+    "title": "About Me",
+    "description": "I'm Gabrielgsd, a junior developer specialized in backend development and mobile applications. I'm passionate about creating tools that simplify processes, optimize tasks and add value to tech communities. I enjoy learning new technologies and facing challenges that allow me to grow professionally while contributing to projects with real impact.",
+    "cards": [
+      {
+        "type": "info",
+        "title": "My motivation",
+        "description": "I am driven by a constant desire to learn and acquire new knowledge. I enjoy every opportunity for growth and I am passionate about applying what I learn to help others and create useful solutions."
+      },
+      {
+        "type": "info",
+        "title": "Languages",
+        "description": "Native: Spanish, Galician. B1: English."
+      },
+      {
+        "type": "link",
+        "title": "More about me",
+        "description": "Explore additional information about my education and hobbies.",
+        "href": "/info",
+        "target": "_self",
+        "buttonText": "See more"
+      }
+    ]
+  },
+  "knowledge": {
+    "title": "My skills",
+    "description": "Here I list my knowledge in programming languages and software that I use or that I am learning.",
+    "filters": {
+      "all": "All"
+    },
+    "knowledge": [
+      {
+        "name": "NodeJS",
+        "icon": "/resources/svg/nodejs-icon.svg",
+        "category": "Development",
+        "description": "Server-side application development, such as Discord bots and dynamic, scalable websites.",
+        "displayOnHero": true
+      },
+      {
+        "name": "JavaScript",
+        "icon": "/resources/svg/javascript-icon.svg",
+        "category": "Development",
+        "description": "Web programming including the development of interactive interfaces and backend logic for full applications.",
+        "displayOnHero": true
+      },
+      {
+        "name": "HTML5",
+        "icon": "/resources/svg/html5-icon.svg",
+        "category": "Development",
+        "description": "Creation of semantic web structures, including advanced use of forms and multimedia to build accessible and functional websites."
+      },
+      {
+        "name": "Tailwindcss",
+        "icon": "/resources/svg/tailwindcss-icon.svg",
+        "category": "Development",
+        "description": "Web design using a utility-first approach, applying styles directly in HTML to achieve clean, modern interfaces."
+      },
+      {
+        "name": "EJS",
+        "icon": "/resources/svg/ejs-icon.svg",
+        "category": "Development",
+        "description": "Template integration for web applications, facilitating dynamic content generation and view customization in server-side development."
+      },
+      {
+        "name": "Python",
+        "icon": "/resources/svg/python-logo-only.svg",
+        "category": "Development",
+        "description": "Develop solutions in Python for moderately complex problems, focusing on clean and efficient code.",
+        "displayOnHero": true
+      },
+      {
+        "name": "Java",
+        "icon": "/resources/svg/java-icon.svg",
+        "category": "Development",
+        "description": "Develop Java solutions with a focus on code optimization and implementation of efficient solutions for various needs.",
+        "displayOnHero": true
+      },
+      {
+        "name": "Unity",
+        "icon": "/resources/svg/unity-icon.svg",
+        "category": "Design & 3D",
+        "description": "Development of projects involving VR, including creation and animation of 3D models, as well as implementation of textures and sound effects, especially in the context of the VRChat SDK.",
+        "displayOnHero": true
+      },
+      {
+        "name": "Blender",
+        "icon": "/resources/svg/blender-icon.svg",
+        "category": "Design & 3D",
+        "description": "3D modeling, including creation and editing of shape keys (blendshapes) and adapting models for integration into VTubing platforms like VSeeFace."
+      }
+    ]
+  },
+  "projects": {
+    "title": "Featured Projects",
+    "description": "Explore some of the most notable projects I've developed.",
+    "seeProject": "See project",
+    "projects": [
+      {
+        "title": "Bonfire Lounge",
+        "description": "Website for a VRChat bar.",
+        "date": "21/8/2024 - ⏸️ 13/01/2025",
+        "image": "/resources/img/Bonfire.avif",
+        "alt": "Bonfire lounge",
+        "link": "https://bonfirelounge.com/",
+        "skills": [
+          "HTML5",
+          "JavaScript",
+          "NodeJS",
+          "EJS"
+        ]
+      },
+      {
+        "title": "Rusky",
+        "description": "An avatar made for VRChat.",
+        "date": "10/04/2023 - ⏸️ 25/07/2024",
+        "image": "/resources/img/KofiBanner.avif",
+        "alt": "Rusky",
+        "link": "/rusky",
+        "skills": [
+          "Unity",
+          "Blender"
+        ]
+      },
+      {
+        "title": "Azirax",
+        "description": "Multifunctional Discord bot in Spanish.",
+        "date": "29/08/2020 - Present",
+        "image": "/resources/img/Azirax.avif",
+        "alt": "Azirax Logo",
+        "link": "https://azirax.oops.wtf",
+        "skills": [
+          "NodeJS",
+          "JavaScript",
+          "HTML5"
+        ]
+      }
+    ]
+  },
+  "comments": {
+    "title": "Comments",
+    "ariaLabelPrev": "Previous comments list",
+    "commentButton": "Add your comment",
+    "ariaLabelNext": "Next comments list",
+    "formComments": {
+      "namePlaceHolder": "Enter your name here",
+      "textPlaceHolder": "Enter your comment here",
+      "buttonSend": "Send",
+      "buttonCancel": "Cancel"
+    },
+    "alerts": {
+      "successTitle": "Sent",
+      "successMessage": "Thanks for your comment ❤️",
+      "errorTitle": "Error:",
+      "errorMessage": "There was a problem sending your comment. Please try again.",
+      "warningMessage": "You must fill in both fields!"
+    }
+  },
+  "contact": {
+    "title": "Contact",
+    "description": "You can contact me through the following channels:",
+    "cards": [
+      {
+        "type": "info",
+        "title": "Email",
+        "description": "contacto.gabrielsuarezdominguez@gmail.com"
+      },
+      {
+        "type": "info",
+        "title": "Discord",
+        "description": "Add me on Discord: @gabrielgsdci"
+      }
+    ]
+  }
+}

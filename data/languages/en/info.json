@@ -1,0 +1,51 @@
+{
+  "main": "Home",
+  "sidebar": {
+    "menu": "Menu"
+  },
+  "formation": {
+    "title": "Education",
+    "description": "These are the trainings I have completed or am currently taking.",
+    "cards": [
+      {
+        "type": "info",
+        "title": "Higher Vocational Training - DAM",
+        "description": "Currently studying at: <br />Higher Vocational Training in Multiplatform Application Development.",
+        "additional": "2024 - Present"
+      },
+      {
+        "type": "info",
+        "title": "Intermediate Vocational Training - SMR",
+        "description": "Studied at IES Pazo da Mercé: <br />Intermediate Vocational Training in Computer Systems and Networks.",
+        "additional": "2022 - 2024"
+      },
+      {
+        "type": "info",
+        "title": "Erasmus+",
+        "description": "I participated in Erasmus+ in Prague: <br />Experience at the company Neus Lab.",
+        "additional": "3 months"
+      }
+    ]
+  },
+  "hobbies": {
+    "title": "Hobbies",
+    "description": "These are some of my everyday hobbies.",
+    "cards": [
+      {
+        "type": "info",
+        "title": "Technology trends",
+        "description": "I keep myself informed about the latest news on: <br />Virtual reality, programming and artificial intelligence."
+      },
+      {
+        "type": "info",
+        "title": "Entertainment",
+        "description": "I enjoy entertaining others in a virtual bar in VRChat. <br />Although I do it out of passion, I take the role seriously, creating memorable experiences and fostering a fun and respectful community."
+      },
+      {
+        "type": "info",
+        "title": "Gaming",
+        "description": "I am passionate about strategy games and rhythm games, where I enjoy combining planning, coordination and analysis, always aiming to surpass my own limits."
+      }
+    ]
+  }
+}
