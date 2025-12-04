@@ -22,7 +22,9 @@
                         <%- include('./profile-picture.ejs') %>
                     </div>
 
-                    <%- include('./work-status.ejs') %>
+                    <%- include('./work-status.ejs', {
+                        content: content.status
+                    }) %>
                 </div>
             </div>
 
