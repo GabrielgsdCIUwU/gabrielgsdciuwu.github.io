@@ -15,11 +15,11 @@
 
             if (data.working) {
                 statusContainer.classList.add("bg-yellow-500");
-                statusText.textContent = "Ocupado trabajando"
+                statusText.textContent = "<%= content.busy %>"
                 statusDot.classList.add("bg-white");
             } else {
                 statusContainer.classList.add("bg-green-500");
-                statusText.textContent = "Disponible para trabajar";
+                statusText.textContent = "<%= content.available %>";
                 statusDot.classList.add("bg-whit")
             }
         });
