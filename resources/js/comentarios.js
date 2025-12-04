@@ -20,7 +20,8 @@ function getItemsPerSlide() {
 
 async function loadComments() {
   try {
-    const response = await fetch("/api/comments");
+    const lang = window.location.pathname.split("/")[1] || "en";
+    const response = await fetch(`/api/${lang}/comments`);
     allComments = await response.json();
 
     if (!allComments || allComments.length == 0) return;
