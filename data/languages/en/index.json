@@ -119,25 +119,25 @@
       {
         "title": "Bonfire Lounge",
         "description": "Website for a VRChat bar.",
-        "date": "21/8/2024 - ⏸️ 13/01/2025",
+        "date": "21/8/2024 - ⏹️ 13/01/2025",
         "image": "/resources/img/Bonfire.avif",
         "alt": "Bonfire lounge",
-        "link": "https://bonfirelounge.com/",
+        "link": "https://github.com/GabrielgsdCIUwU/BonfireLounge",
         "skills": ["HTML5", "JavaScript", "NodeJS", "EJS"]
       },
       {
         "title": "Rusky",
         "description": "An avatar made for VRChat.",
-        "date": "10/04/2023 - ⏸️ 25/07/2024",
+        "date": "10/04/2023 - ⏹️ 25/07/2024",
         "image": "/resources/img/KofiBanner.avif",
         "alt": "Rusky",
-        "link": "/rusky",
+        "link": "https://vrchat.com/home/world/wrld_ca06bece-0320-4b7d-815a-e1f188272318",
         "skills": ["Unity", "Blender"]
       },
       {
         "title": "Azirax",
         "description": "Multifunctional Discord bot in Spanish.",
-        "date": "29/08/2020 - Present",
+        "date": "29/08/2020 - ⏸️ 13/02/2025",
         "image": "/resources/img/Azirax.avif",
         "alt": "Azirax Logo",
         "link": "https://azirax.oops.wtf",
