@@ -1,94 +1,172 @@
 let autoSlideInterval;
 const slideInterval = 10000;
-const carousels = document.querySelectorAll(".carousel-inner");
+
+const track = document.getElementById("main-carousel-inner");
 const prevButton = document.getElementById("prev-slide");
 const nextButton = document.getElementById("next-slide");
 const editCommentBtn = document.getElementById("edit-comment-btn");
 const commentForm = document.getElementById("comment-form");
 const cancelCommentBtn = document.getElementById("cancel-comment");
+
+let allComments = [];
 let currentIndex = 0;
 let isAutoSliding = true;
 
-async function cargarComentarios() {
+function getItemsPerSlide() {
+  if (window.innerWidth < 768) return 1;
+  if (window.innerWidth < 1024) return 2;
+  return 3;
+}
+
+async function loadComments() {
   try {
     const response = await fetch("/api/comments");
-    const comentarios = await response.json();
+    allComments = await response.json();
 
-    const carrusel1 = comentarios.filter((_, index) => index % 3 === 0);
-    const carrusel2 = comentarios.filter((_, index) => index % 3 === 1);
-    const carrusel3 = comentarios.filter((_, index) => index % 3 === 2);
+    if (!allComments || allComments.length == 0) return;
+    
+    renderCarousel();
+    startAutoSlide();
 
-    function agregarComentarios(carrusel, comentarios) {
-      const inner = carrusel.querySelector(".carousel-inner");
-      inner.innerHTML = comentarios
-        .map(
-          (comentario) => `
-        <div class="carousel-slide">
-          <div class="carousel-content">
-            <p class="name">${comentario.nombre}</p>
-            <p class="comment">${comentario.comentario}</p>
-          </div>
+  } catch (error) {
+    console.error("Error al cargar los comentarios: ", error);
+  }
+}
+
+function renderCarousel() {
+  if (!track) return;
+
+  const itemsPerSlide = getItemsPerSlide();
+  const slidesHtml = [];
+
+  for (let i = 0; i < allComments.length; i += itemsPerSlide) {
+    const chunk = allComments.slice(i, i + itemsPerSlide);
+
+    const cardsHtml = chunk
+      .map(
+        (comment) => `
+      <div class="card-wrapper">
+        <div class="carousel-content">
+          <p class="name">${comment.nombre}</p>
+          <p class="comment">${comment.comentario}</p>
         </div>
-      `
-        )
-        .join("");
+      </div>
+    `
+      )
+      .join("");
+
+    let placeholders = "";
+    if (chunk.length < itemsPerSlide) {
+      for (let j = 0; j < itemsPerSlide - chunk.length; j++) {
+        placeholders += `<div class="card-wrapper" style="visibility: hidden;"></div>`;
+      }
     }
 
-    agregarComentarios(document.getElementById("carousel1"), carrusel1);
-    agregarComentarios(document.getElementById("carousel2"), carrusel2);
-    agregarComentarios(document.getElementById("carousel3"), carrusel3);
+    slidesHtml.push(`
+      <div class="carousel-slide">
+        ${cardsHtml}
+        ${placeholders}
+      </div>
+    `);
+  }
 
-    function updateCarousels() {
-      carousels.forEach((carousel) => {
-        carousel.style.transform = `translateX(-${currentIndex * 100}%)`;
-      });
+  track.innerHTML = slidesHtml.join("");
+
+  const totalSlides = Math.ceil(allComments.length / itemsPerSlide);
+  if (currentIndex >= totalSlides) currentIndex = 0;
+
+  updateCarouselPosition();
+}
+
+function updateCarouselPosition() {
+  track.style.transform = `translateX(-${currentIndex * 100}%)`;
+}
+
+function startAutoSlide() {
+  stopAutoSlide();
+  autoSlideInterval = setInterval(() => {
+    if (isAutoSliding) {
+      goToNext();
     }
+  }, slideInterval);
+}
 
-    function startAutoSlide() {
-      autoSlideInterval = setInterval(() => {
-        if (isAutoSliding) {
-          currentIndex = currentIndex < carousels[0].children.length - 1 ? currentIndex + 1 : 0;
-          updateCarousels();
-        }
-      }, slideInterval);
-    }
+function stopAutoSlide() {
+  clearInterval(autoSlideInterval);
+}
 
-    function stopAutoSlide() {
-      clearInterval(autoSlideInterval);
-    }
+function resetAutoSlide() {
+  stopAutoSlide();
+  startAutoSlide();
+}
 
-    function resetAutoSlide() {
-      stopAutoSlide();
+function goToNext() {
+  if(!allComments.length) return;
+  const itemsPerSlide = getItemsPerSlide();
+  const totalSlides = Math.ceil(allComments.length / itemsPerSlide);
+  currentIndex = (currentIndex + 1) % totalSlides;
+  updateCarouselPosition();
+}
+
+function goToPrev() {
+  if(!allComments.length) return;
+  const itemsPerSlide = getItemsPerSlide();
+  const totalSlides = Math.ceil(allComments.length / itemsPerSlide);
+  currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+  updateCarouselPosition();
+}
+
+
+prevButton.addEventListener("click", () => {
+  goToPrev();
+  resetAutoSlide();
+});
+
+nextButton.addEventListener("click", () => {
+  goToNext();
+  resetAutoSlide();
+});
+
+const container = document.querySelector('.carousel-container');
+if (container) {
+  container.addEventListener("mouseenter", () => {
+    isAutoSliding = false;
+    stopAutoSlide();
+  });
+
+  container.addEventListener("mouseleave", () => {
+    if (!commentForm || commentForm.classList.contains("hidden")) {
+      isAutoSliding = true;
       startAutoSlide();
     }
+  });
+}
 
-    prevButton.addEventListener("click", () => {
-      currentIndex = currentIndex > 0 ? currentIndex - 1 : carousels[0].children.length - 1;
-      updateCarousels();
-      resetAutoSlide();
-    });
+window.addEventListener('resize', () => {
+  renderCarousel();
+});
 
-    nextButton.addEventListener("click", () => {
-      currentIndex = currentIndex < carousels[0].children.length - 1 ? currentIndex + 1 : 0;
-      updateCarousels();
-      resetAutoSlide();
-    });
-
-    editCommentBtn.addEventListener("click", () => {
-      isAutoSliding = false;
+editCommentBtn.addEventListener("click", () => {
+  isAutoSliding = false;
+  stopAutoSlide();
+  if (commentForm) {
       commentForm.classList.remove("hidden");
-      const activeCarousel = document.querySelector(".carousel-inner").parentElement;
-      const offsetTop = activeCarousel.getBoundingClientRect().top + window.pageYOffset;
+      const offsetTop = container.getBoundingClientRect().top + window.pageYOffset;
       window.scrollTo({ top: offsetTop, behavior: "smooth" });
-    });
+  }
+});
 
+if (cancelCommentBtn) {
     cancelCommentBtn.addEventListener("click", () => {
-      commentForm.classList.add("hidden");
+      if (commentForm) commentForm.classList.add("hidden");
       isAutoSliding = true;
-      resetAutoSlide();
+      startAutoSlide();
     });
+}
 
-    document.getElementById("submit-comment").addEventListener("click", async () => {
+const submitBtn = document.getElementById("submit-comment");
+if (submitBtn) {
+    submitBtn.addEventListener("click", async () => {
       const name = document.getElementById("comment-name").value;
       const comment = document.getElementById("comment-text").value;
 
@@ -96,9 +174,7 @@ async function cargarComentarios() {
         try {
           const response = await fetch("/api/comments", {
             method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ nombre: name, comentario: comment }),
           });
 
@@ -107,8 +183,10 @@ async function cargarComentarios() {
             document.getElementById("comment-name").value = "";
             document.getElementById("comment-text").value = "";
             commentForm.classList.add("hidden");
+            
+            await loadComments();
             isAutoSliding = true;
-            resetAutoSlide();
+            startAutoSlide();
           } else {
             toastr.error(toastrMessages.errorMessage, toastrMessages.errorTitle);
           }
@@ -120,35 +198,21 @@ async function cargarComentarios() {
         toastr.warning(toastrMessages.warningMessage);
       }
     });
-
-    carousels.forEach((carousel) => {
-      carousel.addEventListener("mouseenter", () => {
-        stopAutoSlide();
-      });
-      carousel.addEventListener("mouseleave", () => {
-        resetAutoSlide();
-      });
-    });
-
-    updateCarousels();
-    startAutoSlide();
-  } catch (error) {
-    console.error("Error al cargar los comentarios:", error);
-  }
 }
-
-cargarComentarios();
 
 document.addEventListener("click", handleClickForm);
 
 function handleClickForm(event) {
-  if (!commentForm.classList.contains("hidden")) {
-    
+  if (commentForm && !commentForm.classList.contains("hidden")) {
     if (event.target === editCommentBtn) return;
-
-    if (!commentForm.querySelector(".bg-white").contains(event.target)) {
+    const content = commentForm.querySelector(".bg-white");
+    if (content && !content.contains(event.target)) {
       commentForm.classList.add("hidden");
       isAutoSliding = true;
+      startAutoSlide();
     }
   }
 }
+
+
+loadComments();
