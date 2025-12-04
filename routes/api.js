@@ -52,6 +52,7 @@ const authenticate = (req, res, next) => {
 // Ruta para añadir un comentario => POST || nombre, comentario || id
 router.post("/comments", (req, res) => {
   const { nombre, comentario } = req.body;
+  const lang = req.acceptsLanguages(["es", "en"]) || "en";
 
   if (!nombre || !comentario) {
     return res.status(400).json({ error: "El nombre y el comentario son requeridos." });
@@ -70,7 +71,7 @@ router.post("/comments", (req, res) => {
       newId = generateUniqueId();
     } while (idExists(newId, comentarios));
 
-    comentarios.push({ id: newId, nombre, comentario });
+    comentarios.push({ id: newId, nombre, comentario, lang });
 
     fs.writeFile(QueuefilePath, JSON.stringify(comentarios, null, 2), (err) => {
       if (err) {
@@ -97,6 +98,10 @@ router.post("/comments", (req, res) => {
           .addFields({
             name: `Mensaje:`,
             value: `${comentario}`,
+          })
+          .addFields({
+            name: `Idioma`,
+            value: `${lang}`
           })
           .addFields({
             name: `⌚ Timestamp:`,
@@ -169,6 +174,7 @@ router.delete("/comments", authenticate, (req, res) => {
 // Ruta para listar comentarios => GET || rango 10-30
 router.get("/comments", (req, res) => {
   const { start = 0, end = 12 } = req.query;
+  const lang = req.acceptsLanguages(["es", "en"]) || "en";
 
   fs.readFile(filePath, "utf8", (err, data) => {
     if (err) {
@@ -176,6 +182,8 @@ router.get("/comments", (req, res) => {
     }
 
     let comentarios = JSON.parse(data);
+    comentarios = comentarios.filter(c => c.lang === lang);
+    
     const startIndex = parseInt(start, 10) || 0;
     const endIndex = parseInt(end, 10) || 10;
 
