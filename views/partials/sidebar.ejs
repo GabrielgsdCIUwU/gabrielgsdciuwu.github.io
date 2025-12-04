@@ -6,7 +6,7 @@
         <% if (menuItems && menuItems.length) { %>
             <% menuItems.forEach(item => { %>
                 <li class="menu-item text-center border-b border-blue-200/50 last:border-b-0">
-                    <a href="#<%= item.id %>" class="block p-4 text-white hover:bg-blue-600 transition-colors duration-300">
+                    <a href="<%= item.href %>" class="block p-4 text-white hover:bg-blue-600 transition-colors duration-300">
                         <%= item.name %>
                     </a>
                 </li>
