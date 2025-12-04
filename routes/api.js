@@ -172,9 +172,9 @@ router.delete("/comments", authenticate, (req, res) => {
 });
 
 // Ruta para listar comentarios => GET || rango 10-30
-router.get("/comments", (req, res) => {
+router.get("/:lang/comments", (req, res) => {
   const { start = 0, end = 12 } = req.query;
-  const lang = req.acceptsLanguages(["es", "en"]) || "en";
+  const { lang } = req.params;
 
   fs.readFile(filePath, "utf8", (err, data) => {
     if (err) {
