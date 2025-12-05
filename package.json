@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "server": "npx nodemon index.js",
-    "css": "concurrently \"npx tailwindcss -i ./resources/css/rusky.css -o ./resources/css/output-rusky.css --watch\" \"npx tailwindcss -i ./resources/css/style.css -o ./resources/css/output-index.css --watch\""
+    "css": "concurrently \"npx tailwindcss -i ./resources/css/info.css -o ./resources/css/output-info.css --watch\" \"npx tailwindcss -i ./resources/css/style.css -o ./resources/css/output-index.css --watch\""
   },
   "type": "module",
   "repository": {
