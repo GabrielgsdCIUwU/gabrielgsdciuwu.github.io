@@ -16,6 +16,8 @@ dotenv.config({ path: envFilePath });
 const router = express.Router();
 const filePath = path.join(__dirname, "../resources/json/comentarios.json");
 const QueuefilePath = path.join(__dirname, "../resources/json/queue-comments.json");
+const chillFishFilePath = path.join(__dirname, "../resources/json/chillfish-comments.json");
+const chillFishQueuePath = path.join(__dirname, "../resources/json/queue-chillfish-comments.json");
 const avatarPath = path.join(__dirname, "../resources/img/avatar_lq.jpg");
 
 // Función para generar un ID único alfanumérico
@@ -364,6 +366,86 @@ router.get("/avatar", (req, res) => {
   if (!fs.existsSync(avatarPath)) res.status(404).json({ error: "Avatar not found" });
 
   res.sendFile(avatarPath);
+});
+
+
+//region chillfish
+
+router.get("/:lang/chillfish/comments", (req, res) => {
+  const { start = 0, end = 12 } = req.query;
+  const { lang } = req.params;
+
+  fs.readFile(chillFishFilePath, "utf8", (err, data) => {
+    if (err) {
+      return res.status(500).send("Error reading comments");
+    }
+
+    try {
+      let comments = JSON.parse(data);
+      comments = comments.filter(c => c.lang === lang);
+
+      const startIndex = parseInt(start, 10) || 0;
+      const endIndex = parseInt(end, 10) || 12;
+
+      const paginatedComments = comments.slice(startIndex, endIndex);
+
+      res.json(paginatedComments);
+    } catch (e) {
+      console.log(`Error reading comments: ${e}`);
+      res.json([]);
+    }
+  });
+});
+
+// Enviar comentario de Chill Fish (Cola)
+router.post("/chillfish/comments", (req, res) => {
+  const { nombre, comentario, rol } = req.body;
+  const lang = req.acceptsLanguages(["es", "en"]) || "en";
+
+  if (!nombre || !comentario || !rol) {
+    return res.status(400).json({ error: "All fields are required" });
+  }
+
+  fs.readFile(chillFishQueuePath, "utf8", (err, data) => {
+    if (err) return res.status(500).json({ error: "Error reading queue" });
+
+    let comentarios = JSON.parse(data);
+    let newId;
+    
+    do { newId = generateUniqueId(); } while (idExists(newId, comentarios));
+
+    const newComment = { 
+        id: newId, 
+        nombre, 
+        comentario, 
+        rol, 
+        lang, 
+        date: new Date().toISOString() 
+    };
+    
+    comentarios.push(newComment);
+
+    fs.writeFile(chillFishQueuePath, JSON.stringify(comentarios, null, 2), (err) => {
+      if (err) return res.status(500).json({ error: "Error saving comment" });
+
+      try {
+        if(process.env.commentswebhook) {
+            const webhook = new WebhookClient({ url: process.env.commentswebhook });
+            const embed = new EmbedBuilder()
+            .setTitle("🐟 Nuevo comentario Chill Fish:")
+            .addFields(
+                { name: 'Nombre', value: nombre, inline: true },
+                { name: 'Rol', value: rol, inline: true },
+                { name: 'Mensaje', value: comentario }
+            )
+            .setColor('#3b82f6');
+            webhook.send({ embeds: [embed] });
+        }
+      } catch (e) { console.error("Discord error", e); }
+
+      res.status(201).json({ message: "Comment added to queue" });
+    });
+  });
 });
 
 export default router;
