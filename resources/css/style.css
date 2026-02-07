@@ -23,7 +23,7 @@
 
 body,
 html {
-  font-family: "Comic Neue", cursive, sans-serif;
+  font-family: "Nunito Sans", cursive, sans-serif;
   margin: 0;
   padding: 0;
   height: 100%;
@@ -50,15 +50,6 @@ html {
   position: absolute;
 }
 
-#toggle-view {
-  z-index: 10;
-}
-
-#spline-viewer {
-  z-index: 1;
-  position: relative;
-}
-
 /* Sección conocimientos*/
 
 #knowledge-grid {
@@ -66,6 +57,23 @@ html {
   opacity: 0;
   transition: opacity 0.5s ease-in-out;
 }
+
+#knowledge-grid > div {
+  transition: 
+    opacity 0.4s ease-in-out,
+    max-height 0.4s ease-in-out,
+    transform 0.4s ease-in-out;
+  overflow: hidden;
+  max-height: 500px;
+  opacity: 1;
+}
+
+#knowledge-grid > div:not(.visible) {
+  opacity: 0;
+  max-height: 0;
+  transform: scale(0.95);
+}
+
 
 #knowledge-grid.visible {
   opacity: 1;
@@ -100,67 +108,78 @@ html {
 
 /* Personalización del carrusel */
 .carousel-container {
-  display: flex;
-  flex-direction: row; /* Por defecto, horizontal */
-  gap: 16px; /* Espacio entre los carruseles */
-  overflow-x: auto; /* Permitir desplazamiento horizontal si es necesario */
-  overflow-y: hidden; /* Evitar el desplazamiento vertical */
-}
-
-.carousel-wrapper {
-  flex: 1;
-  min-width: 300px; /* Ajusta el ancho mínimo según tu diseño */
-}
-
-.carousel {
+  width: 100%;
   position: relative;
   overflow: hidden;
+  padding: 0 4px;
 }
 
 .carousel-inner {
   display: flex;
-  flex-direction: row; /* Desplazamiento horizontal dentro del carrusel */
-  transition: transform 0.5s ease;
+  transition: transform 0.5s ease-in-out;
+  width: 100%;
 }
 
 .carousel-slide {
   min-width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: 16px;
   box-sizing: border-box;
+  padding-bottom: 10px;
+}
+
+.card-wrapper {
+  flex: 1;
+  min-width: 0;
 }
 
 .carousel-content {
   background: white;
-  padding: 16px;
-  border-radius: 8px;
-  box-shadow: 0 2px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   font-family: Arial, sans-serif;
-  max-height: 200px;
-  overflow-y: auto;
+  
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
 }
 
 .carousel-content .name {
   font-weight: bold;
-  color: #1da1f2; /* Color de nombre similar al de Twitter */
-  margin-bottom: 8px; /* Espacio entre nombre y comentario */
+  color: #1da1f2;
+  margin-bottom: 12px;
+  font-size: 1.1rem;
+  flex-shrink: 0;
 }
 
 .carousel-content .comment {
-  color: #657786; /* Color de texto de comentario similar al de Twitter */
+  color: #657786;
+  font-size: 0.95rem;
+  line-height: 1.5;
   white-space: pre-wrap;
+  word-wrap: break-word;
+  
+  overflow-y: auto;
+  flex-grow: 1;
+  padding-right: 5px;
 }
 
 .carousel-controls {
   display: flex;
   justify-content: center;
-  margin-top: 16px;
+  margin-top: 24px;
 }
 
 .carousel-controls button {
   background: #007bff;
   color: white;
   border: none;
-  border-radius: 8px; /* Borde redondeado más suave */
-  padding: 8px 16px; /* Tamaño más grande para un botón más rectangular */
+  border-radius: 8px;
+  padding: 8px 16px;
   margin: 0 4px;
   cursor: pointer;
   transition: background 0.3s;

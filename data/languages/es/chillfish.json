@@ -1,0 +1,127 @@
+{
+  "headDetails": {
+    "title": "Chill ＜＞＜ | Santuario Digital",
+    "description": "Un santuario liderado por la comunidad, enfocado en el bienestar digital y la interacción social estructurada dentro de VRChat."
+  },
+  "nav": {
+    "back": "Volver al Portafolio"
+  },
+  "hero": {
+    "title": "Chill",
+    "symbol": "＜＞＜",
+    "subtitle": "Cultivando el orden en el caos digital.",
+    "description": "Un santuario liderado por la comunidad, enfocado en el bienestar digital y la interacción social estructurada dentro del Metaverso.",
+    "cta": "Unirse al grupo en VRChat",
+    "link": "https://vrchat.com/home/group/grp_52bf6a2e-4bb9-4e20-84ef-206b21218970"
+  },
+  "overview": {
+    "label": "01 — El Contexto",
+    "title": "Resumen del Proyecto",
+    "cards": [
+      {
+        "title": "El Entorno",
+        "content": "VRChat es un metaverso masivo generado por usuarios donde millones de personas interactúan a diario. Aunque ofrece una libertad ilimitada, esta libertad suele dar lugar a \"ruido digital\": saturación visual, audio elevado y entornos sociales abrumadores."
+      },
+      {
+        "title": "La Solución",
+        "content": "Chill ＜＞＜ se estableció como un contrapeso. Es un espacio comunitario curado, diseñado para ofrecer un \"tercer lugar\" a los usuarios que buscan descanso. Nos centramos en la interacción social de baja energía, proporcionando una estructura estricta que filtra el ruido."
+      }
+    ]
+  },
+  "philosophy": {
+    "label": "02 — La Simbología",
+    "title": "La Filosofía",
+    "description": "La comunidad opera bajo el marco filosófico del \"Ecosistema FISH <><\".",
+    "chaos": {
+      "title": "Caos",
+      "symbol": "<",
+      "subtitle": "El Corchete Izquierdo",
+      "text": "Representa la tendencia natural de los espacios digitales a volverse desordenados y ruidosos. Es la entropía que se acumula cuando no se establecen límites."
+    },
+    "structure": {
+      "title": "Estructura",
+      "symbol": "＞",
+      "subtitle": "El Corchete Derecho",
+      "text": "Representa la aplicación intencional de normas y moderación para reducir ese caos. Es la fuerza que crea orden a partir del desorden."
+    },
+    "role": {
+      "title": "Nuestro Rol",
+      "text": "Este proyecto encarna específicamente el ＞ (Estructura). Actuamos como la fuerza arquitectónica que crea límites, permitiendo a los usuarios encontrar paz en un universo digital que, de otro modo, sería caótico."
+    }
+  },
+  "values": {
+    "label": "03 — Implementación",
+    "title": "Valores y Principios",
+    "description": "Mantenemos la \"Estructura\" a través de tres pilares fundamentales.",
+    "pillars": [
+      {
+        "title": "Disciplina de Audio",
+        "text": "Protocolos de audio estrictos para garantizar que las conversaciones se mantengan tranquilas. Nada de gritos ni spam de micrófono."
+      },
+      {
+        "title": "Claridad Visual",
+        "text": "Desalentamos el \"ruido visual\" (avatares con luces intermitentes excesivas) para proteger la experiencia sensorial."
+      },
+      {
+        "title": "Cultura de Santuario",
+        "text": "Una política de tolerancia cero frente a la toxicidad garantiza un refugio seguro para la descompresión."
+      }
+    ]
+  },
+  "protocols": {
+    "label": "04 — Los Protocolos",
+    "title": "Normas de la Instancia",
+    "description": "Los Protocolos de Estructura > definen cómo mantenemos la paz.",
+    "list": [
+      { "title": "Disciplina de Audio", "desc": "Mantén un tono de voz conversacional. No música alta.", "chaos": "Volumen alto" },
+      { "title": "Claridad Visual", "desc": "No luces cegadoras ni partículas masivas.", "chaos": "Saturación visual" },
+      { "title": "Respeta la Calma", "desc": "Nada de toxicidad ni iniciar drama de forma agresiva.", "chaos": "Conflicto" },
+      { "title": "Nada de Roleplay de \"Caos\"", "desc": "No traigas roleplay caótico aquí.", "chaos": "Disrupción" },
+      { "title": "Cumplimiento del T.O.S.", "desc": "Seguimos estrictamente los Términos de Servicio de VRChat.", "chaos": "Incumplimiento de normas" }
+    ],
+    "meeting": {
+      "title": "Reuniones Semanales",
+      "text": "Cada sábado, la comunidad se reúne para sesiones sociales estructuradas."
+    }
+  },
+  "vision": {
+    "label": "05 — La Visión",
+    "title": "Mirando al Futuro",
+    "quote": "En un mundo hiperconectado, el verdadero silencio es raro.",
+    "text": "Chill ＜＞＜ demuestra que, aplicando la cantidad adecuada de estructura, podemos crear espacios digitales para el descanso mental."
+  },
+  "footer": {
+    "based": "Proyecto basado en el Ecosistema Comunitario de Caos Estructurado.",
+    "copyright": "Concepto original por <a href=\"https://theziver.com/\" target=\"_blank\">TheZiver</a>"
+  },
+  "comments": {
+    "title": "Voces de la Comunidad",
+    "subtitle": "Lo Que Dicen Nuestros Miembros",
+    "description": "Escucha a las personas que han encontrado su lugar en nuestro santuario.",
+    "noComments": "Aún no hay testimonios. ¡Sé el primero en compartir tu experiencia!",
+    "approved": "Testimonios Aprobados",
+    "form": {
+      "title": "Comparte Tu Experiencia",
+      "nameLabel": "Tu Nombre",
+      "namePlaceholder": "¿Cómo deberíamos llamarte?",
+      "roleLabel": "Tu Relación con Chill ＜＞＜",
+      "rolePlaceholder": "Selecciona tu rol",
+      "textLabel": "Tu Comentario",
+      "textPlaceholder": "Comparte tu experiencia...",
+      "note": "Todos los comentarios son revisados antes de ser publicados.",
+      "submit": "Enviar para Revisión",
+      "roles": {
+        "member": "Miembro",
+        "regular": "Asistente Habitual",
+        "moderator": "Moderador",
+        "visitor": "Visitante"
+      }
+    },
+    "alerts": {
+      "successTitle": "Enviado",
+      "successMessage": "Tu comentario está pendiente de revisión.",
+      "errorTitle": "Error",
+      "errorMessage": "No se pudo enviar el comentario."
+    }
+  }
+}

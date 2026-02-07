@@ -1,0 +1,9 @@
+<img id="avatar" src="/api/avatar" alt="Gabrielgsd Profile" class="w-full h-full object-cover">
+
+<script>
+    const profileImg = new Image();
+    profileImg.src = "https://avatars.githubusercontent.com/u/104272301";
+    profileImg.onload = () => {
+        document.getElementById("avatar").src = profileImg.src;
+    }
+</script>

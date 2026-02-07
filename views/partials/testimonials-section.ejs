@@ -1,0 +1,23 @@
+<section id="<%= id %>" class="w-full bg-gray-100 p-8 mt-0 text-center rounded-lg shadow-lg">
+    <h2 class="text-3xl font-extrabold text-gray-800 mb-4">
+        <%= content.title %>
+    </h2>
+
+    <div class="carousel-container">
+        <div id="main-carousel-inner" class="carousel-inner">
+            <!-- Los comentarios se añaden aquí -->
+        </div>
+    </div>
+
+     <div class="flex justify-center mt-6 space-x-4">
+            <button id="prev-slide" class="p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none" aria-label="<%= content.ariaLabelPrev %>">
+                <i class="fas fa fa-chevron-left"></i>
+            </button>
+            <button id="edit-comment-btn" class="p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none">
+                <%= content.commentButton %>
+            </button>
+            <button id="next-slide" class="p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none" aria-label="<%= content.ariaLabelNext %>">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+</section>

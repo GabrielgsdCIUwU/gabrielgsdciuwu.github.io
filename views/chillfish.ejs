@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="<%= lang %>" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= content.headDetails.title %></title>
+    <meta name="description" content="<%= content.headDetails.description %>">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/resources/css/output-chillfish.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+</head>
+<body class="bg-[#0a0a0f] text-[#e5e5e5] overflow-x-hidden">
+
+    <!-- Navegación simple para volver -->
+    <nav class="fixed top-0 left-0 w-full z-50 p-6 flex justify-between items-center bg-gradient-to-b from-[#0a0a0f] to-transparent pointer-events-none">
+        <a href="/<%= lang %>" class="pointer-events-auto flex items-center gap-2 text-neutral-400 hover:text-white transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+            <span class="text-sm font-medium"><%= content.nav.back %></span>
+        </a>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-b from-[#0a0a0f] via-[#0d1525] to-[#0a0a0f]"></div>
+        
+        <!-- Grid Pattern -->
+        <div class="absolute inset-0 opacity-[0.03]" style="background-image: linear-gradient(rgba(59, 130, 246, 0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(59, 130, 246, 0.5) 1px, transparent 1px); background-size: 60px 60px;"></div>
+
+        <!-- Particles Container -->
+        <div id="hero-particles" class="absolute inset-0 overflow-hidden"></div>
+
+        <div class="relative z-10 text-center px-6 max-w-4xl mx-auto mt-10">
+
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-light tracking-tight mb-6 reveal-on-scroll" style="transition-delay: 100ms;">
+                <span class="text-white"><%= content.hero.title %></span>
+                <span class="text-blue-400 font-mono ml-4">&lt;&gt;&lt;</span>
+            </h1>
+
+            <p class="text-xl md:text-2xl text-neutral-400 font-light tracking-wide mb-8 reveal-on-scroll" style="transition-delay: 200ms;">
+                <%= content.hero.subtitle %>
+            </p>
+
+            <p class="text-base md:text-lg text-neutral-500 max-w-2xl mx-auto leading-relaxed reveal-on-scroll" style="transition-delay: 300ms;">
+                <%= content.hero.description %>
+            </p>
+
+            <div class="mt-10 reveal-on-scroll" style="transition-delay: 400ms;">
+                <a href="<%= content.hero.link %>" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-3 px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white font-medium rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-blue-500/20">
+                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                    <%= content.hero.cta %>
+                </a>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#0a0a0f] to-transparent"></div>
+    </section>
+
+    <!-- OVERVIEW SECTION -->
+    <section class="py-24 md:py-32 px-6 relative">
+        <div class="max-w-5xl mx-auto">
+            <div class="mb-16 md:mb-20 reveal-on-scroll">
+                <span class="text-blue-400 font-mono text-sm tracking-widest uppercase mb-4 block"><%= content.overview.label %></span>
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-light tracking-tight text-balance text-white"><%= content.overview.title %></h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 md:gap-16 mb-20">
+                <% content.overview.cards.forEach((card, index) => { %>
+                <div class="reveal-on-scroll" style="transition-delay: <%= index * 100 %>ms;">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center">
+                            <% if(index === 0) { %>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-400"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+                            <% } else { %>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-400"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                            <% } %>
+                        </div>
+                        <h3 class="text-xl font-medium text-white"><%= card.title %></h3>
+                    </div>
+                    <p class="text-neutral-300 leading-relaxed"><%= card.content %></p>
+                </div>
+                <% }) %>
+            </div>
+
+            <div class="flex items-center justify-center gap-4 text-neutral-800 reveal-on-scroll">
+                <div class="h-px flex-1 bg-gradient-to-r from-transparent to-neutral-800"></div>
+                <span class="font-mono text-sm text-neutral-600">&lt;&gt;&lt;</span>
+                <div class="h-px flex-1 bg-gradient-to-l from-transparent to-neutral-800"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PHILOSOPHY SECTION -->
+    <section class="py-24 md:py-32 px-6 relative bg-gradient-to-b from-[#0a0a0f] via-[#0d1520] to-[#0a0a0f]">
+        <div class="max-w-5xl mx-auto">
+            <div class="mb-16 md:mb-20 reveal-on-scroll">
+                <span class="text-blue-400 font-mono text-sm tracking-widest uppercase mb-4 block"><%= content.philosophy.label %></span>
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-light tracking-tight text-balance text-white"><%= content.philosophy.title %></h2>
+            </div>
+
+            <div class="mb-16 reveal-on-scroll">
+                <p class="text-neutral-300 leading-relaxed max-w-3xl mb-12 text-lg"><%= content.philosophy.description %></p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 mb-16">
+                <!-- Chaos -->
+                <div class="group relative reveal-on-scroll">
+                    <div class="absolute inset-0 bg-gradient-to-br from-red-500/5 to-transparent rounded-2xl transition-all duration-500 group-hover:from-red-500/10"></div>
+                    <div class="relative p-8 md:p-10 border border-neutral-800 rounded-2xl glass-card">
+                        <div class="flex items-center gap-4 mb-6">
+                            <span class="text-5xl md:text-6xl font-mono text-red-400/70 font-light">&lt;</span>
+                            <div>
+                                <h4 class="text-xl font-medium text-white"><%= content.philosophy.chaos.title %></h4>
+                                <span class="text-sm text-neutral-500"><%= content.philosophy.chaos.subtitle %></span>
+                            </div>
+                        </div>
+                        <p class="text-neutral-300 leading-relaxed"><%= content.philosophy.chaos.text %></p>
+                    </div>
+                </div>
+
+                <!-- Structure -->
+                <div class="group relative reveal-on-scroll" style="transition-delay: 100ms;">
+                    <div class="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent rounded-2xl transition-all duration-500 group-hover:from-blue-500/10"></div>
+                    <div class="relative p-8 md:p-10 border border-neutral-800 rounded-2xl glass-card">
+                        <div class="flex items-center gap-4 mb-6">
+                            <span class="text-5xl md:text-6xl font-mono text-blue-400 font-light">&gt;</span>
+                            <div>
+                                <h4 class="text-xl font-medium text-white"><%= content.philosophy.structure.title %></h4>
+                                <span class="text-sm text-neutral-500"><%= content.philosophy.structure.subtitle %></span>
+                            </div>
+                        </div>
+                        <p class="text-neutral-300 leading-relaxed"><%= content.philosophy.structure.text %></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="relative p-8 md:p-12 rounded-2xl border border-blue-500/20 bg-gradient-to-br from-blue-500/5 to-transparent reveal-on-scroll">
+                <div class="flex items-start gap-6">
+                    <div class="hidden md:flex items-center justify-center w-16 h-16 rounded-xl bg-blue-500/10 shrink-0">
+                        <span class="text-3xl font-mono text-blue-400 font-light">&gt;</span>
+                    </div>
+                    <div>
+                        <h4 class="text-xl font-medium text-white mb-4"><%= content.philosophy.role.title %></h4>
+                        <p class="text-neutral-300 leading-relaxed"><%= content.philosophy.role.text %></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VALUES SECTION -->
+    <section class="py-24 md:py-32 px-6 relative">
+        <div class="max-w-5xl mx-auto">
+            <div class="mb-16 md:mb-20 reveal-on-scroll">
+                <span class="text-blue-400 font-mono text-sm tracking-widest uppercase mb-4 block"><%= content.values.label %></span>
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-light tracking-tight text-balance text-white"><%= content.values.title %></h2>
+                <p class="text-neutral-300 text-lg max-w-2xl mt-6"><%= content.values.description %></p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6 md:gap-8">
+                <% content.values.pillars.forEach((pillar, index) => { %>
+                <div class="group relative reveal-on-scroll" style="transition-delay: <%= index * 100 %>ms;">
+                    <div class="absolute inset-0 bg-gradient-to-b from-blue-500/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="relative p-8 border border-neutral-800 rounded-2xl bg-[#12121a] h-full flex flex-col">
+                        <span class="absolute top-4 right-4 font-mono text-sm text-neutral-600">0<%= index + 1 %></span>
+                        
+                        <div class="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center mb-6">
+                            <% if (index === 0) { %>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-400"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+                            <% } else if (index === 1) { %>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-400"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                            <% } else { %>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-400"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>
+                            <% } %>
+                        </div>
+
+                        <h3 class="text-xl font-medium text-white mb-4"><%= pillar.title %></h3>
+                        <p class="text-neutral-400 leading-relaxed flex-1"><%= pillar.text %></p>
+                    </div>
+                </div>
+                <% }) %>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROTOCOLS SECTION -->
+    <section class="py-24 md:py-32 px-6 relative bg-gradient-to-b from-[#0a0a0f] via-[#0a0d14] to-[#0a0a0f]">
+        <div class="max-w-5xl mx-auto">
+            <div class="mb-16 md:mb-20 reveal-on-scroll">
+                <span class="text-blue-400 font-mono text-sm tracking-widest uppercase mb-4 block"><%= content.protocols.label %></span>
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-light tracking-tight text-balance mb-6 text-white"><%= content.protocols.title %></h2>
+                <p class="text-neutral-300 text-lg max-w-2xl"><%= content.protocols.description %></p>
+            </div>
+
+            <div class="space-y-4">
+                <% content.protocols.list.forEach((protocol, index) => { %>
+                <div class="group relative reveal-on-scroll" style="transition-delay: <%= index * 50 %>ms;">
+                    <div class="relative p-6 md:p-8 border border-neutral-800 rounded-xl bg-[#12121a]/20 hover:bg-[#12121a]/40 transition-colors duration-300">
+                        <div class="flex flex-col md:flex-row md:items-start gap-6">
+                            <div class="flex items-center gap-4 md:w-48 shrink-0">
+                                <span class="font-mono text-sm text-neutral-500">0<%= index + 1 %></span>
+                                <div class="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-400"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+                                </div>
+                                <h3 class="text-lg font-medium text-white md:hidden"><%= protocol.title %></h3>
+                            </div>
+
+                            <div class="flex-1">
+                                <h3 class="text-lg font-medium text-white mb-2 hidden md:block"><%= protocol.title %></h3>
+                                <p class="text-neutral-400 leading-relaxed"><%= protocol.desc %></p>
+                            </div>
+
+                            <div class="md:w-36 shrink-0 flex md:justify-end">
+                                <span class="inline-flex items-center gap-2 text-xs font-mono text-red-400/70 bg-red-500/10 px-3 py-1.5 rounded-full">
+                                    <span class="text-red-400">&lt;</span>
+                                    <%= protocol.chaos %>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <% }) %>
+            </div>
+
+            <div class="mt-16 p-8 md:p-10 rounded-2xl border border-blue-500/20 bg-gradient-to-br from-blue-500/5 to-transparent reveal-on-scroll">
+                <div class="flex flex-col md:flex-row md:items-center gap-6">
+                    <div class="w-14 h-14 rounded-xl bg-blue-500/10 flex items-center justify-center shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-400"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="text-xl font-medium text-white mb-2"><%= content.protocols.meeting.title %></h3>
+                        <p class="text-neutral-300 leading-relaxed"><%= content.protocols.meeting.text %></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VISION SECTION -->
+    <section class="py-24 md:py-32 px-6 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-t from-[#0d1520] via-[#0a0a0f] to-[#0a0a0f]"></div>
+        
+        <div class="max-w-4xl mx-auto relative z-10">
+            <div class="mb-12 md:mb-16 text-center reveal-on-scroll">
+                <span class="text-blue-400 font-mono text-sm tracking-widest uppercase mb-4 block"><%= content.vision.label %></span>
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-light tracking-tight text-balance text-white"><%= content.vision.title %></h2>
+            </div>
+
+            <div class="relative reveal-on-scroll">
+                <span class="absolute -top-8 -left-4 text-8xl font-serif text-blue-400/10 select-none">"</span>
+                
+                <blockquote class="text-xl md:text-2xl lg:text-3xl font-light text-white leading-relaxed text-center mb-8">
+                    <%= content.vision.quote %>
+                </blockquote>
+                
+                <p class="text-neutral-400 text-lg md:text-xl text-center leading-relaxed max-w-2xl mx-auto">
+                    <%= content.vision.text %>
+                </p>
+            </div>
+
+            <div class="flex items-center justify-center gap-2 mt-16 reveal-on-scroll">
+                <span class="w-2 h-2 rounded-full bg-blue-400/30"></span>
+                <span class="w-2 h-2 rounded-full bg-blue-400/50"></span>
+                <span class="w-2 h-2 rounded-full bg-blue-400"></span>
+                <span class="w-2 h-2 rounded-full bg-blue-400/50"></span>
+                <span class="w-2 h-2 rounded-full bg-blue-400/30"></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- COMMENTS SECTION -->
+    <section class="py-24 md:py-32 px-6 bg-[#0d0d14]">
+        <div class="max-w-6xl mx-auto">
+            <!-- Header -->
+            <div class="text-center mb-16 reveal-on-scroll">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 mb-6">
+                    <i class="fas fa-comments text-blue-400 text-sm"></i>
+                    <span class="text-blue-400 text-sm font-medium"><%= content.comments.title %></span>
+                </div>
+                <h2 class="text-3xl md:text-4xl font-light text-white mb-4 text-balance">
+                    <%= content.comments.subtitle %>
+                </h2>
+                <p class="text-neutral-400 text-lg max-w-2xl mx-auto">
+                    <%= content.comments.description %>
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-12">
+                <!-- Lista de Comentarios -->
+                <div class="space-y-4 reveal-on-scroll">
+                    <h3 class="text-lg font-medium text-white mb-6 flex items-center gap-2">
+                        <i class="fas fa-check-circle text-green-400"></i>
+                        <%= content.comments.approved %>
+                    </h3>
+                    
+                    <div id="chill-comments-list" class="space-y-4 max-h-[600px] overflow-y-auto pr-2 custom-scrollbar">
+                        <!-- Se llena con JS -->
+                        <div class="animate-pulse flex space-x-4">
+                            <div class="flex-1 space-y-4 py-1">
+                                <div class="h-24 bg-[#12121a] rounded"></div>
+                                <div class="h-24 bg-[#12121a] rounded"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Formulario -->
+                <div class="bg-[#12121a] border border-neutral-800 rounded-xl p-6 lg:p-8 h-fit reveal-on-scroll" style="transition-delay: 200ms;">
+                    <h3 class="text-lg font-medium text-white mb-6 flex items-center gap-2">
+                        <i class="fas fa-paper-plane text-blue-400"></i>
+                        <%= content.comments.form.title %>
+                    </h3>
+
+                    <form id="chill-comment-form" class="space-y-5">
+                        <div class="space-y-2">
+                            <label for="cf-name" class="text-neutral-300 text-sm"><%= content.comments.form.nameLabel %></label>
+                            <input type="text" id="cf-name" required maxlength="50"
+                                placeholder="<%= content.comments.form.namePlaceholder %>"
+                                class="w-full bg-[#0a0a0f] border border-neutral-800 rounded-lg p-3 text-white focus:border-blue-500 focus:outline-none transition-colors">
+                        </div>
+
+                        <div class="space-y-2">
+                            <label for="cf-role" class="text-neutral-300 text-sm"><%= content.comments.form.roleLabel %></label>
+                            <div class="relative">
+                                <select id="cf-role" class="w-full bg-[#0a0a0f] border border-neutral-800 rounded-lg p-3 text-white appearance-none focus:border-blue-500 focus:outline-none transition-colors cursor-pointer">
+                                    <option value="Member"><%= content.comments.form.roles.member %></option>
+                                    <option value="Regular Attendee"><%= content.comments.form.roles.regular %></option>
+                                    <option value="Moderator"><%= content.comments.form.roles.moderator %></option>
+                                    <option value="Visitor"><%= content.comments.form.roles.visitor %></option>
+                                </select>
+                                <i class="fas fa-chevron-down absolute right-4 top-4 text-neutral-500 pointer-events-none"></i>
+                            </div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label for="cf-comment" class="text-neutral-300 text-sm"><%= content.comments.form.textLabel %></label>
+                            <textarea id="cf-comment" required maxlength="500" rows="4"
+                                placeholder="<%= content.comments.form.textPlaceholder %>"
+                                class="w-full bg-[#0a0a0f] border border-neutral-800 rounded-lg p-3 text-white focus:border-blue-500 focus:outline-none transition-colors resize-none"></textarea>
+                            <p class="text-xs text-neutral-500 text-right">Max 500 chars</p>
+                        </div>
+
+                        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-medium py-3 rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/20 flex items-center justify-center gap-2">
+                            <span><%= content.comments.form.submit %></span>
+                            <i class="fas fa-arrow-right text-xs"></i>
+                        </button>
+
+                        <p class="text-xs text-neutral-500 text-center mt-4">
+                            <%= content.comments.form.note %>
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-16 px-6 border-t border-neutral-800/30 bg-[#0a0a0f]">
+        <div class="max-w-5xl mx-auto">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="flex items-center gap-3">
+                    <span class="font-mono text-2xl text-blue-400/80">&lt;&gt;&lt;</span>
+                    <span class="text-white font-light">Chill</span>
+                </div>
+
+                <div class="text-center md:text-right">
+                    <p class="text-sm text-neutral-500 mb-1"><%= content.footer.based %></p>
+                    <p class="text-sm text-neutral-500"><%- content.footer.copyright %></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    
+    <script src="/resources/js/chillfish.js"></script>
+    <script src="/resources/js/chillfish-comments.js"></script>
+</body>
+</html>

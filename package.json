@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "server": "npx nodemon index.js",
-    "css": "concurrently \"npx tailwindcss -i ./resources/css/rusky.css -o ./resources/css/output-rusky.css --watch\" \"npx tailwindcss -i ./resources/css/style.css -o ./resources/css/output-index.css --watch\""
+    "css": "concurrently \"npx tailwindcss -i ./resources/css/info.css -o ./resources/css/output-info.css --watch\" \"npx tailwindcss -i ./resources/css/style.css -o ./resources/css/output-index.css --watch\" \"npx tailwindcss -i ./resources/css/chillfish.css -o ./resources/css/output-chillfish.css --watch\""
   },
   "type": "module",
   "repository": {
@@ -22,19 +22,15 @@
   },
   "homepage": "https://github.com/gabrielgsdciuwu/gabrielgsdciuwu.github.io#readme",
   "dependencies": {
-    "@discordjs/builders": "^1.8.2",
+    "axios": "^1.13.1",
     "basic-auth": "^2.0.1",
-    "discord.js": "^14.15.3",
+    "cron": "^4.3.3",
+    "discord.js": "^14.24.2",
     "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
     "express": "^5.0.0",
-    "express-session": "^1.18.0",
     "gabrielgsdciuwu.github.io": "file:",
-    "node-fetch": "^3.3.2",
-    "passport": "^0.7.0",
-    "passport-discord": "^0.1.4",
-    "session-file-store": "^1.5.0",
-    "socket.io": "^4.7.5",
-    "ws": "^8.18.0"
+    "sharp": "^0.34.4"
   },
   "devDependencies": {
     "concurrently": "^8.2.2",

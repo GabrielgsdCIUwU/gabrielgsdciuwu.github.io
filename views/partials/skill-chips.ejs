@@ -1,0 +1,10 @@
+<div class="flex flex-wrap justify-center gap-2 mb-8">
+    <% if (skills && skills.length) { %>
+        <% skills.filter(skill => skill.displayOnHero).forEach(skill => { %>
+            <span
+                class="px-4 py-2 bg-blue-800/90 text-white rounded-full text-sm font-medium border border-blue-600 hover:bg-blue-600 transition-colors shadow-sm">
+                <%- skill.name %>
+            </span>
+        <% }) %>
+    <% } %>
+</div>

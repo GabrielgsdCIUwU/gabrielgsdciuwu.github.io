@@ -1,8 +1,8 @@
 import express from "express";
-import path from "path";
-import fs from "fs";
-import { fileURLToPath } from "url";
+import path from "node:path";
+import fs from "node:fs";
 import basicAuth from "basic-auth";
+import { fileURLToPath } from "node:url";
 import { WebhookClient, EmbedBuilder } from "discord.js";
 
 import dotenv from "dotenv";
@@ -16,8 +16,9 @@ dotenv.config({ path: envFilePath });
 const router = express.Router();
 const filePath = path.join(__dirname, "../resources/json/comentarios.json");
 const QueuefilePath = path.join(__dirname, "../resources/json/queue-comments.json");
-const soundfilePath = path.join(__dirname, "../resources/json/sounds.json");
-const userFilePath = path.join(__dirname, "../resources/json/users.json");
+const chillFishFilePath = path.join(__dirname, "../resources/json/chillfish-comments.json");
+const chillFishQueuePath = path.join(__dirname, "../resources/json/queue-chillfish-comments.json");
+const avatarPath = path.join(__dirname, "../resources/img/avatar_lq.jpg");
 
 // Función para generar un ID único alfanumérico
 function generateUniqueId(length = 8) {
@@ -33,9 +34,6 @@ function generateUniqueId(length = 8) {
 // Función para verificar si un ID ya existe
 function idExists(id, comentarios) {
   return comentarios.some((comentario) => comentario.id === id);
-}
-function idExistsSound(id, sound) {
-  return sound.some((sounds) => sounds.id === id);
 }
 
 // Middleware para la autenticación básica
@@ -53,9 +51,53 @@ const authenticate = (req, res, next) => {
   next();
 };
 
+router.post("/request-cv", (req, res) => {
+  const { company, email, lang } = req.body;
+
+  if (!email) return res.status(400).json({error: "Email is required"});
+
+  try {
+    //! PORQUE C- DISCORD AHORA QUIERE FUNCIONAR DE ESTA MANERA PERO EL RESTO LE DA IGUAL. W T F
+    const webhook = new WebhookClient({id: process.env.cvid, token: process.env.cvsecret });
+    //const webhook = new WebhookClient({ url: process.env.commentswebhook });
+
+    let ts = new Date(Date.now());
+    let unixTimestamp = Math.floor(ts.getTime() / 1000);
+
+    const embed = new EmbedBuilder()
+      .setTitle("Nueva solicitud:")
+      .addFields({
+        name: `Company:`,
+        value: `${company}`,
+      })
+      .addFields({
+        name: `Email:`,
+        value: `${email}`,
+      })
+      .addFields({
+        name: `Idioma`,
+        value: `${lang}`
+      })
+      .addFields({
+        name: `⌚ Timestamp:`,
+        value: `<t:${unixTimestamp}:f>`,
+      })
+      .setColor(process.env.successcolor);
+
+    webhook.send({ embeds: [embed] });
+
+    res.status(200).json({message: "Request sent"});
+
+  } catch (error) {
+    console.log("CV Webhook error:", error);
+    res.status(500).json({error: "Internal error"});
+  }
+});
+
 // Ruta para añadir un comentario => POST || nombre, comentario || id
 router.post("/comments", (req, res) => {
   const { nombre, comentario } = req.body;
+  const lang = req.acceptsLanguages(["es", "en"]) || "en";
 
   if (!nombre || !comentario) {
     return res.status(400).json({ error: "El nombre y el comentario son requeridos." });
@@ -74,41 +116,50 @@ router.post("/comments", (req, res) => {
       newId = generateUniqueId();
     } while (idExists(newId, comentarios));
 
-    comentarios.push({ id: newId, nombre, comentario });
+    comentarios.push({ id: newId, nombre, comentario, lang });
 
     fs.writeFile(QueuefilePath, JSON.stringify(comentarios, null, 2), (err) => {
       if (err) {
         console.error("Error al escribir en el archivo JSON:", err);
         return res.status(500).json({ error: "Error al guardar el comentario" });
       }
-      res.status(201).json({ message: "Comentario añadido exitosamente" });
 
-      const webhook = new WebhookClient({ url: process.env.commentswebhook });
+      try {
+        const webhook = new WebhookClient({ url: process.env.commentswebhook });
 
-      let ts = new Date(Date.now());
-      let unixTimestamp = Math.floor(ts.getTime() / 1000);
+        let ts = new Date(Date.now());
+        let unixTimestamp = Math.floor(ts.getTime() / 1000);
 
-      const embed = new EmbedBuilder()
-        .setTitle("Nuevo comentario:")
-        .addFields({
-          name: `ID:`,
-          value: `${newId}`,
-        })
-        .addFields({
-          name: `Nombre:`,
-          value: `${nombre}`,
-        })
-        .addFields({
-          name: `Mensaje:`,
-          value: `${comentario}`,
-        })
-        .addFields({
-          name: `⌚ Timestamp:`,
-          value: `<t:${unixTimestamp}:f>`,
-        })
-        .setColor(process.env.warningcolor);
+        const embed = new EmbedBuilder()
+          .setTitle("Nuevo comentario:")
+          .addFields({
+            name: `ID:`,
+            value: `${newId}`,
+          })
+          .addFields({
+            name: `Nombre:`,
+            value: `${nombre}`,
+          })
+          .addFields({
+            name: `Mensaje:`,
+            value: `${comentario}`,
+          })
+          .addFields({
+            name: `Idioma`,
+            value: `${lang}`
+          })
+          .addFields({
+            name: `⌚ Timestamp:`,
+            value: `<t:${unixTimestamp}:f>`,
+          })
+          .setColor(process.env.warningcolor);
 
-      webhook.send({ embeds: [embed] });
+        webhook.send({ embeds: [embed] });
+        res.status(201).json({ message: "Comentario añadido exitosamente" });
+      } catch (error) {
+        console.log(error);
+        res.status(500).json({message: "Error al guardar el comentario"});
+      }
     });
   });
 });
@@ -166,8 +217,9 @@ router.delete("/comments", authenticate, (req, res) => {
 });
 
 // Ruta para listar comentarios => GET || rango 10-30
-router.get("/comments", (req, res) => {
+router.get("/:lang/comments", (req, res) => {
   const { start = 0, end = 12 } = req.query;
+  const { lang } = req.params;
 
   fs.readFile(filePath, "utf8", (err, data) => {
     if (err) {
@@ -175,6 +227,8 @@ router.get("/comments", (req, res) => {
     }
 
     let comentarios = JSON.parse(data);
+    comentarios = comentarios.filter(c => c.lang === lang);
+    
     const startIndex = parseInt(start, 10) || 0;
     const endIndex = parseInt(end, 10) || 10;
 
@@ -350,259 +404,91 @@ router.delete("/manage", authenticate, (req, res) => {
   });
 });
 
-//Ruta para añadir sonidos a la Queue => POST || Link, carpeta || id
-router.post("/add-sounds", (req, res) => {
-  const { youtubeUrl, folderName } = req.body;
+//Ruta para obtener el avatar en baja calidad
+router.get("/avatar", (req, res) => {
+  if (!fs.existsSync(avatarPath)) res.status(404).json({ error: "Avatar not found" });
 
-  if (!youtubeUrl || !folderName) {
-    return res.status(400).json({ error: "El link y la carpeta son requeridos." });
-  }
-
-  fs.readFile(soundfilePath, "utf8", (err, data) => {
-    if (err) {
-      console.error("Error al leer el archivo JSON:", err);
-      return res.status(500).json({ error: "Error al leer el archivo JSON" });
-    }
-
-    let audios = JSON.parse(data);
-
-    let newId;
-    do {
-      newId = generateUniqueId();
-    } while (idExistsSound(newId, audios));
-
-    audios.push({ id: newId, youtubeUrl, folderName });
-
-    fs.writeFile(soundfilePath, JSON.stringify(audios, null, 2), (err) => {
-      if (err) {
-        console.error("Error al escribir en el archivo JSON:", err);
-        return res.status(500).json({ error: "Error al guardar el comentario" });
-      }
-
-      const webhook = new WebhookClient({ url: process.env.soundwebhook });
-
-      let ts = new Date(Date.now());
-      let unixTimestamp = Math.floor(ts.getTime() / 1000);
-
-      const embed = new EmbedBuilder()
-        .setTitle("Nuevo sonido:")
-        .addFields({
-          name: `ID:`,
-          value: `${newId}`,
-        })
-        .addFields({
-          name: `URL:`,
-          value: `${youtubeUrl}`,
-        })
-        .addFields({
-          name: `Carpeta:`,
-          value: `${folderName}`,
-        })
-        .addFields({
-          name: `⌚ Timestamp:`,
-          value: `<t:${unixTimestamp}:f>`,
-        })
-        .setColor(process.env.warningcolor);
-
-      webhook.send({ embeds: [embed] });
-      res.status(200).json({ message: "Se ha enviado el sonido a la cola exitosamente", code: 200 });
-    });
-  });
+  res.sendFile(avatarPath);
 });
 
-//Ruta para obtener los sonidos
-router.get("/get-sounds", authenticate, (req, res) => {
+
+//region chillfish
+
+router.get("/:lang/chillfish/comments", (req, res) => {
   const { start = 0, end = 12 } = req.query;
+  const { lang } = req.params;
 
-  fs.readFile(soundfilePath, "utf8", (err, data) => {
+  fs.readFile(chillFishFilePath, "utf8", (err, data) => {
     if (err) {
-      return res.status(500).send(err.message);
+      return res.status(500).send("Error reading comments");
     }
 
-    let sonidos = JSON.parse(data);
-    const startIndex = parseInt(start, 10) || 0;
-    const endIndex = parseInt(end, 10) || 10;
+    try {
+      let comments = JSON.parse(data);
+      comments = comments.filter(c => c.lang === lang);
 
-    const paginatedsounds = sonidos.slice(startIndex, endIndex);
+      const startIndex = parseInt(start, 10) || 0;
+      const endIndex = parseInt(end, 10) || 12;
 
-    res.json(paginatedsounds);
+      const paginatedComments = comments.slice(startIndex, endIndex);
+
+      res.json(paginatedComments);
+    } catch (e) {
+      console.log(`Error reading comments: ${e}`);
+      res.json([]);
+    }
   });
 });
 
-//Ruta para eliminar sonidos
-router.delete("/delete-sounds", authenticate, (req, res) => {
-  const { id } = req.body;
+// Enviar comentario de Chill Fish (Cola)
+router.post("/chillfish/comments", (req, res) => {
+  const { nombre, comentario, rol } = req.body;
+  const lang = req.acceptsLanguages(["es", "en"]) || "en";
 
-  if (!id) {
-    return res.status(400).json({ error: "El ID del comentario es requerido." });
+  if (!nombre || !comentario || !rol) {
+    return res.status(400).json({ error: "All fields are required" });
   }
 
-  fs.readFile(soundfilePath, "utf8", (err, data) => {
-    if (err) {
-      console.error("Error al leer el archivo JSON:", err);
-      return res.status(500).send("Error al leer el archivo JSON");
-    }
+  fs.readFile(chillFishQueuePath, "utf8", (err, data) => {
+    if (err) return res.status(500).json({ error: "Error reading queue" });
 
-    let sonidos = JSON.parse(data);
-    const index = sonidos.findIndex((sonido) => sonido.id === id);
+    let comentarios = JSON.parse(data);
+    let newId;
+    
+    do { newId = generateUniqueId(); } while (idExists(newId, comentarios));
 
-    if (index === -1) {
-      return res.status(404).json({ error: "Sonido no encontrado." });
-    }
+    const newComment = { 
+        id: newId, 
+        nombre, 
+        comentario, 
+        rol, 
+        lang, 
+        date: new Date().toISOString() 
+    };
+    
+    comentarios.push(newComment);
 
-    const sonidoEliminado = sonidos[index];
+    fs.writeFile(chillFishQueuePath, JSON.stringify(comentarios, null, 2), (err) => {
+      if (err) return res.status(500).json({ error: "Error saving comment" });
 
-    sonidos.splice(index, 1);
+      try {
+        if(process.env.commentswebhook) {
+            const webhook = new WebhookClient({ url: process.env.commentswebhook });
+            const embed = new EmbedBuilder()
+            .setTitle("🐟 Nuevo comentario Chill Fish:")
+            .addFields(
+                { name: 'Nombre', value: nombre, inline: true },
+                { name: 'Rol', value: rol, inline: true },
+                { name: 'Mensaje', value: comentario }
+            )
+            .setColor('#3b82f6');
+            webhook.send({ embeds: [embed] });
+        }
+      } catch (e) { console.error("Discord error", e); }
 
-    fs.writeFile(soundfilePath, JSON.stringify(sonidos, null, 2), (err) => {
-      if (err) {
-        console.error("Error al escribir en el archivo JSON:", err);
-        return res.status(500).send("Error al eliminar el comentario");
-      }
-      res.status(200).json({ message: "Sonido eliminado exitosamente" });
-
-      const webhook = new WebhookClient({ url: process.env.soundwebhook });
-
-      let ts = new Date(Date.now());
-      let unixTimestamp = Math.floor(ts.getTime() / 1000);
-
-      const embed = new EmbedBuilder()
-        .setTitle("Sonido borrado:")
-        .addFields({
-          name: `ID:`,
-          value: `${sonidoEliminado.id}`,
-        })
-        .addFields({
-          name: `URL:`,
-          value: `${sonidoEliminado.youtubeUrl}`,
-        })
-        .addFields({
-          name: `Carpeta:`,
-          value: `${sonidoEliminado.folderName}`,
-        })
-        .addFields({
-          name: `⌚ Timestamp:`,
-          value: `<t:${unixTimestamp}:f>`,
-        })
-        .setColor(process.env.alertcolor);
-
-      webhook.send({ embeds: [embed] });
+      res.status(201).json({ message: "Comment added to queue" });
     });
   });
 });
 
-//Ruta para añadir usuarios a la whitelist
-router.post("/add-user", authenticate,(req, res) => {
-  const { userid } = req.body;
-
-  if (!userid) {
-    return res.status(400).json({ error: "La ID del usuario es requerido." });
-  }
-
-  fs.readFile(userFilePath, "utf8", (err, data) => {
-    if (err) {
-      console.error("Error al leer el archivo JSON:", err);
-      return res.status(500).json({ error: "Error al leer el archivo JSON" });
-    }
-
-    let usuarios = JSON.parse(data);
-
-    const exists = usuarios.some((user) => user.userid === userid);
-
-    if(exists) {
-      return res.status(400).json({ error: "El usuario ya existe en la lista."});
-    }
-
-    usuarios.push({ userid });
-
-    fs.writeFile(userFilePath, JSON.stringify(usuarios, null, 2), (err) => {
-      if (err) {
-        console.error("Error al escribir en el archivo JSON:", err);
-        return res.status(500).json({ error: "Error al guardar el usuario" });
-      }
-
-      const webhook = new WebhookClient({ url: process.env.userwebhook });
-
-      let ts = new Date(Date.now());
-      let unixTimestamp = Math.floor(ts.getTime() / 1000);
-
-      const embed = new EmbedBuilder()
-        .setTitle("Nuevo Usuario:")
-        .addFields({
-          name: `ID:`,
-          value: `${userid}`,
-        })
-        .addFields({
-          name: `User:`,
-          value: `<@${userid}>`
-        })
-        .addFields({
-          name: `⌚ Timestamp:`,
-          value: `<t:${unixTimestamp}:f>`,
-        })
-        .setColor(process.env.warningcolor);
-
-      webhook.send({ embeds: [embed] });
-      res.status(200).json({ message: "Se ha añadido el usuario correctamente", code: 200 });
-    });
-  });
-});
-
-//Ruta para eliminar usuarios de la whitelist
-router.delete("/delete-user", authenticate, (req, res) => {
-  const { userid } = req.body;
-  console.log(userid)
-  if (!userid) {
-    return res.status(400).json({ error: "El ID del usuario es requerido." });
-  }
-
-  fs.readFile(userFilePath, "utf8", (err, data) => {
-    if (err) {
-      console.error("Error al leer el archivo JSON:", err);
-      return res.status(500).send("Error al leer el archivo JSON");
-    }
-
-    let usuarios = JSON.parse(data);
-    const index = usuarios.findIndex((user) => user.userid === userid);
-
-    if (index === -1) {
-      return res.status(404).json({ error: "Usuario no encontrado." });
-    }
-
-    const UserEliminado = usuarios[index];
-
-    usuarios.splice(index, 1);
-
-    fs.writeFile(userFilePath, JSON.stringify(usuarios, null, 2), (err) => {
-      if (err) {
-        console.error("Error al escribir en el archivo JSON:", err);
-        return res.status(500).send("Error al eliminar el comentario");
-      }
-      res.status(200).json({ message: "Usuario eliminado exitosamente" });
-
-      const webhook = new WebhookClient({ url: process.env.userwebhook });
-
-      let ts = new Date(Date.now());
-      let unixTimestamp = Math.floor(ts.getTime() / 1000);
-
-      const embed = new EmbedBuilder()
-        .setTitle("Usuario borrado:")
-        .addFields({
-          name: `ID:`,
-          value: `${UserEliminado.userid}`,
-        })
-        .addFields({
-          name: `User:`,
-          value: `<@${UserEliminado.userid}>`
-        })
-        .addFields({
-          name: `⌚ Timestamp:`,
-          value: `<t:${unixTimestamp}:f>`,
-        })
-        .setColor(process.env.alertcolor);
-
-      webhook.send({ embeds: [embed] });
-    });
-  });
-});
 export default router;

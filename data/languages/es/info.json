@@ -1,0 +1,51 @@
+{
+    "main": "Inicio",
+    "sidebar": {
+        "menu": "Menú"
+    },
+    "formation": {
+        "title": "Formación",
+        "description": "Esto son las formaciónes que tengo o actualmente estoy cursando.",
+        "cards": [
+            {
+                "type": "info",
+                "title": "FP Superior DAM",
+                "description": "Actualmente cursando en: <br />Formación Profesional Superior de Desarrollo de Aplicaciones Multiplataforma.",
+                "additional": "2024 - Actualmente"
+            },
+            {
+                "type": "info",
+                "title": "FP Medio SMR",
+                "description": "Cursado en IES Pazo da Mercé: <br />Formación Profesional Medio de Sistemas Microinformáticos y Redes.",
+                "additional": "2022 - 2024"
+            },
+            {
+                "type": "info",
+                "title": "Eramus+",
+                "description": "Participé en Erasmus+ en Praga: <br />Experiencia en la empresa Neus Lab.",
+                "additional": "3 meses"
+            }
+        ]
+    },
+    "hobbies" : {
+        "title": "Pasatiempos",
+        "description": "Esto son algunos de mis pasatiempos que hago en el día a día.",
+        "cards": [
+            {
+                "type": "info",
+                "title": "Tendencias tecnológicas",
+                "description": "Me dedico a estar informado sobre las últimas novedades sobre: <br />Realidad virtual, programación e inteligencia artificial."
+            },
+            {
+                "type": "info",
+                "title": "Comunidad en VRChat",
+                "description": "Dirijo un grupo propio en VRChat llamado <a href=\"/chillfish\" target=\"_blank\">Chill ＜＞＜</a>, donde hacemos reuniones para relajarnos y disfrutar un espacio tranquilo. <br />Parte del ecosistema <a href=\"https://theziver.com/\" target=\"_blank\">Structured Chaos Community.</a>"
+            },
+            {
+                "type": "info",
+                "title": "Gaming",
+                "description": "Me apasionan los juegos de estrategia y los juegos rítmicos, donde disfruto combinar planificación, coordinación y análisis, siempre buscando superar mis propios límites."
+            }
+        ]
+    }
+}
