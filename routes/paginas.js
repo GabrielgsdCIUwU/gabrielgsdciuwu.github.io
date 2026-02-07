@@ -29,6 +29,11 @@ router.get("/info", (req, res) => {
   res.redirect(`/${lang}/info`);
 });
 
+router.get("/chillfish", (req, res) => {
+  const lang = detectLanguage(req);
+  res.redirect(`/${lang}/chillfish`);
+});
+
 router.get("/:lang", (req, res) => renderPage(req, res, "index"));
 
 router.get("/forms", (req, res) => {
