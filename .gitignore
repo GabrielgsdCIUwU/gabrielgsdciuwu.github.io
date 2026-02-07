@@ -3,6 +3,8 @@ BrainStorm.txt
 .env
 /resources/json/comentarios.json
 /resources/json/queue-comments.json
+/resources/json/chillfish-comments.json
+/resources/json/queue-chillfish-comments.json
 resources/json/users.json
 resources/json/sounds.json
 resources/json/status.json
