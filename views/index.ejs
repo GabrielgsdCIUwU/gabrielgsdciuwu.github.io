@@ -110,14 +110,18 @@
           content: content.contact
         }) %>
 
+        <%- include('./partials/form-cv.ejs') %>
+
         <%- include('./partials/footer.ejs') %>
 
         <script src="../resources/js/main.js"></script>
         
         <%- include('./partials/toastr-messages.ejs', {
-          alerts: content.comments.alerts
+          alerts: content.comments.alerts,
+          cvAlerts: content.cvModal
         }) %>
         <script src="../resources/js/comentarios.js"></script>
+        <script src="../resources/js/cv-request.js"></script>
       </main>
     </div>
   </body>
