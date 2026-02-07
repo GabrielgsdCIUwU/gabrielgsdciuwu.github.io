@@ -66,6 +66,24 @@
         "displayOnHero": true
       },
       {
+        "name": "Kotlin",
+        "icon": "/resources/svg/kotlin-icon.svg",
+        "category": "Desarrollo",
+        "description": "Desarrollo de aplicaciones Android nativas, utilizando arquitectura MVVM y consumo de APIs para la gestión de datos."
+      },
+      {
+        "name": "Spring Boot",
+        "icon": "/resources/svg/springboot-icon.svg",
+        "category": "Desarrollo",
+        "description": "Desarrollo de aplicaciones backend con Spring Boot, enfocadas en la gestión de datos y la lógica de negocio."
+      },
+      {
+        "name": "MongoDB",
+        "icon": "/resources/svg/mongodb-icon.svg",
+        "category": "Desarrollo",
+        "description": "Uso básico de MongoDB para almacenamiento de datos, incluyendo operaciones CRUD y relaciones simples entre colecciones."
+      },
+      {
         "name": "HTML5",
         "icon": "/resources/svg/html5-icon.svg",
         "category": "Desarrollo",
