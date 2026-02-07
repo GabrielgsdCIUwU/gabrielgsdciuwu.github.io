@@ -12,12 +12,22 @@
     "section": "Home",
     "role": "Junior Backend & Mobile Applications Developer",
     "description": "Developer passionate about automating repetitive tasks and building practical tools aimed at communities",
-    "cv": "Download CV",
+    "cv": "Request CV",
     "projects": "Projects",
     "status": {
       "available": "Available to work",
       "busy": "Currently working"
     }
+  },
+  "cvModal": {
+    "title": "CV Request",
+    "message": "Due to privacy reasons the CV is not public, but you can request it here.",
+    "companyPlaceholder": "Company (Optional)",
+    "emailPlaceholder": "Your Email (Mandatory)",
+    "send": "Request",
+    "cancel": "Cancel",
+    "success": "Request sent successfully.",
+    "error": "There was an error sending the request."
   },
   "about": {
     "title": "About Me",

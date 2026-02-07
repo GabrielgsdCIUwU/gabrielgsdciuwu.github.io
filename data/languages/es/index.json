@@ -12,12 +12,22 @@
     "section": "Inicio",
     "role": "Programador Junior en Backend & Aplicaciones Móviles",
     "description": "Desarrollador apasionado por la automatización de tareas repetitivas y la creación de herramientas prácticas orientadas a comunidades",
-    "cv": "Descargar CV",
+    "cv": "Solicitar CV",
     "projects": "Proyectos",
     "status": {
       "available": "Disponible para trabajar",
       "busy": "Ocupado trabajando"
     }
+  },
+  "cvModal": {
+    "title": "Solicitud de CV",
+    "message": "Por motivos de privacidad el CV no está público, pero puedes solicitarlo aquí.",
+    "companyPlaceholder": "Empresa (Opcional)",
+    "emailPlaceholder": "Tu correo electrónico (Obligatorio)",
+    "send": "Solicitar",
+    "cancel": "Cancelar",
+    "success": "Solicitud enviada correctamente.",
+    "error": "Hubo un error al enviar la solicitud."
   },
   "about": {
     "title": "Sobre Mí",
