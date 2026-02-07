@@ -1,0 +1,127 @@
+{
+  "headDetails": {
+    "title": "Chill ＜＞＜ | Digital Sanctuary",
+    "description": "A community-led sanctuary focused on digital well-being and structured social interaction within VRChat."
+  },
+  "nav": {
+    "back": "Back to Portfolio"
+  },
+  "hero": {
+    "title": "Chill",
+    "symbol": "＜＞＜",
+    "subtitle": "Cultivating Order in the Digital Chaos.",
+    "description": "A community-led sanctuary focused on digital well-being and structured social interaction within the Metaverse.",
+    "cta": "Join the Group on VRChat",
+    "link": "https://vrchat.com/home/group/grp_52bf6a2e-4bb9-4e20-84ef-206b21218970"
+  },
+  "overview": {
+    "label": "01 — The Context",
+    "title": "Project Overview",
+    "cards": [
+      {
+        "title": "The Landscape",
+        "content": "VRChat is a vast, user-generated metaverse where millions of people interact daily. While it offers boundless freedom, this freedom often results in \"digital noise\"—visual clutter, loud audio, and overwhelming social environments."
+      },
+      {
+        "title": "The Solution",
+        "content": "Chill ＜＞＜ was established as a counterbalance. It is a curated community space designed to provide a \"third place\" for users seeking rest. We focus on low-energy social interaction, providing a strict structure that filters out the noise."
+      }
+    ]
+  },
+  "philosophy": {
+    "label": "02 — The Symbology",
+    "title": "The Philosophy",
+    "description": "The community operates under the philosophical framework of the \"FISH <>< Ecosystem.\"",
+    "chaos": {
+      "title": "Chaos",
+      "symbol": "<",
+      "subtitle": "The Left Bracket",
+      "text": "Represents the natural tendency of digital spaces to become disordered and loud. It is the entropy that accumulates when no boundaries are set."
+    },
+    "structure": {
+      "title": "Structure",
+      "symbol": "＞",
+      "subtitle": "The Right Bracket",
+      "text": "Represents the intentional application of rules and moderation to reduce that chaos. It is the force that creates order from disorder."
+    },
+    "role": {
+      "title": "Our Role",
+      "text": "This project specifically embodies the ＞ (Structure). We act as the architectural force that creates boundaries, allowing users to find peace in an otherwise chaotic digital universe."
+    }
+  },
+  "values": {
+    "label": "03 — Implementation",
+    "title": "Values & Principles",
+    "description": "We maintain the \"Structure\" through three core pillars.",
+    "pillars": [
+      {
+        "title": "Audio Discipline",
+        "text": "Strict audio protocols to ensure conversations remain calm. No screaming, no mic-spamming."
+      },
+      {
+        "title": "Visual Clarity",
+        "text": "We discourage \"visual noise\" (avatars with excessive flashing lights) to protect the sensory experience."
+      },
+      {
+        "title": "Sanctuary Culture",
+        "text": "A zero-tolerance policy for toxicity ensures a safe harbor for decompression."
+      }
+    ]
+  },
+  "protocols": {
+    "label": "04 — The Protocols",
+    "title": "Instance Rules",
+    "description": "The Protocols of Structure > define how we maintain peace.",
+    "list": [
+      { "title": "Audio Discipline", "desc": "Keep your voice conversational. No loud music.", "chaos": "High volume" },
+      { "title": "Visual Clarity", "desc": "No blinding lights or massive particles.", "chaos": "Visual clutter" },
+      { "title": "Respect the Calm", "desc": "No toxicity or aggressively starting drama.", "chaos": "Conflict" },
+      { "title": "No \"Chaos\" Roleplay", "desc": "Do not bring chaos roleplay here.", "chaos": "Disruption" },
+      { "title": "T.O.S. Compliance", "desc": "We strictly follow VRChat Terms of Service.", "chaos": "Rule-breaking" }
+    ],
+    "meeting": {
+      "title": "Weekly Meetings",
+      "text": "Every Saturday, the community gathers for structured social sessions."
+    }
+  },
+  "vision": {
+    "label": "05 — The Vision",
+    "title": "Looking Forward",
+    "quote": "In a hyper-connected world, true silence is rare.",
+    "text": "Chill ＜＞＜ proves that by applying the right amount of structure, we can create digital spaces for mental rest."
+  },
+  "footer": {
+    "based": "Project based on the Structured Chaos Community Ecosystem.",
+    "copyright": "Original concept by <a href=\"https://theziver.com/\" target=\"_blank\">TheZiver</a>"
+  },
+  "comments": {
+    "title": "Community Voices",
+    "subtitle": "What Our Members Say",
+    "description": "Hear from the people who have found their place in our sanctuary.",
+    "noComments": "No testimonials yet. Be the first to share your experience!",
+    "approved": "Approved Testimonals",
+    "form": {
+      "title": "Share Your Experience",
+      "nameLabel": "Your Name",
+      "namePlaceholder": "How should we call you?",
+      "roleLabel": "Your Relationship with Chill ＜＞＜",
+      "rolePlaceholder": "Select your role",
+      "textLabel": "Your Comment",
+      "textPlaceholder": "Share your experience...",
+      "note": "All comments are reviewed before being published.",
+      "submit": "Submit for Review",
+      "roles": {
+        "member": "Member",
+        "regular": "Regular Attendee",
+        "moderator": "Moderator",
+        "visitor": "Visitor"
+      }
+    },
+    "alerts": {
+      "successTitle": "Submitted",
+      "successMessage": "Your comment is pending review.",
+      "errorTitle": "Error",
+      "errorMessage": "Could not submit comment."
+    }
+  }
+}
