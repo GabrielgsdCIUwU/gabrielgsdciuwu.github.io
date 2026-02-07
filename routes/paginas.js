@@ -40,5 +40,6 @@ router.get("/soundboard", (req, res) => {
 });
 
 router.get("/:lang/info", (req, res) => renderPage(req, res, "info"));
+router.get("/:lang/chillfish", (req, res) => renderPage(req, res, "chillfish"));
 
 export default router;
