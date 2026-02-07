@@ -51,6 +51,49 @@ const authenticate = (req, res, next) => {
   next();
 };
 
+router.post("/request-cv", (req, res) => {
+  const { company, email, lang } = req.body;
+
+  if (!email) return res.status(400).json({error: "Email is required"});
+
+  try {
+    //! PORQUE C- DISCORD AHORA QUIERE FUNCIONAR DE ESTA MANERA PERO EL RESTO LE DA IGUAL. W T F
+    const webhook = new WebhookClient({id: process.env.cvid, token: process.env.cvsecret });
+    //const webhook = new WebhookClient({ url: process.env.commentswebhook });
+
+    let ts = new Date(Date.now());
+    let unixTimestamp = Math.floor(ts.getTime() / 1000);
+
+    const embed = new EmbedBuilder()
+      .setTitle("Nueva solicitud:")
+      .addFields({
+        name: `Company:`,
+        value: `${company}`,
+      })
+      .addFields({
+        name: `Email:`,
+        value: `${email}`,
+      })
+      .addFields({
+        name: `Idioma`,
+        value: `${lang}`
+      })
+      .addFields({
+        name: `⌚ Timestamp:`,
+        value: `<t:${unixTimestamp}:f>`,
+      })
+      .setColor(process.env.successcolor);
+
+    webhook.send({ embeds: [embed] });
+
+    res.status(200).json({message: "Request sent"});
+
+  } catch (error) {
+    console.log("CV Webhook error:", error);
+    res.status(500).json({error: "Internal error"});
+  }
+});
+
 // Ruta para añadir un comentario => POST || nombre, comentario || id
 router.post("/comments", (req, res) => {
   const { nombre, comentario } = req.body;
