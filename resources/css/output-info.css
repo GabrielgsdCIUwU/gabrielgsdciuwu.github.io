@@ -1969,7 +1969,14 @@ html {
   padding: 0;
   height: 100%;
   overflow-y: auto;
-  scroll-behavior: smooth;
+}
+
+footer {
+  color: white;
+  padding: 1rem;
+  text-align: center;
+  background-color: #4a90e2;
+  margin-top: auto;
 }
 
 .fa-ko-fi::before {
@@ -1989,187 +1996,6 @@ html {
   font-weight: 900;
   margin: 0.5em 0 0 -2em;
   position: absolute;
-}
-
-/* Sección conocimientos*/
-
-#knowledge-grid {
-  display: grid;
-  opacity: 0;
-  transition: opacity 0.5s ease-in-out;
-}
-
-#knowledge-grid > div {
-  transition: 
-    opacity 0.4s ease-in-out,
-    max-height 0.4s ease-in-out,
-    transform 0.4s ease-in-out;
-  overflow: hidden;
-  max-height: 500px;
-  opacity: 1;
-}
-
-#knowledge-grid > div:not(.visible) {
-  opacity: 0;
-  max-height: 0;
-  transform: scale(0.95);
-}
-
-#knowledge-grid.visible {
-  opacity: 1;
-}
-
-.knowledge-card {
-  opacity: 0;
-  transform: scale(0.95);
-  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
-}
-
-.knowledge-card.visible {
-  opacity: 1;
-  transform: scale(1);
-  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
-}
-
-.filter-button {
-  transition: all 0.3s ease;
-}
-
-.filter-button.active {
-  background-color: #2563eb;
-  box-shadow: 0 0 8px rgba(37, 99, 235, 0.6);
-  transform: translateY(-2px);
-  font-weight: bold;
-}
-
-.filter-button:active {
-  transform: translateY(1px);
-}
-
-/* Personalización del carrusel */
-
-.carousel-container {
-  width: 100%;
-  position: relative;
-  overflow: hidden;
-  padding: 0 4px;
-}
-
-.carousel-inner {
-  display: flex;
-  transition: transform 0.5s ease-in-out;
-  width: 100%;
-}
-
-.carousel-slide {
-  min-width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: stretch;
-  gap: 16px;
-  box-sizing: border-box;
-  padding-bottom: 10px;
-}
-
-.card-wrapper {
-  flex: 1;
-  min-width: 0;
-}
-
-.carousel-content {
-  background: white;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  font-family: Arial, sans-serif;
-  height: 300px;
-  display: flex;
-  flex-direction: column;
-  text-align: left;
-}
-
-.carousel-content .name {
-  font-weight: bold;
-  color: #1da1f2;
-  margin-bottom: 12px;
-  font-size: 1.1rem;
-  flex-shrink: 0;
-}
-
-.carousel-content .comment {
-  color: #657786;
-  font-size: 0.95rem;
-  line-height: 1.5;
-  white-space: pre-wrap;
-  word-wrap: break-word;
-  overflow-y: auto;
-  flex-grow: 1;
-  padding-right: 5px;
-}
-
-.carousel-controls {
-  display: flex;
-  justify-content: center;
-  margin-top: 24px;
-}
-
-.carousel-controls button {
-  background: #007bff;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 8px 16px;
-  margin: 0 4px;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-
-.carousel-controls button:hover {
-  background: #0056b3;
-}
-
-/* Formulario de Comentario */
-
-.hidden {
-  display: none;
-}
-
-#comment-form .form-content {
-  background: white;
-  padding: 16px;
-  border-radius: 8px;
-  box-shadow: 0 2px rgba(0, 0, 0, 0.1);
-  max-width: 600px;
-  width: 100%;
-}
-
-#comment-form input,
-#comment-form textarea {
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  padding: 10px;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-#comment-form textarea {
-  resize: none;
-  max-height: 200px;
-  overflow-y: auto;
-}
-
-/* Estilos para pantallas menores a 1000px */
-
-@media (max-width: 1000px) {
-  .carousel-container {
-    flex-direction: column;
-    /* Cambiar a vertical en pantallas pequeñas */
-  }
-
-  .carousel-inner {
-    flex-direction: row;
-    /* Desplazamiento horizontal dentro del carrusel */
-  }
 }
 
 .last\:border-b-0:last-child {
