@@ -1,0 +1,31 @@
+<div id="cv-modal" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center z-50 hidden backdrop-blur-sm transition-opacity duration-300">
+    <div class="bg-white p-8 rounded-lg shadow-2xl max-w-md w-full mx-4 transform scale-100 transition-transform duration-300">
+        <h3 class="text-2xl font-bold text-gray-800 mb-2"><%= content.cvModal.title %></h3>
+        <p class="text-gray-600 mb-6 text-sm">
+            <%= content.cvModal.message %>
+        </p>
+
+        <form id="cv-form" class="space-y-4">
+            <div>
+                <input type="text" id="cv-company" 
+                    placeholder="<%= content.cvModal.companyPlaceholder %>" 
+                    class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all">
+            </div>
+            
+            <div>
+                <input type="email" id="cv-email" required 
+                    placeholder="<%= content.cvModal.emailPlaceholder %>" 
+                    class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all">
+            </div>
+
+            <div class="flex gap-3 mt-6">
+                <button type="button" id="cv-cancel" class="flex-1 px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors font-medium">
+                    <%= content.cvModal.cancel %>
+                </button>
+                <button type="submit" id="cv-submit" class="flex-1 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors font-medium shadow-md hover:shadow-lg">
+                    <%= content.cvModal.send %>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
