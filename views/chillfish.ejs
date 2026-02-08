@@ -8,6 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/resources/css/output-chillfish.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="icon" href="/resources/img/chillfish-logo.avif" type="image/avif" />
 </head>
 <body class="bg-[#0a0a0f] text-[#e5e5e5] overflow-x-hidden">
 
@@ -50,6 +51,13 @@
                     <%= content.hero.cta %>
                 </a>
             </div>
+        </div>
+
+        <div class="absolute bottom-12 left-1/2 transform -translate-x-1/2 z-20 animate-bounce pointer-events-none opacity-50">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white">
+                <path d="M7 13l5 5 5-5"/>
+                <path d="M7 6l5 5 5-5"/>
+            </svg>
         </div>
         
         <div class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#0a0a0f] to-transparent"></div>
@@ -255,14 +263,6 @@
                 <p class="text-neutral-400 text-lg md:text-xl text-center leading-relaxed max-w-2xl mx-auto">
                     <%= content.vision.text %>
                 </p>
-            </div>
-
-            <div class="flex items-center justify-center gap-2 mt-16 reveal-on-scroll">
-                <span class="w-2 h-2 rounded-full bg-blue-400/30"></span>
-                <span class="w-2 h-2 rounded-full bg-blue-400/50"></span>
-                <span class="w-2 h-2 rounded-full bg-blue-400"></span>
-                <span class="w-2 h-2 rounded-full bg-blue-400/50"></span>
-                <span class="w-2 h-2 rounded-full bg-blue-400/30"></span>
             </div>
         </div>
     </section>
