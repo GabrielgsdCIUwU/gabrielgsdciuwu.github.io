@@ -37,9 +37,12 @@
         "description": "I keep myself informed about the latest news on: <br />Virtual reality, programming and artificial intelligence."
       },
       {
-        "type": "info",
+        "type": "link",
         "title": "VRChat Community",
-        "description": "I run my own VRChat group called <a href=\"/chillfish\" target=\"_blank\">Chill ＜＞＜</a>, where we host chill meetings to relax and enjoy a calm space. <br />Part of the Structured <a href=\"https://theziver.com/\" target=\"_blank\">Chaos Community ecosystem.</a>"
+        "description": "I run my own VRChat group called Chill ＜＞＜, where we host chill meetings to relax and enjoy a calm space. <br />Part of the Structured Chaos Community ecosystem.",
+        "href": "/chillfish",
+        "target": "_blank",
+        "buttonText": "See more"
       },
       {
         "type": "info",
