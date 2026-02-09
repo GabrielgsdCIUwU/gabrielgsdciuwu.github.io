@@ -29,6 +29,18 @@
   border: 1px solid rgba(42, 42, 58, 0.5);
 }
 
+footer a {
+  color: rgb(96 165 250);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.2s ease, text-shadow 0.2s ease;
+}
+
+footer a:hover {
+  color: rgb(147 197 253);
+  text-shadow: 0 0 8px rgba(59, 130, 246, 0.6);
+}
+
 
 
 .custom-scrollbar {
