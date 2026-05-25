@@ -12,3 +12,5 @@ resources/img/avatar_lq.jpg
 sessions
 
 .vscode
+resources/json/chillfish-stats-instance.json
+resources/json/chillfish-stats-group.json
