@@ -81,11 +81,33 @@
     ],
     "meeting": {
       "title": "Reuniones Semanales",
-      "text": "Cada sábado, la comunidad se reúne para sesiones sociales estructuradas."
+      "text": "Cada sábado, la comunidad se reúne para sesiones sociales estructuradas.",
+      "nthMeeting": "{n}ª Reunión Semanal",
+      "schedule": "Las instancias empiezan a las <span class=\"local-time\" data-utc=\"23:00\">23:00 UTC</span> y acaban a las <span class=\"local-time\" data-utc=\"01:30\">01:30 UTC</span>."
     }
   },
+  "statistics": {
+    "label": "05 — Las Estadísticas",
+    "title": "Estadísticas de la Comunidad",
+    "description": "Una mirada transparente a nuestro crecimiento y asistencia.",
+    "maxGroupMembers": "Máximo de Miembros (Grupo)",
+    "maxInstanceMembers": "Máximo de Miembros (Instancia)",
+    "avgInstanceAttendance": "Promedio de Asistencia",
+    "groupGraphTitle": "Crecimiento del Grupo",
+    "groupGraphDesc": "Progreso del número de miembros en el grupo a lo largo del tiempo.",
+    "instanceGraphTitle": "Asistencia por Instancia",
+    "instanceGraphDesc": "Número de miembros a lo largo de una instancia específica.",
+    "datePickerLabel": "Seleccionar Meetup:",
+    "latestMeetup": "Último Meetup",
+    "allMeetups": "Promedio de Todos",
+    "meetupOption": "{n}ª Reunión Semanal {date}",
+    "toggleAverages": "Mostrar Promedios",
+    "toggleRaw": "Mostrar Datos Reales",
+    "membersAxis": "Miembros",
+    "timeAxis": "Hora / Fecha"
+  },
   "vision": {
-    "label": "05 — La Visión",
+    "label": "06 — La Visión",
     "title": "Mirando al Futuro",
     "quote": "En un mundo hiperconectado, el verdadero silencio es raro.",
     "text": "Chill ＜＞＜ demuestra que, aplicando la cantidad adecuada de estructura, podemos crear espacios digitales para el descanso mental."

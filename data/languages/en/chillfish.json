@@ -81,11 +81,33 @@
     ],
     "meeting": {
       "title": "Weekly Meetings",
-      "text": "Every Saturday, the community gathers for structured social sessions."
+      "text": "Every Saturday, the community gathers for structured social sessions.",
+      "nthMeeting": "{n}th Weekly Meetup",
+      "schedule": "Instances start at <span class=\"local-time\" data-utc=\"23:00\">23:00 UTC</span> and end at <span class=\"local-time\" data-utc=\"01:30\">01:30 UTC</span>."
     }
   },
+  "statistics": {
+    "label": "05 — The Statistics",
+    "title": "Community Statistics",
+    "description": "A transparent look at our growth and attendance.",
+    "maxGroupMembers": "Peak Group Members",
+    "maxInstanceMembers": "Peak Instance Members",
+    "avgInstanceAttendance": "Average Attendance",
+    "groupGraphTitle": "Group Growth",
+    "groupGraphDesc": "Progress of the number of members in the group over time.",
+    "instanceGraphTitle": "Instance Attendance",
+    "instanceGraphDesc": "Number of members over time during a specific instance.",
+    "datePickerLabel": "Select Meetup:",
+    "latestMeetup": "Latest Meetup",
+    "allMeetups": "Average of All",
+    "meetupOption": "{n} Weekly Meetup {date}",
+    "toggleAverages": "Show Averages",
+    "toggleRaw": "Show Raw Data",
+    "membersAxis": "Members",
+    "timeAxis": "Time / Date"
+  },
   "vision": {
-    "label": "05 — The Vision",
+    "label": "06 — The Vision",
     "title": "Looking Forward",
     "quote": "In a hyper-connected world, true silence is rare.",
     "text": "Chill ＜＞＜ proves that by applying the right amount of structure, we can create digital spaces for mental rest."
