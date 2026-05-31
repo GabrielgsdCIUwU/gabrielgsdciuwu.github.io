@@ -106,8 +106,11 @@ document.addEventListener("DOMContentLoaded", () => {
     let uniqueDates = []; // Hoisted for access
 
     const instanceCtx = document.getElementById('instance-stats-chart').getContext('2d');
-    const meetupPicker = document.getElementById('instance-meetup-picker');
-    const datePicker = document.getElementById('instance-date-picker');
+
+    function getLogicalDateString(timestamp) {
+        const d = new Date(new Date(timestamp).getTime() - (4 * 60 * 60 * 1000));
+        return d.toISOString().split('T')[0];
+    }
 
     function renderInstanceChart(selection) {
         if(instanceChart) {
@@ -117,50 +120,47 @@ document.addEventListener("DOMContentLoaded", () => {
         let labels = [];
         let counts = [];
 
-        if (selection === 'all') {
-            // Aggregate by time (HH:MM) and average counts
-            const timeMap = {};
-            instanceData.forEach(d => {
-                const dt = new Date(d.date);
-                // Group by local time HH:MM
-                const timeStr = dt.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-                if (!timeMap[timeStr]) timeMap[timeStr] = { sum: 0, count: 0 };
-                timeMap[timeStr].sum += d.count;
-                timeMap[timeStr].count += 1;
-            });
-            
-            const sortedTimes = Object.keys(timeMap).sort((a, b) => {
-                 return a.localeCompare(b);
-            });
-
-            labels = sortedTimes;
-            counts = sortedTimes.map(t => Math.round(timeMap[t].sum / timeMap[t].count));
-        } else if (selection === 'last4') {
+        if (selection === 'all' || selection === 'last4') {
             const last4Dates = uniqueDates.slice(0, 4);
             const timeMap = {};
+            
             instanceData.forEach(d => {
-                const dString = new Date(d.date).toISOString().split('T')[0];
-                if (!last4Dates.includes(dString)) return;
+                const dString = getLogicalDateString(d.date);
+                if (selection === 'last4' && !last4Dates.includes(dString)) return;
+                
                 const dt = new Date(d.date);
-                const timeStr = dt.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-                if (!timeMap[timeStr]) timeMap[timeStr] = { sum: 0, count: 0 };
-                timeMap[timeStr].sum += d.count;
-                timeMap[timeStr].count += 1;
+                const utcHour = dt.getUTCHours();
+                const utcMin = dt.getUTCMinutes();
+                const key = `${utcHour.toString().padStart(2, '0')}:${utcMin.toString().padStart(2, '0')}`;
+                
+                if (!timeMap[key]) {
+                    // Orden lógico: Si es madrugada (00 a 11), le sumamos 24h para que gráficamente vaya DESPUÉS de las 23:00
+                    const sortVal = (utcHour < 12 ? utcHour + 24 : utcHour) * 60 + utcMin;
+                    timeMap[key] = { sum: 0, count: 0, sortVal: sortVal };
+                }
+                timeMap[key].sum += d.count;
+                timeMap[key].count += 1;
             });
             
-            const sortedTimes = Object.keys(timeMap).sort((a, b) => a.localeCompare(b));
-            labels = sortedTimes;
-            counts = sortedTimes.map(t => Math.round(timeMap[t].sum / timeMap[t].count));
+            const sortedKeys = Object.keys(timeMap).sort((a, b) => timeMap[a].sortVal - timeMap[b].sortVal);
+            
+            labels = sortedKeys.map(k => {
+                const [h, m] = k.split(':');
+                const tmp = new Date();
+                tmp.setUTCHours(parseInt(h, 10), parseInt(m, 10), 0, 0);
+                return tmp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            });
+            counts = sortedKeys.map(k => Math.round(timeMap[k].sum / timeMap[k].count));
+            
         } else {
             // Specific Date
             const filteredData = instanceData.filter(d => {
-                const dString = new Date(d.date).toISOString().split('T')[0];
-                return dString === selection;
+                return getLogicalDateString(d.date) === selection;
             });
             
             labels = filteredData.map(d => {
                 const dt = new Date(d.date);
-                return `${dt.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+                return dt.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
             });
             counts = filteredData.map(d => d.count);
         }
@@ -205,10 +205,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const avgInstEl = document.getElementById('stat-avg-instance');
             if (avgInstEl) avgInstEl.textContent = avgInstance;
             
-            // Extract unique dates for the select options
-            uniqueDates = [...new Set(data.map(d => new Date(d.date).toISOString().split('T')[0]))];
-            
-            // Sort descending
+            uniqueDates = [...new Set(data.map(d => getLogicalDateString(d.date)))];
             uniqueDates.sort((a, b) => new Date(b) - new Date(a));
             
             const latestDate = uniqueDates[0];
@@ -217,7 +214,6 @@ document.addEventListener("DOMContentLoaded", () => {
             const customBtn = document.getElementById('custom-select-btn');
             const customText = document.getElementById('custom-select-text');
             
-            // Extract the original text from EJS
             const latestMeetupText = customText.textContent.trim();
 
             if (customBtn && customDropdown) {
@@ -277,7 +273,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         groupHeader.innerHTML = `<span>${capMonthYear}</span><i class="fas fa-chevron-down text-xs transition-transform duration-300"></i>`;
                         
                         const groupContainer = document.createElement('div');
-                        groupContainer.className = "hidden flex flex-col"; // Collapsed by default
+                        groupContainer.className = "hidden flex flex-col";
                         
                         groupHeader.addEventListener('click', (e) => {
                             e.stopPropagation();

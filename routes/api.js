@@ -493,27 +493,35 @@ router.post("/chillfish/comments", (req, res) => {
 
 // Obtener estadísticas de Chill Fish
 router.get("/chillfish/stats/group", (req, res) => {
-  const statsPath = path.join(__dirname, "../resources/json/chillfish-stats-group.json");
+  const statsPath = path.join(__dirname, "../resources/json/members.json");
   
   fs.readFile(statsPath, "utf8", (err, data) => {
     if (err) {
       console.log(`Error reading group stats: ${err}`);
       return res.status(500).json({ error: "Error reading group stats" });
     }
-    try { res.json(JSON.parse(data)); }
+    try {
+      const parsedData = JSON.parse(data);
+      res.json(parsedData["ChillFish"] || []);
+    }
     catch (e) { res.json([]); }
   });
 });
 
 router.get("/chillfish/stats/instance", (req, res) => {
-  const statsPath = path.join(__dirname, "../resources/json/chillfish-stats-instance.json");
+  const statsPath = path.join(__dirname, "../resources/json/instances.json");
   
   fs.readFile(statsPath, "utf8", (err, data) => {
     if (err) {
       console.log(`Error reading instance stats: ${err}`);
       return res.status(500).json({ error: "Error reading instance stats" });
     }
-    try { res.json(JSON.parse(data)); }
+    try {
+      const parsedData = JSON.parse(data);
+
+      const flatData = Object.values(parsedData).flat();
+      res.json(flatData);
+    }
     catch (e) { res.json([]); }
   });
 });

@@ -5,6 +5,8 @@ BrainStorm.txt
 /resources/json/queue-comments.json
 /resources/json/chillfish-comments.json
 /resources/json/queue-chillfish-comments.json
+/resources/json/instances.json
+/resources/json/members.json
 resources/json/users.json
 resources/json/sounds.json
 resources/json/status.json
