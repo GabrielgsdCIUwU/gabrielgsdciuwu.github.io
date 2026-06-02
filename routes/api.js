@@ -519,7 +519,12 @@ router.get("/chillfish/stats/instance", (req, res) => {
     try {
       const parsedData = JSON.parse(data);
 
-      const flatData = Object.values(parsedData).flat();
+      const flatData = [];
+      for (const [meetup, entries] of Object.entries(parsedData)) {
+        for (const entry of entries) {
+          flatData.push({ ...entry, meetup: parseInt(meetup, 10) });
+        }
+      }
       res.json(flatData);
     }
     catch (e) { res.json([]); }

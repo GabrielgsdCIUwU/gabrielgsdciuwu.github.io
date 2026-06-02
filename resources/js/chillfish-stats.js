@@ -42,15 +42,6 @@ document.addEventListener("DOMContentLoaded", () => {
         badge.textContent = template.replace('{n}', currentMeetupN);
     }
 
-    // Helper: calculate meetup number from a given date
-    function getMeetupNumberFromDate(dateStr) {
-        const d = new Date(dateStr);
-        // We use UTC 23:00 to avoid timezone offset issues when subtracting
-        const testDate = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate(), 23, 0, 0));
-        let diff = Math.floor((testDate - startDate) / msInWeek);
-        if (diff < 0) diff = 0;
-        return diff + 1;
-    }
 
     // 2. Group Stats Chart
     let groupChart = null;
@@ -103,14 +94,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // 3. Instance Stats Chart
     let instanceChart = null;
     let instanceData = [];
-    let uniqueDates = []; // Hoisted for access
+    let uniqueMeetups = []; // Hoisted for access
 
     const instanceCtx = document.getElementById('instance-stats-chart').getContext('2d');
-
-    function getLogicalDateString(timestamp) {
-        const d = new Date(new Date(timestamp).getTime() - (4 * 60 * 60 * 1000));
-        return d.toISOString().split('T')[0];
-    }
 
     function renderInstanceChart(selection) {
         if(instanceChart) {
@@ -121,12 +107,11 @@ document.addEventListener("DOMContentLoaded", () => {
         let counts = [];
 
         if (selection === 'all' || selection === 'last4') {
-            const last4Dates = uniqueDates.slice(0, 4);
+            const last4Meetups = uniqueMeetups.slice(0, 4);
             const timeMap = {};
             
             instanceData.forEach(d => {
-                const dString = getLogicalDateString(d.date);
-                if (selection === 'last4' && !last4Dates.includes(dString)) return;
+                if (selection === 'last4' && !last4Meetups.includes(d.meetup)) return;
                 
                 const dt = new Date(d.date);
                 const utcHour = dt.getUTCHours();
@@ -153,9 +138,9 @@ document.addEventListener("DOMContentLoaded", () => {
             counts = sortedKeys.map(k => Math.round(timeMap[k].sum / timeMap[k].count));
             
         } else {
-            // Specific Date
+            // Specific Meetup
             const filteredData = instanceData.filter(d => {
-                return getLogicalDateString(d.date) === selection;
+                return d.meetup.toString() === selection.toString();
             });
             
             labels = filteredData.map(d => {
@@ -205,10 +190,10 @@ document.addEventListener("DOMContentLoaded", () => {
             const avgInstEl = document.getElementById('stat-avg-instance');
             if (avgInstEl) avgInstEl.textContent = avgInstance;
             
-            uniqueDates = [...new Set(data.map(d => getLogicalDateString(d.date)))];
-            uniqueDates.sort((a, b) => new Date(b) - new Date(a));
+            uniqueMeetups = [...new Set(data.map(d => d.meetup))];
+            uniqueMeetups.sort((a, b) => b - a);
             
-            const latestDate = uniqueDates[0];
+            const latestMeetup = uniqueMeetups[0];
 
             const customDropdown = document.getElementById('custom-select-dropdown');
             const customBtn = document.getElementById('custom-select-btn');
@@ -233,7 +218,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     customText.innerHTML = `<i class="fas fa-list"></i> ${textContent}`;
                     customDropdown.classList.add('hidden');
                     
-                    if (val === 'latest') renderInstanceChart(latestDate);
+                    if (val === 'latest') renderInstanceChart(latestMeetup);
                     else renderInstanceChart(val);
                 }
 
@@ -261,8 +246,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 const optgroups = {};
                 const docLang = document.documentElement.lang || 'en';
 
-                uniqueDates.forEach(dateStr => {
-                    const d = new Date(dateStr);
+                uniqueMeetups.forEach(meetupNum => {
+                    const meetupData = instanceData.find(d => d.meetup === meetupNum);
+                    const d = new Date(meetupData.date);
                     const formattedDate = `${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear()}`;
                     const monthYear = d.toLocaleDateString(docLang, { month: 'long', year: 'numeric' });
                     const capMonthYear = monthYear.charAt(0).toUpperCase() + monthYear.slice(1);
@@ -288,7 +274,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         optgroups[capMonthYear] = groupContainer;
                     }
 
-                    const n = getMeetupNumberFromDate(dateStr);
+                    const n = meetupNum;
                     let nStr = n.toString();
                     if (i18n.meetupOption.includes("Weekly Meetup")) {
                         const s = ["th", "st", "nd", "rd"];
@@ -297,11 +283,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
 
                     const text = i18n.meetupOption.replace('{n}', nStr).replace('{date}', formattedDate);
-                    optgroups[capMonthYear].appendChild(createOption(dateStr, text, true));
+                    optgroups[capMonthYear].appendChild(createOption(meetupNum, text, true));
                 });
             }
 
-            renderInstanceChart(latestDate);
+            renderInstanceChart(latestMeetup);
         })
         .catch(err => console.error("Error loading instance stats", err));
 });
