@@ -14,5 +14,21 @@
     "ariaLabelTwitch": "Mi perfil de Twitch",
     "ariaLabelYoutube": "Mi perfil de Youtube",
     "ariaLabelKofi": "Mi perfil de ko-fi"
+  },
+  "uploadModal": {
+    "addSoundBtn": "Añadir sonido",
+    "title": "Subir nuevo sonido",
+    "folderLabel": "Carpeta / Categoría:",
+    "folderPlaceholder": "Selecciona una categoría...",
+    "newFolderOption": "➕ Crear nueva categoría...",
+    "newFolderPlaceholder": "Nombre de la nueva categoría...",
+    "filesLabel": "Archivos de audio:",
+    "submitBtn": "Subir a GitHub",
+    "cancelBtn": "Cancelar",
+    "loading": "Creando Pull Request...",
+    "success": "¡Enviado! Tu audio será revisado pronto.",
+    "error": "Error al subir el sonido.",
+    "connectionError": "Error de conexión.",
+    "viewPrBtn": "Ver Pull Request"
   }
 }

@@ -3,6 +3,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import webrouter from "./routes/paginas.js";
 import apirouter from "./routes/api.js";
+import uploadrouter from "./routes/upload.js";
 import dotenv from "dotenv";
 import http from "node:http";
 import "./utils/avatar.js";
@@ -26,6 +27,7 @@ app.set("views", path.join(__dirname, "views"));
 app.use("/resources", express.static(path.join(__dirname, "resources")));
 app.use(webrouter);
 app.use("/api", apirouter);
+app.use("/api", uploadrouter);
 
 server.listen(port, () => {
   console.log(`Servidor escuchando en el puerto ${port}`);

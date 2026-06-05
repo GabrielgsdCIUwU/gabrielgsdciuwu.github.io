@@ -4,6 +4,15 @@ document.addEventListener("DOMContentLoaded", () => {
   const stopAllButton = document.getElementById("stop-all");
   const volumeControl = document.getElementById("volume");
   const searchInput = document.getElementById("search-input");
+  
+  const uploadModal = document.getElementById("upload-modal");
+  const openUploadModalBtn = document.getElementById("open-upload-modal");
+  const closeUploadModalBtn = document.getElementById("close-upload-modal");
+  const uploadForm = document.getElementById("upload-form");
+  const uploadStatus = document.getElementById("upload-status");
+  const submitUploadBtn = document.getElementById("submit-upload");
+  const prLink = document.getElementById("pr-link");
+
   let activeSounds = [];
 
   let folders = {};
@@ -48,6 +57,22 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         tabsContainer.appendChild(tab);
+      }
+
+      // Rellenar las opciones del select para subida de audios
+      const folderSelect = document.getElementById("folder-select");
+      if (folderSelect) {
+        for (const folderName in folders) {
+          const option = document.createElement("option");
+          option.value = folderName;
+          option.textContent = folderName;
+          folderSelect.appendChild(option);
+        }
+        // Añadir la opción de "nueva carpeta"
+        const newOption = document.createElement("option");
+        newOption.value = "new_folder";
+        newOption.textContent = folderSelect.dataset.new;
+        folderSelect.appendChild(newOption);
       }
 
       // Activar la pestaña Todas por defecto
@@ -125,4 +150,89 @@ document.addEventListener("DOMContentLoaded", () => {
   volumeControl.addEventListener("input", () => {
     activeSounds.forEach(({ audio }) => (audio.volume = volumeControl.value));
   });
+
+  if (openUploadModalBtn) {
+    openUploadModalBtn.addEventListener("click", () => {
+      uploadModal.style.display = "flex";
+    });
+  }
+
+  if (closeUploadModalBtn) {
+    closeUploadModalBtn.addEventListener("click", () => {
+      uploadModal.style.display = "none";
+    });
+  }
+
+  window.addEventListener("click", (e) => {
+    if (e.target === uploadModal) {
+      uploadModal.style.display = "none";
+    }
+  });
+
+  const folderSelect = document.getElementById("folder-select");
+  const newFolderInput = document.getElementById("new-folder-input");
+  const finalFolderName = document.getElementById("final-folder-name");
+  
+  if (folderSelect && newFolderInput && finalFolderName) {
+    folderSelect.addEventListener("change", () => {
+      if (folderSelect.value === "new_folder") {
+        newFolderInput.classList.remove("hidden");
+        newFolderInput.required = true;
+        finalFolderName.value = newFolderInput.value;
+      } else {
+        newFolderInput.classList.add("hidden");
+        newFolderInput.required = false;
+        finalFolderName.value = folderSelect.value;
+      }
+    });
+
+    newFolderInput.addEventListener("input", () => {
+      finalFolderName.value = newFolderInput.value;
+    });
+  }
+
+  if (uploadForm) {
+    uploadForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      
+      const formData = new FormData(uploadForm);
+      submitUploadBtn.disabled = true;
+      
+      const prevText = submitUploadBtn.innerText;
+      submitUploadBtn.innerText = uploadForm.dataset.loading;
+      uploadStatus.className = "hidden";
+      if (prLink) prLink.classList.add("hidden");
+      
+      try {
+        const response = await fetch("/api/soundboard/upload", {
+          method: "POST",
+          body: formData,
+        });
+
+        const result = await response.json();
+
+        uploadStatus.className = "";
+        if (response.ok) {
+          uploadStatus.style.color = "#10b981";
+          uploadStatus.innerText = uploadForm.dataset.success;
+          uploadForm.reset();
+          if (folderSelect) folderSelect.dispatchEvent(new Event("change"));
+          if (prLink && result.prUrl) {
+            prLink.href = result.prUrl;
+            prLink.classList.remove("hidden");
+          }
+        } else {
+          uploadStatus.style.color = "#ef4444";
+          uploadStatus.innerText = result.error || uploadForm.dataset.error;
+        }
+      } catch (err) {
+        uploadStatus.className = "";
+        uploadStatus.style.color = "#ef4444";
+        uploadStatus.innerText = uploadForm.dataset.connectionError;
+      } finally {
+        submitUploadBtn.disabled = false;
+        submitUploadBtn.innerText = prevText;
+      }
+    });
+  }
 });
