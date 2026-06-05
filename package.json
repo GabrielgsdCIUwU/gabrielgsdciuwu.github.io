@@ -29,8 +29,12 @@
     "dotenv": "^16.4.5",
     "ejs": "^3.1.10",
     "express": "^5.0.0",
+    "express-rate-limit": "^8.5.2",
     "gabrielgsdciuwu.github.io": "file:",
-    "sharp": "^0.34.4"
+    "jsonwebtoken": "^9.0.3",
+    "multer": "^2.1.1",
+    "sharp": "^0.34.4",
+    "socket.io": "^4.8.3"
   },
   "devDependencies": {
     "concurrently": "^8.2.2",

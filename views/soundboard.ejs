@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="<%= content.headDetails.lang %>">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/resources/img/Gabri-Watching-Icon.jpg" type="image/png" />
+    <title><%= content.headDetails.title %></title>
+    <link rel="stylesheet" href="/resources/css/soundboard.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  </head>
+  <body>
+    <div class="controls">
+      <div class="mode-container">
+        <select id="mode-select" class="form-select" style="padding: 5px; margin-right: 10px; cursor: pointer;">
+          <option value="local" selected><%= content.modes.local %></option>
+          <option value="sender"><%= content.modes.sender %></option>
+          <option value="receiver"><%= content.modes.receiver %></option>
+        </select>
+      </div>
+      <button id="stop-all"><%= content.controls.stopAll %></button>
+      <div class="search-container">
+        <input type="text" id="search-input" placeholder="<%= content.controls.searchPlaceholder %>" />
+      </div>
+      <button id="open-upload-modal" class="upload-btn">
+        <i class="fas fa-upload"></i> <%= content.uploadModal.addSoundBtn %>
+      </button>
+      <div class="volume-controls">
+        <label for="volume"><%= content.controls.volume %></label>
+        <input type="range" id="volume" min="0" max="1" step="0.01" value="1" />
+      </div>
+      <div class="volume-controls remote-volume-controls hidden" id="remote-volume-container">
+        <label for="remote-volume" style="color:#ff4d4d;"><%= content.modes.remoteVolume %></label>
+        <input type="range" id="remote-volume" min="0" max="1" step="0.01" value="1" />
+      </div>
+    </div>
+
+    <div class="tabs" data-all-text="<%= content.controls.allFolders %>">
+      <!-- Pestañas dinámicas se generarán aquí -->
+    </div>
+
+    <div id="launchpad" class="launchpad">
+      <!-- Botones dinámicos se generarán aquí -->
+    </div>
+
+    <div id="upload-modal" class="modal">
+      <div class="modal-content">
+        <span class="close-button" id="close-upload-modal">&times;</span>
+        <h2 style="margin-top:0; margin-bottom: 15px; font-size: 20px;"><%= content.uploadModal.title %></h2>
+        <form id="upload-form" data-loading="<%= content.uploadModal.loading %>" data-success="<%= content.uploadModal.success %>" data-error="<%= content.uploadModal.error %>" data-connection-error="<%= content.uploadModal.connectionError %>">
+          <div class="form-group">
+            <label for="folder-select"><%= content.uploadModal.folderLabel %></label>
+            <select id="folder-select" class="form-select" data-new="<%= content.uploadModal.newFolderOption %>" required>
+              <option value="" disabled selected><%= content.uploadModal.folderPlaceholder %></option>
+            </select>
+            <input type="text" id="new-folder-input" placeholder="<%= content.uploadModal.newFolderPlaceholder %>" class="hidden" style="margin-top: 10px;" autocomplete="off" />
+            <input type="hidden" id="final-folder-name" name="folderName" />
+          </div>
+          <div class="form-group">
+            <label for="upload-files"><%= content.uploadModal.filesLabel %></label>
+            <input type="file" id="upload-files" name="files" accept="audio/*" multiple required />
+          </div>
+          <button type="submit" id="submit-upload" class="button">
+            <%= content.uploadModal.submitBtn %>
+          </button>
+          <div id="upload-status" class="hidden"></div>
+          <a id="pr-link" href="#" target="_blank" class="hidden" style="margin-top: 10px; display: block; text-align: center; background-color: #3b82f6; padding: 10px; text-decoration: none; border-radius: 5px; color: white; font-weight: bold;"><%= content.uploadModal.viewPrBtn %></a>
+        </form>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="text-lg font-bold">© <span id="current-year"></span> Gabrielgsd</div>
+      <div class="flex space-x-4">
+        <a
+          href="https://github.com/GabrielgsdCIUwU"
+          target="_blank"
+          class="text-white hover:text-gray-300"
+          aria-label="<%= content.footer.ariaLabelGithub %>">
+          <i class="fab fa-github"></i>
+        </a>
+        <a
+          href="https://www.twitch.tv/gabrielgsd_ci"
+          target="_blank"
+          class="text-white hover:text-gray-300"
+          aria-label="<%= content.footer.ariaLabelTwitch %>">
+          <i class="fab fa-twitch"></i>
+        </a>
+        <a
+          href="https://www.youtube.com/@gabrielgsd"
+          target="_blank"
+          class="text-white hover:text-gray-300"
+          aria-label="<%= content.footer.ariaLabelYoutube %>">
+          <i class="fab fa-youtube"></i>
+        </a>
+        <a
+          href="https://ko-fi.com/gabrielgsd"
+          target="_blank"
+          class="text-white hover:text-gray-300 relative"
+          aria-label="<%= content.footer.ariaLabelKofi %>">
+          <i class="fas fa-ko-fi"></i>
+        </a>
+      </div>
+    </footer>
+
+    <div id="receiver-overlay" class="hidden" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 9999; display: flex; align-items: center; justify-content: center; color: white; text-align: center; cursor: pointer; font-size: 24px; padding: 20px;">
+      <h1><%= content.modes.unlockOverlay %></h1>
+    </div>
+
+    <script>
+      document.getElementById("current-year").textContent = new Date().getFullYear();
+    </script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/resources/js/soundboard.js"></script>
+  </body>
+</html>

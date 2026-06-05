@@ -34,17 +34,19 @@ router.get("/chillfish", (req, res) => {
   res.redirect(`/${lang}/chillfish`);
 });
 
-router.get("/:lang", (req, res) => renderPage(req, res, "index"));
-
 router.get("/forms", (req, res) => {
   res.sendFile(path.join(__dirname, "../views/forms.html"));
 });
 
 router.get("/soundboard", (req, res) => {
-  res.sendFile(path.join(__dirname, "../views/soundboard.html"));
+  const lang = detectLanguage(req);
+  res.redirect(`/${lang}/soundboard`);
 });
 
 router.get("/:lang/info", (req, res) => renderPage(req, res, "info"));
 router.get("/:lang/chillfish", (req, res) => renderPage(req, res, "chillfish"));
+router.get("/:lang/soundboard", (req, res) => renderPage(req, res, "soundboard"));
+
+router.get("/:lang", (req, res) => renderPage(req, res, "index"));
 
 export default router;

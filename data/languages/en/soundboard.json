@@ -1,0 +1,41 @@
+{
+  "headDetails": {
+    "lang": "en",
+    "title": "Soundboard"
+  },
+  "controls": {
+    "stopAll": "STOP ALL",
+    "searchPlaceholder": "Search sounds...",
+    "allFolders": "All",
+    "volume": "Volume:"
+  },
+  "footer": {
+    "ariaLabelGithub": "My Github profile",
+    "ariaLabelTwitch": "My Twitch profile",
+    "ariaLabelYoutube": "My Youtube profile",
+    "ariaLabelKofi": "My ko-fi profile"
+  },
+  "uploadModal": {
+    "addSoundBtn": "Add sound",
+    "title": "Upload new sound",
+    "folderLabel": "Folder / Category:",
+    "folderPlaceholder": "Select a category...",
+    "newFolderOption": "➕ Create new category...",
+    "newFolderPlaceholder": "New category name...",
+    "filesLabel": "Audio files:",
+    "submitBtn": "Upload to GitHub",
+    "cancelBtn": "Cancel",
+    "loading": "Creating Pull Request...",
+    "success": "Sent! Your audio will be reviewed soon.",
+    "error": "Error uploading the sound.",
+    "connectionError": "Connection error.",
+    "viewPrBtn": "View Pull Request"
+  },
+  "modes": {
+    "local": "🏠 Local Mode",
+    "sender": "📱 Sender Mode",
+    "receiver": "🔊 Receiver Mode",
+    "remoteVolume": "Remote Volume",
+    "unlockOverlay": "Click anywhere to enable audio"
+  }
+}
