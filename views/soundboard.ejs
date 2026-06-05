@@ -14,6 +14,9 @@
       <div class="search-container">
         <input type="text" id="search-input" placeholder="<%= content.controls.searchPlaceholder %>" />
       </div>
+      <button id="open-upload-modal" class="upload-btn">
+        <i class="fas fa-upload"></i> <%= content.uploadModal.addSoundBtn %>
+      </button>
       <div class="volume-controls">
         <label for="volume"><%= content.controls.volume %></label>
         <input type="range" id="volume" min="0" max="1" step="0.01" value="1" />
@@ -26,6 +29,32 @@
 
     <div id="launchpad" class="launchpad">
       <!-- Botones dinámicos se generarán aquí -->
+    </div>
+
+    <div id="upload-modal" class="modal">
+      <div class="modal-content">
+        <span class="close-button" id="close-upload-modal">&times;</span>
+        <h2 style="margin-top:0; margin-bottom: 15px; font-size: 20px;"><%= content.uploadModal.title %></h2>
+        <form id="upload-form" data-loading="<%= content.uploadModal.loading %>" data-success="<%= content.uploadModal.success %>" data-error="<%= content.uploadModal.error %>" data-connection-error="<%= content.uploadModal.connectionError %>">
+          <div class="form-group">
+            <label for="folder-select"><%= content.uploadModal.folderLabel %></label>
+            <select id="folder-select" class="form-select" data-new="<%= content.uploadModal.newFolderOption %>" required>
+              <option value="" disabled selected><%= content.uploadModal.folderPlaceholder %></option>
+            </select>
+            <input type="text" id="new-folder-input" placeholder="<%= content.uploadModal.newFolderPlaceholder %>" class="hidden" style="margin-top: 10px;" autocomplete="off" />
+            <input type="hidden" id="final-folder-name" name="folderName" />
+          </div>
+          <div class="form-group">
+            <label for="upload-files"><%= content.uploadModal.filesLabel %></label>
+            <input type="file" id="upload-files" name="files" accept="audio/*" multiple required />
+          </div>
+          <button type="submit" id="submit-upload" class="button">
+            <%= content.uploadModal.submitBtn %>
+          </button>
+          <div id="upload-status" class="hidden"></div>
+          <a id="pr-link" href="#" target="_blank" class="hidden" style="margin-top: 10px; display: block; text-align: center; background-color: #3b82f6; padding: 10px; text-decoration: none; border-radius: 5px; color: white; font-weight: bold;"><%= content.uploadModal.viewPrBtn %></a>
+        </form>
+      </div>
     </div>
 
     <footer class="footer">
