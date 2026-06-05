@@ -5,6 +5,8 @@
   },
   "controls": {
     "stopAll": "DETENER TODO",
+    "searchPlaceholder": "Buscar sonidos...",
+    "allFolders": "Todas",
     "volume": "Volumen:"
   },
   "footer": {
