@@ -1,0 +1,16 @@
+{
+  "headDetails": {
+    "lang": "en",
+    "title": "Soundboard"
+  },
+  "controls": {
+    "stopAll": "STOP ALL",
+    "volume": "Volume:"
+  },
+  "footer": {
+    "ariaLabelGithub": "My Github profile",
+    "ariaLabelTwitch": "My Twitch profile",
+    "ariaLabelYoutube": "My Youtube profile",
+    "ariaLabelKofi": "My ko-fi profile"
+  }
+}
