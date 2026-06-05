@@ -30,5 +30,12 @@
     "error": "Error uploading the sound.",
     "connectionError": "Connection error.",
     "viewPrBtn": "View Pull Request"
+  },
+  "modes": {
+    "local": "🏠 Local Mode",
+    "sender": "📱 Sender Mode",
+    "receiver": "🔊 Receiver Mode",
+    "remoteVolume": "Remote Volume",
+    "unlockOverlay": "Click anywhere to enable audio"
   }
 }

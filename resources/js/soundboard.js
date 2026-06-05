@@ -13,6 +13,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const submitUploadBtn = document.getElementById("submit-upload");
   const prLink = document.getElementById("pr-link");
 
+  const socket = typeof io !== 'undefined' ? io() : null;
+  let currentMode = "local";
+  const modeSelect = document.getElementById("mode-select");
+  const remoteVolumeContainer = document.getElementById("remote-volume-container");
+  const remoteVolumeControl = document.getElementById("remote-volume");
+  const receiverOverlay = document.getElementById("receiver-overlay");
+
   let activeSounds = [];
 
   let folders = {};
@@ -119,6 +126,9 @@ document.addEventListener("DOMContentLoaded", () => {
       button.addEventListener("click", () => {
         button.style.backgroundColor = "#ff4d4d";
         playSound(button.dataset.soundUrl);
+        if (socket && currentMode === "sender") {
+          socket.emit("playSound", { url: button.dataset.soundUrl });
+        }
       });
 
       launchpad.appendChild(button);
@@ -138,7 +148,10 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  stopAllButton.addEventListener("click", () => {
+  stopAllButton.addEventListener("click", (e) => {
+    if (socket && currentMode === "sender" && e.isTrusted) {
+      socket.emit("stopAll");
+    }
     activeSounds.forEach(({ audio, url }) => {
       audio.pause();
       const btn = document.querySelector(`button[data-sound-url="${url}"]`);
@@ -168,6 +181,59 @@ document.addEventListener("DOMContentLoaded", () => {
       uploadModal.style.display = "none";
     }
   });
+
+  if (modeSelect) {
+    modeSelect.addEventListener("change", (e) => {
+      currentMode = e.target.value;
+      
+      if (currentMode === "sender") {
+        remoteVolumeContainer.classList.remove("hidden");
+      } else {
+        remoteVolumeContainer.classList.add("hidden");
+      }
+
+      if (currentMode === "receiver") {
+        receiverOverlay.classList.remove("hidden");
+      } else {
+        receiverOverlay.classList.add("hidden");
+      }
+    });
+  }
+
+  if (receiverOverlay) {
+    receiverOverlay.addEventListener("click", () => {
+      receiverOverlay.classList.add("hidden");
+    });
+  }
+
+  if (remoteVolumeControl && socket) {
+    remoteVolumeControl.addEventListener("input", (e) => {
+      if (currentMode === "sender") {
+        socket.emit("changeVolume", { volume: parseFloat(e.target.value) });
+      }
+    });
+  }
+
+  if (socket) {
+    socket.on("playSound", (data) => {
+      if (currentMode === "receiver") {
+        playSound(data.url);
+      }
+    });
+
+    socket.on("stopAll", () => {
+      if (currentMode === "receiver") {
+        stopAllButton.click();
+      }
+    });
+
+    socket.on("changeVolume", (data) => {
+      if (currentMode === "receiver") {
+        volumeControl.value = data.volume;
+        volumeControl.dispatchEvent(new Event("input"));
+      }
+    });
+  }
 
   const folderSelect = document.getElementById("folder-select");
   const newFolderInput = document.getElementById("new-folder-input");
