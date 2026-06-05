@@ -30,5 +30,12 @@
     "error": "Error al subir el sonido.",
     "connectionError": "Error de conexión.",
     "viewPrBtn": "Ver Pull Request"
+  },
+  "modes": {
+    "local": "🏠 Modo Local",
+    "sender": "📱 Modo Emisor",
+    "receiver": "🔊 Modo Receptor",
+    "remoteVolume": "Volumen Remoto",
+    "unlockOverlay": "Haz clic en cualquier parte para permitir el audio"
   }
 }
