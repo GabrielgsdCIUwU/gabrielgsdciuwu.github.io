@@ -11,13 +11,16 @@
   <body>
     <div class="controls">
       <button id="stop-all"><%= content.controls.stopAll %></button>
+      <div class="search-container">
+        <input type="text" id="search-input" placeholder="<%= content.controls.searchPlaceholder %>" />
+      </div>
       <div class="volume-controls">
         <label for="volume"><%= content.controls.volume %></label>
         <input type="range" id="volume" min="0" max="1" step="0.01" value="1" />
       </div>
     </div>
 
-    <div class="tabs">
+    <div class="tabs" data-all-text="<%= content.controls.allFolders %>">
       <!-- Pestañas dinámicas se generarán aquí -->
     </div>
 
