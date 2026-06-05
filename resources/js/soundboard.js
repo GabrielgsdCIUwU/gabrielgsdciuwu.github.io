@@ -93,6 +93,13 @@ document.addEventListener("DOMContentLoaded", () => {
     })
     .catch((error) => console.error("Error cargando el JSON:", error));
 
+  function formatTime(seconds) {
+    if (isNaN(seconds)) return "--:--";
+    const m = Math.floor(seconds / 60);
+    const s = Math.floor(seconds % 60);
+    return `${m}:${s.toString().padStart(2, '0')}`;
+  }
+
   function renderButtons() {
     launchpad.innerHTML = ""; // Limpiar los botones anteriores
 
@@ -117,7 +124,32 @@ document.addEventListener("DOMContentLoaded", () => {
       const button = document.createElement("button");
       button.classList.add("button");
       button.dataset.soundUrl = item.rawUrl;
-      button.innerText = item.name.split(".")[0];
+      button.style.display = "flex";
+      button.style.flexDirection = "column";
+      button.style.alignItems = "center";
+      button.style.justifyContent = "center";
+      
+      const titleSpan = document.createElement("div");
+      titleSpan.innerText = item.name.split(".")[0];
+      titleSpan.style.pointerEvents = "none";
+      
+      const timeSpan = document.createElement("div");
+      timeSpan.classList.add("time-label");
+      timeSpan.innerText = "--:--";
+      timeSpan.style.fontSize = "12px";
+      timeSpan.style.opacity = "0.7";
+      timeSpan.style.marginTop = "5px";
+      timeSpan.style.pointerEvents = "none";
+      
+      button.appendChild(titleSpan);
+      button.appendChild(timeSpan);
+
+      const tempAudio = new Audio(item.rawUrl);
+      tempAudio.preload = "metadata";
+      tempAudio.addEventListener("loadedmetadata", () => {
+        timeSpan.dataset.total = tempAudio.duration;
+        timeSpan.innerText = formatTime(tempAudio.duration);
+      });
 
       if (activeSounds.some(s => s.url === item.rawUrl)) {
         button.style.backgroundColor = "#ff4d4d";
@@ -141,10 +173,30 @@ document.addEventListener("DOMContentLoaded", () => {
     audio.play();
     activeSounds.push({ audio, url });
 
+    audio.addEventListener("timeupdate", () => {
+      const btn = document.querySelector(`button[data-sound-url="${url}"]`);
+      if (btn) {
+        const progress = (audio.currentTime / audio.duration) * 100;
+        btn.style.background = `linear-gradient(to right, #ff4d4d ${progress}%, #444 ${progress}%)`;
+        const timeSpan = btn.querySelector('.time-label');
+        if (timeSpan) {
+           timeSpan.innerText = `${formatTime(audio.currentTime)} / ${formatTime(audio.duration)}`;
+        }
+      }
+    });
+
     audio.addEventListener("ended", () => {
       activeSounds = activeSounds.filter((sound) => sound.audio !== audio);
       const btn = document.querySelector(`button[data-sound-url="${url}"]`);
-      if (btn) btn.style.backgroundColor = ""; // Restablecer el color original del botón
+      if (btn) {
+        btn.style.background = ""; // Restablecer el color original del botón
+        const timeSpan = btn.querySelector('.time-label');
+        if (timeSpan && timeSpan.dataset.total) {
+           timeSpan.innerText = formatTime(parseFloat(timeSpan.dataset.total));
+        } else if (timeSpan) {
+           timeSpan.innerText = "--:--";
+        }
+      }
     });
   }
 
@@ -155,7 +207,15 @@ document.addEventListener("DOMContentLoaded", () => {
     activeSounds.forEach(({ audio, url }) => {
       audio.pause();
       const btn = document.querySelector(`button[data-sound-url="${url}"]`);
-      if (btn) btn.style.backgroundColor = ""; // Restablecer el color original de todos los botones activos
+      if (btn) {
+        btn.style.background = ""; // Restablecer el color original de todos los botones activos
+        const timeSpan = btn.querySelector('.time-label');
+        if (timeSpan && timeSpan.dataset.total) {
+           timeSpan.innerText = formatTime(parseFloat(timeSpan.dataset.total));
+        } else if (timeSpan) {
+           timeSpan.innerText = "--:--";
+        }
+      }
     });
     activeSounds = [];
   });
