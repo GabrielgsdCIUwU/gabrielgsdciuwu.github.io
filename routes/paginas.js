@@ -9,44 +9,47 @@ const __dirname = path.dirname(__filename);
 const router = express.Router();
 
 function detectLanguage(req) {
-  
+
   const supported = ["es", "en"];
   let lang = req.acceptsLanguages(supported);
-  
+
   if (!lang) lang = "en";
   if (!supported.includes(lang)) lang = "en";
 
   return lang;
 }
 
+router.get("/forms", (req, res) => {
+  res.sendFile(path.join(__dirname, "../views/forms.html"));
+});
+
+const localizedPages = ["info", "chillfish", "soundboard"];
+
 router.get("/", (req, res) => {
   const lang = detectLanguage(req);
   res.redirect(`/${lang}`);
 });
 
-router.get("/info", (req, res) => {
-  const lang = detectLanguage(req);
-  res.redirect(`/${lang}/info`);
+localizedPages.forEach(page => {
+  router.get(`/${page}`, (req, res) => {
+    const lang = detectLanguage(req);
+    res.redirect(`/${lang}/${page}`);
+  });
 });
 
-router.get("/chillfish", (req, res) => {
-  const lang = detectLanguage(req);
-  res.redirect(`/${lang}/chillfish`);
+const validateLang = (req, res, next) => {
+  const supported = ["es", "en"];
+  if (supported.includes(req.params.lang)) {
+    next();
+  } else {
+    next('route');
+  }
+};
+
+localizedPages.forEach(page => {
+  router.get(`/:lang/${page}`, validateLang, (req, res) => renderPage(req, res, page));
 });
 
-router.get("/forms", (req, res) => {
-  res.sendFile(path.join(__dirname, "../views/forms.html"));
-});
-
-router.get("/soundboard", (req, res) => {
-  const lang = detectLanguage(req);
-  res.redirect(`/${lang}/soundboard`);
-});
-
-router.get("/:lang/info", (req, res) => renderPage(req, res, "info"));
-router.get("/:lang/chillfish", (req, res) => renderPage(req, res, "chillfish"));
-router.get("/:lang/soundboard", (req, res) => renderPage(req, res, "soundboard"));
-
-router.get("/:lang", (req, res) => renderPage(req, res, "index"));
+router.get("/:lang", validateLang, (req, res) => renderPage(req, res, "index"));
 
 export default router;
