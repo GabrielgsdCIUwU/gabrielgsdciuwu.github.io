@@ -39,5 +39,13 @@
     "receiver": "🔊 Receiver Mode",
     "remoteVolume": "Remote Volume",
     "unlockOverlay": "Click anywhere to enable audio"
+  },
+  "modifiers": {
+    "title": "Audio Modifiers",
+    "speed": "Speed:",
+    "pitch": "Pitch",
+    "bass": "Bass:",
+    "treble": "Treble:",
+    "echo": "Echo:"
   }
 }
