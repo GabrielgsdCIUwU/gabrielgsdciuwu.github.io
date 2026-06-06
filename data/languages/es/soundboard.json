@@ -39,5 +39,13 @@
     "receiver": "🔊 Modo Receptor",
     "remoteVolume": "Volumen Remoto",
     "unlockOverlay": "Haz clic en cualquier parte para permitir el audio"
+  },
+  "modifiers": {
+    "title": "Modificadores de Audio",
+    "speed": "Velocidad:",
+    "pitch": "Pitch",
+    "bass": "Graves:",
+    "treble": "Agudos:",
+    "echo": "Eco:"
   }
 }
