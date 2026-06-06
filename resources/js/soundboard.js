@@ -33,6 +33,9 @@ document.addEventListener("DOMContentLoaded", () => {
       this.echoDelay = null;
       this.echoFeedback = null;
       this.echoGain = null;
+      this.analyser = null;
+      this.dataArray = null;
+      this.bufferLength = null;
       this.initialized = false;
     }
 
@@ -60,23 +63,69 @@ document.addEventListener("DOMContentLoaded", () => {
       this.echoGain = this.context.createGain();
       this.echoGain.gain.value = 0;
 
+      this.analyser = this.context.createAnalyser();
+      this.analyser.fftSize = 128;
+      this.bufferLength = this.analyser.frequencyBinCount;
+      this.dataArray = new Uint8Array(this.bufferLength);
+
       // Routing
       this.masterGain.connect(this.bassFilter);
       this.bassFilter.connect(this.trebleFilter);
-      this.trebleFilter.connect(this.context.destination);
+      this.trebleFilter.connect(this.analyser);
+      this.analyser.connect(this.context.destination);
 
       // Echo Routing
       this.trebleFilter.connect(this.echoDelay);
       this.echoDelay.connect(this.echoFeedback);
       this.echoFeedback.connect(this.echoDelay);
       this.echoDelay.connect(this.echoGain);
-      this.echoGain.connect(this.context.destination);
+      this.echoGain.connect(this.analyser);
 
       this.initialized = true;
     }
   }
 
   const audioManager = new AudioContextManager();
+
+  const canvas = document.getElementById("visualizer");
+  const canvasCtx = canvas ? canvas.getContext("2d") : null;
+
+  function drawVisualizer() {
+    requestAnimationFrame(drawVisualizer);
+
+    if (!canvasCtx || !audioManager.initialized) {
+      return;
+    }
+
+    if (canvas.width !== canvas.clientWidth || canvas.height !== canvas.clientHeight) {
+      canvas.width = canvas.clientWidth;
+      canvas.height = canvas.clientHeight;
+    }
+
+    const WIDTH = canvas.width;
+    const HEIGHT = canvas.height;
+
+    audioManager.analyser.getByteFrequencyData(audioManager.dataArray);
+
+    canvasCtx.clearRect(0, 0, WIDTH, HEIGHT);
+
+    const barWidth = (WIDTH / audioManager.bufferLength) * 2.5;
+    let barHeight;
+    let x = 0;
+
+    for (let i = 0; i < audioManager.bufferLength; i++) {
+      barHeight = (audioManager.dataArray[i] / 255) * HEIGHT;
+
+      canvasCtx.fillStyle = `rgba(255, 77, 77, ${audioManager.dataArray[i] / 255})`;
+      canvasCtx.fillRect(x, HEIGHT - barHeight, barWidth, barHeight);
+
+      x += barWidth + 1;
+    }
+  }
+
+  if (canvas) {
+    drawVisualizer();
+  }
 
   let currentModifiers = {
     speed: 1.0,
