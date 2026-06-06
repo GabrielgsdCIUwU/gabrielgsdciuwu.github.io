@@ -7,6 +7,9 @@ import uploadrouter from "./routes/upload.js";
 import dotenv from "dotenv";
 import http from "node:http";
 import { Server } from "socket.io";
+import helmet from "helmet";
+import rateLimit from "express-rate-limit";
+import { securityLogger } from "./utils/securityLogger.js";
 import "./utils/avatar.js";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -15,8 +18,22 @@ const __dirname = path.dirname(__filename);
 dotenv.config({ path: path.join(__dirname, ".env") });
 
 const app = express();
+app.set("trust proxy", 1);
+
+const globalLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 200,
+  message: { error: "Demasiadas peticiones desde esta IP, por favor intenta de nuevo más tarde" },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+
+app.use(securityLogger);
+app.use(helmet());
+app.use(globalLimiter);
+
 app.use(express.json());
-app.disable("x-powered-by");
 
 const port = process.env.PORT || 3000;
 

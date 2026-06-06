@@ -17,9 +17,9 @@ const upload = multer({
 
 // Limit requests
 const uploadLimiter = rateLimit({
-  windowMs: 24 * 60 * 60 * 1000, // 24 hours
-  max: 3, // Limit each IP to 3 PRs
-  message: { error: "Too many uploads from this IP, please try again after 24 hours" },
+  windowMs: 2 * 60 * 60 * 1000, // 2 hours
+  max: 10, // Limit each IP to 10 PRs
+  message: { error: "Too many uploads from this IP, please try again after 2 hours" },
   standardHeaders: true,
   legacyHeaders: false,
 });
