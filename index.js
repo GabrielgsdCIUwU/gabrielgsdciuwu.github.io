@@ -30,7 +30,30 @@ const globalLimiter = rateLimit({
 
 
 app.use(securityLogger);
-app.use(helmet());
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: [
+        "'self'",
+        "'unsafe-inline'",
+        "code.jquery.com",
+        "cdnjs.cloudflare.com",
+        "cdn.jsdelivr.net"
+      ],
+      scriptSrcAttr: ["'unsafe-inline'"],
+      styleSrc: [
+        "'self'",
+        "'unsafe-inline'",
+        "cdnjs.cloudflare.com",
+        "fonts.googleapis.com"
+      ],
+      fontSrc: ["'self'", "cdnjs.cloudflare.com", "fonts.gstatic.com", "data:"],
+      imgSrc: ["'self'", "data:", "https:"],
+      connectSrc: ["'self'", "ws:", "wss:"],
+    },
+  },
+}));
 app.use(globalLimiter);
 
 app.use(express.json());
