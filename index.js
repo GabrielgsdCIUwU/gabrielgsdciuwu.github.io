@@ -101,6 +101,11 @@ io.on("connection", (socket) => {
   socket.on("changeVolume", (data) => {
     socket.broadcast.emit("changeVolume", data);
   });
+
+  // Cuando un emisor ajusta los modificadores
+  socket.on("changeModifiers", (data) => {
+    socket.broadcast.emit("changeModifiers", data);
+  });
 });
 
 server.listen(port, () => {
