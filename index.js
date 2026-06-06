@@ -50,7 +50,15 @@ app.use(helmet({
       ],
       fontSrc: ["'self'", "cdnjs.cloudflare.com", "fonts.gstatic.com", "data:"],
       imgSrc: ["'self'", "data:", "https:"],
-      connectSrc: ["'self'", "ws:", "wss:"],
+      mediaSrc: ["'self'", "https://raw.githubusercontent.com"],
+      connectSrc: [
+        "'self'", 
+        "ws:", 
+        "wss:", 
+        "https://cdnjs.cloudflare.com", 
+        "https://raw.githubusercontent.com",
+        "https://gabrielgsd.developer.li"
+      ],
     },
   },
 }));
