@@ -317,6 +317,34 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  function formatTimeLeft(secondsLeft) {
+    const hours = Math.floor(secondsLeft / 3600);
+    const minutes = Math.floor((secondsLeft % 3600) / 60);
+    const seconds = secondsLeft % 60;
+    return `${hours > 0 ? hours + 'h ' : ''}${minutes > 0 || hours > 0 ? minutes + 'm ' : ''}${seconds}s`;
+  }
+
+  function handleRateLimit(retryAfter, errorMsg) {
+    let secondsLeft = parseInt(retryAfter, 10);
+    if (isNaN(secondsLeft) || secondsLeft <= 0) return;
+
+    if (window.uploadRateLimitTimer) clearTimeout(window.uploadRateLimitTimer);
+
+    const updateCounter = () => {
+      if (secondsLeft <= 0) {
+        uploadStatus.innerText = uploadForm.dataset.rateLimitRetry || "You can now try uploading again.";
+        return;
+      }
+      const timeStr = formatTimeLeft(secondsLeft);
+      const waitText = uploadForm.dataset.rateLimitWait || "Wait:";
+      uploadStatus.innerText = `${errorMsg} (${waitText} ${timeStr})`;
+      secondsLeft--;
+      window.uploadRateLimitTimer = setTimeout(updateCounter, 1000);
+    };
+
+    updateCounter();
+  }
+
   if (uploadForm) {
     uploadForm.addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -349,7 +377,13 @@ document.addEventListener("DOMContentLoaded", () => {
           }
         } else {
           uploadStatus.style.color = "#ef4444";
-          uploadStatus.innerText = result.error || uploadForm.dataset.error;
+          const errorMsg = result.error || uploadForm.dataset.error;
+          uploadStatus.innerText = errorMsg;
+
+          if (response.status === 429) {
+            const retryAfter = response.headers.get("Retry-After");
+            if (retryAfter) handleRateLimit(retryAfter, errorMsg);
+          }
         }
       } catch (err) {
         uploadStatus.className = "";
