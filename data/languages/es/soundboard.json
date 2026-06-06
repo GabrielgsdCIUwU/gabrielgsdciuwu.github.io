@@ -29,7 +29,9 @@
     "success": "¡Enviado! Tu audio será revisado pronto.",
     "error": "Error al subir el sonido.",
     "connectionError": "Error de conexión.",
-    "viewPrBtn": "Ver Pull Request"
+    "viewPrBtn": "Ver Pull Request",
+    "rateLimitRetry": "Ya puedes intentar subir de nuevo.",
+    "rateLimitWait": "Espera:"
   },
   "modes": {
     "local": "🏠 Modo Local",
