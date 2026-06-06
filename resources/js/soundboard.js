@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const stopAllButton = document.getElementById("stop-all");
   const volumeControl = document.getElementById("volume");
   const searchInput = document.getElementById("search-input");
-  
+
   const uploadModal = document.getElementById("upload-modal");
   const openUploadModalBtn = document.getElementById("open-upload-modal");
   const closeUploadModalBtn = document.getElementById("close-upload-modal");
@@ -23,6 +23,123 @@ document.addEventListener("DOMContentLoaded", () => {
   let activeSounds = [];
 
   let folders = {};
+
+  class AudioContextManager {
+    constructor() {
+      this.context = null;
+      this.masterGain = null;
+      this.bassFilter = null;
+      this.trebleFilter = null;
+      this.echoDelay = null;
+      this.echoFeedback = null;
+      this.echoGain = null;
+      this.initialized = false;
+    }
+
+    init() {
+      if (this.initialized) return;
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      this.context = new AudioContext();
+
+      this.masterGain = this.context.createGain();
+
+      this.bassFilter = this.context.createBiquadFilter();
+      this.bassFilter.type = "lowshelf";
+      this.bassFilter.frequency.value = 200;
+      this.bassFilter.gain.value = 0;
+
+      this.trebleFilter = this.context.createBiquadFilter();
+      this.trebleFilter.type = "highshelf";
+      this.trebleFilter.frequency.value = 3000;
+      this.trebleFilter.gain.value = 0;
+
+      this.echoDelay = this.context.createDelay(5.0);
+      this.echoDelay.delayTime.value = 0.3;
+      this.echoFeedback = this.context.createGain();
+      this.echoFeedback.gain.value = 0.4;
+      this.echoGain = this.context.createGain();
+      this.echoGain.gain.value = 0;
+
+      // Routing
+      this.masterGain.connect(this.bassFilter);
+      this.bassFilter.connect(this.trebleFilter);
+      this.trebleFilter.connect(this.context.destination);
+
+      // Echo Routing
+      this.trebleFilter.connect(this.echoDelay);
+      this.echoDelay.connect(this.echoFeedback);
+      this.echoFeedback.connect(this.echoDelay);
+      this.echoDelay.connect(this.echoGain);
+      this.echoGain.connect(this.context.destination);
+
+      this.initialized = true;
+    }
+  }
+
+  const audioManager = new AudioContextManager();
+
+  let currentModifiers = {
+    speed: 1.0,
+    pitch: 1.0,
+    bass: 0,
+    treble: 0,
+    echo: 0
+  };
+
+  function updateModifiers(modifiers) {
+    currentModifiers = { ...currentModifiers, ...modifiers };
+
+    if (audioManager.initialized) {
+      audioManager.bassFilter.gain.value = currentModifiers.bass;
+      audioManager.trebleFilter.gain.value = currentModifiers.treble;
+      audioManager.echoGain.gain.value = currentModifiers.echo;
+    }
+
+    activeSounds.forEach(({ audio }) => {
+      audio.playbackRate = currentModifiers.speed * currentModifiers.pitch;
+      if ('preservesPitch' in audio) {
+        audio.preservesPitch = (currentModifiers.pitch === 1.0);
+      }
+    });
+
+    // Update UI elements unconditionally
+    const speedInput = document.getElementById("mod-speed");
+    if (speedInput) {
+      speedInput.value = currentModifiers.speed;
+      const speedVal = document.getElementById("speed-val");
+      if (speedVal) speedVal.innerText = currentModifiers.speed.toFixed(2) + "x";
+    }
+    const pitchInput = document.getElementById("mod-pitch");
+    if (pitchInput) {
+      pitchInput.value = currentModifiers.pitch;
+      const pitchVal = document.getElementById("pitch-val");
+      if (pitchVal) pitchVal.innerText = currentModifiers.pitch.toFixed(2) + "x";
+    }
+    const bassInput = document.getElementById("mod-bass");
+    if (bassInput) {
+      bassInput.value = currentModifiers.bass;
+      const bassVal = document.getElementById("bass-val");
+      if (bassVal) bassVal.innerText = currentModifiers.bass + "dB";
+    }
+    const trebleInput = document.getElementById("mod-treble");
+    if (trebleInput) {
+      trebleInput.value = currentModifiers.treble;
+      const trebleVal = document.getElementById("treble-val");
+      if (trebleVal) trebleVal.innerText = currentModifiers.treble + "dB";
+    }
+    const echoInput = document.getElementById("mod-echo");
+    if (echoInput) {
+      echoInput.value = currentModifiers.echo;
+      const echoVal = document.getElementById("echo-val");
+      if (echoVal) echoVal.innerText = Math.round(currentModifiers.echo * 100) + "%";
+    }
+  }
+
+  function emitModifierChange() {
+    if (socket && currentMode === "sender") {
+      socket.emit("changeModifiers", currentModifiers);
+    }
+  }
 
   // Cargar el JSON desde la URL de GitHub
   fetch("https://raw.githubusercontent.com/GabrielgsdCIUwU/soundboard/main/audio_files.json")
@@ -128,11 +245,11 @@ document.addEventListener("DOMContentLoaded", () => {
       button.style.flexDirection = "column";
       button.style.alignItems = "center";
       button.style.justifyContent = "center";
-      
+
       const titleSpan = document.createElement("div");
       titleSpan.innerText = item.name.split(".")[0];
       titleSpan.style.pointerEvents = "none";
-      
+
       const timeSpan = document.createElement("div");
       timeSpan.classList.add("time-label");
       timeSpan.innerText = "--:--";
@@ -140,7 +257,7 @@ document.addEventListener("DOMContentLoaded", () => {
       timeSpan.style.opacity = "0.7";
       timeSpan.style.marginTop = "5px";
       timeSpan.style.pointerEvents = "none";
-      
+
       button.appendChild(titleSpan);
       button.appendChild(timeSpan);
 
@@ -169,7 +286,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function playSound(url) {
     const audio = new Audio(url);
+    audio.crossOrigin = "anonymous";
     audio.volume = volumeControl.value;
+
+    audio.playbackRate = currentModifiers.speed * currentModifiers.pitch;
+    if ('preservesPitch' in audio) {
+      audio.preservesPitch = (currentModifiers.pitch === 1.0);
+    }
+
+    audioManager.init();
+    if (audioManager.context && audioManager.context.state === 'suspended') {
+      audioManager.context.resume();
+    }
+
+    if (audioManager.context) {
+      const source = audioManager.context.createMediaElementSource(audio);
+      source.connect(audioManager.masterGain);
+    }
+
     audio.play();
     activeSounds.push({ audio, url });
 
@@ -180,7 +314,7 @@ document.addEventListener("DOMContentLoaded", () => {
         btn.style.background = `linear-gradient(to right, #ff4d4d ${progress}%, #444 ${progress}%)`;
         const timeSpan = btn.querySelector('.time-label');
         if (timeSpan) {
-           timeSpan.innerText = `${formatTime(audio.currentTime)} / ${formatTime(audio.duration)}`;
+          timeSpan.innerText = `${formatTime(audio.currentTime)} / ${formatTime(audio.duration)}`;
         }
       }
     });
@@ -192,9 +326,9 @@ document.addEventListener("DOMContentLoaded", () => {
         btn.style.background = ""; // Restablecer el color original del botón
         const timeSpan = btn.querySelector('.time-label');
         if (timeSpan && timeSpan.dataset.total) {
-           timeSpan.innerText = formatTime(parseFloat(timeSpan.dataset.total));
+          timeSpan.innerText = formatTime(parseFloat(timeSpan.dataset.total));
         } else if (timeSpan) {
-           timeSpan.innerText = "--:--";
+          timeSpan.innerText = "--:--";
         }
       }
     });
@@ -211,9 +345,9 @@ document.addEventListener("DOMContentLoaded", () => {
         btn.style.background = ""; // Restablecer el color original de todos los botones activos
         const timeSpan = btn.querySelector('.time-label');
         if (timeSpan && timeSpan.dataset.total) {
-           timeSpan.innerText = formatTime(parseFloat(timeSpan.dataset.total));
+          timeSpan.innerText = formatTime(parseFloat(timeSpan.dataset.total));
         } else if (timeSpan) {
-           timeSpan.innerText = "--:--";
+          timeSpan.innerText = "--:--";
         }
       }
     });
@@ -223,6 +357,60 @@ document.addEventListener("DOMContentLoaded", () => {
   volumeControl.addEventListener("input", () => {
     activeSounds.forEach(({ audio }) => (audio.volume = volumeControl.value));
   });
+
+  const speedInput = document.getElementById("mod-speed");
+  if (speedInput) {
+    speedInput.addEventListener("input", (e) => {
+      updateModifiers({ speed: parseFloat(e.target.value) });
+      emitModifierChange();
+    });
+  }
+
+  const pitchInput = document.getElementById("mod-pitch");
+  if (pitchInput) {
+    pitchInput.addEventListener("input", (e) => {
+      updateModifiers({ pitch: parseFloat(e.target.value) });
+      emitModifierChange();
+    });
+  }
+
+  const resetBtn = document.getElementById("reset-modifiers");
+  if (resetBtn) {
+    resetBtn.addEventListener("click", () => {
+      updateModifiers({
+        speed: 1.0,
+        pitch: 1.0,
+        bass: 0,
+        treble: 0,
+        echo: 0
+      });
+      emitModifierChange();
+    });
+  }
+
+  const bassInput = document.getElementById("mod-bass");
+  if (bassInput) {
+    bassInput.addEventListener("input", (e) => {
+      updateModifiers({ bass: parseInt(e.target.value) });
+      emitModifierChange();
+    });
+  }
+
+  const trebleInput = document.getElementById("mod-treble");
+  if (trebleInput) {
+    trebleInput.addEventListener("input", (e) => {
+      updateModifiers({ treble: parseInt(e.target.value) });
+      emitModifierChange();
+    });
+  }
+
+  const echoInput = document.getElementById("mod-echo");
+  if (echoInput) {
+    echoInput.addEventListener("input", (e) => {
+      updateModifiers({ echo: parseFloat(e.target.value) });
+      emitModifierChange();
+    });
+  }
 
   if (openUploadModalBtn) {
     openUploadModalBtn.addEventListener("click", () => {
@@ -245,7 +433,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (modeSelect) {
     modeSelect.addEventListener("change", (e) => {
       currentMode = e.target.value;
-      
+
       if (currentMode === "sender") {
         remoteVolumeContainer.classList.remove("hidden");
       } else {
@@ -293,12 +481,18 @@ document.addEventListener("DOMContentLoaded", () => {
         volumeControl.dispatchEvent(new Event("input"));
       }
     });
+
+    socket.on("changeModifiers", (data) => {
+      if (currentMode === "receiver") {
+        updateModifiers(data);
+      }
+    });
   }
 
   const folderSelect = document.getElementById("folder-select");
   const newFolderInput = document.getElementById("new-folder-input");
   const finalFolderName = document.getElementById("final-folder-name");
-  
+
   if (folderSelect && newFolderInput && finalFolderName) {
     folderSelect.addEventListener("change", () => {
       if (folderSelect.value === "new_folder") {
@@ -348,15 +542,15 @@ document.addEventListener("DOMContentLoaded", () => {
   if (uploadForm) {
     uploadForm.addEventListener("submit", async (e) => {
       e.preventDefault();
-      
+
       const formData = new FormData(uploadForm);
       submitUploadBtn.disabled = true;
-      
+
       const prevText = submitUploadBtn.innerText;
       submitUploadBtn.innerText = uploadForm.dataset.loading;
       uploadStatus.className = "hidden";
       if (prLink) prLink.classList.add("hidden");
-      
+
       try {
         const response = await fetch("/api/soundboard/upload", {
           method: "POST",
