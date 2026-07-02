@@ -1,21 +1,59 @@
 document.addEventListener("DOMContentLoaded", () => {
     
-    // 1. Convert local times
-    const localTimeElements = document.querySelectorAll('.local-time');
-    localTimeElements.forEach(el => {
-        const utcTime = el.getAttribute('data-utc'); // expected "HH:MM"
-        if (utcTime) {
-            // Create a dummy date in UTC with that time to convert to local
-            const [hours, minutes] = utcTime.split(':');
-            const date = new Date();
-            date.setUTCHours(parseInt(hours, 10));
-            date.setUTCMinutes(parseInt(minutes, 10));
-            date.setUTCSeconds(0);
+    // 1. Convert local times and days
+    const docLang = document.documentElement.lang || 'en';
+
+    function getNextUtcDate(targetUtcDay, utcTimeStr) {
+        const [hours, minutes] = utcTimeStr.split(':');
+        const d = new Date();
+        d.setUTCHours(parseInt(hours, 10), parseInt(minutes, 10), 0, 0);
+        
+        const currentUtcDay = d.getUTCDay();
+        let daysToAdd = targetUtcDay - currentUtcDay;
+        
+        if (daysToAdd < -3) daysToAdd += 7;
+        if (daysToAdd > 3) daysToAdd -= 7;
+        
+        d.setUTCDate(d.getUTCDate() + daysToAdd);
+        return d;
+    }
+
+    try {
+        document.querySelectorAll('.local-time').forEach(el => {
+            const utcTime = el.getAttribute('data-utc-time') || el.getAttribute('data-utc'); 
+            const utcDay = el.getAttribute('data-utc-day');
             
-            const localTimeString = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-            el.textContent = localTimeString;
-        }
-    });
+            if (utcTime) {
+                let date;
+                if (utcDay !== null) {
+                    date = getNextUtcDate(parseInt(utcDay, 10), utcTime);
+                } else {
+                    const [hours, minutes] = utcTime.split(':');
+                    date = new Date();
+                    date.setUTCHours(parseInt(hours, 10), parseInt(minutes, 10), 0, 0);
+                }
+                const localTimeString = date.toLocaleTimeString(docLang, { hour: '2-digit', minute: '2-digit' });
+                el.textContent = localTimeString;
+            }
+        });
+
+        document.querySelectorAll('.local-day').forEach(el => {
+            const utcDay = el.getAttribute('data-utc-day');
+            const utcTime = el.getAttribute('data-utc-time');
+            
+            if (utcDay !== null && utcTime) {
+                const date = getNextUtcDate(parseInt(utcDay, 10), utcTime);
+                let localDayString = date.toLocaleDateString(docLang, { weekday: 'long' });
+                
+                if (docLang === 'en') {
+                    localDayString = localDayString.charAt(0).toUpperCase() + localDayString.slice(1);
+                }
+                el.textContent = localDayString;
+            }
+        });
+    } catch (e) {
+        console.error("Error convirtiendo fechas:", e);
+    }
 
     // Chart default config for dark theme
     Chart.defaults.color = '#a3a3a3';

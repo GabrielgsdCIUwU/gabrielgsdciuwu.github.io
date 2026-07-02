@@ -81,9 +81,9 @@
     ],
     "meeting": {
       "title": "Weekly Meetings",
-      "text": "Every Saturday, the community gathers for structured social sessions.",
+      "text": "Every <span class=\"local-day\" data-utc-day=\"6\" data-utc-time=\"23:00\">Saturday</span>, the community gathers for structured social sessions.",
       "nthMeeting": "{n}th Weekly Meetup",
-      "schedule": "Instances start at <span class=\"local-time\" data-utc=\"23:00\">23:00 UTC</span> and end at <span class=\"local-time\" data-utc=\"01:30\">01:30 UTC</span>."
+      "schedule": "Instances start at <span class=\"local-time\" data-utc-day=\"6\" data-utc-time=\"23:00\">23:00 UTC</span> and end at <span class=\"local-time\" data-utc-day=\"0\" data-utc-time=\"01:30\">01:30 UTC</span>."
     }
   },
   "statistics": {
