@@ -81,9 +81,9 @@
     ],
     "meeting": {
       "title": "Weekly Meetings",
-      "text": "Every <span class=\"local-day\" data-utc-day=\"6\" data-utc-time=\"23:00\">Saturday</span>, the community gathers for structured social sessions.",
+      "text": "The community gathers weekly for structured social sessions across two timezones.",
       "nthMeeting": "{n}th Weekly Meetup",
-      "schedule": "Instances start at <span class=\"local-time\" data-utc-day=\"6\" data-utc-time=\"23:00\">23:00 UTC</span> and end at <span class=\"local-time\" data-utc-day=\"0\" data-utc-time=\"01:30\">01:30 UTC</span>."
+      "schedule": "<span class=\"text-[#818cf8] font-semibold\">EU Session:</span> <span class=\"local-day capitalize\" data-utc-day=\"6\" data-utc-time=\"17:00\">Saturday</span>, <span class=\"local-time\" data-utc-day=\"6\" data-utc-time=\"17:00\">17:00</span> - <span class=\"local-time\" data-utc-day=\"6\" data-utc-time=\"19:30\">19:30</span><br><span class=\"text-[#f472b6] font-semibold\">US Session:</span> <span class=\"local-day capitalize\" data-utc-day=\"6\" data-utc-time=\"23:00\">Saturday</span>, <span class=\"local-time\" data-utc-day=\"6\" data-utc-time=\"23:00\">23:00</span> - <span class=\"local-time\" data-utc-day=\"0\" data-utc-time=\"01:30\">01:30</span>"
     }
   },
   "statistics": {
