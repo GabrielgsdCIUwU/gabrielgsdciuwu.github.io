@@ -197,10 +197,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const uniqueMeetups = [...new Set(pictures.map(p => p.meetupNumber))].sort((a, b) => b - a);
 
         uniqueMeetups.forEach(meetup => {
+            const count = pictures.filter(p => p.meetupNumber === meetup).length;
             const opt = document.createElement('div');
-            opt.className = 'p-4 hover:bg-[#1f1f2e] cursor-pointer text-sm font-medium transition-colors text-neutral-300 border-b border-neutral-800/50 last:border-0';
-            opt.textContent = `Meetup ${meetup}`;
+            opt.className = 'p-4 hover:bg-blue-500/10 cursor-pointer text-sm font-medium transition-all duration-300 text-neutral-300 hover:text-white flex items-center justify-between border-b border-neutral-800/50 last:border-0 group';
             opt.dataset.filter = meetup;
+            opt.innerHTML = `
+                <div class="flex items-center gap-3">
+                    <i class="fas fa-camera text-neutral-500 group-hover:text-blue-400 transition-colors w-4 text-center"></i>
+                    <span>Meetup ${meetup}</span>
+                </div>
+                <span class="bg-neutral-800/50 text-neutral-400 text-xs py-1 px-2 rounded-md group-hover:bg-blue-500/20 group-hover:text-blue-300 transition-colors">${count}</span>
+            `;
             galleryOptionsContainer.appendChild(opt);
         });
 
@@ -242,6 +249,26 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
         });
+
+        // Search input logic
+        const searchInput = document.getElementById('gallery-search');
+        if (searchInput) {
+            searchInput.addEventListener('click', (e) => {
+                e.stopPropagation(); // prevent closing when clicking input
+            });
+            
+            searchInput.addEventListener('input', (e) => {
+                const term = e.target.value.toLowerCase();
+                gallerySelectDropdown.querySelectorAll('#gallery-options-container > div').forEach(opt => {
+                    const text = opt.querySelector('span').textContent.toLowerCase();
+                    if (text.includes(term)) {
+                        opt.style.display = 'flex';
+                    } else {
+                        opt.style.display = 'none';
+                    }
+                });
+            });
+        }
     }
 
     if (galleryGrid) {
