@@ -119,6 +119,7 @@
         <button onclick="fetchComments()">Cargar Comentarios</button>
         <button onclick="showAuthForm()">Cargar Comentarios de Queue</button>
         <button onclick="fetchSounds()">Cargar Sonidos</button>
+        <button onclick="fetchPicturesQueue()">Cargar Fotos de Queue</button>
       </div>
 
       <!-- Formulario de autenticación -->
@@ -480,6 +481,108 @@
         } catch (error) {
           console.error("Error al añadir el usuario:", error);
           alert("Error al añadir el usuario.");
+        }
+      }
+      async function fetchPicturesQueue() {
+        const user = document.getElementById("authUser").value;
+        const password = document.getElementById("authPass").value;
+
+        if (!user || !password) {
+          alert("Por favor, ingresa Usuario y Contraseña en la sección de permisos.");
+          return;
+        }
+
+        try {
+          const response = await fetch("/api/manage/pictures-queue", {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Basic " + btoa(user + ":" + password),
+            },
+          });
+          const pictures = await response.json();
+          const commentsContainer = document.getElementById("comments");
+
+          commentsContainer.innerHTML = "<h3>Cola de Fotos</h3>";
+
+          if (pictures.length === 0) {
+            commentsContainer.innerHTML += "<p>No hay fotos en cola.</p>";
+            return;
+          }
+
+          pictures.forEach((pic) => {
+            const div = document.createElement("div");
+            div.className = "comment";
+            div.innerHTML = `
+              <strong>Meetup ${pic.meetupNumber} | Session ${pic.session === 0 ? 'EU' : 'US'}</strong><br>
+              <small>ID: ${pic.id} | Author: ${pic.author} | UserID: ${pic.userId || 'N/A'}</small><br>
+              <img src="${pic.url}" style="max-width:100%; max-height:200px; border-radius:4px; margin-top:10px;"/><br>
+              <div style="margin-top: 10px;">
+                <button onclick="approvePicture('${pic.id}')" style="background-color: green; color: white;">Aprobar</button>
+                <button onclick="rejectPicture('${pic.id}')" style="background-color: red; color: white;">Rechazar</button>
+              </div>
+            `;
+            commentsContainer.appendChild(div);
+          });
+
+        } catch (error) {
+          console.error("Error al cargar fotos:", error);
+          alert("Error al cargar fotos.");
+        }
+      }
+
+      async function approvePicture(id) {
+        const user = document.getElementById("authUser").value;
+        const password = document.getElementById("authPass").value;
+
+        try {
+          const response = await fetch("/api/manage/pictures-queue/approve", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Basic " + btoa(user + ":" + password),
+            },
+            body: JSON.stringify({ id }),
+          });
+          
+          if (response.ok) {
+            alert("Foto aprobada exitosamente.");
+            fetchPicturesQueue();
+          } else {
+            const res = await response.json();
+            alert(`Error: ${res.error}`);
+          }
+        } catch (error) {
+          alert("Error al aprobar foto.");
+        }
+      }
+
+      async function rejectPicture(id) {
+        const user = document.getElementById("authUser").value;
+        const password = document.getElementById("authPass").value;
+        
+        const reason = prompt("Introduce el motivo del rechazo para notificar al usuario:");
+        if (reason === null) return; // cancelled
+
+        try {
+          const response = await fetch("/api/manage/pictures-queue/reject", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Basic " + btoa(user + ":" + password),
+            },
+            body: JSON.stringify({ id, reason }),
+          });
+          
+          if (response.ok) {
+            alert("Foto rechazada y borrada. Se notificará al usuario.");
+            fetchPicturesQueue();
+          } else {
+            const res = await response.json();
+            alert(`Error: ${res.error}`);
+          }
+        } catch (error) {
+          alert("Error al rechazar foto.");
         }
       }
     </script>

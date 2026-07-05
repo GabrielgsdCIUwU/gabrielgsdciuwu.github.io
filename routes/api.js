@@ -585,48 +585,51 @@ router.get("/chillfish/pictures", (req, res) => {
   });
 });
 
+// API Paths
+const meetupPicturesQueuePath = path.join(__dirname, "../resources/json/meetup-pictures-queue.json");
+const notificationsPath = path.join(__dirname, "../resources/json/notifications.json");
+
 // POST endpoint for meetup pictures (called by Discord bot)
 router.post("/chillfish/pictures", authenticateBotOrAdmin, upload.single("image"), async (req, res) => {
   try {
-    const { meetupNumber, session, timestamp, author } = req.body;
+    const { meetupNumber, session, timestamp, author, userId, originalUrl } = req.body;
     const file = req.file;
 
     if (!file) return res.status(400).json({ error: "No image file provided" });
     if (!meetupNumber || !session) return res.status(400).json({ error: "meetupNumber and session are required" });
 
-    // We generate the ID first. The chance of collision with 8 chars is ~1 in 218 trillion.
     const newId = generateUniqueId();
     const fileName = `${meetupNumber}_${session}_${newId}.webp`;
     const outputPath = path.join(__dirname, "../resources/img/meetups", fileName);
 
-    // Optimize with sharp FIRST (this yields the event loop)
     await sharp(file.path)
       .resize({ width: 1000, withoutEnlargement: true })
       .webp({ quality: 80 })
       .toFile(outputPath);
 
-    // Append to metadata ATOMICALLY (synchronous read and write)
     const newPic = {
       id: newId,
       url: `/resources/img/meetups/${fileName}`,
       meetupNumber: parseInt(meetupNumber, 10),
       session: parseInt(session, 10),
       timestamp: timestamp || new Date().toISOString(),
-      author: author || "Unknown"
+      author: author || "Unknown",
+      userId: userId || null,
+      originalUrl: originalUrl || null
     };
 
     let pictures = [];
     try {
-      const data = fs.readFileSync(meetupPicturesPath, "utf8");
+      const data = fs.readFileSync(meetupPicturesQueuePath, "utf8");
       pictures = JSON.parse(data);
     } catch (e) {
       if (e.code !== 'ENOENT') throw e;
     }
 
     pictures.push(newPic);
-    fs.writeFileSync(meetupPicturesPath, JSON.stringify(pictures, null, 2), "utf8");
+    fs.writeFileSync(meetupPicturesQueuePath, JSON.stringify(pictures, null, 2), "utf8");
 
-    res.status(201).json({ message: "Picture uploaded successfully", picture: newPic });
+    res.status(201).json({ message: "Picture added to queue successfully", picture: newPic });
   } catch (error) {
     console.error("Error processing picture:", error);
     res.status(500).json({ error: "Internal server error" });
@@ -636,6 +639,99 @@ router.post("/chillfish/pictures", authenticateBotOrAdmin, upload.single("image"
         await fs.promises.unlink(req.file.path);
       } catch (e) {}
     }
+  }
+});
+
+// GET picture queue (Admin)
+router.get("/manage/pictures-queue", authenticate, (req, res) => {
+  try {
+    const data = fs.readFileSync(meetupPicturesQueuePath, "utf8");
+    res.json(JSON.parse(data));
+  } catch (e) {
+    if (e.code === 'ENOENT') return res.json([]);
+    res.status(500).json({ error: "Error reading picture queue" });
+  }
+});
+
+// POST approve picture from queue
+router.post("/manage/pictures-queue/approve", authenticate, (req, res) => {
+  const { id } = req.body;
+  if (!id) return res.status(400).json({ error: "ID is required" });
+
+  try {
+    let queue = JSON.parse(fs.readFileSync(meetupPicturesQueuePath, "utf8"));
+    const index = queue.findIndex(p => p.id === id);
+    if (index === -1) return res.status(404).json({ error: "Picture not found in queue" });
+    
+    const [approvedPic] = queue.splice(index, 1);
+    
+    // Read and append to main pictures
+    let pictures = [];
+    try {
+      pictures = JSON.parse(fs.readFileSync(meetupPicturesPath, "utf8"));
+    } catch (e) {}
+    
+    // We don't need userId and originalUrl in public json, but it doesn't hurt. 
+    // We will clean them up for the public array to save bytes
+    const publicPic = { ...approvedPic };
+    delete publicPic.userId;
+    delete publicPic.originalUrl;
+    
+    pictures.push(publicPic);
+    fs.writeFileSync(meetupPicturesPath, JSON.stringify(pictures, null, 2), "utf8");
+    fs.writeFileSync(meetupPicturesQueuePath, JSON.stringify(queue, null, 2), "utf8");
+
+    res.status(200).json({ message: "Picture approved successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+// POST reject picture from queue
+router.post("/manage/pictures-queue/reject", authenticate, (req, res) => {
+  const { id, reason } = req.body;
+  if (!id) return res.status(400).json({ error: "ID is required" });
+
+  try {
+    let queue = JSON.parse(fs.readFileSync(meetupPicturesQueuePath, "utf8"));
+    const index = queue.findIndex(p => p.id === id);
+    if (index === -1) return res.status(404).json({ error: "Picture not found in queue" });
+    
+    const [rejectedPic] = queue.splice(index, 1);
+    
+    // Delete file
+    const absoluteFilePath = path.join(__dirname, "..", rejectedPic.url);
+    try {
+      if (fs.existsSync(absoluteFilePath)) {
+        fs.unlinkSync(absoluteFilePath);
+      }
+    } catch (e) {
+      console.error("Could not delete rejected image file", e);
+    }
+
+    // Add to notifications queue if it has a userId
+    if (rejectedPic.userId && reason) {
+      let notifications = [];
+      try {
+        notifications = JSON.parse(fs.readFileSync(notificationsPath, "utf8"));
+      } catch (e) {}
+      
+      notifications.push({
+        userId: rejectedPic.userId,
+        reason: reason,
+        originalUrl: rejectedPic.originalUrl,
+        timestamp: new Date().toISOString()
+      });
+      fs.writeFileSync(notificationsPath, JSON.stringify(notifications, null, 2), "utf8");
+    }
+
+    fs.writeFileSync(meetupPicturesQueuePath, JSON.stringify(queue, null, 2), "utf8");
+
+    res.status(200).json({ message: "Picture rejected successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Server error" });
   }
 });
 
