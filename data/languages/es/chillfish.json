@@ -81,9 +81,9 @@
     ],
     "meeting": {
       "title": "Reuniones Semanales",
-      "text": "Cada sábado, la comunidad se reúne para sesiones sociales estructuradas.",
+      "text": "La comunidad se reúne semanalmente para sesiones sociales estructuradas en dos zonas horarias.",
       "nthMeeting": "{n}ª Reunión Semanal",
-      "schedule": "Las instancias empiezan a las <span class=\"local-time\" data-utc=\"23:00\">23:00 UTC</span> y acaban a las <span class=\"local-time\" data-utc=\"01:30\">01:30 UTC</span>."
+      "schedule": "<span class=\"text-[#818cf8] font-semibold\">Sesión EU:</span> <span class=\"local-day capitalize\" data-utc-day=\"6\" data-utc-time=\"17:00\">sábado</span>, <span class=\"local-time\" data-utc-day=\"6\" data-utc-time=\"17:00\">17:00</span> - <span class=\"local-time\" data-utc-day=\"6\" data-utc-time=\"19:30\">19:30</span><br><span class=\"text-[#f472b6] font-semibold\">Sesión US:</span> <span class=\"local-day capitalize\" data-utc-day=\"6\" data-utc-time=\"23:00\">sábado</span>, <span class=\"local-time\" data-utc-day=\"6\" data-utc-time=\"23:00\">23:00</span> - <span class=\"local-time\" data-utc-day=\"0\" data-utc-time=\"01:30\">01:30</span>"
     }
   },
   "statistics": {
