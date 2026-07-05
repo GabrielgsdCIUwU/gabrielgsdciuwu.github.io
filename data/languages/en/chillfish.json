@@ -116,6 +116,16 @@
     "based": "Project based on the Structured Chaos Community Ecosystem.",
     "copyright": "Original concept by <a href=\"https://theziver.com/\" target=\"_blank\">TheZiver</a>"
   },
+  "gallery": {
+    "label": "07 — The Archive",
+    "title": "Community Memories",
+    "description": "Moments captured during our weekly meetups.",
+    "empty": "No images available for this meetup.",
+    "filterAll": "All Meetups",
+    "euSession": "EU Session",
+    "usSession": "US Session",
+    "by": "by"
+  },
   "comments": {
     "title": "Community Voices",
     "subtitle": "What Our Members Say",

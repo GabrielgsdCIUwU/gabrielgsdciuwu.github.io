@@ -10,7 +10,9 @@ BrainStorm.txt
 resources/json/users.json
 resources/json/sounds.json
 resources/json/status.json
+resources/json/meetup-pictures.json
 resources/img/avatar_lq.jpg
+resources/img/meetups
 sessions
 
 .vscode

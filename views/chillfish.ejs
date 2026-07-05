@@ -336,6 +336,60 @@
         </div>
     </section>
 
+    <!-- GALLERY SECTION -->
+    <section class="py-24 md:py-32 px-6 relative bg-gradient-to-b from-[#0a0a0f] via-[#0a0d14] to-[#0d0d14]" id="gallery-section">
+        <div class="max-w-6xl mx-auto">
+            <div class="mb-16 md:mb-20 text-center reveal-on-scroll">
+                <span class="text-blue-400 font-mono text-sm tracking-widest uppercase mb-4 block"><%= content.gallery.label %></span>
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-light tracking-tight text-white mb-4"><%= content.gallery.title %></h2>
+                <p class="text-neutral-400 text-lg max-w-2xl mx-auto"><%= content.gallery.description %></p>
+            </div>
+            
+            <div class="flex justify-center mb-10 reveal-on-scroll relative z-40">
+                <div class="relative w-full max-w-md" id="gallery-dropdown-container">
+                    <button id="gallery-select-btn" class="w-full flex items-center justify-between bg-[#12121a] p-4 rounded-xl border border-neutral-800 text-sm text-white hover:border-neutral-600 transition-colors focus:outline-none">
+                        <span id="gallery-select-text" class="flex items-center gap-3 truncate text-neutral-300">
+                            <i class="fas fa-filter text-blue-400"></i> <span id="gallery-select-label"><%= content.gallery.filterAll %></span>
+                        </span>
+                        <i class="fas fa-chevron-down text-neutral-500 text-xs transition-transform duration-300"></i>
+                    </button>
+                    <!-- Dropdown Menu -->
+                    <div id="gallery-select-dropdown" class="absolute z-50 left-0 w-full mt-2 bg-[#12121a] border border-neutral-800 rounded-xl shadow-2xl hidden max-h-[300px] overflow-y-auto custom-scrollbar flex flex-col origin-top">
+                        <div class="p-4 hover:bg-[#1f1f2e] cursor-pointer text-sm font-medium transition-colors text-white flex items-center gap-3 border-b border-neutral-800/50" data-filter="all">
+                            <i class="fas fa-layer-group text-neutral-500 w-4"></i> <%= content.gallery.filterAll %>
+                        </div>
+                        <div id="gallery-options-container"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="gallery-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 reveal-on-scroll">
+                <!-- Javascript will populate the images -->
+                <div class="col-span-full text-center py-20 text-neutral-500 hidden" id="gallery-empty-state">
+                    <i class="fas fa-images text-5xl mb-6 opacity-20"></i>
+                    <p class="text-lg"><%= content.gallery.empty %></p>
+                </div>
+            </div>
+            
+            <!-- Image Modal -->
+            <div id="gallery-modal" class="fixed inset-0 z-[100] bg-black/95 backdrop-blur-xl hidden flex items-center justify-center p-4 md:p-8 opacity-0 transition-opacity duration-300">
+                <button id="gallery-modal-close" class="absolute top-6 right-6 text-white hover:text-red-400 transition-all duration-300 w-12 h-12 flex items-center justify-center bg-white/5 rounded-full hover:bg-white/10 z-[101]">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+                <div class="relative max-w-full max-h-full w-full h-full flex items-center justify-center">
+                    <img id="gallery-modal-img" src="" alt="Meetup Picture" class="max-w-[95%] max-h-[85vh] object-contain rounded-lg shadow-[0_0_50px_rgba(0,0,0,0.5)] scale-95 transition-transform duration-300">
+                    <div class="absolute bottom-4 md:bottom-8 left-1/2 -translate-x-1/2 bg-black/60 backdrop-blur-md border border-white/10 rounded-full px-6 py-3 flex items-center gap-3 text-sm text-white transform translate-y-4 opacity-0 transition-all duration-300 whitespace-nowrap" id="gallery-modal-info">
+                        <span id="gallery-modal-meetup" class="font-mono text-blue-400 font-medium"></span>
+                        <span class="w-1.5 h-1.5 rounded-full bg-neutral-600"></span>
+                        <span id="gallery-modal-session" class="text-neutral-300"></span>
+                        <span class="w-1.5 h-1.5 rounded-full bg-neutral-600"></span>
+                        <span id="gallery-modal-author" class="text-neutral-400 italic"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- COMMENTS SECTION -->
     <section class="py-24 md:py-32 px-6 bg-[#0d0d14]">
         <div class="max-w-6xl mx-auto">
@@ -451,6 +505,14 @@
             members: "<%= content.statistics.membersAxis %>",
             time: "<%= content.statistics.timeAxis %>",
             meetupOption: "<%= content.statistics.meetupOption %>"
+        };
+        
+        window.chillfishGalleryi18n = {
+            empty: "<%= content.gallery.empty %>",
+            filterAll: "<%= content.gallery.filterAll %>",
+            euSession: "<%= content.gallery.euSession %>",
+            usSession: "<%= content.gallery.usSession %>",
+            by: "<%= content.gallery.by %>"
         };
     </script>
     <script src="/resources/js/chillfish-stats.js"></script>

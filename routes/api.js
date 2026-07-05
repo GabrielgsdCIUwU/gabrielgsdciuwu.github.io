@@ -6,6 +6,9 @@ import { fileURLToPath } from "node:url";
 import { WebhookClient, EmbedBuilder } from "discord.js";
 
 import dotenv from "dotenv";
+import multer from "multer";
+import sharp from "sharp";
+import os from "node:os";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -19,6 +22,12 @@ const QueuefilePath = path.join(__dirname, "../resources/json/queue-comments.jso
 const chillFishFilePath = path.join(__dirname, "../resources/json/chillfish-comments.json");
 const chillFishQueuePath = path.join(__dirname, "../resources/json/queue-chillfish-comments.json");
 const avatarPath = path.join(__dirname, "../resources/img/avatar_lq.jpg");
+const meetupPicturesPath = path.join(__dirname, "../resources/json/meetup-pictures.json");
+
+const upload = multer({
+  dest: os.tmpdir(),
+  limits: { fileSize: 20 * 1024 * 1024 } // 20 MB limite por archivo
+});
 
 // Función para generar un ID único alfanumérico
 function generateUniqueId(length = 8) {
@@ -36,7 +45,7 @@ function idExists(id, comentarios) {
   return comentarios.some((comentario) => comentario.id === id);
 }
 
-// Middleware para la autenticación básica
+// Middleware para la autenticación básica (Solo Administrador)
 const authenticate = (req, res, next) => {
   const user = basicAuth(req);
 
@@ -44,6 +53,26 @@ const authenticate = (req, res, next) => {
   const password = process.env.passwd;
 
   if (!user || user.name !== username || user.pass !== password) {
+    res.set("WWW-Authenticate", 'Basic realm="401"');
+    return res.status(401).json({ error: "Unauthorized" });
+  }
+
+  next();
+};
+
+// Middleware para la autenticación del Bot (o Admin)
+const authenticateBotOrAdmin = (req, res, next) => {
+  const user = basicAuth(req);
+
+  const username = process.env.user;
+  const password = process.env.passwd;
+  const botUser = process.env.bot_user;
+  const botPassword = process.env.bot_passwd;
+
+  const isAdmin = user && user.name === username && user.pass === password;
+  const isBot = user && botUser && botPassword && user.name === botUser && user.pass === botPassword;
+
+  if (!isAdmin && !isBot) {
     res.set("WWW-Authenticate", 'Basic realm="401"');
     return res.status(401).json({ error: "Unauthorized" });
   }
@@ -537,6 +566,77 @@ router.get("/chillfish/stats/instance", (req, res) => {
     }
     catch (e) { res.json([]); }
   });
+});
+
+// GET endpoints for meetup pictures
+router.get("/chillfish/pictures", (req, res) => {
+  fs.readFile(meetupPicturesPath, "utf8", (err, data) => {
+    if (err) {
+      if (err.code === 'ENOENT') return res.json([]);
+      console.log(`Error reading meetup pictures: ${err}`);
+      return res.status(500).json({ error: "Error reading meetup pictures" });
+    }
+    try {
+      const parsedData = JSON.parse(data);
+      res.json(parsedData);
+    } catch (e) { 
+      res.json([]); 
+    }
+  });
+});
+
+// POST endpoint for meetup pictures (called by Discord bot)
+router.post("/chillfish/pictures", authenticateBotOrAdmin, upload.single("image"), async (req, res) => {
+  try {
+    const { meetupNumber, session, timestamp, author } = req.body;
+    const file = req.file;
+
+    if (!file) return res.status(400).json({ error: "No image file provided" });
+    if (!meetupNumber || !session) return res.status(400).json({ error: "meetupNumber and session are required" });
+
+    // We generate the ID first. The chance of collision with 8 chars is ~1 in 218 trillion.
+    const newId = generateUniqueId();
+    const fileName = `${meetupNumber}_${session}_${newId}.webp`;
+    const outputPath = path.join(__dirname, "../resources/img/meetups", fileName);
+
+    // Optimize with sharp FIRST (this yields the event loop)
+    await sharp(file.path)
+      .resize({ width: 1000, withoutEnlargement: true })
+      .webp({ quality: 80 })
+      .toFile(outputPath);
+
+    // Append to metadata ATOMICALLY (synchronous read and write)
+    const newPic = {
+      id: newId,
+      url: `/resources/img/meetups/${fileName}`,
+      meetupNumber: parseInt(meetupNumber, 10),
+      session: parseInt(session, 10),
+      timestamp: timestamp || new Date().toISOString(),
+      author: author || "Unknown"
+    };
+
+    let pictures = [];
+    try {
+      const data = fs.readFileSync(meetupPicturesPath, "utf8");
+      pictures = JSON.parse(data);
+    } catch (e) {
+      if (e.code !== 'ENOENT') throw e;
+    }
+
+    pictures.push(newPic);
+    fs.writeFileSync(meetupPicturesPath, JSON.stringify(pictures, null, 2), "utf8");
+
+    res.status(201).json({ message: "Picture uploaded successfully", picture: newPic });
+  } catch (error) {
+    console.error("Error processing picture:", error);
+    res.status(500).json({ error: "Internal server error" });
+  } finally {
+    if (req.file) {
+      try {
+        await fs.promises.unlink(req.file.path);
+      } catch (e) {}
+    }
+  }
 });
 
 export default router;
