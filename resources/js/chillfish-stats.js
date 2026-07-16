@@ -1,21 +1,59 @@
 document.addEventListener("DOMContentLoaded", () => {
     
-    // 1. Convert local times
-    const localTimeElements = document.querySelectorAll('.local-time');
-    localTimeElements.forEach(el => {
-        const utcTime = el.getAttribute('data-utc'); // expected "HH:MM"
-        if (utcTime) {
-            // Create a dummy date in UTC with that time to convert to local
-            const [hours, minutes] = utcTime.split(':');
-            const date = new Date();
-            date.setUTCHours(parseInt(hours, 10));
-            date.setUTCMinutes(parseInt(minutes, 10));
-            date.setUTCSeconds(0);
+    // 1. Convert local times and days
+    const docLang = document.documentElement.lang || 'en';
+
+    function getNextUtcDate(targetUtcDay, utcTimeStr) {
+        const [hours, minutes] = utcTimeStr.split(':');
+        const d = new Date();
+        d.setUTCHours(parseInt(hours, 10), parseInt(minutes, 10), 0, 0);
+        
+        const currentUtcDay = d.getUTCDay();
+        let daysToAdd = targetUtcDay - currentUtcDay;
+        
+        if (daysToAdd < -3) daysToAdd += 7;
+        if (daysToAdd > 3) daysToAdd -= 7;
+        
+        d.setUTCDate(d.getUTCDate() + daysToAdd);
+        return d;
+    }
+
+    try {
+        document.querySelectorAll('.local-time').forEach(el => {
+            const utcTime = el.getAttribute('data-utc-time') || el.getAttribute('data-utc'); 
+            const utcDay = el.getAttribute('data-utc-day');
             
-            const localTimeString = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-            el.textContent = localTimeString;
-        }
-    });
+            if (utcTime) {
+                let date;
+                if (utcDay !== null) {
+                    date = getNextUtcDate(parseInt(utcDay, 10), utcTime);
+                } else {
+                    const [hours, minutes] = utcTime.split(':');
+                    date = new Date();
+                    date.setUTCHours(parseInt(hours, 10), parseInt(minutes, 10), 0, 0);
+                }
+                const localTimeString = date.toLocaleTimeString(docLang, { hour: '2-digit', minute: '2-digit' });
+                el.textContent = localTimeString;
+            }
+        });
+
+        document.querySelectorAll('.local-day').forEach(el => {
+            const utcDay = el.getAttribute('data-utc-day');
+            const utcTime = el.getAttribute('data-utc-time');
+            
+            if (utcDay !== null && utcTime) {
+                const date = getNextUtcDate(parseInt(utcDay, 10), utcTime);
+                let localDayString = date.toLocaleDateString(docLang, { weekday: 'long' });
+                
+                if (docLang === 'en') {
+                    localDayString = localDayString.charAt(0).toUpperCase() + localDayString.slice(1);
+                }
+                el.textContent = localDayString;
+            }
+        });
+    } catch (e) {
+        console.error("Error convirtiendo fechas:", e);
+    }
 
     // Chart default config for dark theme
     Chart.defaults.color = '#a3a3a3';
@@ -104,7 +142,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         
         let labels = [];
-        let counts = [];
+        let datasets = [];
 
         if (selection === 'all' || selection === 'last4') {
             const last4Meetups = uniqueMeetups.slice(0, 4);
@@ -135,7 +173,15 @@ document.addEventListener("DOMContentLoaded", () => {
                 tmp.setUTCHours(parseInt(h, 10), parseInt(m, 10), 0, 0);
                 return tmp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
             });
-            counts = sortedKeys.map(k => Math.round(timeMap[k].sum / timeMap[k].count));
+            const counts = sortedKeys.map(k => Math.round(timeMap[k].sum / timeMap[k].count));
+            
+            datasets.push({
+                label: i18n.members,
+                data: counts,
+                backgroundColor: 'rgba(99, 102, 241, 0.8)',
+                borderRadius: 4,
+                hoverBackgroundColor: '#818cf8'
+            });
             
         } else {
             // Specific Meetup
@@ -147,30 +193,57 @@ document.addEventListener("DOMContentLoaded", () => {
                 const dt = new Date(d.date);
                 return dt.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
             });
-            counts = filteredData.map(d => d.count);
+            
+            const uniqueSessions = [...new Set(filteredData.map(d => d.session || 0))];
+            
+            const colors = [
+                { bg: 'rgba(99, 102, 241, 0.8)', hover: '#818cf8', label: 'EU Session' },
+                { bg: 'rgba(236, 72, 153, 0.8)', hover: '#f472b6', label: 'US Session' },
+                { bg: 'rgba(52, 211, 153, 0.8)', hover: '#6ee7b7', label: 'Session 3' }
+            ];
+
+            if (uniqueSessions.length > 1) {
+                uniqueSessions.forEach((sess, idx) => {
+                    const sessData = labels.map((lbl, i) => {
+                        const d = filteredData[i];
+                        return ((d.session || 0) === sess) ? d.count : null;
+                    });
+                    
+                    datasets.push({
+                        label: colors[idx]?.label || `Session ${sess+1}`,
+                        data: sessData,
+                        backgroundColor: colors[idx]?.bg || 'rgba(99, 102, 241, 0.8)',
+                        borderRadius: 4,
+                        hoverBackgroundColor: colors[idx]?.hover || '#818cf8'
+                    });
+                });
+            } else {
+                const counts = filteredData.map(d => d.count);
+                datasets.push({
+                    label: i18n.members,
+                    data: counts,
+                    backgroundColor: 'rgba(99, 102, 241, 0.8)',
+                    borderRadius: 4,
+                    hoverBackgroundColor: '#818cf8'
+                });
+            }
         }
 
         instanceChart = new Chart(instanceCtx, {
             type: 'bar',
             data: {
                 labels: labels,
-                datasets: [{
-                    label: i18n.members,
-                    data: counts,
-                    backgroundColor: 'rgba(99, 102, 241, 0.8)',
-                    borderRadius: 4,
-                    hoverBackgroundColor: '#818cf8'
-                }]
+                datasets: datasets
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
-                    legend: { display: false }
+                    legend: { display: datasets.length > 1, labels: { color: '#a3a3a3' } }
                 },
                 scales: {
-                    y: { beginAtZero: true, title: { display: true, text: i18n.members } },
-                    x: { title: { display: true, text: i18n.time } }
+                    y: { stacked: true, beginAtZero: true, title: { display: true, text: i18n.members } },
+                    x: { stacked: true, title: { display: true, text: i18n.time } }
                 }
             }
         });
