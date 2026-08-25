@@ -1,7 +1,7 @@
 {
   "headDetails": {
-    "title": "Chill ＜＞＜ | Santuario Digital",
-    "description": "Un santuario liderado por la comunidad, enfocado en el bienestar digital y la interacción social estructurada dentro de VRChat."
+    "title": "Chill ＜＞＜ | Santuario Digital en VRChat",
+    "description": "Una subcomunidad en VRChat enfocada en la serenidad, la interacción social de baja energía y el caos estructurado."
   },
   "nav": {
     "back": "Volver al Portafolio"
@@ -9,117 +9,113 @@
   "hero": {
     "title": "Chill",
     "symbol": "＜＞＜",
-    "subtitle": "Cultivando el orden en el caos digital.",
-    "description": "Un santuario liderado por la comunidad, enfocado en el bienestar digital y la interacción social estructurada dentro del Metaverso.",
+    "badge": "Subcomunidad de FISH ＜＞＜",
+    "roleBadge": "Rol ＞ (Estructura)",
+    "subtitle": "Cultivando la paz y la estructura dentro del caos en VRChat.",
+    "description": "Un santuario liderado por la comunidad en VRChat, enfocado en el bienestar digital, la serenidad y la interacción social de baja energía.",
     "cta": "Unirse al grupo en VRChat",
     "link": "https://vrchat.com/home/group/grp_52bf6a2e-4bb9-4e20-84ef-206b21218970"
   },
+  "lore": {
+    "label": "01 — El Origen & La Simbología",
+    "title": "El Arte del Caos Estructurado",
+    "subtitle": "Nuestras raíces en la comunidad FISH ＜＞＜ y el significado del mantra.",
+    "originBadge": "Origen en la Red FISH",
+    "networkName": "First Structure Chaos Community",
+    "ecosystemOrigin": "Chill ＜＞＜ nace como una subcomunidad registrada dentro de la red FISH ＜＞＜ (creada por TheZiver), el ecosistema First Structure Chaos Community en VRChat. El símbolo ＜＞＜ representa el equilibrio fundamental entre orden y desorden en los mundos virtuales.",
+    "chaosLeftTag": "Entropía",
+    "structureTag": "CHILL",
+    "chaosRightTag": "Re-emergencia",
+    "structuredChaosTag": "Estado Final",
+    "chaosLeft": {
+      "symbol": "<",
+      "title": "Caos Inicial",
+      "subtitle": "Saturación & Entropía",
+      "text": "La tendencia natural de VRChat hacia el desorden: avatares recargados, audios elevados y entornos abrumadores cuando no existen límites claros."
+    },
+    "structure": {
+      "symbol": "＞",
+      "title": "Estructura (Chill)",
+      "subtitle": "Nuestra Identidad",
+      "text": "La aplicación intencional de moderación, volumen controlado y reglas claras. Chill encarna específicamente este símbolo (＞) para ofrecer calma."
+    },
+    "chaosRight": {
+      "symbol": "<",
+      "title": "Retorno del Caos",
+      "subtitle": "Flujo Humano",
+      "text": "A pesar de la estructura, la espontaneidad y el caos reaparecen naturalmente. La clave no es reprimirlo, sino canalizarlo."
+    },
+    "structuredChaos": {
+      "symbol": "＜＞＜",
+      "title": "Caos Estructurado",
+      "subtitle": "El Balance Perfecto",
+      "text": "El estado resultante donde la libertad social y la diversión conviven bajo límites saludables para prevenir el agotamiento sensorial."
+    },
+    "roleCard": {
+      "title": "Nuestro Rol Específico: La Fuerza de Estructura ＞",
+      "text": "Dentro de la red FISH, Chill no intenta abarcar todo el espectro del caos. Nosotros somos los arquitectos de la Estructura (＞): creamos el refugio tranquilo donde los usuarios de VRChat pueden descansar sin desconectarse de la comunidad."
+    }
+  },
   "overview": {
-    "label": "01 — El Contexto",
-    "title": "Resumen del Proyecto",
+    "label": "El Entorno VRChat",
+    "title": "De la Saturación al Santuario",
     "cards": [
       {
-        "title": "El Entorno",
-        "content": "VRChat es un metaverso masivo generado por usuarios donde millones de personas interactúan a diario. Aunque ofrece una libertad ilimitada, esta libertad suele dar lugar a \"ruido digital\": saturación visual, audio elevado y entornos sociales abrumadores."
+        "title": "El Paisaje en VRChat",
+        "content": "VRChat ofrece una libertad creativa sin precedentes, pero a menudo genera 'ruido digital': saturación visual, parlantes elevados y eventos exhaustivos que provocan fatiga social."
       },
       {
-        "title": "La Solución",
-        "content": "Chill ＜＞＜ se estableció como un contrapeso. Es un espacio comunitario curado, diseñado para ofrecer un \"tercer lugar\" a los usuarios que buscan descanso. Nos centramos en la interacción social de baja energía, proporcionando una estructura estricta que filtra el ruido."
+        "title": "La Respuesta de Chill",
+        "content": "Nos establecimos como un contrapeso necesario: un 'tercer lugar' dentro de VRChat diseñado para reconectar, conversar sin presión y descompresión con reglas claras."
       }
     ]
   },
-  "philosophy": {
-    "label": "02 — La Simbología",
-    "title": "La Filosofía",
-    "description": "La comunidad opera bajo el marco filosófico del \"Ecosistema FISH <><\".",
-    "chaos": {
-      "title": "Caos",
-      "symbol": "<",
-      "subtitle": "El Corchete Izquierdo",
-      "text": "Representa la tendencia natural de los espacios digitales a volverse desordenados y ruidosos. Es la entropía que se acumula cuando no se establecen límites."
-    },
-    "structure": {
-      "title": "Estructura",
-      "symbol": "＞",
-      "subtitle": "El Corchete Derecho",
-      "text": "Representa la aplicación intencional de normas y moderación para reducir ese caos. Es la fuerza que crea orden a partir del desorden."
-    },
-    "role": {
-      "title": "Nuestro Rol",
-      "text": "Este proyecto encarna específicamente el ＞ (Estructura). Actuamos como la fuerza arquitectónica que crea límites, permitiendo a los usuarios encontrar paz en un universo digital que, de otro modo, sería caótico."
-    }
-  },
   "values": {
-    "label": "03 — Implementación",
-    "title": "Valores y Principios",
-    "description": "Mantenemos la \"Estructura\" a través de tres pilares fundamentales.",
+    "label": "02 — Principios & Conducta",
+    "title": "Nuestros Pilares Fundamentales",
+    "description": "Mantenemos la Estructura (＞) en VRChat a través de tres pilares de convivencia.",
     "pillars": [
       {
         "title": "Disciplina de Audio",
-        "text": "Protocolos de audio estrictos para garantizar que las conversaciones se mantengan tranquilas. Nada de gritos ni spam de micrófono."
+        "text": "Mantenemos conversaciones a volumen moderado. Prohibido el spam de micrófono o música estridente en nuestras instancias."
       },
       {
         "title": "Claridad Visual",
-        "text": "Desalentamos el \"ruido visual\" (avatares con luces intermitentes excesivas) para proteger la experiencia sensorial."
+        "text": "Desalentamos el ruido visual, impidiendo avatares con luces cegadoras o sistemas masivos de partículas."
       },
       {
         "title": "Cultura de Santuario",
-        "text": "Una política de tolerancia cero frente a la toxicidad garantiza un refugio seguro para la descompresión."
+        "text": "Política de tolerancia cero frente a la toxicidad, garantizando un espacio seguro donde todos se sientan respetados."
       }
     ]
   },
+  "meetings": {
+    "label": "Encuentros en VRChat",
+    "title": "Reuniones Semanales",
+    "subtitle": "Instancias oficiales de reunión estructurada en dos franjas horarias internacionales.",
+    "nthMeeting": "{n}ª Reunión Semanal",
+    "euTitle": "Sesión Europa (EU)",
+    "usTitle": "Sesión América (US)",
+    "localDay": "Día Local:",
+    "localTime": "Horario Local:",
+    "schedule": "<span class=\"text-[#818cf8] font-semibold\">Sesión EU:</span> <span class=\"local-day capitalize\" data-utc-day=\"6\" data-utc-time=\"17:00\">sábado</span>, <span class=\"local-time\" data-utc-day=\"6\" data-utc-time=\"17:00\">17:00</span> - <span class=\"local-time\" data-utc-day=\"6\" data-utc-time=\"19:30\">19:30</span><br><span class=\"text-[#f472b6] font-semibold\">Sesión US:</span> <span class=\"local-day capitalize\" data-utc-day=\"6\" data-utc-time=\"23:00\">sábado</span>, <span class=\"local-time\" data-utc-day=\"6\" data-utc-time=\"23:00\">23:00</span> - <span class=\"local-time\" data-utc-day=\"0\" data-utc-time=\"01:30\">01:30</span>"
+  },
   "protocols": {
-    "label": "04 — Los Protocolos",
-    "title": "Normas de la Instancia",
-    "description": "Los Protocolos de Estructura > definen cómo mantenemos la paz.",
+    "label": "Reglas de Instancia",
+    "title": "Protocolos de Convivencia en VRChat",
+    "description": "Normas directas que aplicamos durante nuestras aperturas de instancia.",
     "list": [
-      { "title": "Disciplina de Audio", "desc": "Mantén un tono de voz conversacional. No música alta.", "chaos": "Volumen alto" },
-      { "title": "Claridad Visual", "desc": "No luces cegadoras ni partículas masivas.", "chaos": "Saturación visual" },
-      { "title": "Respeta la Calma", "desc": "Nada de toxicidad ni iniciar drama de forma agresiva.", "chaos": "Conflicto" },
-      { "title": "Nada de Roleplay de \"Caos\"", "desc": "No traigas roleplay caótico aquí.", "chaos": "Disrupción" },
-      { "title": "Cumplimiento del T.O.S.", "desc": "Seguimos estrictamente los Términos de Servicio de VRChat.", "chaos": "Incumplimiento de normas" }
-    ],
-    "meeting": {
-      "title": "Reuniones Semanales",
-      "text": "La comunidad se reúne semanalmente para sesiones sociales estructuradas en dos zonas horarias.",
-      "nthMeeting": "{n}ª Reunión Semanal",
-      "schedule": "<span class=\"text-[#818cf8] font-semibold\">Sesión EU:</span> <span class=\"local-day capitalize\" data-utc-day=\"6\" data-utc-time=\"17:00\">sábado</span>, <span class=\"local-time\" data-utc-day=\"6\" data-utc-time=\"17:00\">17:00</span> - <span class=\"local-time\" data-utc-day=\"6\" data-utc-time=\"19:30\">19:30</span><br><span class=\"text-[#f472b6] font-semibold\">Sesión US:</span> <span class=\"local-day capitalize\" data-utc-day=\"6\" data-utc-time=\"23:00\">sábado</span>, <span class=\"local-time\" data-utc-day=\"6\" data-utc-time=\"23:00\">23:00</span> - <span class=\"local-time\" data-utc-day=\"0\" data-utc-time=\"01:30\">01:30</span>"
-    }
-  },
-  "statistics": {
-    "label": "05 — Las Estadísticas",
-    "title": "Estadísticas de la Comunidad",
-    "description": "Una mirada transparente a nuestro crecimiento y asistencia.",
-    "maxGroupMembers": "Máximo de Miembros (Grupo)",
-    "maxInstanceMembers": "Máximo de Miembros (Instancia)",
-    "avgInstanceAttendance": "Promedio de Asistencia",
-    "groupGraphTitle": "Crecimiento del Grupo",
-    "groupGraphDesc": "Progreso del número de miembros en el grupo a lo largo del tiempo.",
-    "instanceGraphTitle": "Asistencia por Instancia",
-    "instanceGraphDesc": "Número de miembros a lo largo de una instancia específica.",
-    "datePickerLabel": "Seleccionar Meetup:",
-    "latestMeetup": "Último Meetup",
-    "allMeetups": "Promedio de Todos",
-    "meetupOption": "{n}ª Reunión Semanal {date}",
-    "toggleAverages": "Mostrar Promedios",
-    "toggleRaw": "Mostrar Datos Reales",
-    "membersAxis": "Miembros",
-    "timeAxis": "Hora / Fecha"
-  },
-  "vision": {
-    "label": "06 — La Visión",
-    "title": "Mirando al Futuro",
-    "quote": "En un mundo hiperconectado, el verdadero silencio es raro.",
-    "text": "Chill ＜＞＜ demuestra que, aplicando la cantidad adecuada de estructura, podemos crear espacios digitales para el descanso mental."
-  },
-  "footer": {
-    "based": "Proyecto basado en el Ecosistema Comunitario de Caos Estructurado.",
-    "copyright": "Concepto original por <a href=\"https://theziver.com/\" target=\"_blank\">TheZiver</a>"
+      { "title": "Disciplina de Audio", "desc": "Mantén un tono de voz conversacional. No música por micrófono.", "chaos": "Volumen alto" },
+      { "title": "Claridad Visual", "desc": "Sin luces cegadoras ni partículas masivas en avatares.", "chaos": "Saturación visual" },
+      { "title": "Respeta la Calma", "desc": "Cero toxicidad, insultos o dramas provocados intencionalmente.", "chaos": "Conflicto" },
+      { "title": "Sin Roleplay de Caos", "desc": "No traer dinámicas o conductas caóticas a nuestras instancias de relax.", "chaos": "Disrupción" },
+      { "title": "Cumplimiento del T.O.S.", "desc": "Respeto estricto a los Términos de Servicio oficiales de VRChat.", "chaos": "Incumplimiento de normas" }
+    ]
   },
   "gallery": {
-    "label": "07 — El Archivo",
-    "title": "Recuerdos de la Comunidad",
-    "description": "Momentos capturados durante nuestros meetups semanales.",
+    "label": "03 — El Archivo",
+    "title": "Memorias de la Comunidad",
+    "description": "Momentos capturados durante nuestras instancias semanales en VRChat.",
     "empty": "No hay imágenes disponibles para este meetup.",
     "filterAll": "Todos los Meetups",
     "euSession": "Sesión EU",
@@ -127,26 +123,27 @@
     "by": "por"
   },
   "comments": {
-    "title": "Voces de la Comunidad",
-    "subtitle": "Lo Que Dicen Nuestros Miembros",
-    "description": "Escucha a las personas que han encontrado su lugar en nuestro santuario.",
+    "label": "04 — Voces de la Comunidad",
+    "title": "Testimonios de Miembros",
+    "subtitle": "Lo Que Dicen Quienes Nos Visitan",
+    "description": "Experiencias de personas que han encontrado en Chill su lugar de descanso en VRChat.",
     "noComments": "Aún no hay testimonios. ¡Sé el primero en compartir tu experiencia!",
     "approved": "Testimonios Aprobados",
     "form": {
       "title": "Comparte Tu Experiencia",
-      "nameLabel": "Tu Nombre",
-      "namePlaceholder": "¿Cómo deberíamos llamarte?",
-      "roleLabel": "Tu Relación con Chill ＜＞＜",
+      "nameLabel": "Tu Nombre o Nick en VRChat",
+      "namePlaceholder": "¿Cómo te llamamos?",
+      "roleLabel": "Tu Relación con Chill",
       "rolePlaceholder": "Selecciona tu rol",
       "textLabel": "Tu Comentario",
-      "textPlaceholder": "Comparte tu experiencia...",
+      "textPlaceholder": "Cuéntanos tu vivencia en las instancias de Chill...",
       "note": "Todos los comentarios son revisados antes de ser publicados.",
       "submit": "Enviar para Revisión",
       "roles": {
-        "member": "Miembro",
+        "member": "Miembro del Grupo",
         "regular": "Asistente Habitual",
         "moderator": "Moderador",
-        "visitor": "Visitante"
+        "visitor": "Visitante de VRChat"
       }
     },
     "alerts": {
@@ -155,5 +152,91 @@
       "errorTitle": "Error",
       "errorMessage": "No se pudo enviar el comentario."
     }
+  },
+  "statistics": {
+    "label": "05 — Las Métricas",
+    "title": "Estadísticas del Santuario",
+    "description": "Transparencia en nuestro crecimiento constante y asistencia en VRChat.",
+    "maxGroupMembers": "Máximo de Miembros (Grupo VRChat)",
+    "maxInstanceMembers": "Máximo en Instancia Simultánea",
+    "avgInstanceAttendance": "Promedio de Asistencia",
+    "groupGraphTitle": "Crecimiento de la Comunidad",
+    "groupGraphDesc": "Evolución de miembros en el grupo de VRChat a lo largo del tiempo.",
+    "instanceGraphTitle": "Asistencia por Instancia",
+    "instanceGraphDesc": "Distribución de asistencia durante las reuniones semanales.",
+    "datePickerLabel": "Seleccionar Meetup:",
+    "latestMeetup": "Último Meetup",
+    "allMeetups": "Promedio General",
+    "meetupOption": "{n}ª Reunión Semanal {date}",
+    "toggleAverages": "Mostrar Promedios",
+    "toggleRaw": "Mostrar Datos Reales",
+    "membersAxis": "Asistentes",
+    "timeAxis": "Hora / Fecha"
+  },
+  "ecosystem": {
+    "label": "06 — Red & Visión",
+    "title": "El Ecosistema FISH ＜＞＜",
+    "description": "Chill es parte de la red de comunidades fundada por TheZiver. Conoce la jerarquía de grupos en VRChat:",
+    "youAreHere": "ESTÁS AQUÍ",
+    "clickToExplore": "Haz clic en un nodo para explorar",
+    "groups": [
+      {
+        "id": "fish-main",
+        "name": "FISH ＜＞＜",
+        "tier": "Grupo Principal",
+        "description": "La raíz del ecosistema. Fundado por TheZiver, es la First Structure Chaos Community — la filosofía de cultivar orden en VRChat.",
+        "link": "https://theziver.com/",
+        "linkLabel": "Visitar theziver.com",
+        "isRoot": true
+      },
+      {
+        "id": "fish-verified",
+        "name": "FISH VERIFIED",
+        "tier": "Comunidad Verificada",
+        "description": "Comunidades que han contribuido significativamente al ecosistema FISH en VRChat y cumplen con altos estándares de calidad.",
+        "link": "https://theziver.com/communities",
+        "linkLabel": "Ver comunidades verificadas",
+        "isRoot": false
+      },
+      {
+        "id": "fish-certified",
+        "name": "FISH CERTIFIED",
+        "tier": "Comunidad Certificada",
+        "description": "Grupos que cumplen criterios objetivos: 100+ miembros en VRChat, 4+ meses activos, Discord propio, logo 3D, avatar público y mundo propio.",
+        "link": "https://theziver.com/communities",
+        "linkLabel": "Ver comunidades certificadas",
+        "isRoot": false
+      },
+      {
+        "id": "fish-registered",
+        "name": "FISH REGISTERED",
+        "tier": "Comunidad Registrada",
+        "description": "Comunidades registradas oficialmente en la red FISH. Siguen los principios del ecosistema en VRChat.",
+        "link": "https://theziver.com/communities",
+        "linkLabel": "Ver comunidades registradas",
+        "isRoot": false
+      },
+      {
+        "id": "chill-fish",
+        "name": "Chill ＜＞＜",
+        "tier": "FISH Registered / Rol ＞",
+        "description": "Nuestro santuario en VRChat. Una comunidad registrada enfocada en la calma estructurada — encarnando el lado ＞ (Estructura) del ecosistema.",
+        "link": "https://vrchat.com/home/group/grp_52bf6a2e-4bb9-4e20-84ef-206b21218970",
+        "linkLabel": "Unirse en VRChat",
+        "isRoot": false,
+        "isMember": true,
+        "isCurrent": true
+      }
+    ]
+  },
+  "vision": {
+    "label": "Mirada al Futuro",
+    "title": "Nuestra Visión",
+    "quote": "En un VRChat hiperconectado y caótico, la verdadera serenidad es un refugio invalorable.",
+    "text": "Chill demuestra que aplicando la cantidad justa de estructura (＞), podemos crear espacios donde reconectar con la calma y construir amistades duraderas."
+  },
+  "footer": {
+    "based": "Proyecto basado en el Ecosistema Comunitario FISH de Caos Estructurado.",
+    "copyright": "Concepto original por <a href=\"https://theziver.com/\" target=\"_blank\">TheZiver</a>"
   }
 }
