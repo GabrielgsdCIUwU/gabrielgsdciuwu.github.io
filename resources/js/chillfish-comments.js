@@ -1,6 +1,7 @@
 /**
  * @fileoverview Testimonials controller for the Chill section.
- * Handles fetching approved community testimonials and submitting new comments via AJAX.
+ * Handles fetching approved community testimonials and submitting new comments via AJAX
+ * with complete localization (l10n) support.
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -15,6 +16,17 @@ function initCommentFormHandler() {
     const formElement = document.getElementById('chill-comment-form');
     if (!formElement) return;
 
+    const i18n = window.chillfishCommentsi18n || {
+        submitting: 'Sending...',
+        alerts: {
+            successTitle: 'Submitted',
+            successMessage: 'Your comment has been received and is pending review.',
+            errorTitle: 'Error',
+            errorMessage: 'Could not submit comment.',
+            networkError: 'Network error occurred.'
+        }
+    };
+
     formElement.addEventListener('submit', async (event) => {
         event.preventDefault();
 
@@ -23,16 +35,16 @@ function initCommentFormHandler() {
 
         const originalButtonHtml = submitButton.innerHTML;
         submitButton.disabled = true;
-        submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+        submitButton.innerHTML = `<i class="fas fa-spinner fa-spin"></i> ${i18n.submitting}`;
 
         const nameInput = document.getElementById('cf-name');
         const roleSelect = document.getElementById('cf-role');
         const commentTextarea = document.getElementById('cf-comment');
 
         const payload = {
-            nombre: nameInput ? nameInput.value : '',
+            nombre: nameInput ? nameInput.value.trim() : '',
             rol: roleSelect ? roleSelect.value : '',
-            comentario: commentTextarea ? commentTextarea.value : ''
+            comentario: commentTextarea ? commentTextarea.value.trim() : ''
         };
 
         try {
@@ -44,18 +56,18 @@ function initCommentFormHandler() {
 
             if (response.ok) {
                 if (window.toastr) {
-                    toastr.success('Your comment is pending review.', 'Sent!');
+                    toastr.success(i18n.alerts.successMessage, i18n.alerts.successTitle);
                 }
                 formElement.reset();
             } else {
                 if (window.toastr) {
-                    toastr.error('Could not submit comment.', 'Error');
+                    toastr.error(i18n.alerts.errorMessage, i18n.alerts.errorTitle);
                 }
             }
         } catch (error) {
             console.error('Network error submitting comment:', error);
             if (window.toastr) {
-                toastr.error('Network error occurred.', 'Error');
+                toastr.error(i18n.alerts.networkError, i18n.alerts.errorTitle);
             }
         } finally {
             submitButton.disabled = false;
@@ -71,6 +83,10 @@ async function loadApprovedComments() {
     const commentsContainer = document.getElementById('chill-comments-list');
     if (!commentsContainer) return;
 
+    const i18n = window.chillfishCommentsi18n || {
+        empty: 'No testimonials yet.'
+    };
+
     try {
         const pathSegments = window.location.pathname.split('/');
         const currentLang = pathSegments[1] || 'en';
@@ -81,8 +97,8 @@ async function loadApprovedComments() {
         if (!Array.isArray(commentsList) || commentsList.length === 0) {
             commentsContainer.innerHTML = `
                 <div class="bg-[#12121a] border border-neutral-800 rounded-xl p-8 text-center">
-                    <i class="fas fa-comment-slash text-neutral-700 text-4xl mb-4"></i>
-                    <p class="text-neutral-400">No testimonials yet.</p>
+                    <i class="fas fa-comment-slash text-neutral-600 text-4xl mb-4"></i>
+                    <p class="text-neutral-400">${i18n.empty}</p>
                 </div>`;
             return;
         }
@@ -95,7 +111,7 @@ async function loadApprovedComments() {
                         <p class="text-white font-medium text-sm">${item.nombre}</p>
                         <p class="text-xs text-blue-400">${item.rol}</p>
                     </div>
-                    <span class="text-xs text-neutral-600">
+                    <span class="text-xs text-neutral-400">
                         ${new Date(item.date || Date.now()).toLocaleDateString()}
                     </span>
                 </div>

@@ -7,13 +7,17 @@
     "back": "Back to Portfolio",
     "vrchat": "VRChat Group",
     "discord": "Discord",
+    "menuToggle": "Open navigation menu",
+    "menuClose": "Close menu",
+    "switchLang": "ES",
+    "switchLangTitle": "Cambiar a Español",
     "quickLinks": {
       "sanctuary": "Sanctuary",
-      "ecosystem": "Ecosystem",
       "meetings": "Gatherings",
-      "rules": "Guidelines",
-      "team": "Team",
       "gallery": "Gallery",
+      "rules": "Guidelines",
+      "ecosystem": "Ecosystem",
+      "team": "Team",
       "comments": "Voices",
       "stats": "Statistics"
     }
@@ -23,8 +27,9 @@
     "symbol": "＜＞＜",
     "badge": "VRChat Community",
     "platformBadge": "PC & Android",
+    "vrClarification": "No VR headset required • Accessible via desktop PC, Android mobile, or VR headsets",
     "subtitle": "A sanctuary to rest, unwind, and chat quietly inside virtual worlds.",
-    "description": "A community-led third place in VRChat designed to step away from digital sensory overload, listen to calm music, and share cozy conversations in comforting spaces.",
+    "description": "A community-led social club in VRChat designed to step away from digital sensory overload, listen to calm music, and share cozy conversations in comforting spaces.",
     "cta": "Join the Group on VRChat",
     "link": "https://vrchat.com/home/group/grp_52bf6a2e-4bb9-4e20-84ef-206b21218970",
     "discordCta": "Discord Server",
@@ -44,13 +49,91 @@
         "content": "Sessions are accompanied by soothing, non-energetic background tunes. We promote pleasant avatars that do not dazzle, blind, or disturb others."
       },
       {
-        "title": "100% PC & Android",
-        "content": "All instances are cross-compatible for desktop PC users, VR headset players, and standalone Android / Meta Quest users alike."
+        "title": "100% PC & Android (No VR headset required)",
+        "content": "You can join directly with keyboard & mouse on standard PC, via your Android phone, or with any VR headset."
       }
     ]
   },
+  "meetings": {
+    "label": "02 — Weekly Gatherings",
+    "title": "Schedules & How to Join",
+    "subtitle": "We meet every Saturday across two international time slots adjusted to your local timezone.",
+    "nthMeeting": "{n}th Weekly Meetup",
+    "howToJoinTitle": "How to join our meetups?",
+    "steps": [
+      {
+        "step": "01",
+        "title": "Join Group or Discord",
+        "desc": "Join our VRChat group and our Discord server to receive event announcements and world links."
+      },
+      {
+        "step": "02",
+        "title": "Check Your Schedule",
+        "desc": "Choose the EU or US session that fits your schedule, automatically converted to your local time below."
+      },
+      {
+        "step": "03",
+        "title": "Enter the Instance",
+        "desc": "Launch VRChat on PC or Android, go to Groups > Chill, and join the active instance."
+      }
+    ],
+    "instanceInfo": "Instance Formats:",
+    "groupPublicNote": "Standard weekly meetups are hosted as Group Public, allowing any member to jump in freely.",
+    "movieSpecialNote": "Every 10 meetups (10th, 20th, 30th...), we host our special Movie Night in Group Plus mode.",
+    "euTitle": "Europe Session (EU)",
+    "usTitle": "America Session (US)",
+    "localDay": "Local Day:",
+    "localTime": "Local Time:",
+    "schedule": "<span class=\"text-[#818cf8] font-semibold\">EU Session:</span> <span class=\"local-day capitalize\" data-utc-day=\"6\" data-utc-time=\"17:00\">Saturday</span>, <span class=\"local-time\" data-utc-day=\"6\" data-utc-time=\"17:00\">17:00</span> - <span class=\"local-time\" data-utc-day=\"6\" data-utc-time=\"19:30\">19:30</span><br><span class=\"text-[#f472b6] font-semibold\">US Session:</span> <span class=\"local-day capitalize\" data-utc-day=\"6\" data-utc-time=\"23:00\">Saturday</span>, <span class=\"local-time\" data-utc-day=\"6\" data-utc-time=\"23:00\">23:00</span> - <span class=\"local-time\" data-utc-day=\"0\" data-utc-time=\"01:30\">01:30</span>"
+  },
+  "gallery": {
+    "label": "03 — The Archive",
+    "title": "Community Memories",
+    "description": "Moments captured during our weekly VRChat instances.",
+    "empty": "No images available for this meetup.",
+    "filterAll": "All Meetups",
+    "searchPlaceholder": "Search meetup...",
+    "euSession": "EU Session",
+    "usSession": "US Session",
+    "by": "by",
+    "photosCount": "{n} photos",
+    "closeModalAria": "Close image lightbox",
+    "prevModalAria": "Previous image",
+    "nextModalAria": "Next image"
+  },
+  "values": {
+    "label": "04 — Principles & Harmony",
+    "title": "Our Core Sanctuary Pillars",
+    "description": "We preserve instance harmony through simple guidelines rooted in mutual consideration.",
+    "pillars": [
+      {
+        "title": "Audio Discipline",
+        "text": "Conversations are kept at a moderate, conversational tone. No microphone music or noise spam."
+      },
+      {
+        "title": "Visual Comfort",
+        "text": "We encourage pleasant, non-obtrusive avatars. Blinding lights, flashing shaders, and massive particle systems are avoided."
+      },
+      {
+        "title": "Sanctuary Culture",
+        "text": "Zero tolerance for toxicity, insults, or drama. A safe haven to rest, chat, and relax."
+      }
+    ]
+  },
+  "protocols": {
+    "label": "Instance Rules",
+    "title": "VRChat Guidelines & Conduct",
+    "description": "Clear expectations enforced during our openings to ensure everyone's well-being.",
+    "list": [
+      { "title": "Conversational Tone", "desc": "Keep your voice at a comfortable volume. Avoid playing audio or music through your microphone.", "chaos": "High volume" },
+      { "title": "Pleasant Avatars", "desc": "Wear avatars that are visually comfortable and free from dazzling or annoying visual effects.", "chaos": "Visual clutter" },
+      { "title": "Respect the Calm", "desc": "Zero toxicity, insults, or drama. We come here to disconnect peacefully.", "chaos": "Conflict" },
+      { "title": "No Disruptive Roleplay", "desc": "Do not bring chaotic dynamics or invasive behaviors into our relaxation spaces.", "chaos": "Disruption" },
+      { "title": "T.O.S. Compliance", "desc": "Strict adherence to official VRChat Terms of Service at all times.", "chaos": "Rule breaking" }
+    ]
+  },
   "ecosystem": {
-    "label": "02 — Network & Symbology",
+    "label": "05 — Network & Symbology",
     "title": "The FISH ＜＞＜ Ecosystem",
     "subtitle": "Our official position as the Structure (＞) force within the broader community network.",
     "originBadge": "Official FISH Network",
@@ -142,71 +225,8 @@
       "text": "Within the FISH network, Chill does not seek chaotic roleplay. We are the architects of Structure (＞): the cozy retreat where any VRChat user can rest and recharge."
     }
   },
-  "meetings": {
-    "label": "03 — Weekly Gatherings",
-    "title": "Schedules & How to Join",
-    "subtitle": "We meet every Saturday across two international time slots adjusted to your local timezone.",
-    "nthMeeting": "{n}th Weekly Meetup",
-    "howToJoinTitle": "How to join our meetups?",
-    "steps": [
-      {
-        "step": "01",
-        "title": "Join Group or Discord",
-        "desc": "Join our VRChat group and our Discord server to receive event announcements and world links."
-      },
-      {
-        "step": "02",
-        "title": "Check Your Schedule",
-        "desc": "Choose the EU or US session that fits your schedule, automatically converted to your local time below."
-      },
-      {
-        "step": "03",
-        "title": "Enter the Instance",
-        "desc": "Launch VRChat on PC or Android, go to Groups > Chill, and join the active instance."
-      }
-    ],
-    "instanceInfo": "Instance Formats:",
-    "groupPublicNote": "Standard weekly meetups are hosted as Group Public, allowing any member to jump in freely.",
-    "movieSpecialNote": "Every 10 meetups (10th, 20th, 30th...), we host our special Movie Night in Group Plus mode.",
-    "euTitle": "Europe Session (EU)",
-    "usTitle": "America Session (US)",
-    "localDay": "Local Day:",
-    "localTime": "Local Time:",
-    "schedule": "<span class=\"text-[#818cf8] font-semibold\">EU Session:</span> <span class=\"local-day capitalize\" data-utc-day=\"6\" data-utc-time=\"17:00\">Saturday</span>, <span class=\"local-time\" data-utc-day=\"6\" data-utc-time=\"17:00\">17:00</span> - <span class=\"local-time\" data-utc-day=\"6\" data-utc-time=\"19:30\">19:30</span><br><span class=\"text-[#f472b6] font-semibold\">US Session:</span> <span class=\"local-day capitalize\" data-utc-day=\"6\" data-utc-time=\"23:00\">Saturday</span>, <span class=\"local-time\" data-utc-day=\"6\" data-utc-time=\"23:00\">23:00</span> - <span class=\"local-time\" data-utc-day=\"0\" data-utc-time=\"01:30\">01:30</span>"
-  },
-  "values": {
-    "label": "04 — Principles & Harmony",
-    "title": "Our Core Sanctuary Pillars",
-    "description": "We preserve instance harmony through simple guidelines rooted in mutual consideration.",
-    "pillars": [
-      {
-        "title": "Audio Discipline",
-        "text": "Conversations are kept at a moderate, conversational tone. No microphone music or noise spam."
-      },
-      {
-        "title": "Visual Comfort",
-        "text": "We encourage pleasant, non-obtrusive avatars. Blinding lights, flashing shaders, and massive particle systems are avoided."
-      },
-      {
-        "title": "Sanctuary Culture",
-        "text": "Zero tolerance for toxicity, insults, or drama. A safe haven to rest, chat, and relax."
-      }
-    ]
-  },
-  "protocols": {
-    "label": "Instance Rules",
-    "title": "VRChat Guidelines & Conduct",
-    "description": "Clear expectations enforced during our openings to ensure everyone's well-being.",
-    "list": [
-      { "title": "Conversational Tone", "desc": "Keep your voice at a comfortable volume. Avoid playing audio or music through your microphone.", "chaos": "High volume" },
-      { "title": "Pleasant Avatars", "desc": "Wear avatars that are visually comfortable and free from dazzling or annoying visual effects.", "chaos": "Visual clutter" },
-      { "title": "Respect the Calm", "desc": "Zero toxicity, insults, or drama. We come here to disconnect peacefully.", "chaos": "Conflict" },
-      { "title": "No Disruptive Roleplay", "desc": "Do not bring chaotic dynamics or invasive behaviors into our relaxation spaces.", "chaos": "Disruption" },
-      { "title": "T.O.S. Compliance", "desc": "Strict adherence to official VRChat Terms of Service at all times.", "chaos": "Rule breaking" }
-    ]
-  },
   "team": {
-    "label": "05 — The Team",
+    "label": "06 — The Team",
     "title": "Sanctuary Staff",
     "subtitle": "The individuals who host, moderate, and maintain our chill environment.",
     "members": [
@@ -217,17 +237,6 @@
         "comment": "I love the philosophy behind FISH ＜＞＜, but the chaos can sometimes be overwhelming. As a naturally calm person, I created Chill to embody the ＞ side: a space to enjoy our community in true peace."
       }
     ]
-  },
-  "gallery": {
-    "label": "06 — The Archive",
-    "title": "Community Memories",
-    "description": "Moments captured during our weekly VRChat instances.",
-    "empty": "No images available for this meetup.",
-    "filterAll": "All Meetups",
-    "euSession": "EU Session",
-    "usSession": "US Session",
-    "by": "by",
-    "photosCount": "{n} photos"
   },
   "comments": {
     "label": "07 — Community Voices",
@@ -246,6 +255,7 @@
       "textPlaceholder": "Tell us about your experience in Chill instances...",
       "note": "No email or passwords required. Every testimonial is manually reviewed by our team before publication.",
       "submit": "Submit for Review",
+      "submitting": "Sending...",
       "roles": {
         "member": "Group Member",
         "regular": "Regular Attendee",
@@ -257,7 +267,8 @@
       "successTitle": "Submitted",
       "successMessage": "Your comment has been received and is pending review.",
       "errorTitle": "Error",
-      "errorMessage": "Could not submit comment."
+      "errorMessage": "Could not submit comment.",
+      "networkError": "Network error occurred while submitting."
     }
   },
   "statistics": {

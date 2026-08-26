@@ -1,13 +1,14 @@
 /**
  * @fileoverview Main interaction controller for the Chill section.
  * Manages floating hero particles, scroll reveal effects, section scrollspy navbar,
- * ecosystem node toggles, and gallery carousel lightbox.
+ * mobile drawer navigation, ecosystem node toggles, and accessible gallery lightbox.
  */
 
 document.addEventListener('DOMContentLoaded', () => {
     initHeroParticles();
     initScrollRevealObserver();
     initScrollSpy();
+    initMobileDrawer();
     initEcosystemAccordion();
     initGalleryController();
 });
@@ -52,6 +53,51 @@ function initScrollRevealObserver() {
     });
 
     window.chillScrollObserver = scrollObserver;
+}
+
+/**
+ * Controls the mobile drawer overlay navigation for small screens.
+ */
+function initMobileDrawer() {
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    const drawer = document.getElementById('mobile-drawer');
+    const links = document.querySelectorAll('.mobile-nav-link');
+
+    if (!menuBtn || !drawer) return;
+
+    function toggleDrawer(isOpen) {
+        menuBtn.setAttribute('aria-expanded', String(isOpen));
+        if (isOpen) {
+            drawer.classList.remove('hidden');
+            void drawer.offsetWidth;
+            drawer.classList.remove('opacity-0');
+            drawer.classList.add('opacity-100');
+            document.body.style.overflow = 'hidden';
+            menuBtn.innerHTML = '<i class="fas fa-times text-sm"></i>';
+        } else {
+            drawer.classList.remove('opacity-100');
+            drawer.classList.add('opacity-0');
+            setTimeout(() => {
+                drawer.classList.add('hidden');
+                document.body.style.overflow = '';
+            }, 300);
+            menuBtn.innerHTML = '<i class="fas fa-bars text-sm"></i>';
+        }
+    }
+
+    menuBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isOpen = menuBtn.getAttribute('aria-expanded') === 'true';
+        toggleDrawer(!isOpen);
+    });
+
+    links.forEach((link) => {
+        link.addEventListener('click', () => toggleDrawer(false));
+    });
+
+    drawer.addEventListener('click', (e) => {
+        if (e.target === drawer) toggleDrawer(false);
+    });
 }
 
 /**
@@ -198,6 +244,7 @@ function initGalleryController() {
     let allPictures = [];
     let currentDisplayedPictures = [];
     let currentModalIndex = 0;
+    let lastActiveTriggerElement = null;
 
     const i18nGallery = window.chillfishGalleryi18n || {
         empty: 'No images available',
@@ -233,9 +280,10 @@ function initGalleryController() {
         }
     }
 
-    function openModal(index) {
+    function openModal(index, triggerElement) {
         if (!modal || !modalImg) return;
 
+        lastActiveTriggerElement = triggerElement;
         updateModalContent(index);
 
         modal.classList.remove('hidden');
@@ -250,6 +298,7 @@ function initGalleryController() {
                 modalInfo.classList.remove('translate-y-4', 'opacity-0');
                 modalInfo.classList.add('translate-y-0', 'opacity-100');
             }
+            modalClose?.focus();
         }, 50);
 
         document.body.style.overflow = 'hidden';
@@ -271,6 +320,7 @@ function initGalleryController() {
         setTimeout(() => {
             modal.classList.add('hidden');
             document.body.style.overflow = '';
+            lastActiveTriggerElement?.focus();
         }, 300);
     }
 
@@ -341,7 +391,7 @@ function initGalleryController() {
             headerTitle.innerHTML = `<span class="text-blue-400 font-mono text-xl">&lt;</span> Meetup ${meetupNumber} <span class="text-blue-400 font-mono text-xl">&gt;</span>`;
 
             const countBadge = document.createElement('span');
-            countBadge.className = 'text-xs font-mono text-neutral-500 bg-[#12121a] px-3 py-1 rounded-full border border-neutral-800';
+            countBadge.className = 'text-xs font-mono text-neutral-400 bg-[#12121a] px-3 py-1 rounded-full border border-neutral-800';
             countBadge.textContent = `${grouped[meetupNumber].length} photos`;
 
             headerContainer.appendChild(headerTitle);
@@ -358,13 +408,16 @@ function initGalleryController() {
                 const pictureIndex = currentDisplayedPictures.length;
                 currentDisplayedPictures.push(pic);
 
-                const wrapper = document.createElement('div');
-                wrapper.className = 'group relative aspect-video rounded-xl overflow-hidden cursor-pointer bg-[#12121a] border border-neutral-800 reveal-on-scroll transition-all duration-500 hover:border-blue-500/50 hover:shadow-[0_0_30px_rgba(59,130,246,0.15)] opacity-0 translate-y-4';
+                const wrapper = document.createElement('button');
+                wrapper.setAttribute('type', 'button');
+                wrapper.setAttribute('aria-label', `View photo Meetup ${pic.meetupNumber}`);
+                wrapper.className = 'group relative aspect-video rounded-xl overflow-hidden cursor-pointer bg-[#12121a] border border-neutral-800 reveal-on-scroll transition-all duration-500 hover:border-blue-500/50 hover:shadow-[0_0_30px_rgba(59,130,246,0.15)] opacity-0 translate-y-4 focus:outline-none focus:ring-2 focus:ring-blue-500 text-left';
                 wrapper.style.transitionDelay = `${(delayCounter % 15) * 50}ms`;
                 delayCounter++;
 
                 const img = document.createElement('img');
                 img.src = pic.url;
+                img.alt = `Meetup ${pic.meetupNumber}`;
                 img.className = 'w-full h-full object-cover transition-transform duration-700 group-hover:scale-105';
                 img.loading = 'lazy';
 
@@ -372,18 +425,18 @@ function initGalleryController() {
                 overlay.className = 'absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4';
 
                 const sessionName = pic.session === 0 ? i18nGallery.euSession : i18nGallery.usSession;
-                const authorHTML = pic.author ? `<p class="text-neutral-400 text-xs mt-1">${i18nGallery.by} ${pic.author}</p>` : '';
+                const authorHTML = pic.author ? `<p class="text-neutral-300 text-xs mt-1">${i18nGallery.by} ${pic.author}</p>` : '';
 
                 overlay.innerHTML = `
                     <div class="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                        <span class="inline-block px-2 py-1 rounded bg-blue-500/20 text-blue-400 text-xs font-mono mb-2 backdrop-blur-sm border border-blue-500/20">${sessionName}</span>
+                        <span class="inline-block px-2 py-1 rounded bg-blue-500/20 text-blue-300 text-xs font-mono mb-2 backdrop-blur-sm border border-blue-500/20">${sessionName}</span>
                         ${authorHTML}
                     </div>
                 `;
 
                 wrapper.appendChild(img);
                 wrapper.appendChild(overlay);
-                wrapper.addEventListener('click', () => openModal(pictureIndex));
+                wrapper.addEventListener('click', () => openModal(pictureIndex, wrapper));
 
                 galleryGrid.appendChild(wrapper);
 
@@ -403,14 +456,15 @@ function initGalleryController() {
         uniqueMeetups.forEach((meetup) => {
             const count = pictures.filter((p) => p.meetupNumber === meetup).length;
             const option = document.createElement('div');
+            option.setAttribute('role', 'option');
             option.className = 'p-4 hover:bg-blue-500/10 cursor-pointer text-sm font-medium transition-all duration-300 text-neutral-300 hover:text-white flex items-center justify-between border-b border-neutral-800/50 last:border-0 group';
             option.dataset.filter = meetup;
             option.innerHTML = `
                 <div class="flex items-center gap-3">
-                    <i class="fas fa-camera text-neutral-500 group-hover:text-blue-400 transition-colors w-4 text-center"></i>
+                    <i class="fas fa-camera text-neutral-400 group-hover:text-blue-400 transition-colors w-4 text-center"></i>
                     <span>Meetup ${meetup}</span>
                 </div>
-                <span class="bg-neutral-800/50 text-neutral-400 text-xs py-1 px-2 rounded-md group-hover:bg-blue-500/20 group-hover:text-blue-300 transition-colors">${count}</span>
+                <span class="bg-neutral-800/50 text-neutral-300 text-xs py-1 px-2 rounded-md group-hover:bg-blue-500/20 group-hover:text-blue-300 transition-colors">${count}</span>
             `;
             galleryOptionsContainer.appendChild(option);
         });
@@ -418,10 +472,11 @@ function initGalleryController() {
         if (gallerySelectBtn && gallerySelectDropdown) {
             gallerySelectBtn.addEventListener('click', (e) => {
                 e.preventDefault();
-                gallerySelectDropdown.classList.toggle('hidden');
+                const isHidden = gallerySelectDropdown.classList.toggle('hidden');
+                gallerySelectBtn.setAttribute('aria-expanded', String(!isHidden));
                 const chevronIcon = gallerySelectBtn.querySelector('.fa-chevron-down');
                 if (chevronIcon) {
-                    chevronIcon.style.transform = gallerySelectDropdown.classList.contains('hidden') ? 'rotate(0deg)' : 'rotate(180deg)';
+                    chevronIcon.style.transform = isHidden ? 'rotate(0deg)' : 'rotate(180deg)';
                 }
             });
 
@@ -429,6 +484,7 @@ function initGalleryController() {
                 const container = document.getElementById('gallery-dropdown-container');
                 if (container && !container.contains(e.target)) {
                     gallerySelectDropdown.classList.add('hidden');
+                    gallerySelectBtn.setAttribute('aria-expanded', 'false');
                     const chevronIcon = gallerySelectBtn.querySelector('.fa-chevron-down');
                     if (chevronIcon) chevronIcon.style.transform = 'rotate(0deg)';
                 }
@@ -442,6 +498,7 @@ function initGalleryController() {
                     const filterValue = option.dataset.filter;
 
                     gallerySelectDropdown.classList.add('hidden');
+                    gallerySelectBtn?.setAttribute('aria-expanded', 'false');
                     const chevronIcon = gallerySelectBtn?.querySelector('.fa-chevron-down');
                     if (chevronIcon) chevronIcon.style.transform = 'rotate(0deg)';
 

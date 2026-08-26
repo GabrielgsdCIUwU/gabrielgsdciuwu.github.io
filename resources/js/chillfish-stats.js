@@ -78,8 +78,8 @@ function initMeetupBadgeCounter() {
     const startDateAnchor = new Date(Date.UTC(2026, 0, 31, 23, 0, 0));
     const now = new Date();
     const msInWeek = 7 * 24 * 60 * 60 * 1000;
-    const weeksPassed = Math.floor((now - startDateAnchor) / msInWeek);
-    const currentMeetupNumber = weeksPassed + 1;
+    const elapsedWeeks = Math.floor((now.getTime() - startDateAnchor.getTime()) / msInWeek);
+    const currentMeetupNumber = Math.max(1, elapsedWeeks + 1);
 
     const badgeTemplate = badgeElement.getAttribute('data-template');
     if (badgeTemplate) {
@@ -136,7 +136,10 @@ function initGroupStatsChart() {
                     plugins: { legend: { display: false } },
                     scales: {
                         y: { beginAtZero: true, title: { display: true, text: i18n.members } },
-                        x: { title: { display: true, text: i18n.time } }
+                        x: { 
+                            title: { display: true, text: i18n.time },
+                            ticks: { maxTicksLimit: 8 }
+                        }
                     }
                 }
             });
@@ -159,7 +162,9 @@ function initInstanceStatsChart() {
     const i18n = window.chillfishStatsi18n || {
         members: 'Members',
         time: 'Time / Date',
-        meetupOption: 'Meetup {n} ({date})'
+        meetupOption: 'Meetup {n} ({date})',
+        last4Option: 'Last 4 Meetups (Avg)',
+        allOption: 'All Meetups (Avg)'
     };
 
     function renderInstanceChart(selectedFilter) {
@@ -261,7 +266,11 @@ function initInstanceStatsChart() {
                 },
                 scales: {
                     y: { stacked: true, beginAtZero: true, title: { display: true, text: i18n.members } },
-                    x: { stacked: true, title: { display: true, text: i18n.time } }
+                    x: { 
+                        stacked: true, 
+                        title: { display: true, text: i18n.time },
+                        ticks: { maxTicksLimit: 10 }
+                    }
                 }
             }
         });
@@ -293,19 +302,22 @@ function initInstanceStatsChart() {
 
                 customBtn.addEventListener('click', (e) => {
                     e.preventDefault();
-                    customDropdown.classList.toggle('hidden');
+                    const isHidden = customDropdown.classList.toggle('hidden');
+                    customBtn.setAttribute('aria-expanded', String(!isHidden));
                 });
 
                 document.addEventListener('click', (e) => {
                     const container = document.getElementById('custom-dropdown-container');
                     if (container && !container.contains(e.target)) {
                         customDropdown.classList.add('hidden');
+                        customBtn.setAttribute('aria-expanded', 'false');
                     }
                 });
 
                 function selectDropdownOption(val, textLabel) {
                     customText.innerHTML = `<i class="fas fa-list"></i> ${textLabel}`;
                     customDropdown.classList.add('hidden');
+                    customBtn.setAttribute('aria-expanded', 'false');
 
                     if (val === 'latest') renderInstanceChart(latestMeetupNumber);
                     else renderInstanceChart(val);
@@ -313,6 +325,7 @@ function initInstanceStatsChart() {
 
                 const createOptionElement = (val, textLabel, isSubOption = false) => {
                     const optionDiv = document.createElement('div');
+                    optionDiv.setAttribute('role', 'option');
                     optionDiv.className = `p-3 hover:bg-[#1f1f2e] cursor-pointer text-sm transition-colors text-white ${isSubOption ? 'pl-8 bg-[#0d1525]/40' : 'font-medium'}`;
                     optionDiv.textContent = textLabel;
                     optionDiv.addEventListener('click', (e) => {
@@ -323,8 +336,8 @@ function initInstanceStatsChart() {
                 };
 
                 customDropdown.appendChild(createOptionElement('latest', defaultTextValue));
-                customDropdown.appendChild(createOptionElement('last4', 'Last 4 Meetups (Avg)'));
-                customDropdown.appendChild(createOptionElement('all', 'All Meetups (Avg)'));
+                customDropdown.appendChild(createOptionElement('last4', i18n.last4Option));
+                customDropdown.appendChild(createOptionElement('all', i18n.allOption));
 
                 const divider = document.createElement('div');
                 divider.className = 'h-px bg-neutral-800 my-1';
