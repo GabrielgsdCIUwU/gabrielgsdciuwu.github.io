@@ -126,11 +126,31 @@
     "title": "Protocolos de Instancia",
     "description": "Pautas aplicadas durante nuestras reuniones para garantizar el bienestar de todos.",
     "list": [
-      { "title": "Volumen Conversacional", "desc": "Habla a un volumen cómodo. Evita reproducir audio o música a través del micrófono.", "chaos": "Volumen alto" },
-      { "title": "Avatares Agradables", "desc": "Utiliza avatares que no molesten visualmente ni tengan efectos deslumbrantes.", "chaos": "Molestia visual" },
-      { "title": "Respeta la Calma", "desc": "Cero toxicidad, insultos o conflictos. Venimos a desconectar.", "chaos": "Conflicto" },
-      { "title": "Nada de Roleplay de \"Caos\"", "desc": "No traigas dinámicas disruptivas ni conductas invasivas a las salas de descanso.", "chaos": "Disrupción" },
-      { "title": "Cumplimiento del T.O.S.", "desc": "Respeto riguroso a los Términos de Servicio oficiales de VRChat.", "chaos": "Incumplimiento" }
+      {
+        "title": "Volumen Conversacional",
+        "desc": "Habla a un volumen cómodo. Evita reproducir audio o música a través del micrófono.",
+        "chaos": "Volumen alto"
+      },
+      {
+        "title": "Avatares Agradables",
+        "desc": "Utiliza avatares que no molesten visualmente ni tengan efectos deslumbrantes.",
+        "chaos": "Molestia visual"
+      },
+      {
+        "title": "Respeta la Calma",
+        "desc": "Cero toxicidad, insultos o conflictos. Venimos a desconectar.",
+        "chaos": "Conflicto"
+      },
+      {
+        "title": "Nada de Roleplay de \"Caos\"",
+        "desc": "No traigas dinámicas disruptivas ni conductas invasivas a las salas de descanso.",
+        "chaos": "Disrupción"
+      },
+      {
+        "title": "Cumplimiento del T.O.S.",
+        "desc": "Respeto riguroso a los Términos de Servicio oficiales de VRChat.",
+        "chaos": "Incumplimiento"
+      }
     ]
   },
   "ecosystem": {
@@ -236,6 +256,12 @@
         "role": "Fundador & Host",
         "avatar": "/resources/img/chillfish-staff/gabrielgsd.jpg",
         "comment": "Me encanta la filosofía de FISH ＜＞＜, pero a veces el caos puede sobrecargar. Como persona tranquila, creé Chill para representar el lado ＞: un espacio donde disfrutar de nuestra comunidad en un ambiente de verdadera calma."
+      },
+      {
+        "name": "KaMiKenZa",
+        "role": "Fotógrafo",
+        "avatar": "/resources/img/chillfish-staff/kamikenza.avif",
+        "comment": "Soy fotógrafo a tiempo parcial y sigo aprendiendo con cada foto que hago. Creo que cualquiera puede ser fotógrafo/a, porque una foto es mucho más que algo bonito: cuenta una historia a través de los ojos y las emociones de quien está detrás de la cámara. Me encanta capturar pequeños momentos, recuerdos compartidos y ocasiones especiales, para que las personas que aparecen en esas fotos puedan llevarlos siempre consigo. <3"
       }
     ]
   },

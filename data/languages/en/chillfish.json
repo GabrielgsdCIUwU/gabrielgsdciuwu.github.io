@@ -126,11 +126,31 @@
     "title": "VRChat Guidelines & Conduct",
     "description": "Clear expectations enforced during our openings to ensure everyone's well-being.",
     "list": [
-      { "title": "Conversational Tone", "desc": "Keep your voice at a comfortable volume. Avoid playing audio or music through your microphone.", "chaos": "High volume" },
-      { "title": "Pleasant Avatars", "desc": "Wear avatars that are visually comfortable and free from dazzling or annoying visual effects.", "chaos": "Visual clutter" },
-      { "title": "Respect the Calm", "desc": "Zero toxicity, insults, or drama. We come here to disconnect peacefully.", "chaos": "Conflict" },
-      { "title": "No \"Chaos\" Roleplay", "desc": "Do not bring chaotic dynamics or invasive behaviors into our relaxation spaces.", "chaos": "Disruption" },
-      { "title": "T.O.S. Compliance", "desc": "Strict adherence to official VRChat Terms of Service at all times.", "chaos": "Rule breaking" }
+      {
+        "title": "Conversational Tone",
+        "desc": "Keep your voice at a comfortable volume. Avoid playing audio or music through your microphone.",
+        "chaos": "High volume"
+      },
+      {
+        "title": "Pleasant Avatars",
+        "desc": "Wear avatars that are visually comfortable and free from dazzling or annoying visual effects.",
+        "chaos": "Visual clutter"
+      },
+      {
+        "title": "Respect the Calm",
+        "desc": "Zero toxicity, insults, or drama. We come here to disconnect peacefully.",
+        "chaos": "Conflict"
+      },
+      {
+        "title": "No \"Chaos\" Roleplay",
+        "desc": "Do not bring chaotic dynamics or invasive behaviors into our relaxation spaces.",
+        "chaos": "Disruption"
+      },
+      {
+        "title": "T.O.S. Compliance",
+        "desc": "Strict adherence to official VRChat Terms of Service at all times.",
+        "chaos": "Rule breaking"
+      }
     ]
   },
   "ecosystem": {
@@ -236,6 +256,12 @@
         "role": "Founder & Host",
         "avatar": "/resources/img/chillfish-staff/gabrielgsd.jpg",
         "comment": "I love the philosophy behind FISH ＜＞＜, but the chaos can sometimes be overwhelming. As a naturally calm person, I created Chill to embody the ＞ side: a space to enjoy our community in true peace."
+      },
+      {
+        "name": "KaMiKenZa",
+        "role": "Photographer",
+        "avatar": "/resources/img/chillfish-staff/kamikenza.avif",
+        "comment": "I’m a part-time photographer, still learning with every photo I take. I believe anyone can be a photographer—because a photo is more than something beautiful; it tells a story through the eyes and feelings of the person behind the camera. I love capturing little moments, shared memories, and special events, so the people in those pictures can always stay close.<3"
       }
     ]
   },
