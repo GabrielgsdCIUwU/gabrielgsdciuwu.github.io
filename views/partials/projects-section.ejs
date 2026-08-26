@@ -9,7 +9,7 @@
             <div class="relative z-10">
                 <div class="flex justify-between items-start mb-4">
                     <div class="w-full h-48 bg-gray-200 rounded-lg flex items-center justify-center overflow-hidden">
-                        <img src="<%= project.image %>" alt="<%= project.alt %>" class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-300">
+                        <img src="<%= project.image %>" alt="<%= project.alt %>" class="<%= project.imageClass ? project.imageClass : 'object-cover' %> w-full h-full group-hover:scale-110 transition-transform duration-300">
                     </div>
                 </div>
 
