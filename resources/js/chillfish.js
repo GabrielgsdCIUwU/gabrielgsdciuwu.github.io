@@ -1,11 +1,13 @@
 /**
  * @fileoverview Main interaction controller for the Chill section.
- * Manages hero particles, scroll reveal effects, ecosystem node toggles, and gallery carousel lightbox.
+ * Manages floating hero particles, scroll reveal effects, section scrollspy navbar,
+ * ecosystem node toggles, and gallery carousel lightbox.
  */
 
 document.addEventListener('DOMContentLoaded', () => {
     initHeroParticles();
     initScrollRevealObserver();
+    initScrollSpy();
     initEcosystemAccordion();
     initGalleryController();
 });
@@ -20,7 +22,7 @@ function initHeroParticles() {
     const particleCount = 20;
     for (let i = 0; i < particleCount; i++) {
         const particle = document.createElement('div');
-        particle.className = 'absolute w-1 h-1 rounded-full bg-blue-500/20 animate-particle';
+        particle.className = 'absolute w-1 h-1 rounded-full bg-blue-500/20 animate-particle pointer-events-none';
 
         particle.style.left = `${Math.random() * 100}%`;
         particle.style.top = `${Math.random() * 100}%`;
@@ -45,11 +47,68 @@ function initScrollRevealObserver() {
     }, { threshold: 0.1 });
 
     document.querySelectorAll('.reveal-on-scroll').forEach((element) => {
-        element.classList.add('transition-all', 'duration-1000', 'opacity-0', 'translate-y-4');
+        element.classList.add('transition-all', 'duration-700', 'opacity-0', 'translate-y-4');
         scrollObserver.observe(element);
     });
 
     window.chillScrollObserver = scrollObserver;
+}
+
+/**
+ * Monitors visible sections and illuminates corresponding header navigation items.
+ */
+function initScrollSpy() {
+    const navLinks = document.querySelectorAll('.nav-section-link');
+    if (!navLinks || navLinks.length === 0) return;
+
+    const sections = [];
+    navLinks.forEach((link) => {
+        const targetId = link.getAttribute('href');
+        if (targetId && targetId.startsWith('#')) {
+            const section = document.querySelector(targetId);
+            if (section) {
+                sections.push({ id: targetId, element: section, link });
+            }
+        }
+    });
+
+    const activeClasses = [
+        'bg-blue-500/20',
+        'text-blue-300',
+        'border',
+        'border-blue-400/40',
+        'shadow-[0_0_15px_rgba(59,130,246,0.35)]',
+        'font-semibold'
+    ];
+    const inactiveClasses = ['text-neutral-400', 'hover:text-blue-300'];
+
+    function setActiveLink(activeLink) {
+        navLinks.forEach((link) => {
+            link.classList.remove(...activeClasses);
+            link.classList.add(...inactiveClasses);
+        });
+        if (activeLink) {
+            activeLink.classList.remove(...inactiveClasses);
+            activeLink.classList.add(...activeClasses);
+        }
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                const activeItem = sections.find((item) => item.element === entry.target);
+                if (activeItem) {
+                    setActiveLink(activeItem.link);
+                }
+            }
+        });
+    }, {
+        root: null,
+        rootMargin: '-25% 0px -60% 0px',
+        threshold: 0
+    });
+
+    sections.forEach((item) => observer.observe(item.element));
 }
 
 /**
