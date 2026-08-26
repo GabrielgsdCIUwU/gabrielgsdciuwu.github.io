@@ -23,7 +23,7 @@ router.get("/forms", (req, res) => {
   res.sendFile(path.join(__dirname, "../views/forms.html"));
 });
 
-const localizedPages = ["info", "chillfish", "soundboard"];
+const localizedPages = ["info", "chillfish", "soundboard", "projects"];
 
 router.get("/", (req, res) => {
   const lang = detectLanguage(req);

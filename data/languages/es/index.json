@@ -36,7 +36,7 @@
       {
         "type": "info",
         "title": "Mi motivación",
-        "description": "Estoy motivado por el deseo constante de aprender y adquirir nuevos conocimientos. Disfruto cada oportunidad de crecimiento y me apasiona poder aplicar lo aprendido para ayudar a los demás y crear soluciones útiles."
+        "description": "Estoy motivado por el deseo constante de aprender, adquirir nuevos conocimientos y automatizar tareas repetitivas o tediosas para optimizar procesos. Disfruto cada oportunidad de crecimiento y me apasiona poder aplicar lo aprendido para ayudar a los demás y crear soluciones útiles."
       },
       {
         "type": "info",
@@ -137,6 +137,30 @@
         "icon": "/resources/svg/blender-icon.svg",
         "category": "Diseño y 3D",
         "description": "Modelado 3D, incluyendo la creación y edición de shape keys (blendshapes) y la adaptación de modelos para su integración en plataformas de VTubing como VSeeFace."
+      },
+      {
+        "name": "TypeScript",
+        "icon": "/resources/svg/typescript-icon.svg",
+        "category": "Desarrollo",
+        "description": "Desarrollo de aplicaciones con tipado estático y escalables."
+      },
+      {
+        "name": "C#",
+        "icon": "/resources/svg/csharp-icon.svg",
+        "category": "Desarrollo",
+        "description": "Programación orientada a objetos en C# y desarrollo .NET."
+      },
+      {
+        "name": "Flutter",
+        "icon": "/resources/svg/flutter-icon.svg",
+        "category": "Desarrollo",
+        "description": "Desarrollo de aplicaciones móviles y multiplataforma con Flutter."
+      },
+      {
+        "name": "Dart",
+        "icon": "/resources/svg/dart-icon.svg",
+        "category": "Desarrollo",
+        "description": "Programación orientada a objetos y reactiva en Dart para cliente y móvil."
       }
     ]
   },
@@ -144,6 +168,7 @@
     "title": "Proyectos Destacados",
     "description": "Explora algunos de los proyectos más destacados que he desarrollado.",
     "seeProject": "Ver proyecto",
+    "seeAll": "Ver todos los proyectos",
     "projects": [
       {
         "title": "Bonfire Lounge",

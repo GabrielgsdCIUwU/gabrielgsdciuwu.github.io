@@ -35,4 +35,15 @@
         </a>
         <% }) %>
     </div>
+
+    <% if (content.seeAll) { %>
+    <div class="mt-10 flex justify-center">
+        <a href="/<%= typeof lang !== 'undefined' ? lang : 'es' %>/projects" class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold rounded-lg shadow-lg hover:from-blue-600 hover:to-blue-700 hover:shadow-2xl hover:scale-105 transition-all duration-300">
+            <span><%= content.seeAll %></span>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+            </svg>
+        </a>
+    </div>
+    <% } %>
 </section>

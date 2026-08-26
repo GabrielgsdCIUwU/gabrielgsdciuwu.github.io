@@ -97,6 +97,7 @@
     "usSession": "Sesión US",
     "by": "por",
     "photosCount": "{n} fotos",
+    "loadMore": "Cargar más fotos",
     "closeModalAria": "Cerrar modal de imagen",
     "prevModalAria": "Imagen anterior",
     "nextModalAria": "Imagen siguiente"
@@ -128,7 +129,7 @@
       { "title": "Volumen Conversacional", "desc": "Habla a un volumen cómodo. Evita reproducir audio o música a través del micrófono.", "chaos": "Volumen alto" },
       { "title": "Avatares Agradables", "desc": "Utiliza avatares que no molesten visualmente ni tengan efectos deslumbrantes.", "chaos": "Molestia visual" },
       { "title": "Respeta la Calma", "desc": "Cero toxicidad, insultos o conflictos. Venimos a desconectar.", "chaos": "Conflicto" },
-      { "title": "Sin Roleplay de Caos", "desc": "No traigas dinámicas disruptivas ni conductas invasivas a las salas de descanso.", "chaos": "Disrupción" },
+      { "title": "Nada de Roleplay de \"Caos\"", "desc": "No traigas dinámicas disruptivas ni conductas invasivas a las salas de descanso.", "chaos": "Disrupción" },
       { "title": "Cumplimiento del T.O.S.", "desc": "Respeto riguroso a los Términos de Servicio oficiales de VRChat.", "chaos": "Incumplimiento" }
     ]
   },

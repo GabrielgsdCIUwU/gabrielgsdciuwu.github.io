@@ -36,7 +36,7 @@
       {
         "type": "info",
         "title": "My motivation",
-        "description": "I am driven by a constant desire to learn and acquire new knowledge. I enjoy every opportunity for growth and I am passionate about applying what I learn to help others and create useful solutions."
+        "description": "I am driven by a constant desire to learn, acquire new knowledge, and automate repetitive or tedious tasks to streamline processes. I enjoy every opportunity for growth and I am passionate about applying what I learn to help others and create useful solutions."
       },
       {
         "type": "info",
@@ -136,6 +136,30 @@
         "icon": "/resources/svg/blender-icon.svg",
         "category": "Design & 3D",
         "description": "3D modeling, including creation and editing of shape keys (blendshapes) and adapting models for integration into VTubing platforms like VSeeFace."
+      },
+      {
+        "name": "TypeScript",
+        "icon": "/resources/svg/typescript-icon.svg",
+        "category": "Development",
+        "description": "Statically typed application development for scalable web applications."
+      },
+      {
+        "name": "C#",
+        "icon": "/resources/svg/csharp-icon.svg",
+        "category": "Development",
+        "description": "Object-oriented programming in C# and .NET development."
+      },
+      {
+        "name": "Flutter",
+        "icon": "/resources/svg/flutter-icon.svg",
+        "category": "Development",
+        "description": "Multiplatform and mobile application development with Flutter."
+      },
+      {
+        "name": "Dart",
+        "icon": "/resources/svg/dart-icon.svg",
+        "category": "Development",
+        "description": "Object-oriented and reactive programming in Dart for client and mobile."
       }
     ]
   },
@@ -143,6 +167,7 @@
     "title": "Featured Projects",
     "description": "Explore some of the most notable projects I've developed.",
     "seeProject": "See project",
+    "seeAll": "See all projects",
     "projects": [
       {
         "title": "Bonfire Lounge",

@@ -241,6 +241,11 @@ function initGalleryController() {
     const modalAuthor = document.getElementById('gallery-modal-author');
     const modalInfo = document.getElementById('gallery-modal-info');
 
+    const loadMoreContainer = document.getElementById('gallery-load-more-container');
+    const loadMoreBtn = document.getElementById('gallery-load-more-btn');
+    let visibleMeetupsLimit = 3;
+    let activeFilteredPictures = [];
+
     let allPictures = [];
     let currentDisplayedPictures = [];
     let currentModalIndex = 0;
@@ -357,10 +362,13 @@ function initGalleryController() {
         });
     }
 
-    function renderGallery(pictures) {
+    function renderGallery(pictures, isFilterChange = true) {
         if (!galleryGrid) return;
 
-        currentDisplayedPictures = [];
+        if (isFilterChange) {
+            visibleMeetupsLimit = 3;
+            activeFilteredPictures = pictures;
+        }
 
         Array.from(galleryGrid.children).forEach((child) => {
             if (child !== galleryEmptyState) child.remove();
@@ -368,6 +376,7 @@ function initGalleryController() {
 
         if (!pictures || pictures.length === 0) {
             if (galleryEmptyState) galleryEmptyState.classList.remove('hidden');
+            if (loadMoreContainer) loadMoreContainer.classList.add('hidden');
             return;
         }
 
@@ -380,15 +389,18 @@ function initGalleryController() {
         }, {});
 
         const sortedMeetups = Object.keys(grouped).sort((a, b) => Number(b) - Number(a));
+        const meetupsToRender = sortedMeetups.slice(0, visibleMeetupsLimit);
+
+        currentDisplayedPictures = [];
         let delayCounter = 0;
 
-        sortedMeetups.forEach((meetupNumber) => {
+        meetupsToRender.forEach((meetupNumber) => {
             const headerContainer = document.createElement('div');
-            headerContainer.className = 'col-span-full mt-8 mb-2 border-b border-neutral-800/50 pb-2 flex items-center justify-between reveal-on-scroll opacity-0 translate-y-4 transition-all duration-500';
+            headerContainer.className = 'col-span-full mt-6 mb-2 border-b border-neutral-800/50 pb-2 flex items-center justify-between reveal-on-scroll opacity-0 translate-y-4 transition-all duration-500';
 
             const headerTitle = document.createElement('h3');
-            headerTitle.className = 'text-2xl font-light text-white flex items-center gap-3';
-            headerTitle.innerHTML = `<span class="text-blue-400 font-mono text-xl">&lt;</span> Meetup ${meetupNumber} <span class="text-blue-400 font-mono text-xl">&gt;</span>`;
+            headerTitle.className = 'text-xl font-light text-white flex items-center gap-3';
+            headerTitle.innerHTML = `<span class="text-blue-400 font-mono text-lg">&lt;</span> Meetup ${meetupNumber} <span class="text-blue-400 font-mono text-lg">&gt;</span>`;
 
             const countBadge = document.createElement('span');
             countBadge.className = 'text-xs font-mono text-neutral-400 bg-[#12121a] px-3 py-1 rounded-full border border-neutral-800';
@@ -444,6 +456,21 @@ function initGalleryController() {
                     window.chillScrollObserver.observe(wrapper);
                 }
             });
+        });
+
+        if (loadMoreContainer) {
+            if (sortedMeetups.length > visibleMeetupsLimit) {
+                loadMoreContainer.classList.remove('hidden');
+            } else {
+                loadMoreContainer.classList.add('hidden');
+            }
+        }
+    }
+
+    if (loadMoreBtn) {
+        loadMoreBtn.addEventListener('click', () => {
+            visibleMeetupsLimit += 3;
+            renderGallery(activeFilteredPictures, false);
         });
     }
 
