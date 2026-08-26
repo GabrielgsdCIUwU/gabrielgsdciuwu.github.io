@@ -1,143 +1,250 @@
 {
   "headDetails": {
     "title": "Chill ＜＞＜ | Digital Sanctuary in VRChat",
-    "description": "A VRChat sub-community focused on serenity, low-energy social interaction, and structured chaos."
+    "description": "A VRChat community focused on serenity, low-energy social interaction, and visual comfort across PC & Android."
   },
   "nav": {
-    "back": "Back to Portfolio"
+    "back": "Back to Portfolio",
+    "vrchat": "VRChat Group",
+    "discord": "Discord",
+    "quickLinks": {
+      "sanctuary": "Sanctuary",
+      "ecosystem": "Ecosystem",
+      "meetings": "Gatherings",
+      "rules": "Guidelines",
+      "team": "Team",
+      "gallery": "Gallery",
+      "comments": "Voices",
+      "stats": "Statistics"
+    }
   },
   "hero": {
     "title": "Chill",
     "symbol": "＜＞＜",
-    "badge": "Sub-community of FISH ＜＞＜",
-    "roleBadge": "Role ＞ (Structure)",
-    "subtitle": "Cultivating peace and structure within VRChat's chaos.",
-    "description": "A community-led sanctuary in VRChat focused on digital well-being, serenity, and low-energy social interaction.",
+    "badge": "VRChat Community",
+    "platformBadge": "PC & Android",
+    "subtitle": "A sanctuary to rest, unwind, and chat quietly inside virtual worlds.",
+    "description": "A community-led third place in VRChat designed to step away from digital sensory overload, listen to calm music, and share cozy conversations in comforting spaces.",
     "cta": "Join the Group on VRChat",
-    "link": "https://vrchat.com/home/group/grp_52bf6a2e-4bb9-4e20-84ef-206b21218970"
+    "link": "https://vrchat.com/home/group/grp_52bf6a2e-4bb9-4e20-84ef-206b21218970",
+    "discordCta": "Discord Server",
+    "discordLink": "https://discord.gg/rZ3fYfEsp8"
   },
-  "lore": {
-    "label": "01 — Origin & Symbology",
-    "title": "The Art of Structured Chaos",
-    "subtitle": "Our roots in the FISH ＜＞＜ community and the meaning of the symbol.",
-    "originBadge": "Origin in the FISH Network",
+  "overview": {
+    "label": "01 — The Experience",
+    "title": "A Sanctuary Built for Peace",
+    "subtitle": "We create the ideal conditions for you to socialize at your own pace without sensory burnout.",
+    "cards": [
+      {
+        "title": "Cozy Worlds",
+        "content": "We curate spacious worlds with comfortable amenities: fireplace corners, beds, and resting spots where attendees naturally gather in small, dispersed circles."
+      },
+      {
+        "title": "Calm Music & Visual Comfort",
+        "content": "Sessions are accompanied by soothing, non-energetic background tunes. We promote pleasant avatars that do not dazzle, blind, or disturb others."
+      },
+      {
+        "title": "100% PC & Android",
+        "content": "All instances are cross-compatible for desktop PC users, VR headset players, and standalone Android / Meta Quest users alike."
+      }
+    ]
+  },
+  "ecosystem": {
+    "label": "02 — Network & Symbology",
+    "title": "The FISH ＜＞＜ Ecosystem",
+    "subtitle": "Our official position as the Structure (＞) force within the broader community network.",
+    "originBadge": "Official FISH Network",
     "networkName": "First Structure Chaos Community",
-    "ecosystemOrigin": "Chill ＜＞＜ originated as an officially registered sub-community within the FISH ＜＞＜ network (founded by TheZiver), the First Structure Chaos Community ecosystem in VRChat. The ＜＞＜ symbol represents the fundamental balance between order and disorder in virtual worlds.",
+    "ecosystemOrigin": "Chill ＜＞＜ originated as a registered community within the FISH ＜＞＜ ecosystem (founded by TheZiver). The network cultivates balance against digital burnout across virtual worlds.",
+    "youAreHere": "YOU ARE HERE",
+    "clickToExplore": "Click a node to explore the hierarchy",
+    "groups": [
+      {
+        "id": "fish-main",
+        "name": "FISH ＜＞＜",
+        "tier": "Main Group",
+        "description": "The ecosystem root founded by TheZiver. It represents the 'First Structure Chaos Community', pioneering balance within VRChat.",
+        "link": "https://theziver.com/",
+        "linkLabel": "Visit theziver.com",
+        "isRoot": true
+      },
+      {
+        "id": "fish-verified",
+        "name": "FISH VERIFIED",
+        "tier": "Verified Community",
+        "description": "Communities that actively contribute to the FISH ecosystem in VRChat and uphold high quality standards.",
+        "link": "https://theziver.com/communities",
+        "linkLabel": "See Verified communities",
+        "isRoot": false
+      },
+      {
+        "id": "fish-certified",
+        "name": "FISH CERTIFIED",
+        "tier": "Certified Community",
+        "description": "Established communities that meet objective consistency criteria: active members, dedicated Discord, 3D brand assets, and custom world.",
+        "link": "https://theziver.com/communities",
+        "linkLabel": "See Certified communities",
+        "isRoot": false
+      },
+      {
+        "id": "fish-registered",
+        "name": "FISH REGISTERED",
+        "tier": "Registered Community",
+        "description": "Communities officially enrolled following core FISH guidelines and culture in VRChat.",
+        "link": "https://theziver.com/communities",
+        "linkLabel": "See Registered communities",
+        "isRoot": false
+      },
+      {
+        "id": "chill-fish",
+        "name": "Chill ＜＞＜",
+        "tier": "FISH Registered / Role ＞",
+        "description": "Our sanctuary in VRChat. We specifically embody the ＞ (Structure) side of the ecosystem, providing low-energy socialization and calm.",
+        "link": "https://vrchat.com/home/group/grp_52bf6a2e-4bb9-4e20-84ef-206b21218970",
+        "linkLabel": "Join on VRChat",
+        "isRoot": false,
+        "isMember": true,
+        "isCurrent": true
+      }
+    ],
+    "symbologyTitle": "The Meaning of the ＜＞＜ Symbol",
+    "symbologySubtitle": "How we interpret balance in VRChat.",
     "chaosLeftTag": "Entropy",
     "structureTag": "CHILL",
-    "chaosRightTag": "Re-emergence",
-    "structuredChaosTag": "Final State",
+    "chaosRightTag": "Human Flow",
+    "structuredChaosTag": "Structured Chaos",
     "chaosLeft": {
       "symbol": "<",
       "title": "Initial Chaos",
-      "subtitle": "Noise & Entropy",
-      "text": "VRChat's natural tendency toward disorder: heavy avatars, loud audio, and overwhelming social environments when boundaries are lacking."
+      "subtitle": "Noise & Overload",
+      "text": "The natural drift of virtual spaces toward sensory overload: blinding avatar shaders, mic shouting, and uncontrolled stimuli."
     },
     "structure": {
       "symbol": "＞",
       "title": "Structure (Chill)",
       "subtitle": "Our Identity",
-      "text": "The intentional application of moderation, controlled volume, and clear guidelines. Chill specifically embodies this symbol (＞) to provide calm."
+      "text": "Voluntary moderation, conversational volume, and peaceful atmosphere. Chill embodies the ＞ force to protect calm."
     },
     "chaosRight": {
       "symbol": "<",
-      "title": "Return of Chaos",
-      "subtitle": "Human Flow",
-      "text": "Despite structure, spontaneity and chaos re-emerge naturally. The goal is not suppression, but healthy management."
+      "title": "Spontaneity",
+      "subtitle": "Social Freedom",
+      "text": "Organic human interaction re-emerges naturally. The goal is not suppression, but providing a safe harbor where connection can thrive."
     },
     "structuredChaos": {
       "symbol": "＜＞＜",
-      "title": "Structured Chaos",
-      "subtitle": "The Perfect Balance",
-      "text": "The resulting state where social freedom and fun co-exist under healthy boundaries to prevent sensory burnout."
+      "title": "Balance",
+      "subtitle": "Structured Chaos",
+      "text": "The ideal state where fun and genuine friendships co-exist free from social exhaustion."
     },
     "roleCard": {
       "title": "Our Specific Role: The Structure Force ＞",
-      "text": "Within the FISH network, Chill does not attempt to span all spectrums of chaos. We act as the architects of Structure (＞): building the quiet sanctuary where VRChat users can rest while staying connected."
+      "text": "Within the FISH network, Chill does not seek chaotic roleplay. We are the architects of Structure (＞): the cozy retreat where any VRChat user can rest and recharge."
     }
   },
-  "overview": {
-    "label": "The VRChat Environment",
-    "title": "From Noise to Sanctuary",
-    "cards": [
-      {
-        "title": "The VRChat Landscape",
-        "content": "VRChat provides boundless creative freedom, but frequently leads to 'digital noise'—visual clutter, loud microphones, and exhausting events causing social fatigue."
-      },
-      {
-        "title": "The Chill Response",
-        "content": "We established ourselves as a necessary counterbalance: a 'third place' in VRChat designed to rest, chat quietly, and decompress with clear guidelines."
-      }
-    ]
-  },
-  "values": {
-    "label": "02 — Principles & Conduct",
-    "title": "Our Core Pillars",
-    "description": "We maintain Structure (＞) in VRChat through three core pillars.",
-    "pillars": [
-      {
-        "title": "Audio Discipline",
-        "text": "Conversations are kept at a moderate volume. No mic-spamming or loud music in our instances."
-      },
-      {
-        "title": "Visual Clarity",
-        "text": "We discourage visual clutter, filtering out blinding lights and massive particle systems."
-      },
-      {
-        "title": "Sanctuary Culture",
-        "text": "Zero-tolerance policy for toxicity, ensuring a safe space where everyone feels respected."
-      }
-    ]
-  },
   "meetings": {
-    "label": "VRChat Meetups",
-    "title": "Weekly Gatherings",
-    "subtitle": "Official structured social sessions hosted across two international timeframes.",
+    "label": "03 — Weekly Gatherings",
+    "title": "Schedules & How to Join",
+    "subtitle": "We meet every Saturday across two international time slots adjusted to your local timezone.",
     "nthMeeting": "{n}th Weekly Meetup",
+    "howToJoinTitle": "How to join our meetups?",
+    "steps": [
+      {
+        "step": "01",
+        "title": "Join Group or Discord",
+        "desc": "Join our VRChat group and our Discord server to receive event announcements and world links."
+      },
+      {
+        "step": "02",
+        "title": "Check Your Schedule",
+        "desc": "Choose the EU or US session that fits your schedule, automatically converted to your local time below."
+      },
+      {
+        "step": "03",
+        "title": "Enter the Instance",
+        "desc": "Launch VRChat on PC or Android, go to Groups > Chill, and join the active instance."
+      }
+    ],
+    "instanceInfo": "Instance Formats:",
+    "groupPublicNote": "Standard weekly meetups are hosted as Group Public, allowing any member to jump in freely.",
+    "movieSpecialNote": "Every 10 meetups (10th, 20th, 30th...), we host our special Movie Night in Group Plus mode.",
     "euTitle": "Europe Session (EU)",
     "usTitle": "America Session (US)",
     "localDay": "Local Day:",
     "localTime": "Local Time:",
     "schedule": "<span class=\"text-[#818cf8] font-semibold\">EU Session:</span> <span class=\"local-day capitalize\" data-utc-day=\"6\" data-utc-time=\"17:00\">Saturday</span>, <span class=\"local-time\" data-utc-day=\"6\" data-utc-time=\"17:00\">17:00</span> - <span class=\"local-time\" data-utc-day=\"6\" data-utc-time=\"19:30\">19:30</span><br><span class=\"text-[#f472b6] font-semibold\">US Session:</span> <span class=\"local-day capitalize\" data-utc-day=\"6\" data-utc-time=\"23:00\">Saturday</span>, <span class=\"local-time\" data-utc-day=\"6\" data-utc-time=\"23:00\">23:00</span> - <span class=\"local-time\" data-utc-day=\"0\" data-utc-time=\"01:30\">01:30</span>"
   },
+  "values": {
+    "label": "04 — Principles & Harmony",
+    "title": "Our Core Sanctuary Pillars",
+    "description": "We preserve instance harmony through simple guidelines rooted in mutual consideration.",
+    "pillars": [
+      {
+        "title": "Audio Discipline",
+        "text": "Conversations are kept at a moderate, conversational tone. No microphone music or noise spam."
+      },
+      {
+        "title": "Visual Comfort",
+        "text": "We encourage pleasant, non-obtrusive avatars. Blinding lights, flashing shaders, and massive particle systems are avoided."
+      },
+      {
+        "title": "Sanctuary Culture",
+        "text": "Zero tolerance for toxicity, insults, or drama. A safe haven to rest, chat, and relax."
+      }
+    ]
+  },
   "protocols": {
     "label": "Instance Rules",
     "title": "VRChat Guidelines & Conduct",
-    "description": "Clear guidelines enforced during our instance openings.",
+    "description": "Clear expectations enforced during our openings to ensure everyone's well-being.",
     "list": [
-      { "title": "Audio Discipline", "desc": "Keep a conversational voice tone. No music through microphones.", "chaos": "High volume" },
-      { "title": "Visual Clarity", "desc": "No blinding lights or massive particle effects on avatars.", "chaos": "Visual clutter" },
-      { "title": "Respect the Calm", "desc": "No toxicity, harassment, or intentional drama.", "chaos": "Conflict" },
-      { "title": "No Chaos Roleplay", "desc": "Do not bring chaotic dynamics into our chill relaxation instances.", "chaos": "Disruption" },
-      { "title": "T.O.S. Compliance", "desc": "Strict adherence to official VRChat Terms of Service.", "chaos": "Rule breaking" }
+      { "title": "Conversational Tone", "desc": "Keep your voice at a comfortable volume. Avoid playing audio or music through your microphone.", "chaos": "High volume" },
+      { "title": "Pleasant Avatars", "desc": "Wear avatars that are visually comfortable and free from dazzling or annoying visual effects.", "chaos": "Visual clutter" },
+      { "title": "Respect the Calm", "desc": "Zero toxicity, insults, or drama. We come here to disconnect peacefully.", "chaos": "Conflict" },
+      { "title": "No Disruptive Roleplay", "desc": "Do not bring chaotic dynamics or invasive behaviors into our relaxation spaces.", "chaos": "Disruption" },
+      { "title": "T.O.S. Compliance", "desc": "Strict adherence to official VRChat Terms of Service at all times.", "chaos": "Rule breaking" }
+    ]
+  },
+  "team": {
+    "label": "05 — The Team",
+    "title": "Sanctuary Staff",
+    "subtitle": "The individuals who host, moderate, and maintain our chill environment.",
+    "members": [
+      {
+        "name": "Gabrielgsd",
+        "role": "Founder & Host",
+        "avatar": "/resources/img/chillfish-staff/gabrielgsd.jpg",
+        "comment": "I love the philosophy behind FISH ＜＞＜, but the chaos can sometimes be overwhelming. As a naturally calm person, I created Chill to embody the ＞ side: a space to enjoy our community in true peace."
+      }
     ]
   },
   "gallery": {
-    "label": "03 — The Archive",
+    "label": "06 — The Archive",
     "title": "Community Memories",
     "description": "Moments captured during our weekly VRChat instances.",
     "empty": "No images available for this meetup.",
     "filterAll": "All Meetups",
     "euSession": "EU Session",
     "usSession": "US Session",
-    "by": "by"
+    "by": "by",
+    "photosCount": "{n} photos"
   },
   "comments": {
-    "label": "04 — Community Voices",
+    "label": "07 — Community Voices",
     "title": "Member Testimonials",
     "subtitle": "What Our Visitors Say",
-    "description": "Hear from people who found their sanctuary in Chill within VRChat.",
+    "description": "Hear from people who found their resting sanctuary in Chill within VRChat.",
     "noComments": "No testimonials yet. Be the first to share your experience!",
     "approved": "Approved Testimonials",
     "form": {
       "title": "Share Your Experience",
       "nameLabel": "Your Name or VRChat Handle",
-      "namePlaceholder": "How should we call you?",
+      "namePlaceholder": "How should we call you in VRChat?",
       "roleLabel": "Your Relationship with Chill",
       "rolePlaceholder": "Select your role",
       "textLabel": "Your Comment",
       "textPlaceholder": "Tell us about your experience in Chill instances...",
-      "note": "All comments are reviewed before publication.",
+      "note": "No email or passwords required. Every testimonial is manually reviewed by our team before publication.",
       "submit": "Submit for Review",
       "roles": {
         "member": "Group Member",
@@ -148,95 +255,40 @@
     },
     "alerts": {
       "successTitle": "Submitted",
-      "successMessage": "Your comment is pending review.",
+      "successMessage": "Your comment has been received and is pending review.",
       "errorTitle": "Error",
       "errorMessage": "Could not submit comment."
     }
   },
   "statistics": {
-    "label": "05 — Sanctuary Metrics",
+    "label": "08 — Sanctuary Metrics",
     "title": "Community Statistics",
-    "description": "Transparent growth and attendance tracking in VRChat.",
+    "description": "Transparent tracking of our attendance and steady growth in VRChat.",
+    "spatialNoteTitle": "Open Spaces & No Artificial Attendance Caps",
+    "spatialNoteDesc": "We do not artificially restrict attendance. We intentionally select spacious open worlds with distinct zones (bonfires, beds, terraces) so members can naturally gather into small, quiet sub-groups without audio interference.",
     "maxGroupMembers": "Peak Members (VRChat Group)",
-    "maxInstanceMembers": "Peak Concurrent Instance",
+    "maxInstanceMembers": "Peak Concurrent in Instance",
     "avgInstanceAttendance": "Average Attendance",
-    "groupGraphTitle": "Community Growth",
-    "groupGraphDesc": "VRChat group member count progression over time.",
+    "groupGraphTitle": "Group Growth",
+    "groupGraphDesc": "Progression of VRChat group members over time.",
     "instanceGraphTitle": "Instance Attendance",
-    "instanceGraphDesc": "Attendance distribution during weekly meetups.",
+    "instanceGraphDesc": "Hourly attendance distribution during weekly meetups.",
     "datePickerLabel": "Select Meetup:",
     "latestMeetup": "Latest Meetup",
     "allMeetups": "Overall Average",
     "meetupOption": "{n} Weekly Meetup {date}",
-    "toggleAverages": "Show Averages",
-    "toggleRaw": "Show Raw Data",
     "membersAxis": "Attendees",
     "timeAxis": "Time / Date"
   },
-  "ecosystem": {
-    "label": "06 — Network & Vision",
-    "title": "The FISH ＜＞＜ Ecosystem",
-    "description": "Chill is part of the community network founded by TheZiver. Discover the hierarchy in VRChat:",
-    "youAreHere": "YOU ARE HERE",
-    "clickToExplore": "Click a node to explore",
-    "groups": [
-      {
-        "id": "fish-main",
-        "name": "FISH ＜＞＜",
-        "tier": "Main Group",
-        "description": "The ecosystem root. Founded by TheZiver, it is the First Structure Chaos Community — cultivating order within VRChat.",
-        "link": "https://theziver.com/",
-        "linkLabel": "Visit theziver.com",
-        "isRoot": true
-      },
-      {
-        "id": "fish-verified",
-        "name": "FISH VERIFIED",
-        "tier": "Verified Community",
-        "description": "Communities that have contributed significantly to the FISH ecosystem in VRChat and meet high standards.",
-        "link": "https://theziver.com/communities",
-        "linkLabel": "See Verified communities",
-        "isRoot": false
-      },
-      {
-        "id": "fish-certified",
-        "name": "FISH CERTIFIED",
-        "tier": "Certified Community",
-        "description": "Groups meeting objective criteria: 100+ VRChat members, 4+ active months, Discord server, 3D logo, public avatar & world.",
-        "link": "https://theziver.com/communities",
-        "linkLabel": "See Certified communities",
-        "isRoot": false
-      },
-      {
-        "id": "fish-registered",
-        "name": "FISH REGISTERED",
-        "tier": "Registered Community",
-        "description": "Officially registered communities following core FISH principles in VRChat.",
-        "link": "https://theziver.com/communities",
-        "linkLabel": "See Registered communities",
-        "isRoot": false
-      },
-      {
-        "id": "chill-fish",
-        "name": "Chill ＜＞＜",
-        "tier": "FISH Registered / Role ＞",
-        "description": "Our sanctuary in VRChat. A registered community focusing on structured calm — embodying the ＞ (Structure) side.",
-        "link": "https://vrchat.com/home/group/grp_52bf6a2e-4bb9-4e20-84ef-206b21218970",
-        "linkLabel": "Join on VRChat",
-        "isRoot": false,
-        "isMember": true,
-        "isCurrent": true
-      }
-    ]
-  },
   "vision": {
-    "label": "Looking Forward",
-    "title": "Our Vision",
-    "quote": "In a noisy and hyper-connected VRChat, shared serenity is an invaluable harbor.",
-    "text": "Chill proves that by applying the right amount of structure (＞), we can cultivate true sanctuaries of peace and lasting friendships."
+    "label": "Our Philosophy",
+    "title": "Looking Forward",
+    "quote": "In a virtual world saturated with noise and hyper-stimulation, shared serenity is the most valuable harbor.",
+    "text": "Chill proves that by applying the right touch of structure (＞), we can cultivate spaces where calm and authentic connections always take precedence."
   },
   "footer": {
     "based": "Project based on the FISH Structured Chaos Community Ecosystem.",
-    "copyright": "Original concept by <a href=\"https://theziver.com/\" target=\"_blank\">TheZiver</a>"
+    "copyright": "Original concept by <a href=\"https://theziver.com/\" target=\"_blank\" rel=\"noopener noreferrer\">TheZiver</a>",
+    "tagline": "VRChat Sanctuary • PC & Android"
   }
 }
