@@ -141,25 +141,25 @@
         "name": "TypeScript",
         "icon": "/resources/svg/typescript-icon.svg",
         "category": "Development",
-        "description": "Statically typed application development for scalable web applications."
+        "description": "Development of scalable, strongly typed applications, including offline-first log viewers, high-volume data search modules, and Rich Presence integrations for community platforms."
       },
       {
         "name": "C#",
         "icon": "/resources/svg/csharp-icon.svg",
         "category": "Development",
-        "description": "Object-oriented programming in C# and .NET development."
+        "description": "Object-oriented programming in C#, featuring real-time stream interaction tools for Twitch and custom script development within Unity environments."
       },
       {
         "name": "Flutter",
         "icon": "/resources/svg/flutter-icon.svg",
         "category": "Development",
-        "description": "Multiplatform and mobile application development with Flutter."
+        "description": "Multiplatform application development utilizing Clean Architecture, reactive state management with Riverpod, and background processing for complex workflows."
       },
       {
         "name": "Dart",
         "icon": "/resources/svg/dart-icon.svg",
         "category": "Development",
-        "description": "Object-oriented and reactive programming in Dart for client and mobile."
+        "description": "Object-oriented and reactive programming in Dart (v3.x), applying SOLID principles, design patterns, and asynchronous logic for API integrations and rules engines."
       }
     ]
   },

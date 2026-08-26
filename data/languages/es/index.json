@@ -141,25 +141,25 @@
         "name": "TypeScript",
         "icon": "/resources/svg/typescript-icon.svg",
         "category": "Desarrollo",
-        "description": "Desarrollo de aplicaciones con tipado estático y escalables."
+        "description": "Desarrollo de herramientas escalables con tipado estático, integrando visores offline-first, módulos de búsqueda avanzada en grandes volúmenes de datos y Rich Presence para plataformas comunitarias."
       },
       {
         "name": "C#",
         "icon": "/resources/svg/csharp-icon.svg",
         "category": "Desarrollo",
-        "description": "Programación orientada a objetos en C# y desarrollo .NET."
+        "description": "Programación orientada a objetos en C#, incluyendo sistemas de interacción en tiempo real para transmisiones en Twitch y desarrollo de scripts en el entorno Unity."
       },
       {
         "name": "Flutter",
         "icon": "/resources/svg/flutter-icon.svg",
         "category": "Desarrollo",
-        "description": "Desarrollo de aplicaciones móviles y multiplataforma con Flutter."
+        "description": "Desarrollo de aplicaciones móviles y multiplataforma aplicando arquitectura limpia (Clean Architecture), gestión de estado reactiva con Riverpod y procesamiento en segundo plano."
       },
       {
         "name": "Dart",
         "icon": "/resources/svg/dart-icon.svg",
         "category": "Desarrollo",
-        "description": "Programación orientada a objetos y reactiva en Dart para cliente y móvil."
+        "description": "Programación orientada a objetos y reactiva en Dart (v3.x), aplicando principios SOLID, patrones de diseño y lógica asíncrona para el consumo de APIs y motores de reglas."
       }
     ]
   },
