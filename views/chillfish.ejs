@@ -16,13 +16,37 @@
 </head>
 <body class="bg-[#0a0a0f] text-[#e5e5e5] overflow-x-hidden">
 
-    <!-- Navegación simple para volver -->
-    <nav class="fixed top-0 left-0 w-full z-50 p-6 flex justify-between items-center bg-gradient-to-b from-[#0a0a0f] to-transparent pointer-events-none">
-        <a href="/<%= lang %>" class="pointer-events-auto flex items-center gap-2 text-neutral-400 hover:text-white transition-colors">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
-            <span class="text-sm font-medium"><%= content.nav.back %></span>
+    <!-- Top Navigation Bar -->
+    <header class="fixed top-0 left-0 w-full z-50 p-4 md:p-6 flex justify-between items-center bg-gradient-to-b from-[#0a0a0f] via-[#0a0a0f]/80 to-transparent pointer-events-none">
+        <a href="/<%= lang %>" class="pointer-events-auto flex items-center gap-2 text-neutral-400 hover:text-white transition-colors bg-[#12121a]/80 backdrop-blur-md px-4 py-2 rounded-full border border-neutral-800 hover:border-blue-500/40">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+            <span class="text-xs md:text-sm font-medium"><%= content.nav.back %></span>
         </a>
-    </nav>
+
+        <!-- ScrollSpy Links Pill -->
+        <nav aria-label="Section Navigation" class="pointer-events-auto hidden xl:flex items-center gap-1 bg-[#12121a]/90 backdrop-blur-md px-3 py-1.5 rounded-full border border-neutral-800 text-xs font-mono shadow-2xl">
+            <a href="#overview-section" class="nav-section-link px-2.5 py-1 text-neutral-400 rounded-full transition-all duration-300"><%= content.nav.quickLinks.sanctuary %></a>
+            <a href="#ecosystem-section" class="nav-section-link px-2.5 py-1 text-neutral-400 rounded-full transition-all duration-300"><%= content.nav.quickLinks.ecosystem %></a>
+            <a href="#meetings-section" class="nav-section-link px-2.5 py-1 text-neutral-400 rounded-full transition-all duration-300"><%= content.nav.quickLinks.meetings %></a>
+            <a href="#protocols-section" class="nav-section-link px-2.5 py-1 text-neutral-400 rounded-full transition-all duration-300"><%= content.nav.quickLinks.rules %></a>
+            <a href="#team-section" class="nav-section-link px-2.5 py-1 text-neutral-400 rounded-full transition-all duration-300"><%= content.nav.quickLinks.team %></a>
+            <a href="#gallery-section" class="nav-section-link px-2.5 py-1 text-neutral-400 rounded-full transition-all duration-300"><%= content.nav.quickLinks.gallery %></a>
+            <a href="#comments-section" class="nav-section-link px-2.5 py-1 text-neutral-400 rounded-full transition-all duration-300"><%= content.nav.quickLinks.comments %></a>
+            <a href="#stats-section" class="nav-section-link px-2.5 py-1 text-neutral-400 rounded-full transition-all duration-300"><%= content.nav.quickLinks.stats %></a>
+        </nav>
+
+        <!-- Right Header Action Buttons (VRChat Group & Discord Server) -->
+        <div class="pointer-events-auto flex items-center gap-2">
+            <a href="<%= content.hero.link %>" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-white bg-blue-600/80 hover:bg-blue-600 transition-all backdrop-blur-md px-3.5 py-2 rounded-full border border-blue-500/40 hover:shadow-[0_0_15px_rgba(59,130,246,0.4)] text-xs font-medium" title="<%= content.nav.vrchat %>">
+                <img src="/resources/img/chillfish-logo.avif" alt="VRChat" class="w-4 h-4 rounded-full object-cover shrink-0" />
+                <span class="hidden sm:inline"><%= content.nav.vrchat %></span>
+            </a>
+            <a href="<%= content.hero.discordLink %>" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-white bg-[#5865F2]/80 hover:bg-[#5865F2] transition-all backdrop-blur-md px-3.5 py-2 rounded-full border border-[#5865F2]/50 hover:shadow-[0_0_15px_rgba(88,101,242,0.4)] text-xs font-medium" title="<%= content.nav.discord %>">
+                <i class="fab fa-discord text-sm"></i>
+                <span class="hidden sm:inline"><%= content.nav.discord %></span>
+            </a>
+        </div>
+    </header>
 
     <!-- HERO SECTION -->
     <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -30,42 +54,45 @@
         
         <!-- Grid Pattern -->
         <div class="absolute inset-0 opacity-[0.03]" style="background-image: linear-gradient(rgba(59, 130, 246, 0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(59, 130, 246, 0.5) 1px, transparent 1px); background-size: 60px 60px;"></div>
+        <div id="hero-particles" class="absolute inset-0 overflow-hidden pointer-events-none"></div>
 
-        <!-- Particles Container -->
-        <div id="hero-particles" class="absolute inset-0 overflow-hidden"></div>
+        <div class="relative z-10 text-center px-6 max-w-4xl mx-auto mt-16 md:mt-10">
 
-        <div class="relative z-10 text-center px-6 max-w-4xl mx-auto mt-10">
-
-            <!-- Sub-community badges -->
+            <!-- Badges -->
             <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 mb-6 reveal-on-scroll" style="transition-delay: 50ms;">
                 <span class="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span>
                 <span class="text-xs md:text-sm font-mono text-blue-300"><%= content.hero.badge %></span>
                 <span class="text-xs text-neutral-600">|</span>
-                <span class="text-xs font-mono px-2 py-0.5 rounded bg-blue-500/20 text-blue-400 font-bold"><%= content.hero.roleBadge %></span>
+                <span class="text-xs font-mono px-2.5 py-0.5 rounded bg-blue-500/20 text-blue-300 font-bold border border-blue-400/30"><%= content.hero.platformBadge %></span>
             </div>
 
             <h1 class="text-5xl md:text-7xl lg:text-8xl font-light tracking-tight mb-6 reveal-on-scroll" style="transition-delay: 100ms;">
                 <span class="text-white"><%= content.hero.title %></span>
-                <span class="text-blue-400 font-mono ml-4">&lt;&gt;&lt;</span>
+                <span class="text-blue-400 font-mono ml-3">&lt;&gt;&lt;</span>
             </h1>
 
-            <p class="text-xl md:text-2xl text-neutral-300 font-light tracking-wide mb-8 reveal-on-scroll" style="transition-delay: 200ms;">
+            <p class="text-xl md:text-2xl text-neutral-300 font-light tracking-wide mb-6 reveal-on-scroll" style="transition-delay: 200ms;">
                 <%= content.hero.subtitle %>
             </p>
 
-            <p class="text-base md:text-lg text-neutral-400 max-w-2xl mx-auto leading-relaxed reveal-on-scroll" style="transition-delay: 300ms;">
+            <p class="text-base md:text-lg text-neutral-400 max-w-2xl mx-auto leading-relaxed mb-10 reveal-on-scroll" style="transition-delay: 300ms;">
                 <%= content.hero.description %>
             </p>
 
-            <div class="mt-10 reveal-on-scroll" style="transition-delay: 400ms;">
-                <a href="<%= content.hero.link %>" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-3 px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white font-medium rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-blue-500/20">
+            <!-- Dual CTA Buttons -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 reveal-on-scroll" style="transition-delay: 400ms;">
+                <a href="<%= content.hero.link %>" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white font-medium rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-blue-500/25">
                     <img src="/resources/img/chillfish-logo.avif" alt="Chill Logo" class="w-5 h-5 rounded-full object-cover shrink-0" />
-                    <%= content.hero.cta %>
+                    <span><%= content.hero.cta %></span>
+                </a>
+                <a href="<%= content.hero.discordLink %>" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 bg-[#5865F2]/20 hover:bg-[#5865F2] text-[#8ea1e1] hover:text-white font-medium rounded-xl border border-[#5865F2]/40 hover:border-[#5865F2] transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-[#5865F2]/25">
+                    <i class="fab fa-discord text-xl"></i>
+                    <span><%= content.hero.discordCta %></span>
                 </a>
             </div>
         </div>
 
-        <div class="absolute bottom-12 left-1/2 transform -translate-x-1/2 z-20 animate-bounce pointer-events-none opacity-50">
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 animate-bounce pointer-events-none opacity-40">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white">
                 <path d="M7 13l5 5 5-5"/>
                 <path d="M7 6l5 5 5-5"/>
@@ -75,16 +102,48 @@
         <div class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#0a0a0f] to-transparent"></div>
     </section>
 
-    <!-- SECTION 01 — LORE & ORIGIN (<>< Symbology & Sub-community Identity) -->
-    <section id="lore-section" class="py-24 md:py-32 px-6 relative bg-gradient-to-b from-[#0a0a0f] via-[#0d1520] to-[#0a0a0f]">
+    <!-- SECTION 01 — EL SANTUARIO / LA EXPERIENCIA EN CHILL -->
+    <section id="overview-section" class="py-20 md:py-28 px-6 relative bg-gradient-to-b from-[#0a0a0f] via-[#0d1520] to-[#0a0a0f]">
         <div class="max-w-5xl mx-auto">
             <div class="mb-16 text-center reveal-on-scroll">
-                <span class="text-blue-400 font-mono text-sm tracking-widest uppercase mb-4 block"><%= content.lore.label %></span>
-                <h2 class="text-3xl md:text-4xl lg:text-5xl font-light tracking-tight text-white mb-4"><%= content.lore.title %></h2>
-                <p class="text-neutral-400 text-lg max-w-2xl mx-auto"><%= content.lore.subtitle %></p>
+                <span class="text-blue-400 font-mono text-sm tracking-widest uppercase mb-4 block"><%= content.overview.label %></span>
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-light tracking-tight text-white mb-4"><%= content.overview.title %></h2>
+                <p class="text-neutral-400 text-lg max-w-2xl mx-auto"><%= content.overview.subtitle %></p>
             </div>
 
-            <!-- Ecosystem Origin Intro Card -->
+            <!-- Feature Cards -->
+            <div class="grid md:grid-cols-3 gap-6 md:gap-8">
+                <% content.overview.cards.forEach((card, index) => { %>
+                <div class="p-8 border border-neutral-800/80 rounded-2xl bg-[#12121a]/60 backdrop-blur-sm reveal-on-scroll flex flex-col justify-between hover:border-blue-500/30 transition-all duration-300 hover:-translate-y-1" style="transition-delay: <%= index * 100 %>ms;">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center mb-6 border border-blue-500/20">
+                            <% if (index === 0) { %>
+                                <i class="fas fa-fire text-blue-400 text-xl"></i>
+                            <% } else if (index === 1) { %>
+                                <i class="fas fa-music text-blue-400 text-xl"></i>
+                            <% } else { %>
+                                <i class="fas fa-mobile-alt text-blue-400 text-xl"></i>
+                            <% } %>
+                        </div>
+                        <h3 class="text-xl font-medium text-white mb-3"><%= card.title %></h3>
+                        <p class="text-neutral-300 text-sm leading-relaxed"><%= card.content %></p>
+                    </div>
+                </div>
+                <% }) %>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 02 — RED MATRIZ & ECOSISTEMA FISH (Legitimidad & Simbología) -->
+    <section id="ecosystem-section" class="py-20 md:py-28 px-6 relative bg-[#0a0a0f] border-t border-neutral-900">
+        <div class="max-w-5xl mx-auto">
+            <div class="mb-16 text-center reveal-on-scroll">
+                <span class="text-blue-400 font-mono text-sm tracking-widest uppercase mb-4 block"><%= content.ecosystem.label %></span>
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-light tracking-tight text-balance text-white mb-4"><%= content.ecosystem.title %></h2>
+                <p class="text-neutral-400 text-lg max-w-2xl mx-auto"><%= content.ecosystem.subtitle %></p>
+            </div>
+
+            <!-- Ecosystem Intro Card -->
             <div class="mb-16 p-8 md:p-10 rounded-2xl border border-blue-500/20 bg-gradient-to-br from-blue-500/5 via-[#12121a] to-transparent reveal-on-scroll">
                 <div class="flex flex-col md:flex-row items-center gap-6">
                     <div class="w-16 h-16 rounded-2xl bg-blue-500/10 flex items-center justify-center shrink-0 border border-blue-500/20">
@@ -92,484 +151,34 @@
                     </div>
                     <div>
                         <h3 class="text-xl font-medium text-white mb-2 flex items-center gap-2 flex-wrap">
-                            <span><%= content.lore.originBadge %></span>
-                            <span class="text-xs font-mono text-blue-400 px-2 py-0.5 rounded bg-blue-500/10 border border-blue-500/20"><%= content.lore.networkName %></span>
+                            <span><%= content.ecosystem.originBadge %></span>
+                            <span class="text-xs font-mono text-blue-400 px-2 py-0.5 rounded bg-blue-500/10 border border-blue-500/20"><%= content.ecosystem.networkName %></span>
                         </h3>
-                        <p class="text-neutral-300 leading-relaxed"><%= content.lore.ecosystemOrigin %></p>
+                        <p class="text-neutral-300 leading-relaxed"><%= content.ecosystem.ecosystemOrigin %></p>
                     </div>
                 </div>
             </div>
 
-            <!-- The <>< Breakdown Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-                <!-- Chaos Left < -->
-                <div class="p-6 rounded-2xl border border-red-500/20 bg-[#12121a]/60 reveal-on-scroll flex flex-col justify-between hover:border-red-500/40 transition-colors">
-                    <div>
-                        <div class="flex items-center justify-between mb-4">
-                            <span class="font-mono text-4xl text-red-400 font-bold">&lt;</span>
-                            <span class="text-[10px] font-mono uppercase tracking-widest text-red-400/80 px-2 py-0.5 rounded bg-red-500/10"><%= content.lore.chaosLeftTag %></span>
-                        </div>
-                        <h4 class="text-lg font-medium text-white mb-1"><%= content.lore.chaosLeft.title %></h4>
-                        <p class="text-xs font-mono text-neutral-500 mb-3"><%= content.lore.chaosLeft.subtitle %></p>
-                        <p class="text-neutral-300 text-sm leading-relaxed"><%= content.lore.chaosLeft.text %></p>
-                    </div>
-                </div>
-
-                <!-- Structure > (Chill's Identity - Highlighted!) -->
-                <div class="p-6 rounded-2xl border-2 border-blue-500 bg-gradient-to-b from-blue-500/15 via-[#12121a] to-[#12121a] reveal-on-scroll flex flex-col justify-between shadow-[0_0_30px_rgba(59,130,246,0.2)] transform hover:scale-[1.02] transition-all" style="transition-delay: 100ms;">
-                    <div>
-                        <div class="flex items-center justify-between mb-4">
-                            <span class="font-mono text-4xl text-blue-400 font-bold">&gt;</span>
-                            <span class="text-[10px] font-mono font-bold uppercase tracking-widest text-blue-300 px-2 py-0.5 rounded bg-blue-500/30 border border-blue-400/50"><%= content.lore.structureTag %></span>
-                        </div>
-                        <h4 class="text-lg font-medium text-white mb-1"><%= content.lore.structure.title %></h4>
-                        <p class="text-xs font-mono text-blue-400 mb-3"><%= content.lore.structure.subtitle %></p>
-                        <p class="text-neutral-200 text-sm leading-relaxed"><%= content.lore.structure.text %></p>
-                    </div>
-                </div>
-
-                <!-- Chaos Right < -->
-                <div class="p-6 rounded-2xl border border-amber-500/20 bg-[#12121a]/60 reveal-on-scroll flex flex-col justify-between hover:border-amber-500/40 transition-colors" style="transition-delay: 200ms;">
-                    <div>
-                        <div class="flex items-center justify-between mb-4">
-                            <span class="font-mono text-4xl text-amber-400 font-bold">&lt;</span>
-                            <span class="text-[10px] font-mono uppercase tracking-widest text-amber-400/80 px-2 py-0.5 rounded bg-amber-500/10"><%= content.lore.chaosRightTag %></span>
-                        </div>
-                        <h4 class="text-lg font-medium text-white mb-1"><%= content.lore.chaosRight.title %></h4>
-                        <p class="text-xs font-mono text-neutral-500 mb-3"><%= content.lore.chaosRight.subtitle %></p>
-                        <p class="text-neutral-300 text-sm leading-relaxed"><%= content.lore.chaosRight.text %></p>
-                    </div>
-                </div>
-
-                <!-- Resulting State <>< -->
-                <div class="p-6 rounded-2xl border border-indigo-500/20 bg-[#12121a]/60 reveal-on-scroll flex flex-col justify-between hover:border-indigo-500/40 transition-colors" style="transition-delay: 300ms;">
-                    <div>
-                        <div class="flex items-center justify-between mb-4">
-                            <span class="font-mono text-3xl text-indigo-400 font-bold">&lt;&gt;&lt;</span>
-                            <span class="text-[10px] font-mono uppercase tracking-widest text-indigo-400/80 px-2 py-0.5 rounded bg-indigo-500/10"><%= content.lore.structuredChaosTag %></span>
-                        </div>
-                        <h4 class="text-lg font-medium text-white mb-1"><%= content.lore.structuredChaos.title %></h4>
-                        <p class="text-xs font-mono text-neutral-500 mb-3"><%= content.lore.structuredChaos.subtitle %></p>
-                        <p class="text-neutral-300 text-sm leading-relaxed"><%= content.lore.structuredChaos.text %></p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Role Card Banner -->
-            <div class="p-8 rounded-2xl border border-blue-500/30 bg-gradient-to-r from-blue-900/20 via-[#12121a] to-blue-900/20 reveal-on-scroll">
-                <div class="flex items-start gap-4">
-                    <div class="w-12 h-12 rounded-xl bg-blue-500/20 flex items-center justify-center shrink-0">
-                        <span class="font-mono text-2xl text-blue-400 font-bold">&gt;</span>
-                    </div>
-                    <div>
-                        <h3 class="text-xl font-medium text-white mb-2"><%= content.lore.roleCard.title %></h3>
-                        <p class="text-neutral-300 leading-relaxed"><%= content.lore.roleCard.text %></p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Context Overview Cards -->
-            <div class="grid md:grid-cols-2 gap-8 mt-16">
-                <% content.overview.cards.forEach((card, index) => { %>
-                <div class="p-8 border border-neutral-800 rounded-2xl bg-[#12121a]/40 reveal-on-scroll" style="transition-delay: <%= index * 100 %>ms;">
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center">
-                            <% if (index === 0) { %>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-400"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
-                            <% } else { %>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-400"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
-                            <% } %>
-                        </div>
-                        <h3 class="text-xl font-medium text-white"><%= card.title %></h3>
-                    </div>
-                    <p class="text-neutral-300 leading-relaxed text-sm"><%= card.content %></p>
-                </div>
-                <% }) %>
-            </div>
-        </div>
-    </section>
-
-    <!-- SECTION 02 — PRINCIPIOS Y CONDUCTA (Valores & Normas) -->
-    <section id="protocols-section" class="py-24 md:py-32 px-6 relative">
-        <div class="max-w-5xl mx-auto">
-            <div class="mb-16 md:mb-20 reveal-on-scroll">
-                <span class="text-blue-400 font-mono text-sm tracking-widest uppercase mb-4 block"><%= content.values.label %></span>
-                <h2 class="text-3xl md:text-4xl lg:text-5xl font-light tracking-tight text-balance text-white mb-4"><%= content.values.title %></h2>
-                <p class="text-neutral-300 text-lg max-w-2xl"><%= content.values.description %></p>
-            </div>
-
-            <!-- Pillars Grid -->
-            <div class="grid md:grid-cols-3 gap-6 md:gap-8 mb-20">
-                <% content.values.pillars.forEach((pillar, index) => { %>
-                <div class="group relative reveal-on-scroll" style="transition-delay: <%= index * 100 %>ms;">
-                    <div class="absolute inset-0 bg-gradient-to-b from-blue-500/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    <div class="relative p-8 border border-neutral-800 rounded-2xl bg-[#12121a] h-full flex flex-col">
-                        <span class="absolute top-4 right-4 font-mono text-sm text-neutral-600">0<%= index + 1 %></span>
-                        
-                        <div class="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center mb-6">
-                            <% if (index === 0) { %>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-400"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
-                            <% } else if (index === 1) { %>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-400"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
-                            <% } else { %>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-400"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>
-                            <% } %>
-                        </div>
-
-                        <h3 class="text-xl font-medium text-white mb-4"><%= pillar.title %></h3>
-                        <p class="text-neutral-400 leading-relaxed flex-1 text-sm"><%= pillar.text %></p>
-                    </div>
-                </div>
-                <% }) %>
-            </div>
-
-            <!-- Instance Rules List -->
-            <div class="reveal-on-scroll">
-                <div class="mb-8">
-                    <span class="text-blue-400 font-mono text-xs tracking-widest uppercase block mb-2"><%= content.protocols.label %></span>
-                    <h3 class="text-2xl font-light text-white"><%= content.protocols.title %></h3>
-                    <p class="text-neutral-400 text-sm mt-1"><%= content.protocols.description %></p>
-                </div>
-
-                <div class="space-y-4">
-                    <% content.protocols.list.forEach((protocol, index) => { %>
-                    <div class="group relative reveal-on-scroll" style="transition-delay: <%= index * 50 %>ms;">
-                        <div class="relative p-6 border border-neutral-800 rounded-xl bg-[#12121a]/30 hover:bg-[#12121a]/60 transition-colors duration-300">
-                            <div class="flex flex-col md:flex-row md:items-center gap-4 justify-between">
-                                <div class="flex items-center gap-4">
-                                    <span class="font-mono text-xs text-neutral-500">0<%= index + 1 %></span>
-                                    <div class="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center shrink-0">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-400"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
-                                    </div>
-                                    <div>
-                                        <h4 class="text-base font-medium text-white"><%= protocol.title %></h4>
-                                        <p class="text-neutral-400 text-sm"><%= protocol.desc %></p>
-                                    </div>
-                                </div>
-                                <div class="shrink-0">
-                                    <span class="inline-flex items-center gap-1.5 text-xs font-mono text-red-400/80 bg-red-500/10 px-3 py-1 rounded-full border border-red-500/20">
-                                        <span class="text-red-400">&lt;</span>
-                                        <%= protocol.chaos %>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <% }) %>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- PROMINENT SPOTLIGHT SECTION — WEEKLY MEETINGS / HORARIOS -->
-    <section id="meetings-section" class="py-24 px-6 relative bg-gradient-to-r from-[#0d1525] via-[#0a0a0f] to-[#0d1525] border-y border-blue-500/20">
-        <div class="max-w-5xl mx-auto">
-            <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12 reveal-on-scroll">
-                <div>
-                    <span class="text-blue-400 font-mono text-sm tracking-widest uppercase mb-2 block"><%= content.meetings.label %></span>
-                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-light tracking-tight text-white mb-2"><%= content.meetings.title %></h2>
-                    <p class="text-neutral-400 text-base max-w-xl"><%= content.meetings.subtitle %></p>
-                </div>
-                <div class="shrink-0">
-                    <span id="nth-meetup-badge" data-template="<%= content.meetings.nthMeeting %>" class="px-5 py-2.5 rounded-full bg-blue-500/20 text-blue-300 font-mono text-sm border border-blue-500/40 shadow-[0_0_20px_rgba(59,130,246,0.3)] inline-block">
-                        -
-                    </span>
-                </div>
-            </div>
-
-            <!-- Dual Timezone Cards Grid -->
-            <div class="grid md:grid-cols-2 gap-8 reveal-on-scroll">
-                <!-- EU Session Card -->
-                <div class="p-8 rounded-2xl border border-indigo-500/30 bg-[#12121a]/80 backdrop-blur-md relative overflow-hidden group hover:border-indigo-500/60 transition-all duration-300">
-                    <div class="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 rounded-full blur-2xl group-hover:bg-indigo-500/20 transition-all"></div>
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="w-10 h-10 rounded-xl bg-indigo-500/20 flex items-center justify-center border border-indigo-500/30 text-indigo-400 font-bold font-mono">EU</div>
-                        <h3 class="text-xl font-semibold text-white"><%= content.meetings.euTitle %></h3>
-                    </div>
-                    <div class="space-y-3 font-mono text-neutral-300 text-sm bg-[#0a0a0f]/80 p-5 rounded-xl border border-neutral-800">
-                        <div class="flex items-center justify-between">
-                            <span class="text-neutral-400"><%= content.meetings.localDay %></span>
-                            <span class="local-day capitalize font-semibold text-indigo-300" data-utc-day="6" data-utc-time="17:00">sábado</span>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <span class="text-neutral-400"><%= content.meetings.localTime %></span>
-                            <span class="text-white font-bold"><span class="local-time text-indigo-400" data-utc-day="6" data-utc-time="17:00">17:00</span> - <span class="local-time text-indigo-400" data-utc-day="6" data-utc-time="19:30">19:30</span></span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- US Session Card -->
-                <div class="p-8 rounded-2xl border border-pink-500/30 bg-[#12121a]/80 backdrop-blur-md relative overflow-hidden group hover:border-pink-500/60 transition-all duration-300">
-                    <div class="absolute top-0 right-0 w-32 h-32 bg-pink-500/10 rounded-full blur-2xl group-hover:bg-pink-500/20 transition-all"></div>
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="w-10 h-10 rounded-xl bg-pink-500/20 flex items-center justify-center border border-pink-500/30 text-pink-400 font-bold font-mono">US</div>
-                        <h3 class="text-xl font-semibold text-white"><%= content.meetings.usTitle %></h3>
-                    </div>
-                    <div class="space-y-3 font-mono text-neutral-300 text-sm bg-[#0a0a0f]/80 p-5 rounded-xl border border-neutral-800">
-                        <div class="flex items-center justify-between">
-                            <span class="text-neutral-400"><%= content.meetings.localDay %></span>
-                            <span class="local-day capitalize font-semibold text-pink-300" data-utc-day="6" data-utc-time="23:00">sábado</span>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <span class="text-neutral-400"><%= content.meetings.localTime %></span>
-                            <span class="text-white font-bold"><span class="local-time text-pink-400" data-utc-day="6" data-utc-time="23:00">23:00</span> - <span class="local-time text-pink-400" data-utc-day="0" data-utc-time="01:30">01:30</span></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SECTION 03 — MEMORIAS DE LA COMUNIDAD (Galería / Archivo) -->
-    <section id="gallery-section" class="py-24 md:py-32 px-6 relative bg-gradient-to-b from-[#0a0a0f] via-[#0a0d14] to-[#0d0d14]">
-        <div class="max-w-6xl mx-auto">
-            <div class="mb-16 text-center reveal-on-scroll">
-                <span class="text-blue-400 font-mono text-sm tracking-widest uppercase mb-4 block"><%= content.gallery.label %></span>
-                <h2 class="text-3xl md:text-4xl lg:text-5xl font-light tracking-tight text-white mb-4"><%= content.gallery.title %></h2>
-                <p class="text-neutral-400 text-lg max-w-2xl mx-auto"><%= content.gallery.description %></p>
-            </div>
-            
-            <div class="flex justify-center mb-10 reveal-on-scroll relative z-40">
-                <div class="relative w-full max-w-md" id="gallery-dropdown-container">
-                    <button id="gallery-select-btn" class="w-full flex items-center justify-between bg-[#12121a] p-4 rounded-xl border border-neutral-800 text-sm text-white hover:border-neutral-600 transition-colors focus:outline-none">
-                        <span id="gallery-select-text" class="flex items-center gap-3 truncate text-neutral-300">
-                            <i class="fas fa-filter text-blue-400"></i> <span id="gallery-select-label"><%= content.gallery.filterAll %></span>
-                        </span>
-                        <i class="fas fa-chevron-down text-neutral-500 text-xs transition-transform duration-300"></i>
-                    </button>
-                    <!-- Dropdown Menu -->
-                    <div id="gallery-select-dropdown" class="absolute z-50 left-0 w-full mt-2 bg-[#12121a] border border-neutral-800 rounded-xl shadow-2xl hidden max-h-[350px] flex flex-col origin-top overflow-hidden">
-                        <div class="p-3 border-b border-neutral-800/50 bg-[#0a0a0f] z-10">
-                            <div class="relative">
-                                <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-neutral-500 text-xs"></i>
-                                <input type="text" id="gallery-search" placeholder="Buscar meetup..." class="w-full bg-[#12121a] border border-neutral-800 rounded-lg py-2 pl-8 pr-3 text-sm text-neutral-300 focus:outline-none focus:border-blue-500/50 transition-colors">
-                            </div>
-                        </div>
-                        <div class="overflow-y-auto custom-scrollbar flex-1">
-                            <div class="p-4 hover:bg-blue-500/10 cursor-pointer text-sm font-medium transition-all duration-300 text-white flex items-center gap-3 border-b border-neutral-800/50 group" data-filter="all">
-                                <i class="fas fa-layer-group text-neutral-500 group-hover:text-blue-400 transition-colors w-4 text-center"></i> 
-                                <span><%= content.gallery.filterAll %></span>
-                            </div>
-                            <div id="gallery-options-container"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div id="gallery-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 reveal-on-scroll max-h-[75vh] overflow-y-auto custom-scrollbar p-2 pr-4">
-                <div class="col-span-full text-center py-20 text-neutral-500 hidden" id="gallery-empty-state">
-                    <i class="fas fa-images text-5xl mb-6 opacity-20"></i>
-                    <p class="text-lg"><%= content.gallery.empty %></p>
-                </div>
-            </div>
-            
-            <!-- Modal Lightbox with Carousel Controls -->
-            <div id="gallery-modal" class="fixed inset-0 z-[100] bg-black/95 backdrop-blur-xl hidden flex items-center justify-center p-4 md:p-8 opacity-0 transition-opacity duration-300">
-                <!-- Close Button -->
-                <button id="gallery-modal-close" class="absolute top-6 right-6 text-white hover:text-red-400 transition-all duration-300 w-12 h-12 flex items-center justify-center bg-white/5 rounded-full hover:bg-white/10 z-[102]">
-                    <i class="fas fa-times text-xl"></i>
-                </button>
-
-                <!-- Previous Image Button -->
-                <button id="gallery-modal-prev" class="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-all duration-300 w-12 h-12 md:w-14 md:h-14 flex items-center justify-center bg-white/5 rounded-full hover:bg-white/15 z-[102] hover:scale-110">
-                    <i class="fas fa-chevron-left text-2xl"></i>
-                </button>
-
-                <!-- Next Image Button -->
-                <button id="gallery-modal-next" class="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-all duration-300 w-12 h-12 md:w-14 md:h-14 flex items-center justify-center bg-white/5 rounded-full hover:bg-white/15 z-[102] hover:scale-110">
-                    <i class="fas fa-chevron-right text-2xl"></i>
-                </button>
-
-                <!-- Image & Info Wrapper -->
-                <div class="relative max-w-full max-h-full w-full h-full flex items-center justify-center">
-                    <img id="gallery-modal-img" src="" alt="Meetup Picture" class="max-w-[90%] max-h-[80vh] object-contain rounded-lg shadow-[0_0_50px_rgba(0,0,0,0.5)] scale-95 transition-transform duration-300">
-                    <div class="absolute bottom-4 md:bottom-8 left-1/2 -translate-x-1/2 bg-black/60 backdrop-blur-md border border-white/10 rounded-full px-6 py-3 flex items-center gap-3 text-sm text-white transform translate-y-4 opacity-0 transition-all duration-300 whitespace-nowrap" id="gallery-modal-info">
-                        <span id="gallery-modal-meetup" class="font-mono text-blue-400 font-medium"></span>
-                        <span class="w-1.5 h-1.5 rounded-full bg-neutral-600"></span>
-                        <span id="gallery-modal-session" class="text-neutral-300"></span>
-                        <span class="w-1.5 h-1.5 rounded-full bg-neutral-600"></span>
-                        <span id="gallery-modal-author" class="text-neutral-400 italic"></span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SECTION 04 — VOCES DE LA COMUNIDAD (Testimonios) -->
-    <section id="comments-section" class="py-24 md:py-32 px-6 bg-[#0d0d14]">
-        <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-16 reveal-on-scroll">
-                <span class="text-blue-400 font-mono text-sm tracking-widest uppercase mb-4 block"><%= content.comments.label %></span>
-                <h2 class="text-3xl md:text-4xl font-light text-white mb-4 text-balance">
-                    <%= content.comments.title %>
-                </h2>
-                <p class="text-neutral-400 text-lg max-w-2xl mx-auto">
-                    <%= content.comments.description %>
-                </p>
-            </div>
-
-            <div class="grid lg:grid-cols-2 gap-12">
-                <!-- Lista de Comentarios -->
-                <div class="space-y-4 reveal-on-scroll">
-                    <h3 class="text-lg font-medium text-white mb-6 flex items-center gap-2">
-                        <i class="fas fa-check-circle text-green-400"></i>
-                        <%= content.comments.approved %>
-                    </h3>
-                    
-                    <div id="chill-comments-list" class="space-y-4 max-h-[600px] overflow-y-auto pr-2 custom-scrollbar">
-                        <div class="animate-pulse flex space-x-4">
-                            <div class="flex-1 space-y-4 py-1">
-                                <div class="h-24 bg-[#12121a] rounded"></div>
-                                <div class="h-24 bg-[#12121a] rounded"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Formulario -->
-                <div class="bg-[#12121a] border border-neutral-800 rounded-xl p-6 lg:p-8 h-fit reveal-on-scroll" style="transition-delay: 200ms;">
-                    <h3 class="text-lg font-medium text-white mb-6 flex items-center gap-2">
-                        <i class="fas fa-paper-plane text-blue-400"></i>
-                        <%= content.comments.form.title %>
-                    </h3>
-
-                    <form id="chill-comment-form" class="space-y-5">
-                        <div class="space-y-2">
-                            <label for="cf-name" class="text-neutral-300 text-sm"><%= content.comments.form.nameLabel %></label>
-                            <input type="text" id="cf-name" required maxlength="50"
-                                placeholder="<%= content.comments.form.namePlaceholder %>"
-                                class="w-full bg-[#0a0a0f] border border-neutral-800 rounded-lg p-3 text-white focus:border-blue-500 focus:outline-none transition-colors">
-                        </div>
-
-                        <div class="space-y-2">
-                            <label for="cf-role" class="text-neutral-300 text-sm"><%= content.comments.form.roleLabel %></label>
-                            <div class="relative">
-                                <select id="cf-role" class="w-full bg-[#0a0a0f] border border-neutral-800 rounded-lg p-3 text-white appearance-none focus:border-blue-500 focus:outline-none transition-colors cursor-pointer">
-                                    <option value="Member"><%= content.comments.form.roles.member %></option>
-                                    <option value="Regular Attendee"><%= content.comments.form.roles.regular %></option>
-                                    <option value="Moderator"><%= content.comments.form.roles.moderator %></option>
-                                    <option value="Visitor"><%= content.comments.form.roles.visitor %></option>
-                                </select>
-                                <i class="fas fa-chevron-down absolute right-4 top-4 text-neutral-500 pointer-events-none"></i>
-                            </div>
-                        </div>
-
-                        <div class="space-y-2">
-                            <label for="cf-comment" class="text-neutral-300 text-sm"><%= content.comments.form.textLabel %></label>
-                            <textarea id="cf-comment" required maxlength="500" rows="4"
-                                placeholder="<%= content.comments.form.textPlaceholder %>"
-                                class="w-full bg-[#0a0a0f] border border-neutral-800 rounded-lg p-3 text-white focus:border-blue-500 focus:outline-none transition-colors resize-none"></textarea>
-                            <p class="text-xs text-neutral-500 text-right">Max 500 chars</p>
-                        </div>
-
-                        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-medium py-3 rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/20 flex items-center justify-center gap-2">
-                            <span><%= content.comments.form.submit %></span>
-                            <i class="fas fa-arrow-right text-xs"></i>
-                        </button>
-
-                        <p class="text-xs text-neutral-500 text-center mt-4">
-                            <%= content.comments.form.note %>
-                        </p>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SECTION 05 — ESTADÍSTICAS DEL SANTUARIO (Métricas) -->
-    <section id="stats-section" class="py-24 md:py-32 px-6 relative bg-gradient-to-t from-[#0a0a0f] to-[#0a0d14]">
-        <div class="max-w-5xl mx-auto">
-            <div class="mb-16 text-center reveal-on-scroll">
-                <span class="text-blue-400 font-mono text-sm tracking-widest uppercase mb-4 block"><%= content.statistics.label %></span>
-                <h2 class="text-3xl md:text-4xl lg:text-5xl font-light tracking-tight text-white mb-4"><%= content.statistics.title %></h2>
-                <p class="text-neutral-400 text-lg max-w-2xl mx-auto"><%= content.statistics.description %></p>
-            </div>
-
-            <!-- Stats Overview Cards -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16 reveal-on-scroll">
-                <div class="p-6 rounded-2xl border border-neutral-800 bg-[#12121a]/50 text-center">
-                    <p class="text-neutral-400 text-sm mb-2"><%= content.statistics.maxGroupMembers %></p>
-                    <p id="stat-max-group" class="text-3xl font-light text-white">-</p>
-                </div>
-                <div class="p-6 rounded-2xl border border-neutral-800 bg-[#12121a]/50 text-center">
-                    <p class="text-neutral-400 text-sm mb-2"><%= content.statistics.maxInstanceMembers %></p>
-                    <p id="stat-max-instance" class="text-3xl font-light text-white">-</p>
-                </div>
-                <div class="p-6 rounded-2xl border border-neutral-800 bg-[#12121a]/50 text-center">
-                    <p class="text-neutral-400 text-sm mb-2"><%= content.statistics.avgInstanceAttendance %></p>
-                    <p id="stat-avg-instance" class="text-3xl font-light text-white">-</p>
-                </div>
-            </div>
-
-            <!-- Group Graph -->
-            <div class="mb-16 p-6 md:p-8 rounded-2xl border border-neutral-800 bg-[#12121a]/50 reveal-on-scroll">
-                <div class="mb-6">
-                    <h3 class="text-xl font-medium text-white"><%= content.statistics.groupGraphTitle %></h3>
-                    <p class="text-neutral-400 text-sm mt-1"><%= content.statistics.groupGraphDesc %></p>
-                </div>
-                <div class="w-full h-[300px] md:h-[400px]">
-                    <canvas id="group-stats-chart"></canvas>
-                </div>
-            </div>
-
-            <!-- Instance Graph -->
-            <div class="p-6 md:p-8 rounded-2xl border border-neutral-800 bg-[#12121a]/50 reveal-on-scroll">
-                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
-                    <div>
-                        <h3 class="text-xl font-medium text-white"><%= content.statistics.instanceGraphTitle %></h3>
-                        <p class="text-neutral-400 text-sm mt-1"><%= content.statistics.instanceGraphDesc %></p>
-                    </div>
-                    <div class="flex flex-col sm:flex-row items-center gap-4 w-full md:w-auto relative">
-                        <div class="relative w-full sm:w-64" id="custom-dropdown-container">
-                            <button id="custom-select-btn" class="w-full flex items-center justify-between bg-[#0a0a0f] p-3 rounded-lg border border-neutral-800 text-sm text-white hover:border-neutral-600 transition-colors">
-                                <span id="custom-select-text" class="flex items-center gap-2 truncate text-neutral-300">
-                                    <i class="fas fa-list"></i> <%= content.statistics.latestMeetup %>
-                                </span>
-                                <i class="fas fa-chevron-down text-neutral-500 text-xs"></i>
-                            </button>
-                            <div id="custom-select-dropdown" class="absolute z-50 right-0 w-full sm:w-72 mt-2 bg-[#0a0a0f] border border-neutral-800 rounded-lg shadow-xl hidden max-h-[400px] overflow-y-auto custom-scrollbar flex flex-col">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="w-full h-[300px] md:h-[400px]">
-                    <canvas id="instance-stats-chart"></canvas>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SECTION 06 — ECOSISTEMA FISH & VISIÓN (Red VRChat & Futuro) -->
-    <section id="ecosystem-section" class="py-24 md:py-32 px-6 relative bg-gradient-to-b from-[#0a0a0f] via-[#0a0d14] to-[#0a0a0f]">
-        <div class="max-w-5xl mx-auto">
-            <div class="mb-16 md:mb-20 text-center reveal-on-scroll">
-                <span class="text-blue-400 font-mono text-sm tracking-widest uppercase mb-4 block"><%= content.ecosystem.label %></span>
-                <h2 class="text-3xl md:text-4xl lg:text-5xl font-light tracking-tight text-balance text-white mb-4"><%= content.ecosystem.title %></h2>
-                <p class="text-neutral-400 text-lg max-w-2xl mx-auto"><%= content.ecosystem.description %></p>
-            </div>
-
-            <!-- Ecosystem Tree (Aligned Clean Vertical Connection) -->
-            <div class="relative reveal-on-scroll mb-24" style="transition-delay: 100ms;">
-                <p class="text-xs text-neutral-600 font-mono text-center mb-10 tracking-widest uppercase"><%= content.ecosystem.clickToExplore %></p>
+            <!-- Interactive Hierarchy Tree -->
+            <div class="relative reveal-on-scroll mb-20">
+                <p class="text-xs text-neutral-500 font-mono text-center mb-8 tracking-widest uppercase"><%= content.ecosystem.clickToExplore %></p>
 
                 <div id="ecosystem-tree" class="flex flex-col items-center max-w-md mx-auto">
                     <% content.ecosystem.groups.forEach((group, index) => { %>
                     
                     <% if (index > 0) { %>
-                    <!-- Vertical connector line -->
-                    <div class="ecosystem-connector relative flex justify-center" style="width: 2px; height: 2.5rem; background: linear-gradient(to bottom, #525252, #404040);">
+                    <div class="ecosystem-connector relative flex justify-center" style="width: 2px; height: 2.25rem; background: linear-gradient(to bottom, #525252, #404040);">
                         <div class="ecosystem-connector-pulse absolute inset-0 opacity-0 transition-opacity duration-500" style="background: linear-gradient(to bottom, rgba(59,130,246,0.8), rgba(59,130,246,0.2));"></div>
                     </div>
                     <% } %>
 
-                    <!-- Node Box -->
                     <div class="ecosystem-node-wrapper flex flex-col items-center w-full" data-group-id="<%= group.id %>">
                         <button id="ecosystem-node-<%= group.id %>"
                                 class="<%= group.isMember 
-                                    ? 'ecosystem-node group relative w-full p-5 md:p-6 rounded-2xl border-2 border-blue-500/60 bg-blue-500/10 hover:border-blue-400 hover:bg-blue-500/15 shadow-[0_0_20px_rgba(59,130,246,0.2)] transition-all duration-300 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50' 
+                                    ? 'ecosystem-node group relative w-full p-5 rounded-2xl border-2 border-blue-500/60 bg-blue-500/10 hover:border-blue-400 hover:bg-blue-500/15 shadow-[0_0_20px_rgba(59,130,246,0.2)] transition-all duration-300 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50' 
                                     : (group.isRoot 
-                                        ? 'ecosystem-node group relative w-full p-5 md:p-6 rounded-2xl border border-neutral-600/50 bg-[#12121a] hover:border-neutral-500/70 transition-all duration-300 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50' 
-                                        : 'ecosystem-node group relative w-full p-5 md:p-6 rounded-2xl border border-neutral-800 bg-[#12121a]/60 hover:border-neutral-700 transition-all duration-300 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50') %>"
+                                        ? 'ecosystem-node group relative w-full p-5 rounded-2xl border border-neutral-600/50 bg-[#12121a] hover:border-neutral-500/70 transition-all duration-300 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50' 
+                                        : 'ecosystem-node group relative w-full p-5 rounded-2xl border border-neutral-800 bg-[#12121a]/60 hover:border-neutral-700 transition-all duration-300 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50') %>"
                                 aria-expanded="false"
                                 aria-controls="ecosystem-detail-<%= group.id %>">
 
@@ -616,32 +225,543 @@
                 </div>
             </div>
 
-            <!-- Vision Block -->
-            <div class="max-w-4xl mx-auto relative z-10 text-center reveal-on-scroll">
-                <span class="text-blue-400 font-mono text-sm tracking-widest uppercase mb-4 block"><%= content.vision.label %></span>
-                <h3 class="text-2xl md:text-3xl font-light text-white mb-6"><%= content.vision.title %></h3>
-                
-                <div class="relative p-8 md:p-12 rounded-2xl border border-blue-500/20 bg-gradient-to-br from-blue-500/5 to-transparent">
-                    <span class="absolute -top-6 left-8 text-7xl font-serif text-blue-400/20 select-none">"</span>
-                    <blockquote class="text-xl md:text-2xl font-light text-white leading-relaxed mb-6">
-                        <%= content.vision.quote %>
-                    </blockquote>
-                    <p class="text-neutral-300 text-base leading-relaxed max-w-2xl mx-auto">
-                        <%= content.vision.text %>
-                    </p>
+            <!-- Symbology Breakdown -->
+            <div class="mb-12 text-center reveal-on-scroll">
+                <h3 class="text-2xl font-light text-white mb-2"><%= content.ecosystem.symbologyTitle %></h3>
+                <p class="text-neutral-400 text-sm"><%= content.ecosystem.symbologySubtitle %></p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                <div class="p-6 rounded-2xl border border-red-500/20 bg-[#12121a]/60 reveal-on-scroll flex flex-col justify-between hover:border-red-500/40 transition-colors">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="font-mono text-4xl text-red-400 font-bold">&lt;</span>
+                            <span class="text-[10px] font-mono uppercase tracking-widest text-red-400/80 px-2 py-0.5 rounded bg-red-500/10"><%= content.ecosystem.chaosLeftTag %></span>
+                        </div>
+                        <h4 class="text-lg font-medium text-white mb-1"><%= content.ecosystem.chaosLeft.title %></h4>
+                        <p class="text-xs font-mono text-neutral-500 mb-3"><%= content.ecosystem.chaosLeft.subtitle %></p>
+                        <p class="text-neutral-300 text-sm leading-relaxed"><%= content.ecosystem.chaosLeft.text %></p>
+                    </div>
+                </div>
+
+                <div class="p-6 rounded-2xl border-2 border-blue-500 bg-gradient-to-b from-blue-500/15 via-[#12121a] to-[#12121a] reveal-on-scroll flex flex-col justify-between shadow-[0_0_30px_rgba(59,130,246,0.2)] transform hover:scale-[1.02] transition-all" style="transition-delay: 100ms;">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="font-mono text-4xl text-blue-400 font-bold">&gt;</span>
+                            <span class="text-[10px] font-mono font-bold uppercase tracking-widest text-blue-300 px-2 py-0.5 rounded bg-blue-500/30 border border-blue-400/50"><%= content.ecosystem.structureTag %></span>
+                        </div>
+                        <h4 class="text-lg font-medium text-white mb-1"><%= content.ecosystem.structure.title %></h4>
+                        <p class="text-xs font-mono text-blue-400 mb-3"><%= content.ecosystem.structure.subtitle %></p>
+                        <p class="text-neutral-200 text-sm leading-relaxed"><%= content.ecosystem.structure.text %></p>
+                    </div>
+                </div>
+
+                <div class="p-6 rounded-2xl border border-amber-500/20 bg-[#12121a]/60 reveal-on-scroll flex flex-col justify-between hover:border-amber-500/40 transition-colors" style="transition-delay: 200ms;">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="font-mono text-4xl text-amber-400 font-bold">&lt;</span>
+                            <span class="text-[10px] font-mono uppercase tracking-widest text-amber-400/80 px-2 py-0.5 rounded bg-amber-500/10"><%= content.ecosystem.chaosRightTag %></span>
+                        </div>
+                        <h4 class="text-lg font-medium text-white mb-1"><%= content.ecosystem.chaosRight.title %></h4>
+                        <p class="text-xs font-mono text-neutral-500 mb-3"><%= content.ecosystem.chaosRight.subtitle %></p>
+                        <p class="text-neutral-300 text-sm leading-relaxed"><%= content.ecosystem.chaosRight.text %></p>
+                    </div>
+                </div>
+
+                <div class="p-6 rounded-2xl border border-indigo-500/20 bg-[#12121a]/60 reveal-on-scroll flex flex-col justify-between hover:border-indigo-500/40 transition-colors" style="transition-delay: 300ms;">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="font-mono text-3xl text-indigo-400 font-bold">&lt;&gt;&lt;</span>
+                            <span class="text-[10px] font-mono uppercase tracking-widest text-indigo-400/80 px-2 py-0.5 rounded bg-indigo-500/10"><%= content.ecosystem.structuredChaosTag %></span>
+                        </div>
+                        <h4 class="text-lg font-medium text-white mb-1"><%= content.ecosystem.structuredChaos.title %></h4>
+                        <p class="text-xs font-mono text-neutral-500 mb-3"><%= content.ecosystem.structuredChaos.subtitle %></p>
+                        <p class="text-neutral-300 text-sm leading-relaxed"><%= content.ecosystem.structuredChaos.text %></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Role Card Banner -->
+            <div class="p-8 rounded-2xl border border-blue-500/30 bg-gradient-to-r from-blue-900/20 via-[#12121a] to-blue-900/20 reveal-on-scroll">
+                <div class="flex items-start gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-blue-500/20 flex items-center justify-center shrink-0">
+                        <span class="font-mono text-2xl text-blue-400 font-bold">&gt;</span>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-medium text-white mb-2"><%= content.ecosystem.roleCard.title %></h3>
+                        <p class="text-neutral-300 leading-relaxed text-sm md:text-base"><%= content.ecosystem.roleCard.text %></p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- SECTION 03 — ENCUENTROS SEMANALES & CÓMO UNIRSE -->
+    <section id="meetings-section" class="py-20 md:py-28 px-6 relative bg-gradient-to-r from-[#0d1525] via-[#0a0a0f] to-[#0d1525] border-y border-blue-500/20">
+        <div class="max-w-5xl mx-auto">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12 reveal-on-scroll">
+                <div>
+                    <span class="text-blue-400 font-mono text-sm tracking-widest uppercase mb-2 block"><%= content.meetings.label %></span>
+                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-light tracking-tight text-white mb-2"><%= content.meetings.title %></h2>
+                    <p class="text-neutral-400 text-base max-w-xl"><%= content.meetings.subtitle %></p>
+                </div>
+                <div class="shrink-0">
+                    <span id="nth-meetup-badge" data-template="<%= content.meetings.nthMeeting %>" class="px-5 py-2.5 rounded-full bg-blue-500/20 text-blue-300 font-mono text-sm border border-blue-500/40 shadow-[0_0_20px_rgba(59,130,246,0.3)] inline-block">
+                        -
+                    </span>
+                </div>
+            </div>
+
+            <!-- How to Join 3-Step Guide -->
+            <div class="mb-12 p-8 rounded-2xl border border-neutral-800 bg-[#12121a]/80 reveal-on-scroll">
+                <h3 class="text-xl font-medium text-white mb-6 flex items-center gap-3">
+                    <i class="fas fa-sign-in-alt text-blue-400"></i>
+                    <%= content.meetings.howToJoinTitle %>
+                </h3>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <% content.meetings.steps.forEach((stepItem) => { %>
+                    <div class="p-5 rounded-xl border border-neutral-800/80 bg-[#0a0a0f]/60 relative">
+                        <span class="font-mono text-2xl font-bold text-blue-400/40 block mb-2"><%= stepItem.step %></span>
+                        <h4 class="text-base font-semibold text-white mb-1"><%= stepItem.title %></h4>
+                        <p class="text-xs text-neutral-400 leading-relaxed"><%= stepItem.desc %></p>
+                    </div>
+                    <% }) %>
+                </div>
+
+                <!-- Instance Format Clarification -->
+                <div class="mt-6 pt-6 border-t border-neutral-800 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 text-xs">
+                    <div class="flex items-center gap-2 text-neutral-300">
+                        <span class="w-2 h-2 rounded-full bg-green-400 shrink-0"></span>
+                        <span><strong class="text-white"><%= content.meetings.instanceInfo %></strong> <%= content.meetings.groupPublicNote %></span>
+                    </div>
+                    <div class="flex items-center gap-2 text-indigo-300 bg-indigo-500/10 px-3 py-1.5 rounded-lg border border-indigo-500/20">
+                        <i class="fas fa-film text-indigo-400"></i>
+                        <span><%= content.meetings.movieSpecialNote %></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dual Timezone Schedules Grid -->
+            <div class="grid md:grid-cols-2 gap-8 reveal-on-scroll">
+                <div class="p-8 rounded-2xl border border-indigo-500/30 bg-[#12121a]/80 backdrop-blur-md relative overflow-hidden group hover:border-indigo-500/60 transition-all duration-300">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 rounded-full blur-2xl group-hover:bg-indigo-500/20 transition-all"></div>
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-xl bg-indigo-500/20 flex items-center justify-center border border-indigo-500/30 text-indigo-400 font-bold font-mono">EU</div>
+                        <h3 class="text-xl font-semibold text-white"><%= content.meetings.euTitle %></h3>
+                    </div>
+                    <div class="space-y-3 font-mono text-neutral-300 text-sm bg-[#0a0a0f]/80 p-5 rounded-xl border border-neutral-800">
+                        <div class="flex items-center justify-between">
+                            <span class="text-neutral-400"><%= content.meetings.localDay %></span>
+                            <span class="local-day capitalize font-semibold text-indigo-300" data-utc-day="6" data-utc-time="17:00">sábado</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-neutral-400"><%= content.meetings.localTime %></span>
+                            <span class="text-white font-bold"><span class="local-time text-indigo-400" data-utc-day="6" data-utc-time="17:00">17:00</span> - <span class="local-time text-indigo-400" data-utc-day="6" data-utc-time="19:30">19:30</span></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-8 rounded-2xl border border-pink-500/30 bg-[#12121a]/80 backdrop-blur-md relative overflow-hidden group hover:border-pink-500/60 transition-all duration-300">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-pink-500/10 rounded-full blur-2xl group-hover:bg-pink-500/20 transition-all"></div>
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-xl bg-pink-500/20 flex items-center justify-center border border-pink-500/30 text-pink-400 font-bold font-mono">US</div>
+                        <h3 class="text-xl font-semibold text-white"><%= content.meetings.usTitle %></h3>
+                    </div>
+                    <div class="space-y-3 font-mono text-neutral-300 text-sm bg-[#0a0a0f]/80 p-5 rounded-xl border border-neutral-800">
+                        <div class="flex items-center justify-between">
+                            <span class="text-neutral-400"><%= content.meetings.localDay %></span>
+                            <span class="local-day capitalize font-semibold text-pink-300" data-utc-day="6" data-utc-time="23:00">sábado</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-neutral-400"><%= content.meetings.localTime %></span>
+                            <span class="text-white font-bold"><span class="local-time text-pink-400" data-utc-day="6" data-utc-time="23:00">23:00</span> - <span class="local-time text-pink-400" data-utc-day="0" data-utc-time="01:30">01:30</span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 04 — PRINCIPIOS Y NORMAS DE CONVIVENCIA -->
+    <section id="protocols-section" class="py-20 md:py-28 px-6 relative bg-[#0a0a0f]">
+        <div class="max-w-5xl mx-auto">
+            <div class="mb-16 reveal-on-scroll">
+                <span class="text-blue-400 font-mono text-sm tracking-widest uppercase mb-4 block"><%= content.values.label %></span>
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-light tracking-tight text-balance text-white mb-4"><%= content.values.title %></h2>
+                <p class="text-neutral-300 text-lg max-w-2xl"><%= content.values.description %></p>
+            </div>
+
+            <!-- Pillars Grid -->
+            <div class="grid md:grid-cols-3 gap-6 md:gap-8 mb-16">
+                <% content.values.pillars.forEach((pillar, index) => { %>
+                <div class="group relative reveal-on-scroll" style="transition-delay: <%= index * 100 %>ms;">
+                    <div class="relative p-8 border border-neutral-800 rounded-2xl bg-[#12121a] h-full flex flex-col">
+                        <span class="absolute top-4 right-4 font-mono text-sm text-neutral-600">0<%= index + 1 %></span>
+                        
+                        <div class="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center mb-6">
+                            <% if (index === 0) { %>
+                                <i class="fas fa-volume-down text-blue-400 text-xl"></i>
+                            <% } else if (index === 1) { %>
+                                <i class="fas fa-eye text-blue-400 text-xl"></i>
+                            <% } else { %>
+                                <i class="fas fa-shield-alt text-blue-400 text-xl"></i>
+                            <% } %>
+                        </div>
+
+                        <h3 class="text-xl font-medium text-white mb-3"><%= pillar.title %></h3>
+                        <p class="text-neutral-400 leading-relaxed text-sm"><%= pillar.text %></p>
+                    </div>
+                </div>
+                <% }) %>
+            </div>
+
+            <!-- Specific Rules List -->
+            <div class="reveal-on-scroll">
+                <div class="mb-6">
+                    <span class="text-blue-400 font-mono text-xs tracking-widest uppercase block mb-1"><%= content.protocols.label %></span>
+                    <h3 class="text-2xl font-light text-white"><%= content.protocols.title %></h3>
+                    <p class="text-neutral-400 text-sm mt-1"><%= content.protocols.description %></p>
+                </div>
+
+                <div class="space-y-3">
+                    <% content.protocols.list.forEach((protocol, index) => { %>
+                    <div class="group relative p-5 border border-neutral-800 rounded-xl bg-[#12121a]/40 hover:bg-[#12121a] transition-colors duration-300">
+                        <div class="flex flex-col md:flex-row md:items-center gap-4 justify-between">
+                            <div class="flex items-center gap-4">
+                                <span class="font-mono text-xs text-neutral-500">0<%= index + 1 %></span>
+                                <div class="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center shrink-0">
+                                    <i class="fas fa-check text-blue-400 text-xs"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-sm md:text-base font-medium text-white"><%= protocol.title %></h4>
+                                    <p class="text-neutral-400 text-xs md:text-sm"><%= protocol.desc %></p>
+                                </div>
+                            </div>
+                            <div class="shrink-0">
+                                <span class="inline-flex items-center gap-1.5 text-xs font-mono text-red-400/80 bg-red-500/10 px-3 py-1 rounded-full border border-red-500/20">
+                                    <span class="text-red-400">&lt;</span>
+                                    <%= protocol.chaos %>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <% }) %>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 05 — EL EQUIPO / STAFF (Escalable) -->
+    <section id="team-section" class="py-20 md:py-28 px-6 relative bg-gradient-to-b from-[#0a0a0f] via-[#0d131f] to-[#0a0a0f] border-t border-neutral-900">
+        <div class="max-w-5xl mx-auto">
+            <div class="mb-16 text-center reveal-on-scroll">
+                <span class="text-blue-400 font-mono text-sm tracking-widest uppercase mb-4 block"><%= content.team.label %></span>
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-light tracking-tight text-white mb-4"><%= content.team.title %></h2>
+                <p class="text-neutral-400 text-lg max-w-2xl mx-auto"><%= content.team.subtitle %></p>
+            </div>
+
+            <!-- Team Members Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 justify-center">
+                <% content.team.members.forEach((member, index) => { %>
+                <div class="group relative p-6 rounded-2xl border border-neutral-800 bg-[#12121a]/70 backdrop-blur-sm reveal-on-scroll flex flex-col justify-between hover:border-blue-500/40 transition-all duration-300 hover:-translate-y-1 shadow-lg" style="transition-delay: <%= index * 100 %>ms;">
+                    <div>
+                        <!-- Header with Avatar & Details -->
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="relative w-16 h-16 rounded-full overflow-hidden border-2 border-blue-500/40 shrink-0 bg-[#0a0a0f]">
+                                <% if (member.avatar) { %>
+                                    <img src="<%= member.avatar %>" alt="<%= member.name %>" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                                <% } else { %>
+                                    <div class="w-full h-full flex items-center justify-center text-blue-400 text-xl font-bold font-mono">
+                                        <%= member.name.charAt(0) %>
+                                    </div>
+                                <% } %>
+                            </div>
+                            <div class="min-w-0">
+                                <h3 class="text-lg font-semibold text-white truncate"><%= member.name %></h3>
+                                <span class="inline-block text-xs font-mono text-blue-300 bg-blue-500/15 border border-blue-500/30 px-2.5 py-0.5 rounded-full mt-1"><%= member.role %></span>
+                            </div>
+                        </div>
+
+                        <!-- Optional Member Quote / Comment -->
+                        <% if (member.comment) { %>
+                        <div class="pt-4 border-t border-neutral-800/80">
+                            <p class="text-xs text-neutral-300 italic leading-relaxed relative pl-4 border-l-2 border-blue-500/50">
+                                "<%= member.comment %>"
+                            </p>
+                        </div>
+                        <% } %>
+                    </div>
+                </div>
+                <% }) %>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 06 — MEMORIAS DE LA COMUNIDAD (Galería / Archivo) -->
+    <section id="gallery-section" class="py-20 md:py-28 px-6 relative bg-gradient-to-b from-[#0a0a0f] via-[#0a0d14] to-[#0d0d14]">
+        <div class="max-w-6xl mx-auto">
+            <div class="mb-12 text-center reveal-on-scroll">
+                <span class="text-blue-400 font-mono text-sm tracking-widest uppercase mb-4 block"><%= content.gallery.label %></span>
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-light tracking-tight text-white mb-4"><%= content.gallery.title %></h2>
+                <p class="text-neutral-400 text-lg max-w-2xl mx-auto"><%= content.gallery.description %></p>
+            </div>
+            
+            <!-- Meetup Filter Dropdown -->
+            <div class="flex justify-center mb-10 reveal-on-scroll relative z-40">
+                <div class="relative w-full max-w-md" id="gallery-dropdown-container">
+                    <button id="gallery-select-btn" class="w-full flex items-center justify-between bg-[#12121a] p-4 rounded-xl border border-neutral-800 text-sm text-white hover:border-neutral-600 transition-colors focus:outline-none">
+                        <span id="gallery-select-text" class="flex items-center gap-3 truncate text-neutral-300">
+                            <i class="fas fa-filter text-blue-400"></i> <span id="gallery-select-label"><%= content.gallery.filterAll %></span>
+                        </span>
+                        <i class="fas fa-chevron-down text-neutral-500 text-xs transition-transform duration-300"></i>
+                    </button>
+                    <div id="gallery-select-dropdown" class="absolute z-50 left-0 w-full mt-2 bg-[#12121a] border border-neutral-800 rounded-xl shadow-2xl hidden max-h-[350px] flex flex-col origin-top overflow-hidden">
+                        <div class="p-3 border-b border-neutral-800/50 bg-[#0a0a0f] z-10">
+                            <div class="relative">
+                                <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-neutral-500 text-xs"></i>
+                                <input type="text" id="gallery-search" placeholder="Buscar meetup..." class="w-full bg-[#12121a] border border-neutral-800 rounded-lg py-2 pl-8 pr-3 text-sm text-neutral-300 focus:outline-none focus:border-blue-500/50 transition-colors">
+                            </div>
+                        </div>
+                        <div class="overflow-y-auto custom-scrollbar flex-1">
+                            <div class="p-4 hover:bg-blue-500/10 cursor-pointer text-sm font-medium transition-all duration-300 text-white flex items-center gap-3 border-b border-neutral-800/50 group" data-filter="all">
+                                <i class="fas fa-layer-group text-neutral-500 group-hover:text-blue-400 transition-colors w-4 text-center"></i> 
+                                <span><%= content.gallery.filterAll %></span>
+                            </div>
+                            <div id="gallery-options-container"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Natural Flowing Grid -->
+            <div id="gallery-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 reveal-on-scroll p-2">
+                <div class="col-span-full text-center py-20 text-neutral-500 hidden" id="gallery-empty-state">
+                    <i class="fas fa-images text-5xl mb-6 opacity-20"></i>
+                    <p class="text-lg"><%= content.gallery.empty %></p>
+                </div>
+            </div>
+            
+            <!-- Modal Lightbox with Carousel Controls -->
+            <div id="gallery-modal" class="fixed inset-0 z-[100] bg-black/95 backdrop-blur-xl hidden flex items-center justify-center p-4 md:p-8 opacity-0 transition-opacity duration-300">
+                <button id="gallery-modal-close" class="absolute top-6 right-6 text-white hover:text-red-400 transition-all duration-300 w-12 h-12 flex items-center justify-center bg-white/5 rounded-full hover:bg-white/10 z-[102]">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+
+                <button id="gallery-modal-prev" class="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-all duration-300 w-12 h-12 md:w-14 md:h-14 flex items-center justify-center bg-white/5 rounded-full hover:bg-white/15 z-[102] hover:scale-110">
+                    <i class="fas fa-chevron-left text-2xl"></i>
+                </button>
+
+                <button id="gallery-modal-next" class="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-all duration-300 w-12 h-12 md:w-14 md:h-14 flex items-center justify-center bg-white/5 rounded-full hover:bg-white/15 z-[102] hover:scale-110">
+                    <i class="fas fa-chevron-right text-2xl"></i>
+                </button>
+
+                <div class="relative max-w-full max-h-full w-full h-full flex items-center justify-center">
+                    <img id="gallery-modal-img" src="" alt="Meetup Picture" class="max-w-[90%] max-h-[80vh] object-contain rounded-lg shadow-[0_0_50px_rgba(0,0,0,0.5)] scale-95 transition-transform duration-300">
+                    <div class="absolute bottom-4 md:bottom-8 left-1/2 -translate-x-1/2 bg-black/70 backdrop-blur-md border border-white/10 rounded-full px-6 py-3 flex items-center gap-3 text-sm text-white transform translate-y-4 opacity-0 transition-all duration-300 whitespace-nowrap" id="gallery-modal-info">
+                        <span id="gallery-modal-meetup" class="font-mono text-blue-400 font-medium"></span>
+                        <span class="w-1.5 h-1.5 rounded-full bg-neutral-600"></span>
+                        <span id="gallery-modal-session" class="text-neutral-300"></span>
+                        <span class="w-1.5 h-1.5 rounded-full bg-neutral-600"></span>
+                        <span id="gallery-modal-author" class="text-neutral-400 italic"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 07 — VOCES DE LA COMUNIDAD (Testimonios) -->
+    <section id="comments-section" class="py-20 md:py-28 px-6 bg-[#0d0d14] border-t border-neutral-900">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16 reveal-on-scroll">
+                <span class="text-blue-400 font-mono text-sm tracking-widest uppercase mb-4 block"><%= content.comments.label %></span>
+                <h2 class="text-3xl md:text-4xl font-light text-white mb-4 text-balance">
+                    <%= content.comments.title %>
+                </h2>
+                <p class="text-neutral-400 text-lg max-w-2xl mx-auto">
+                    <%= content.comments.description %>
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-12">
+                <!-- Approved Comments Feed -->
+                <div class="space-y-4 reveal-on-scroll">
+                    <h3 class="text-lg font-medium text-white mb-6 flex items-center gap-2">
+                        <i class="fas fa-check-circle text-green-400"></i>
+                        <%= content.comments.approved %>
+                    </h3>
+                    
+                    <div id="chill-comments-list" class="space-y-4 max-h-[600px] overflow-y-auto pr-2 custom-scrollbar">
+                        <div class="animate-pulse flex space-x-4">
+                            <div class="flex-1 space-y-4 py-1">
+                                <div class="h-24 bg-[#12121a] rounded-xl"></div>
+                                <div class="h-24 bg-[#12121a] rounded-xl"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial Submission Form -->
+                <div class="bg-[#12121a] border border-neutral-800 rounded-2xl p-6 lg:p-8 h-fit reveal-on-scroll" style="transition-delay: 200ms;">
+                    <h3 class="text-lg font-medium text-white mb-6 flex items-center gap-2">
+                        <i class="fas fa-paper-plane text-blue-400"></i>
+                        <%= content.comments.form.title %>
+                    </h3>
+
+                    <form id="chill-comment-form" class="space-y-5">
+                        <div class="space-y-2">
+                            <label for="cf-name" class="text-neutral-300 text-sm"><%= content.comments.form.nameLabel %></label>
+                            <input type="text" id="cf-name" required maxlength="50"
+                                placeholder="<%= content.comments.form.namePlaceholder %>"
+                                class="w-full bg-[#0a0a0f] border border-neutral-800 rounded-lg p-3 text-white focus:border-blue-500 focus:outline-none transition-colors">
+                        </div>
+
+                        <div class="space-y-2">
+                            <label for="cf-role" class="text-neutral-300 text-sm"><%= content.comments.form.roleLabel %></label>
+                            <div class="relative">
+                                <select id="cf-role" class="w-full bg-[#0a0a0f] border border-neutral-800 rounded-lg p-3 text-white appearance-none focus:border-blue-500 focus:outline-none transition-colors cursor-pointer">
+                                    <option value="Member"><%= content.comments.form.roles.member %></option>
+                                    <option value="Regular Attendee"><%= content.comments.form.roles.regular %></option>
+                                    <option value="Moderator"><%= content.comments.form.roles.moderator %></option>
+                                    <option value="Visitor"><%= content.comments.form.roles.visitor %></option>
+                                </select>
+                                <i class="fas fa-chevron-down absolute right-4 top-4 text-neutral-500 pointer-events-none"></i>
+                            </div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label for="cf-comment" class="text-neutral-300 text-sm"><%= content.comments.form.textLabel %></label>
+                            <textarea id="cf-comment" required maxlength="500" rows="4"
+                                placeholder="<%= content.comments.form.textPlaceholder %>"
+                                class="w-full bg-[#0a0a0f] border border-neutral-800 rounded-lg p-3 text-white focus:border-blue-500 focus:outline-none transition-colors resize-none"></textarea>
+                            <p class="text-xs text-neutral-500 text-right">Max 500 chars</p>
+                        </div>
+
+                        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-medium py-3 rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/20 flex items-center justify-center gap-2">
+                            <span><%= content.comments.form.submit %></span>
+                            <i class="fas fa-arrow-right text-xs"></i>
+                        </button>
+
+                        <p class="text-xs text-neutral-400 text-center mt-4 leading-relaxed">
+                            <i class="fas fa-user-shield text-blue-400 mr-1"></i>
+                            <%= content.comments.form.note %>
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 08 — ESTADÍSTICAS DEL SANTUARIO (Métricas) -->
+    <section id="stats-section" class="py-20 md:py-28 px-6 relative bg-gradient-to-t from-[#0a0a0f] to-[#0a0d14]">
+        <div class="max-w-5xl mx-auto">
+            <div class="mb-12 text-center reveal-on-scroll">
+                <span class="text-blue-400 font-mono text-sm tracking-widest uppercase mb-4 block"><%= content.statistics.label %></span>
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-light tracking-tight text-white mb-4"><%= content.statistics.title %></h2>
+                <p class="text-neutral-400 text-lg max-w-2xl mx-auto"><%= content.statistics.description %></p>
+            </div>
+
+            <!-- Spatial Philosophy Note -->
+            <div class="mb-12 p-6 md:p-8 rounded-2xl border border-blue-500/20 bg-gradient-to-r from-blue-900/10 via-[#12121a] to-blue-900/10 reveal-on-scroll">
+                <div class="flex items-start gap-4">
+                    <div class="w-10 h-10 rounded-xl bg-blue-500/20 flex items-center justify-center shrink-0">
+                        <i class="fas fa-expand-arrows-alt text-blue-400"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-white mb-1"><%= content.statistics.spatialNoteTitle %></h3>
+                        <p class="text-neutral-300 text-sm leading-relaxed"><%= content.statistics.spatialNoteDesc %></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Overview KPI Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16 reveal-on-scroll">
+                <div class="p-6 rounded-2xl border border-neutral-800 bg-[#12121a]/50 text-center">
+                    <p class="text-neutral-400 text-sm mb-2"><%= content.statistics.maxGroupMembers %></p>
+                    <p id="stat-max-group" class="text-3xl font-light text-white">-</p>
+                </div>
+                <div class="p-6 rounded-2xl border border-neutral-800 bg-[#12121a]/50 text-center">
+                    <p class="text-neutral-400 text-sm mb-2"><%= content.statistics.maxInstanceMembers %></p>
+                    <p id="stat-max-instance" class="text-3xl font-light text-white">-</p>
+                </div>
+                <div class="p-6 rounded-2xl border border-neutral-800 bg-[#12121a]/50 text-center">
+                    <p class="text-neutral-400 text-sm mb-2"><%= content.statistics.avgInstanceAttendance %></p>
+                    <p id="stat-avg-instance" class="text-3xl font-light text-white">-</p>
+                </div>
+            </div>
+
+            <!-- Group Graph -->
+            <div class="mb-16 p-6 md:p-8 rounded-2xl border border-neutral-800 bg-[#12121a]/50 reveal-on-scroll">
+                <div class="mb-6">
+                    <h3 class="text-xl font-medium text-white"><%= content.statistics.groupGraphTitle %></h3>
+                    <p class="text-neutral-400 text-sm mt-1"><%= content.statistics.groupGraphDesc %></p>
+                </div>
+                <div class="w-full h-[300px] md:h-[380px]">
+                    <canvas id="group-stats-chart"></canvas>
+                </div>
+            </div>
+
+            <!-- Instance Graph -->
+            <div class="p-6 md:p-8 rounded-2xl border border-neutral-800 bg-[#12121a]/50 reveal-on-scroll">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+                    <div>
+                        <h3 class="text-xl font-medium text-white"><%= content.statistics.instanceGraphTitle %></h3>
+                        <p class="text-neutral-400 text-sm mt-1"><%= content.statistics.instanceGraphDesc %></p>
+                    </div>
+                    <div class="flex flex-col sm:flex-row items-center gap-4 w-full md:w-auto relative">
+                        <div class="relative w-full sm:w-64" id="custom-dropdown-container">
+                            <button id="custom-select-btn" class="w-full flex items-center justify-between bg-[#0a0a0f] p-3 rounded-lg border border-neutral-800 text-sm text-white hover:border-neutral-600 transition-colors">
+                                <span id="custom-select-text" class="flex items-center gap-2 truncate text-neutral-300">
+                                    <i class="fas fa-list"></i> <%= content.statistics.latestMeetup %>
+                                </span>
+                                <i class="fas fa-chevron-down text-neutral-500 text-xs"></i>
+                            </button>
+                            <div id="custom-select-dropdown" class="absolute z-50 right-0 w-full sm:w-72 mt-2 bg-[#0a0a0f] border border-neutral-800 rounded-lg shadow-xl hidden max-h-[400px] overflow-y-auto custom-scrollbar flex flex-col">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-full h-[300px] md:h-[380px]">
+                    <canvas id="instance-stats-chart"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 09 — FILOSOFÍA & VISIÓN -->
+    <section class="py-20 md:py-28 px-6 relative bg-[#0a0a0f]">
+        <div class="max-w-4xl mx-auto relative z-10 text-center reveal-on-scroll">
+            <span class="text-blue-400 font-mono text-sm tracking-widest uppercase mb-4 block"><%= content.vision.label %></span>
+            <h3 class="text-2xl md:text-3xl font-light text-white mb-6"><%= content.vision.title %></h3>
+            
+            <div class="relative p-8 md:p-12 rounded-2xl border border-blue-500/20 bg-gradient-to-br from-blue-500/5 to-transparent">
+                <span class="absolute -top-6 left-8 text-7xl font-serif text-blue-400/20 select-none">"</span>
+                <blockquote class="text-xl md:text-2xl font-light text-white leading-relaxed mb-6">
+                    <%= content.vision.quote %>
+                </blockquote>
+                <p class="text-neutral-300 text-base leading-relaxed max-w-2xl mx-auto">
+                    <%= content.vision.text %>
+                </p>
+            </div>
+        </div>
+    </section>
+
     <!-- FOOTER -->
-    <footer class="py-16 px-6 border-t border-neutral-800/30 bg-[#0a0a0f]">
+    <footer class="py-14 px-6 border-t border-neutral-800/40 bg-[#0a0a0f]">
         <div class="max-w-5xl mx-auto">
             <div class="flex flex-col md:flex-row items-center justify-between gap-6">
                 <div class="flex items-center gap-3">
                     <span class="font-mono text-2xl text-blue-400/80">&lt;&gt;&lt;</span>
                     <span class="text-white font-light">Chill</span>
-                    <span class="text-xs font-mono text-neutral-600 bg-neutral-900 px-2 py-1 rounded border border-neutral-800">VRChat Sanctuary</span>
+                    <span class="text-xs font-mono text-neutral-400 bg-neutral-900 px-3 py-1 rounded-full border border-neutral-800"><%= content.footer.tagline %></span>
+                </div>
+
+                <div class="flex items-center gap-4">
+                    <a href="<%= content.hero.discordLink %>" target="_blank" rel="noopener noreferrer" class="text-neutral-400 hover:text-[#5865F2] transition-colors text-lg" aria-label="Discord Server">
+                        <i class="fab fa-discord"></i>
+                    </a>
+                    <a href="<%= content.hero.link %>" target="_blank" rel="noopener noreferrer" class="text-neutral-400 hover:text-blue-400 transition-colors text-lg" aria-label="VRChat Group">
+                        <i class="fas fa-vr-cardboard"></i>
+                    </a>
                 </div>
 
                 <div class="text-center md:text-right">
@@ -660,7 +780,6 @@
     <script src="/resources/js/chillfish.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        // Data injected from backend to support translations inside client scripts
         window.chillfishStatsi18n = {
             members: "<%= content.statistics.membersAxis %>",
             time: "<%= content.statistics.timeAxis %>",
