@@ -241,10 +241,11 @@ function initGalleryController() {
     const modalAuthor = document.getElementById('gallery-modal-author');
     const modalInfo = document.getElementById('gallery-modal-info');
 
-    const loadMoreContainer = document.getElementById('gallery-load-more-container');
-    const loadMoreBtn = document.getElementById('gallery-load-more-btn');
+    const galleryContainer = document.getElementById('gallery-container');
+    const gallerySentinel = document.getElementById('gallery-sentinel');
     let visibleMeetupsLimit = 3;
     let activeFilteredPictures = [];
+    let isLoadingMore = false;
 
     let allPictures = [];
     let currentDisplayedPictures = [];
@@ -458,20 +459,44 @@ function initGalleryController() {
             });
         });
 
-        if (loadMoreContainer) {
+        if (gallerySentinel) {
             if (sortedMeetups.length > visibleMeetupsLimit) {
-                loadMoreContainer.classList.remove('hidden');
+                gallerySentinel.classList.remove('hidden');
             } else {
-                loadMoreContainer.classList.add('hidden');
+                gallerySentinel.classList.add('hidden');
             }
         }
     }
 
-    if (loadMoreBtn) {
-        loadMoreBtn.addEventListener('click', () => {
-            visibleMeetupsLimit += 3;
-            renderGallery(activeFilteredPictures, false);
-        });
+    function checkAutomaticLoadMore() {
+        if (!galleryContainer || isLoadingMore || !activeFilteredPictures || activeFilteredPictures.length === 0) return;
+
+        const grouped = activeFilteredPictures.reduce((accumulator, pic) => {
+            if (!accumulator[pic.meetupNumber]) accumulator[pic.meetupNumber] = [];
+            accumulator[pic.meetupNumber].push(pic);
+            return accumulator;
+        }, {});
+        const totalMeetups = Object.keys(grouped).length;
+
+        if (visibleMeetupsLimit >= totalMeetups) return;
+
+        const scrollBottom = galleryContainer.scrollTop + galleryContainer.clientHeight;
+        const scrollThreshold = galleryContainer.scrollHeight - 150;
+
+        if (scrollBottom >= scrollThreshold) {
+            isLoadingMore = true;
+            if (gallerySentinel) gallerySentinel.classList.remove('hidden');
+
+            setTimeout(() => {
+                visibleMeetupsLimit += 3;
+                renderGallery(activeFilteredPictures, false);
+                isLoadingMore = false;
+            }, 150);
+        }
+    }
+
+    if (galleryContainer) {
+        galleryContainer.addEventListener('scroll', checkAutomaticLoadMore, { passive: true });
     }
 
     function populateGalleryDropdown(pictures) {

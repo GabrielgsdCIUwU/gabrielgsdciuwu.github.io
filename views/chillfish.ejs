@@ -283,7 +283,7 @@
                 </div>
             </div>
 
-            <!-- Compact Scrollable Gallery Container -->
+            <!-- Compact Scrollable Gallery Container with Automatic Background Loading -->
             <div class="relative reveal-on-scroll">
                 <div id="gallery-container" class="max-h-[480px] sm:max-h-[560px] md:max-h-[620px] overflow-y-auto custom-scrollbar p-3 md:p-5 bg-[#12121a]/50 border border-neutral-800/80 rounded-2xl backdrop-blur-sm shadow-inner transition-all duration-300">
                     <div id="gallery-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 p-2">
@@ -292,14 +292,13 @@
                             <p class="text-lg"><%= content.gallery.empty %></p>
                         </div>
                     </div>
-                </div>
-
-                <!-- Load More Photos Button -->
-                <div id="gallery-load-more-container" class="hidden mt-6 text-center">
-                    <button id="gallery-load-more-btn" type="button" class="inline-flex items-center gap-2 px-6 py-3 bg-[#12121a] hover:bg-blue-600/20 text-blue-300 hover:text-white border border-blue-500/30 hover:border-blue-500/60 rounded-full font-mono text-sm transition-all duration-300 shadow-lg hover:shadow-blue-500/20 cursor-pointer">
-                        <i class="fas fa-plus text-xs"></i>
-                        <span id="gallery-load-more-label"><%= content.gallery.loadMore %></span>
-                    </button>
+                    <!-- Automatic Background Loading Indicator -->
+                    <div id="gallery-sentinel" class="py-6 text-center hidden">
+                        <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-[#0a0a0f]/80 border border-neutral-800 text-xs font-mono text-neutral-400 shadow-md">
+                            <i class="fas fa-circle-notch fa-spin text-blue-400"></i>
+                            <span><%= lang === 'es' ? 'Cargando más fotos...' : 'Loading more photos...' %></span>
+                        </div>
+                    </div>
                 </div>
             </div>
             
