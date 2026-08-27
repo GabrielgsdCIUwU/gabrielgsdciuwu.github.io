@@ -2,72 +2,141 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { GitHubRepository } from '../../domain/github/GitHubRepository.js';
+import { ProjectStatus } from '../../domain/projects/ProjectStatus.js';
 import { ProjectStatusEvaluator } from '../../domain/projects/ProjectStatusEvaluator.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 /**
- * @fileoverview Application service coordinating the synchronization between GitHub repositories and localized datasets.
+ * @fileoverview Application service that synchronizes repositories and sorts them by status priority and newest activity date.
  */
 export class ProjectsSynchronizer {
   #gitHubApiClient;
   #evaluator;
-  #supportedLocales;
+  #defaultLocaleStatuses;
 
-  constructor(gitHubApiClient, evaluator = new ProjectStatusEvaluator(), supportedLocales = ['es', 'en']) {
+  constructor(gitHubApiClient, evaluator = new ProjectStatusEvaluator()) {
     this.#gitHubApiClient = gitHubApiClient;
     this.#evaluator = evaluator;
-    this.#supportedLocales = supportedLocales;
+    this.#defaultLocaleStatuses = {
+      es: {
+        active: 'Activo',
+        paused: 'Pausado',
+        stopped: 'Detenido',
+        completed: 'Finalizado'
+      },
+      en: {
+        active: 'Active',
+        paused: 'Paused',
+        stopped: 'Stopped',
+        completed: 'Completed'
+      }
+    };
   }
 
   async synchronize() {
-    const localizedFiles = await this.#loadLocalizedDatasets();
-    const primaryProjectsList = localizedFiles[0].content.projectsPage.projects;
+    const supportedLocales = Object.keys(this.#defaultLocaleStatuses);
+    const localizedDatasets = await this.#loadDatasets(supportedLocales);
 
-    for (let projectIndex = 0; projectIndex < primaryProjectsList.length; projectIndex++) {
-      const currentProject = primaryProjectsList[projectIndex];
-      const repository = GitHubRepository.fromUrl(currentProject.link);
+    this.#ensureStatusDictionaries(localizedDatasets);
 
-      if (!repository) {
-        continue;
-      }
+    const primaryDataset = localizedDatasets.find(d => d.locale === 'es') || localizedDatasets[0];
+    const projectsList = primaryDataset.data.projectsPage.projects;
 
-      try {
-        const latestCommitDate = await this.#gitHubApiClient.getLatestCommitDate(repository);
-        if (!latestCommitDate) {
-          continue;
-        }
+    const evaluatedProjectsMetadata = [];
 
-        const calculatedStatus = this.#evaluator.evaluate(latestCommitDate);
+    for (let index = 0; index < projectsList.length; index++) {
+      const project = projectsList[index];
+      const repository = GitHubRepository.fromProject(project);
 
-        for (const file of localizedFiles) {
-          if (file.content.projectsPage?.projects[projectIndex]) {
-            file.content.projectsPage.projects[projectIndex].status = calculatedStatus.key;
+      let resolvedStatus = ProjectStatus.fromKey(project.status);
+      let latestCommitTimestamp = 0;
+
+      if (repository) {
+        try {
+          const commitInfo = await this.#gitHubApiClient.getLatestCommitInfo(repository);
+
+          if (commitInfo) {
+            resolvedStatus = this.#evaluator.evaluate(commitInfo.date);
+            latestCommitTimestamp = commitInfo.date.getTime();
+
+            console.log(
+              `✔ [${project.name}] Source: ${commitInfo.source} | Date: ${commitInfo.date.toISOString().split('T')[0]} -> Status: ${resolvedStatus.key}`
+            );
           }
+        } catch (error) {
+          console.error(`❌ [${project.name}] Error: ${error.message}`);
         }
-      } catch (error) {
-        console.error(`Failed to synchronize ${currentProject.link}: ${error.message}`);
       }
+
+      evaluatedProjectsMetadata.push({
+        originalIndex: index,
+        name: project.name,
+        status: resolvedStatus,
+        lastCommitTimestamp: latestCommitTimestamp
+      });
     }
 
-    await this.#saveLocalizedDatasets(localizedFiles);
+    evaluatedProjectsMetadata.sort((projectA, projectB) => {
+      const statusComparison = projectA.status.compareTo(projectB.status);
+      if (statusComparison !== 0) {
+        return statusComparison;
+      }
+
+      const dateComparison = projectB.lastCommitTimestamp - projectA.lastCommitTimestamp;
+      if (dateComparison !== 0) {
+        return dateComparison;
+      }
+
+      return projectA.originalIndex - projectB.originalIndex;
+    });
+
+    for (const dataset of localizedDatasets) {
+      const currentProjects = dataset.data.projectsPage.projects;
+
+      const reorderedProjects = evaluatedProjectsMetadata.map(meta => {
+        const projectData = { ...currentProjects[meta.originalIndex] };
+        projectData.status = meta.status.key;
+        return projectData;
+      });
+
+      dataset.data.projectsPage.projects = reorderedProjects;
+    }
+
+    await this.#saveDatasets(localizedDatasets);
   }
 
-  async #loadLocalizedDatasets() {
+  #ensureStatusDictionaries(datasets) {
+    for (const dataset of datasets) {
+      if (!dataset.data.projectsPage) {
+        dataset.data.projectsPage = {};
+      }
+      dataset.data.projectsPage.statuses = {
+        ...this.#defaultLocaleStatuses[dataset.locale],
+        ...(dataset.data.projectsPage.statuses || {})
+      };
+    }
+  }
+
+  async #loadDatasets(locales) {
     return Promise.all(
-      this.#supportedLocales.map(async locale => {
+      locales.map(async locale => {
         const filePath = path.join(__dirname, `../../data/languages/${locale}/projects.json`);
-        const content = JSON.parse(await fs.readFile(filePath, 'utf8'));
-        return { filePath, content };
+        const content = await fs.readFile(filePath, 'utf8');
+        return {
+          locale,
+          filePath,
+          data: JSON.parse(content)
+        };
       })
     );
   }
 
-  async #saveLocalizedDatasets(localizedFiles) {
+  async #saveDatasets(datasets) {
     await Promise.all(
-      localizedFiles.map(({ filePath, content }) =>
-        fs.writeFile(filePath, JSON.stringify(content, null, 2), 'utf8')
+      datasets.map(({ filePath, data }) =>
+        fs.writeFile(filePath, JSON.stringify(data, null, 2), 'utf8')
       )
     );
   }

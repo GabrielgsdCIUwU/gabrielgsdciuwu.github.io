@@ -11,6 +11,7 @@ import helmet from "helmet";
 import rateLimit from "express-rate-limit";
 import { securityLogger } from "./utils/securityLogger.js";
 import "./utils/avatar.js";
+import { initProjectsSyncJob } from "./jobs/projectsSyncJob.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -107,6 +108,8 @@ io.on("connection", (socket) => {
     socket.broadcast.emit("changeModifiers", data);
   });
 });
+
+initProjectsSyncJob();
 
 server.listen(port, () => {
   console.log(`Servidor escuchando en el puerto ${port}`);

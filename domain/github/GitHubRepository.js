@@ -1,5 +1,5 @@
 /**
- * @fileoverview Value object representing a GitHub repository identifier.
+ * @fileoverview Value object representing a GitHub repository identifier extracted from various URL fields.
  */
 export class GitHubRepository {
   static #GITHUB_URL_PATTERN = /^https?:\/\/github\.com\/([a-zA-Z0-9_-]+)\/([a-zA-Z0-9._-]+)(?:\/.*)?$/;
@@ -13,12 +13,13 @@ export class GitHubRepository {
     Object.freeze(this);
   }
 
-  static fromUrl(url) {
-    if (!url || typeof url !== 'string') {
+  static fromProject(project) {
+    const candidateUrl = project.repoLink || project.github || project.link;
+    if (!candidateUrl || typeof candidateUrl !== 'string') {
       return null;
     }
 
-    const match = url.trim().match(GitHubRepository.#GITHUB_URL_PATTERN);
+    const match = candidateUrl.trim().match(GitHubRepository.#GITHUB_URL_PATTERN);
     if (!match) {
       return null;
     }

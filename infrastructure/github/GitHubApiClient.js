@@ -1,38 +1,84 @@
 import axios from 'axios';
+import https from 'node:https';
 
 /**
- * @fileoverview HTTP infrastructure client for the GitHub REST API.
+ * @fileoverview Infrastructure client that queries GitHub branches prioritizing develop and handling collaborator/organization repos.
  */
 export class GitHubApiClient {
   #client;
-  #monitoredBranches;
+  #prioritizedBranches;
 
-  constructor(apiToken, monitoredBranches = ['main', 'develop']) {
-    this.#monitoredBranches = monitoredBranches;
+  constructor(apiToken, prioritizedBranches = ['develop', 'main', 'master']) {
+    this.#prioritizedBranches = prioritizedBranches;
+
+    const httpsAgent = new https.Agent({
+      rejectUnauthorized: false,
+      keepAlive: true
+    });
+
     this.#client = axios.create({
       baseURL: 'https://api.github.com',
+      httpsAgent,
       headers: {
         Accept: 'application/vnd.github.v3+json',
+        'User-Agent': 'Gabrielgsd-Portfolio-Sync',
         ...(apiToken ? { Authorization: `Bearer ${apiToken}` } : {})
       },
-      timeout: 10000
+      timeout: 15000
     });
   }
 
-  async getLatestCommitDate(repository) {
-    const branchResults = await Promise.allSettled(
-      this.#monitoredBranches.map(branch => this.#fetchBranchCommitDate(repository, branch))
-    );
-
-    const validDates = branchResults
-      .filter(result => result.status === 'fulfilled' && result.value instanceof Date)
-      .map(result => result.value.getTime());
-
-    if (validDates.length > 0) {
-      return new Date(Math.max(...validDates));
+  async getLatestCommitInfo(repository) {
+    const repositoryMetadata = await this.#fetchRepositoryMetadata(repository);
+    if (!repositoryMetadata) {
+      return null;
     }
 
-    return this.#fetchRepositoryLastPushDate(repository);
+    const branchesToCheck = [...new Set([
+      ...this.#prioritizedBranches,
+      repositoryMetadata.defaultBranch
+    ])];
+
+    for (const branch of branchesToCheck) {
+      const branchCommitDate = await this.#fetchBranchCommitDate(repository, branch);
+      if (branchCommitDate) {
+        return {
+          date: branchCommitDate,
+          source: branch
+        };
+      }
+    }
+
+    if (repositoryMetadata.pushedAt) {
+      return {
+        date: repositoryMetadata.pushedAt,
+        source: 'repository_push'
+      };
+    }
+
+    return null;
+  }
+
+  async #fetchRepositoryMetadata(repository) {
+    try {
+      const response = await this.#client.get(`/repos/${repository.owner}/${repository.name}`);
+      return {
+        defaultBranch: response.data?.default_branch || 'main',
+        pushedAt: response.data?.pushed_at ? new Date(response.data.pushed_at) : null
+      };
+    } catch (error) {
+      if (error.response?.status === 404) {
+        console.warn(`⚠️ [${repository.owner}/${repository.name}] Not accessible. If private, ensure you use a Classic PAT with 'repo' scope.`);
+        return null;
+      }
+      if (error.response?.status === 401) {
+        throw new Error('Unauthorized: Invalid or missing GITHUB_TOKEN in .env');
+      }
+      if (error.response?.status === 403) {
+        throw new Error('API Rate Limit Exceeded or token lacks permission to this repository');
+      }
+      throw error;
+    }
   }
 
   async #fetchBranchCommitDate(repository, branch) {
@@ -43,20 +89,11 @@ export class GitHubApiClient {
       const rawDate = response.data?.commit?.committer?.date || response.data?.commit?.author?.date;
       return rawDate ? new Date(rawDate) : null;
     } catch (error) {
-      if (error.response?.status === 404) {
+      const statusCode = error.response?.status;
+      if (statusCode === 404 || statusCode === 422) {
         return null;
       }
       throw error;
-    }
-  }
-
-  async #fetchRepositoryLastPushDate(repository) {
-    try {
-      const response = await this.#client.get(`/repos/${repository.owner}/${repository.name}`);
-      const rawDate = response.data?.pushed_at || response.data?.updated_at;
-      return rawDate ? new Date(rawDate) : null;
-    } catch {
-      return null;
     }
   }
 }

@@ -1,11 +1,11 @@
 /**
- * @fileoverview Domain enum representing strict project lifecycle statuses.
+ * @fileoverview Domain enum representing project lifecycle statuses with hierarchical ordering.
  */
 export class ProjectStatus {
-  static ACTIVE = new ProjectStatus('active');
-  static PAUSED = new ProjectStatus('paused');
-  static STOPPED = new ProjectStatus('stopped');
-  static COMPLETED = new ProjectStatus('completed');
+  static ACTIVE = new ProjectStatus('active', 1);
+  static PAUSED = new ProjectStatus('paused', 2);
+  static STOPPED = new ProjectStatus('stopped', 3);
+  static COMPLETED = new ProjectStatus('completed', 4);
 
   static #INSTANCES = Object.freeze({
     active: ProjectStatus.ACTIVE,
@@ -14,13 +14,21 @@ export class ProjectStatus {
     completed: ProjectStatus.COMPLETED
   });
 
-  constructor(name) {
+  constructor(name, priority) {
     this.name = name;
+    this.priority = priority;
     Object.freeze(this);
   }
 
   get key() {
     return this.name;
+  }
+
+  compareTo(other) {
+    if (!(other instanceof ProjectStatus)) {
+      return 0;
+    }
+    return this.priority - other.priority;
   }
 
   equals(other) {
@@ -30,19 +38,12 @@ export class ProjectStatus {
   static fromKey(key) {
     const status = ProjectStatus.#INSTANCES[key];
     if (!status) {
-      throw new IllegalArgumentException(`Unknown project status key: "${key}"`);
+      return ProjectStatus.COMPLETED;
     }
     return status;
   }
 
   toString() {
     return this.name;
-  }
-}
-
-export class IllegalArgumentException extends Error {
-  constructor(message) {
-    super(message);
-    this.name = 'IllegalArgumentException';
   }
 }

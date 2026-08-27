@@ -86,9 +86,16 @@
                     <span class="px-2.5 py-1 text-xs font-bold uppercase tracking-wider rounded-full bg-blue-100 text-blue-700">
                       <%= content.projectsPage.filters[project.category] || project.category %>
                     </span>
-                    <% if (project.status) { %>
-                      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full <%= project.status === 'Activo' || project.status === 'Active' ? 'bg-green-100 text-green-700' : project.status === 'Pausado' || project.status === 'Paused' ? 'bg-amber-100 text-amber-700' : 'bg-gray-200 text-gray-700' %>">
-                        <%= project.status %>
+                    <% if (project.status && content.projectsPage.statuses[project.status]) { 
+                      const statusBadgeStyles = {
+                        active: 'bg-green-100 text-green-700',
+                        paused: 'bg-amber-100 text-amber-700',
+                        stopped: 'bg-orange-100 text-orange-700',
+                        completed: 'bg-gray-200 text-gray-700'
+                      };
+                    %>
+                      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full <%= statusBadgeStyles[project.status] || 'bg-gray-200 text-gray-700' %>">
+                        <%= content.projectsPage.statuses[project.status] %>
                       </span>
                     <% } %>
                   </div>
