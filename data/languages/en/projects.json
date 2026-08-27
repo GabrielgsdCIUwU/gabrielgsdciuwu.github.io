@@ -14,6 +14,12 @@
     "description": "Explore the full catalog of projects, public repositories, and private developments.",
     "searchPlaceholder": "Search project or technology...",
     "seeCode": "View repository",
+    "statuses": {
+      "active": "Active",
+      "paused": "Paused",
+      "stopped": "Stopped",
+      "completed": "Completed"
+    },
     "filters": {
       "all": "All",
       "web": "Web & Services",

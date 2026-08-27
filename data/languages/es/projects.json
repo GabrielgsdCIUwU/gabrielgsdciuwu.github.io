@@ -14,6 +14,12 @@
     "description": "Explora el catálogo completo de proyectos, repositorios públicos y desarrollos privados.",
     "searchPlaceholder": "Buscar proyecto o tecnología...",
     "seeCode": "Ver repositorio",
+    "statuses": {
+      "active": "Activo",
+      "paused": "Pausado",
+      "stopped": "Detenido",
+      "completed": "Finalizado"
+    },
     "filters": {
       "all": "Todos",
       "web": "Web & Servicios",
