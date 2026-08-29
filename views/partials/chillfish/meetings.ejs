@@ -1,13 +1,11 @@
 <!-- SECTION 02 — ENCUENTROS SEMANALES & CÓMO UNIRSE -->
 <section id="meetings-section" class="py-20 md:py-28 px-6 relative bg-gradient-to-r from-[#0d1525] via-[#0a0a0f] to-[#0d1525] border-y border-blue-500/20">
     <div class="max-w-5xl mx-auto">
-        <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12 reveal-on-scroll">
-            <div>
-                <span class="text-blue-400 font-mono text-sm tracking-widest uppercase mb-2 block"><%= content.meetings.label %></span>
-                <h2 class="text-3xl md:text-4xl lg:text-5xl font-light tracking-tight text-white mb-2"><%= content.meetings.title %></h2>
-                <p class="text-neutral-300 text-base max-w-xl"><%= content.meetings.subtitle %></p>
-            </div>
-            <div class="shrink-0">
+        <div class="mb-16 text-center reveal-on-scroll">
+            <span class="text-blue-400 font-mono text-sm tracking-widest uppercase mb-4 block"><%= content.meetings.label %></span>
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-light tracking-tight text-white mb-4"><%= content.meetings.title %></h2>
+            <p class="text-neutral-300 text-lg max-w-2xl mx-auto mb-6"><%= content.meetings.subtitle %></p>
+            <div class="inline-block">
                 <span id="nth-meetup-badge" data-template="<%= content.meetings.nthMeeting %>" class="px-5 py-2.5 rounded-full bg-blue-500/20 text-blue-300 font-mono text-sm border border-blue-500/40 shadow-[0_0_20px_rgba(59,130,246,0.3)] inline-block">
                     -
                 </span>

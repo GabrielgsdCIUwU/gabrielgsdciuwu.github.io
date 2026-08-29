@@ -43,12 +43,13 @@ function initScrollRevealObserver() {
             if (entry.isIntersecting) {
                 entry.target.classList.remove('opacity-0', 'translate-y-4');
                 entry.target.classList.add('opacity-100', 'translate-y-0');
+                scrollObserver.unobserve(entry.target);
             }
         });
-    }, { threshold: 0.1 });
+    }, { threshold: 0.05, rootMargin: '0px 0px -50px 0px' });
 
     document.querySelectorAll('.reveal-on-scroll').forEach((element) => {
-        element.classList.add('transition-all', 'duration-700', 'opacity-0', 'translate-y-4');
+        element.classList.add('transition-all', 'duration-300', 'opacity-0', 'translate-y-4');
         scrollObserver.observe(element);
     });
 
@@ -121,40 +122,53 @@ function initScrollSpy() {
     const activeClasses = [
         'bg-blue-500/20',
         'text-blue-300',
-        'border',
         'border-blue-400/40',
         'shadow-[0_0_15px_rgba(59,130,246,0.35)]',
         'font-semibold'
     ];
-    const inactiveClasses = ['text-neutral-400', 'hover:text-blue-300'];
+    const inactiveClasses = ['border-transparent', 'text-neutral-400', 'hover:text-blue-300'];
 
     function setActiveLink(activeLink) {
         navLinks.forEach((link) => {
-            link.classList.remove(...activeClasses);
-            link.classList.add(...inactiveClasses);
+            if (link === activeLink) {
+                link.classList.remove(...inactiveClasses);
+                link.classList.add(...activeClasses);
+            } else {
+                link.classList.remove(...activeClasses);
+                link.classList.add(...inactiveClasses);
+            }
         });
-        if (activeLink) {
-            activeLink.classList.remove(...inactiveClasses);
-            activeLink.classList.add(...activeClasses);
+    }
+
+    function updateActiveSection() {
+        const scrollPosition = window.scrollY + 160;
+        let currentSection = null;
+
+        for (let i = sections.length - 1; i >= 0; i--) {
+            const section = sections[i];
+            if (section.element.offsetTop <= scrollPosition) {
+                currentSection = section;
+                break;
+            }
+        }
+
+        if (currentSection) {
+            setActiveLink(currentSection.link);
         }
     }
 
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-                const activeItem = sections.find((item) => item.element === entry.target);
-                if (activeItem) {
-                    setActiveLink(activeItem.link);
-                }
-            }
-        });
-    }, {
-        root: null,
-        rootMargin: '-25% 0px -60% 0px',
-        threshold: 0
-    });
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                updateActiveSection();
+                ticking = false;
+            });
+            ticking = true;
+        }
+    }, { passive: true });
 
-    sections.forEach((item) => observer.observe(item.element));
+    updateActiveSection();
 }
 
 /**
@@ -244,6 +258,7 @@ function initGalleryController() {
     const galleryContainer = document.getElementById('gallery-container');
     const gallerySentinel = document.getElementById('gallery-sentinel');
     let visibleMeetupsLimit = 3;
+    let renderedMeetupsCount = 0;
     let activeFilteredPictures = [];
     let isLoadingMore = false;
 
@@ -368,16 +383,16 @@ function initGalleryController() {
 
         if (isFilterChange) {
             visibleMeetupsLimit = 3;
+            renderedMeetupsCount = 0;
             activeFilteredPictures = pictures;
+            currentDisplayedPictures = [];
+            Array.from(galleryGrid.children).forEach((child) => {
+                if (child !== galleryEmptyState) child.remove();
+            });
         }
-
-        Array.from(galleryGrid.children).forEach((child) => {
-            if (child !== galleryEmptyState) child.remove();
-        });
 
         if (!pictures || pictures.length === 0) {
             if (galleryEmptyState) galleryEmptyState.classList.remove('hidden');
-            if (loadMoreContainer) loadMoreContainer.classList.add('hidden');
             return;
         }
 
@@ -390,14 +405,11 @@ function initGalleryController() {
         }, {});
 
         const sortedMeetups = Object.keys(grouped).sort((a, b) => Number(b) - Number(a));
-        const meetupsToRender = sortedMeetups.slice(0, visibleMeetupsLimit);
-
-        currentDisplayedPictures = [];
-        let delayCounter = 0;
+        const meetupsToRender = sortedMeetups.slice(renderedMeetupsCount, visibleMeetupsLimit);
 
         meetupsToRender.forEach((meetupNumber) => {
             const headerContainer = document.createElement('div');
-            headerContainer.className = 'col-span-full mt-6 mb-2 border-b border-neutral-800/50 pb-2 flex items-center justify-between reveal-on-scroll opacity-0 translate-y-4 transition-all duration-500';
+            headerContainer.className = 'col-span-full mt-6 mb-2 border-b border-neutral-800/50 pb-2 flex items-center justify-between transition-all duration-300';
 
             const headerTitle = document.createElement('h3');
             headerTitle.className = 'text-xl font-light text-white flex items-center gap-3';
@@ -411,10 +423,6 @@ function initGalleryController() {
             headerContainer.appendChild(countBadge);
             galleryGrid.appendChild(headerContainer);
 
-            if (window.chillScrollObserver) {
-                window.chillScrollObserver.observe(headerContainer);
-            }
-
             const meetupPics = grouped[meetupNumber].sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
 
             meetupPics.forEach((pic) => {
@@ -424,9 +432,7 @@ function initGalleryController() {
                 const wrapper = document.createElement('button');
                 wrapper.setAttribute('type', 'button');
                 wrapper.setAttribute('aria-label', `View photo Meetup ${pic.meetupNumber}`);
-                wrapper.className = 'group relative aspect-video rounded-xl overflow-hidden cursor-pointer bg-[#12121a] border border-neutral-800 reveal-on-scroll transition-all duration-500 hover:border-blue-500/50 hover:shadow-[0_0_30px_rgba(59,130,246,0.15)] opacity-0 translate-y-4 focus:outline-none focus:ring-2 focus:ring-blue-500 text-left';
-                wrapper.style.transitionDelay = `${(delayCounter % 15) * 50}ms`;
-                delayCounter++;
+                wrapper.className = 'group relative aspect-video rounded-xl overflow-hidden cursor-pointer bg-[#12121a] border border-neutral-800 transition-all duration-300 hover:border-blue-500/50 hover:shadow-[0_0_30px_rgba(59,130,246,0.15)] focus:outline-none focus:ring-2 focus:ring-blue-500 text-left';
 
                 const img = document.createElement('img');
                 img.src = pic.url;
@@ -452,12 +458,10 @@ function initGalleryController() {
                 wrapper.addEventListener('click', () => openModal(pictureIndex, wrapper));
 
                 galleryGrid.appendChild(wrapper);
-
-                if (window.chillScrollObserver) {
-                    window.chillScrollObserver.observe(wrapper);
-                }
             });
         });
+
+        renderedMeetupsCount = visibleMeetupsLimit;
 
         if (gallerySentinel) {
             if (sortedMeetups.length > visibleMeetupsLimit) {

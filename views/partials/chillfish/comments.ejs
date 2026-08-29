@@ -13,17 +13,17 @@
 
         <div class="grid lg:grid-cols-2 gap-12">
             <!-- Approved Comments Feed -->
-            <div class="space-y-4 reveal-on-scroll">
+            <div class="bg-[#12121a] border border-neutral-800 rounded-2xl p-6 lg:p-8 h-fit reveal-on-scroll">
                 <h3 class="text-lg font-medium text-white mb-6 flex items-center gap-2">
                     <i class="fas fa-check-circle text-green-400"></i>
                     <%= content.comments.approved %>
                 </h3>
                 
-                <div id="chill-comments-list" class="space-y-4 max-h-[600px] overflow-y-auto pr-2 custom-scrollbar">
+                <div id="chill-comments-list" class="space-y-4 max-h-[500px] overflow-y-auto pr-2 custom-scrollbar">
                     <div class="animate-pulse flex space-x-4">
                         <div class="flex-1 space-y-4 py-1">
-                            <div class="h-24 bg-[#12121a] rounded-xl"></div>
-                            <div class="h-24 bg-[#12121a] rounded-xl"></div>
+                            <div class="h-24 bg-[#0a0a0f] rounded-xl border border-neutral-800/80"></div>
+                            <div class="h-24 bg-[#0a0a0f] rounded-xl border border-neutral-800/80"></div>
                         </div>
                     </div>
                 </div>

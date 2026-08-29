@@ -98,16 +98,20 @@ function initGroupStatsChart() {
     Chart.defaults.borderColor = '#1f1f2e';
     Chart.defaults.font.family = "'Nunito Sans', sans-serif";
 
-    const i18n = window.chillfishStatsi18n || { members: 'Members', time: 'Time / Date' };
+    const i18n = window.chillfishStatsi18n || { groupMembers: 'Group Members', members: 'Members', time: 'Time / Date' };
+    const groupMembersLabel = i18n.groupMembers || i18n.members || 'Group Members';
 
     fetch('/api/chillfish/stats/group')
         .then((response) => response.json())
         .then((data) => {
             if (!Array.isArray(data) || data.length === 0) return;
 
-            const peakGroupCount = Math.max(...data.map((item) => item.count));
+            const latestGroupCount = data[data.length - 1]?.count || Math.max(...data.map((item) => item.count));
             const peakElement = document.getElementById('stat-max-group');
-            if (peakElement) peakElement.textContent = peakGroupCount;
+            if (peakElement) peakElement.textContent = latestGroupCount;
+
+            const heroMemberCountEl = document.getElementById('hero-member-count');
+            if (heroMemberCountEl) heroMemberCountEl.textContent = latestGroupCount;
 
             const chartContext = chartCanvas.getContext('2d');
             const dateLabels = data.map((item) => new Date(item.date).toLocaleDateString());
@@ -118,7 +122,7 @@ function initGroupStatsChart() {
                 data: {
                     labels: dateLabels,
                     datasets: [{
-                        label: i18n.members,
+                        label: groupMembersLabel,
                         data: memberCounts,
                         borderColor: '#3b82f6',
                         backgroundColor: 'rgba(59, 130, 246, 0.1)',
@@ -135,7 +139,7 @@ function initGroupStatsChart() {
                     maintainAspectRatio: false,
                     plugins: { legend: { display: false } },
                     scales: {
-                        y: { beginAtZero: true, title: { display: true, text: i18n.members } },
+                        y: { beginAtZero: true, title: { display: true, text: groupMembersLabel } },
                         x: { 
                             title: { display: true, text: i18n.time },
                             ticks: { maxTicksLimit: 8 }
@@ -160,12 +164,14 @@ function initInstanceStatsChart() {
     let uniqueMeetups = [];
 
     const i18n = window.chillfishStatsi18n || {
+        instanceAttendees: 'Attendees',
         members: 'Members',
         time: 'Time / Date',
         meetupOption: 'Meetup {n} ({date})',
         last4Option: 'Last 4 Meetups (Avg)',
         allOption: 'All Meetups (Avg)'
     };
+    const attendeesLabel = i18n.instanceAttendees || 'Attendees';
 
     function renderInstanceChart(selectedFilter) {
         if (instanceChart) {
@@ -207,7 +213,7 @@ function initInstanceStatsChart() {
             const averageCounts = sortedKeys.map((key) => Math.round(timeMap[key].sum / timeMap[key].count));
 
             datasetList.push({
-                label: i18n.members,
+                label: attendeesLabel,
                 data: averageCounts,
                 backgroundColor: 'rgba(99, 102, 241, 0.8)',
                 borderRadius: 4,
@@ -246,7 +252,7 @@ function initInstanceStatsChart() {
             } else {
                 const counts = filteredData.map((item) => item.count);
                 datasetList.push({
-                    label: i18n.members,
+                    label: attendeesLabel,
                     data: counts,
                     backgroundColor: 'rgba(99, 102, 241, 0.8)',
                     borderRadius: 4,
@@ -265,7 +271,7 @@ function initInstanceStatsChart() {
                     legend: { display: datasetList.length > 1, labels: { color: '#a3a3a3' } }
                 },
                 scales: {
-                    y: { stacked: true, beginAtZero: true, title: { display: true, text: i18n.members } },
+                    y: { stacked: true, beginAtZero: true, title: { display: true, text: attendeesLabel } },
                     x: { 
                         stacked: true, 
                         title: { display: true, text: i18n.time },

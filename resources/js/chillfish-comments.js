@@ -96,7 +96,7 @@ async function loadApprovedComments() {
 
         if (!Array.isArray(commentsList) || commentsList.length === 0) {
             commentsContainer.innerHTML = `
-                <div class="bg-[#12121a] border border-neutral-800 rounded-xl p-8 text-center">
+                <div class="bg-[#0a0a0f] border border-neutral-800/80 rounded-xl p-8 text-center">
                     <i class="fas fa-comment-slash text-neutral-600 text-4xl mb-4"></i>
                     <p class="text-neutral-400">${i18n.empty}</p>
                 </div>`;
@@ -104,9 +104,9 @@ async function loadApprovedComments() {
         }
 
         commentsContainer.innerHTML = commentsList.map((item) => `
-            <div class="bg-[#12121a] border border-neutral-800 rounded-xl p-5 hover:border-blue-500/30 transition-colors">
+            <div class="bg-[#0a0a0f] border border-neutral-800/80 rounded-xl p-5 hover:border-blue-500/30 transition-colors">
                 <p class="text-neutral-300 leading-relaxed mb-4 text-sm">"${item.comentario}"</p>
-                <div class="flex items-center justify-between border-t border-neutral-800 pt-4">
+                <div class="flex items-center justify-between border-t border-neutral-800/80 pt-4">
                     <div>
                         <p class="text-white font-medium text-sm">${item.nombre}</p>
                         <p class="text-xs text-blue-400">${item.rol}</p>

@@ -9,11 +9,16 @@
     <div class="relative z-10 text-center px-6 max-w-4xl mx-auto mt-20 md:mt-10">
 
         <!-- Badges -->
-        <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 mb-4 reveal-on-scroll" style="transition-delay: 50ms;">
+        <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 mb-4 reveal-on-scroll flex-wrap justify-center" style="transition-delay: 50ms;">
             <span class="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span>
             <span class="text-xs md:text-sm font-mono text-blue-300"><%= content.hero.badge %></span>
             <span class="text-xs text-neutral-500">|</span>
             <span class="text-xs font-mono px-2.5 py-0.5 rounded bg-blue-500/20 text-blue-300 font-bold border border-blue-400/30"><%= content.hero.platformBadge %></span>
+            <span class="text-xs text-neutral-500">|</span>
+            <span id="hero-member-badge" class="text-xs font-mono px-2.5 py-0.5 rounded bg-blue-500/20 text-blue-300 font-bold border border-blue-400/30 flex items-center gap-1.5">
+                <i class="fas fa-users text-blue-400"></i>
+                <span id="hero-member-count">-</span> <%= content.statistics ? content.statistics.membersBadge : 'miembros' %>
+            </span>
         </div>
 
         <!-- Hardware clarification note -->
