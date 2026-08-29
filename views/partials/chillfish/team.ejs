@@ -1,0 +1,43 @@
+<!-- SECTION 06 — EL EQUIPO / STAFF -->
+<section id="team-section" class="py-20 md:py-28 px-6 relative bg-gradient-to-b from-[#0a0a0f] via-[#0d131f] to-[#0a0a0f] border-t border-neutral-900">
+    <div class="max-w-5xl mx-auto">
+        <div class="mb-16 text-center reveal-on-scroll">
+            <span class="text-blue-400 font-mono text-sm tracking-widest uppercase mb-4 block"><%= content.team.label %></span>
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-light tracking-tight text-white mb-4"><%= content.team.title %></h2>
+            <p class="text-neutral-300 text-lg max-w-2xl mx-auto"><%= content.team.subtitle %></p>
+        </div>
+
+        <!-- Team Members Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 justify-center">
+            <% content.team.members.forEach((member, index) => { %>
+            <div class="group relative p-6 rounded-2xl border border-neutral-800 bg-[#12121a]/70 backdrop-blur-sm reveal-on-scroll flex flex-col justify-between hover:border-blue-500/40 transition-all duration-300 hover:-translate-y-1 shadow-lg" style="transition-delay: <%= index * 100 %>ms;">
+                <div>
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="relative w-16 h-16 rounded-full overflow-hidden border-2 border-blue-500/40 shrink-0 bg-[#0a0a0f]">
+                            <% if (member.avatar) { %>
+                                <img src="<%= member.avatar %>" alt="<%= member.name %>" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                            <% } else { %>
+                                <div class="w-full h-full flex items-center justify-center text-blue-400 text-xl font-bold font-mono">
+                                    <%= member.name.charAt(0) %>
+                                </div>
+                            <% } %>
+                        </div>
+                        <div class="min-w-0">
+                            <h3 class="text-lg font-semibold text-white truncate"><%= member.name %></h3>
+                            <span class="inline-block text-xs font-mono text-blue-300 bg-blue-500/15 border border-blue-500/30 px-2.5 py-0.5 rounded-full mt-1"><%= member.role %></span>
+                        </div>
+                    </div>
+
+                    <% if (member.comment) { %>
+                    <div class="pt-4 border-t border-neutral-800/80">
+                        <p class="text-xs text-neutral-300 italic leading-relaxed relative pl-4 border-l-2 border-blue-500/50">
+                            "<%= member.comment %>"
+                        </p>
+                    </div>
+                    <% } %>
+                </div>
+            </div>
+            <% }) %>
+        </div>
+    </div>
+</section>

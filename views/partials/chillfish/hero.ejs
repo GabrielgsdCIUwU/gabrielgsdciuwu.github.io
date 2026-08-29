@@ -1,0 +1,58 @@
+<!-- HERO SECTION -->
+<section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-b from-[#0a0a0f] via-[#0d1525] to-[#0a0a0f]"></div>
+    
+    <!-- Grid Pattern -->
+    <div class="absolute inset-0 opacity-[0.03]" style="background-image: linear-gradient(rgba(59, 130, 246, 0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(59, 130, 246, 0.5) 1px, transparent 1px); background-size: 60px 60px;"></div>
+    <div id="hero-particles" class="absolute inset-0 overflow-hidden pointer-events-none"></div>
+
+    <div class="relative z-10 text-center px-6 max-w-4xl mx-auto mt-20 md:mt-10">
+
+        <!-- Badges -->
+        <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 mb-4 reveal-on-scroll" style="transition-delay: 50ms;">
+            <span class="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span>
+            <span class="text-xs md:text-sm font-mono text-blue-300"><%= content.hero.badge %></span>
+            <span class="text-xs text-neutral-500">|</span>
+            <span class="text-xs font-mono px-2.5 py-0.5 rounded bg-blue-500/20 text-blue-300 font-bold border border-blue-400/30"><%= content.hero.platformBadge %></span>
+        </div>
+
+        <!-- Hardware clarification note -->
+        <p class="text-xs font-mono text-blue-300/80 mb-6 reveal-on-scroll" style="transition-delay: 80ms;">
+            <i class="fas fa-desktop mr-1"></i> <%= content.hero.vrClarification %>
+        </p>
+
+        <h1 class="text-5xl md:text-7xl lg:text-8xl font-light tracking-tight mb-6 reveal-on-scroll" style="transition-delay: 100ms;">
+            <span class="text-white"><%= content.hero.title %></span>
+            <span class="text-blue-400 font-mono ml-3">&lt;&gt;&lt;</span>
+        </h1>
+
+        <p class="text-xl md:text-2xl text-neutral-300 font-light tracking-wide mb-6 reveal-on-scroll" style="transition-delay: 200ms;">
+            <%= content.hero.subtitle %>
+        </p>
+
+        <p class="text-base md:text-lg text-neutral-300 max-w-2xl mx-auto leading-relaxed mb-10 reveal-on-scroll" style="transition-delay: 300ms;">
+            <%= content.hero.description %>
+        </p>
+
+        <!-- Dual CTA Buttons -->
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 reveal-on-scroll" style="transition-delay: 400ms;">
+            <a href="<%= content.hero.link %>" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white font-medium rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-blue-500/25">
+                <img src="/resources/img/chillfish-logo.avif" alt="Chill Logo" class="w-5 h-5 rounded-full object-cover shrink-0" />
+                <span><%= content.hero.cta %></span>
+            </a>
+            <a href="<%= content.hero.discordLink %>" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 bg-[#5865F2]/20 hover:bg-[#5865F2] text-[#8ea1e1] hover:text-white font-medium rounded-xl border border-[#5865F2]/40 hover:border-[#5865F2] transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-[#5865F2]/25">
+                <i class="fab fa-discord text-xl"></i>
+                <span><%= content.hero.discordCta %></span>
+            </a>
+        </div>
+    </div>
+
+    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 animate-bounce pointer-events-none opacity-40">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white">
+            <path d="M7 13l5 5 5-5"/>
+            <path d="M7 6l5 5 5-5"/>
+        </svg>
+    </div>
+    
+    <div class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#0a0a0f] to-transparent"></div>
+</section>

@@ -1,0 +1,85 @@
+<!-- SECTION 02 — ENCUENTROS SEMANALES & CÓMO UNIRSE -->
+<section id="meetings-section" class="py-20 md:py-28 px-6 relative bg-gradient-to-r from-[#0d1525] via-[#0a0a0f] to-[#0d1525] border-y border-blue-500/20">
+    <div class="max-w-5xl mx-auto">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12 reveal-on-scroll">
+            <div>
+                <span class="text-blue-400 font-mono text-sm tracking-widest uppercase mb-2 block"><%= content.meetings.label %></span>
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-light tracking-tight text-white mb-2"><%= content.meetings.title %></h2>
+                <p class="text-neutral-300 text-base max-w-xl"><%= content.meetings.subtitle %></p>
+            </div>
+            <div class="shrink-0">
+                <span id="nth-meetup-badge" data-template="<%= content.meetings.nthMeeting %>" class="px-5 py-2.5 rounded-full bg-blue-500/20 text-blue-300 font-mono text-sm border border-blue-500/40 shadow-[0_0_20px_rgba(59,130,246,0.3)] inline-block">
+                    -
+                </span>
+            </div>
+        </div>
+
+        <!-- How to Join 3-Step Guide -->
+        <div class="mb-12 p-8 rounded-2xl border border-neutral-800 bg-[#12121a]/80 reveal-on-scroll">
+            <h3 class="text-xl font-medium text-white mb-6 flex items-center gap-3">
+                <i class="fas fa-sign-in-alt text-blue-400"></i>
+                <%= content.meetings.howToJoinTitle %>
+            </h3>
+            <div class="grid md:grid-cols-3 gap-6">
+                <% content.meetings.steps.forEach((stepItem) => { %>
+                <div class="p-5 rounded-xl border border-neutral-800/80 bg-[#0a0a0f]/60 relative">
+                    <span class="font-mono text-2xl font-bold text-blue-400/40 block mb-2"><%= stepItem.step %></span>
+                    <h4 class="text-base font-semibold text-white mb-1"><%= stepItem.title %></h4>
+                    <p class="text-xs text-neutral-300 leading-relaxed"><%= stepItem.desc %></p>
+                </div>
+                <% }) %>
+            </div>
+
+            <!-- Instance Format Clarification -->
+            <div class="mt-6 pt-6 border-t border-neutral-800 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 text-xs">
+                <div class="flex items-center gap-2 text-neutral-300">
+                    <span class="w-2 h-2 rounded-full bg-green-400 shrink-0"></span>
+                    <span><strong class="text-white"><%= content.meetings.instanceInfo %></strong> <%= content.meetings.groupPublicNote %></span>
+                </div>
+                <div class="flex items-center gap-2 text-indigo-300 bg-indigo-500/10 px-3 py-1.5 rounded-lg border border-indigo-500/20">
+                    <i class="fas fa-film text-indigo-400"></i>
+                    <span><%= content.meetings.movieSpecialNote %></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dual Timezone Schedules Grid -->
+        <div class="grid md:grid-cols-2 gap-8 reveal-on-scroll">
+            <div class="p-8 rounded-2xl border border-indigo-500/30 bg-[#12121a]/80 backdrop-blur-md relative overflow-hidden group hover:border-indigo-500/60 transition-all duration-300">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 rounded-full blur-2xl group-hover:bg-indigo-500/20 transition-all"></div>
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-xl bg-indigo-500/20 flex items-center justify-center border border-indigo-500/30 text-indigo-400 font-bold font-mono">EU</div>
+                    <h3 class="text-xl font-semibold text-white"><%= content.meetings.euTitle %></h3>
+                </div>
+                <div class="space-y-3 font-mono text-neutral-300 text-sm bg-[#0a0a0f]/80 p-5 rounded-xl border border-neutral-800">
+                    <div class="flex items-center justify-between">
+                        <span class="text-neutral-400"><%= content.meetings.localDay %></span>
+                        <span class="local-day capitalize font-semibold text-indigo-300" data-utc-day="6" data-utc-time="17:00">sábado</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-neutral-400"><%= content.meetings.localTime %></span>
+                        <span class="text-[#ffffff] font-bold"><span class="local-time text-indigo-400" data-utc-day="6" data-utc-time="17:00">17:00</span> - <span class="local-time text-indigo-400" data-utc-day="6" data-utc-time="19:30">19:30</span></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-8 rounded-2xl border border-pink-500/30 bg-[#12121a]/80 backdrop-blur-md relative overflow-hidden group hover:border-pink-500/60 transition-all duration-300">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-pink-500/10 rounded-full blur-2xl group-hover:bg-pink-500/20 transition-all"></div>
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-xl bg-pink-500/20 flex items-center justify-center border border-pink-500/30 text-pink-400 font-bold font-mono">US</div>
+                    <h3 class="text-xl font-semibold text-white"><%= content.meetings.usTitle %></h3>
+                </div>
+                <div class="space-y-3 font-mono text-neutral-300 text-sm bg-[#0a0a0f]/80 p-5 rounded-xl border border-neutral-800">
+                    <div class="flex items-center justify-between">
+                        <span class="text-neutral-400"><%= content.meetings.localDay %></span>
+                        <span class="local-day capitalize font-semibold text-pink-300" data-utc-day="6" data-utc-time="23:00">sábado</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-neutral-400"><%= content.meetings.localTime %></span>
+                        <span class="text-[#ffffff] font-bold"><span class="local-time text-pink-400" data-utc-day="6" data-utc-time="23:00">23:00</span> - <span class="local-time text-pink-400" data-utc-day="0" data-utc-time="01:30">01:30</span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
