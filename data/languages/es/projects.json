@@ -60,7 +60,6 @@
         "skills": [
           "TypeScript",
           "NodeJS",
-          "MongoDB",
           "Tailwindcss"
         ],
         "link": "https://github.com/GabrielgsdCIUwU/Rusk-Shack-Archive",
@@ -126,7 +125,8 @@
         "category": "tools_automation",
         "description": "Automatización de flujos de trabajo e integración de Webhooks con n8n.",
         "skills": [
-          "NodeJS"
+          "Flutter",
+          "Dart"
         ],
         "link": "https://github.com/MMSS99/Cookies4Fish_n8n",
         "status": "active"
@@ -166,7 +166,8 @@
         "category": "mobile_desktop",
         "description": "Aplicación simulada de gestión para bares y establecimientos de hostelería.",
         "skills": [
-          "Java"
+          "Java",
+          "Spring Boot"
         ],
         "link": "https://github.com/GabrielgsdCIUwU/CFF-BarsForFish",
         "status": "active"
@@ -188,7 +189,9 @@
         "description": "Conversor de divisas europeas en interfaz web limpia y accesible.",
         "skills": [
           "HTML5",
-          "JavaScript"
+          "JavaScript",
+          "Java",
+          "Spring Boot"
         ],
         "link": "https://github.com/GabrielgsdCIUwU/european-currency-converter",
         "status": "active"
@@ -309,7 +312,8 @@
         "description": "Colección de miniproyectos y prototipos web interactivos de práctica.",
         "skills": [
           "JavaScript",
-          "HTML5"
+          "HTML5",
+          "NodeJS"
         ],
         "link": "https://github.com/AlexDeveloperUwU/miniprojects",
         "status": "paused"
@@ -531,17 +535,6 @@
         "status": "stopped"
       },
       {
-        "name": "1_DAM_PRACTICA_HTML",
-        "category": "web",
-        "description": "Prácticas de maquetación y estructura web semántica con HTML5.",
-        "skills": [
-          "HTML5",
-          "Tailwindcss"
-        ],
-        "link": "https://github.com/GabrielgsdCIUwU/1_DAM_PRACTICA_HTML",
-        "status": "stopped"
-      },
-      {
         "name": "dni",
         "category": "tools_automation",
         "description": "Calculadora y validadora de DNI implementada con Programación Orientada a Objetos en Python.",
@@ -615,16 +608,6 @@
         "status": "stopped"
       },
       {
-        "name": "git-flow",
-        "category": "tools_automation",
-        "description": "Repositorio práctico de metodologías de trabajo con ramas Git Flow y control de versiones.",
-        "skills": [
-          "Java"
-        ],
-        "link": "https://github.com/GabrielgsdCIUwU/git-flow",
-        "status": "stopped"
-      },
-      {
         "name": "soundboard-extras",
         "category": "web",
         "description": "Módulos y efectos de audio adicionales desarrollados para complementar la aplicación Soundboard.",
@@ -644,16 +627,6 @@
           "EJS"
         ],
         "link": "https://github.com/GabrielgsdCIUwU/satis-calc",
-        "status": "stopped"
-      },
-      {
-        "name": "register",
-        "category": "tools_automation",
-        "description": "Sistema de registro y gestión de subdominios libres para proyectos de código abierto.",
-        "skills": [
-          "JavaScript"
-        ],
-        "link": "https://github.com/GabrielgsdCIUwU/register",
         "status": "stopped"
       },
       {
@@ -704,8 +677,8 @@
         "category": "web",
         "description": "Interfaz web de administración y estadísticas para la comunidad CI.",
         "skills": [
-          "Tailwindcss",
-          "JavaScript"
+          "JavaScript",
+          "HTML5"
         ],
         "link": "https://github.com/GabrielgsdCIUwU/bot-ci-web",
         "status": "completed"
