@@ -1,0 +1,163 @@
+<!-- SECTION 05 — RED MATRIZ & ECOSISTEMA FISH -->
+<section id="ecosystem-section" class="py-20 md:py-28 px-6 relative bg-[#0a0a0f] border-t border-neutral-900">
+    <div class="max-w-5xl mx-auto">
+        <div class="mb-16 text-center reveal-on-scroll">
+            <span class="text-blue-400 font-mono text-sm tracking-widest uppercase mb-4 block"><%= content.ecosystem.label %></span>
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-light tracking-tight text-balance text-white mb-4"><%= content.ecosystem.title %></h2>
+            <p class="text-neutral-300 text-lg max-w-2xl mx-auto"><%= content.ecosystem.subtitle %></p>
+        </div>
+
+        <!-- Ecosystem Intro Card -->
+        <div class="mb-16 p-8 md:p-10 rounded-2xl border border-blue-500/20 bg-gradient-to-br from-blue-500/5 via-[#12121a] to-transparent reveal-on-scroll">
+            <div class="flex flex-col md:flex-row items-center gap-6">
+                <div class="w-16 h-16 rounded-2xl bg-blue-500/10 flex items-center justify-center shrink-0 border border-blue-500/20">
+                    <span class="font-mono text-3xl text-blue-400 font-bold">&lt;&gt;&lt;</span>
+                </div>
+                <div>
+                    <h3 class="text-xl font-medium text-white mb-2 flex items-center gap-2 flex-wrap">
+                        <span><%= content.ecosystem.originBadge %></span>
+                        <% if (content.ecosystem.networkName) { %>
+                        <span class="text-xs font-mono text-blue-400 px-2 py-0.5 rounded bg-blue-500/10 border border-blue-500/20"><%= content.ecosystem.networkName %></span>
+                        <% } %>
+                    </h3>
+                    <p class="text-neutral-300 leading-relaxed"><%= content.ecosystem.ecosystemOrigin %></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interactive Hierarchy Tree -->
+        <div class="relative reveal-on-scroll mb-20">
+            <p class="text-xs text-neutral-400 font-mono text-center mb-8 tracking-widest uppercase"><%= content.ecosystem.clickToExplore %></p>
+
+            <div id="ecosystem-tree" class="flex flex-col items-center max-w-md mx-auto">
+                <% content.ecosystem.groups.forEach((group, index) => { %>
+                
+                <% if (index > 0) { %>
+                <div class="ecosystem-connector relative flex justify-center" style="width: 2px; height: 2.25rem; background: linear-gradient(to bottom, #525252, #404040);">
+                    <div class="ecosystem-connector-pulse absolute inset-0 opacity-0 transition-opacity duration-500" style="background: linear-gradient(to bottom, rgba(59,130,246,0.8), rgba(59,130,246,0.2));"></div>
+                </div>
+                <% } %>
+
+                <div class="ecosystem-node-wrapper flex flex-col items-center w-full" data-group-id="<%= group.id %>">
+                    <button id="ecosystem-node-<%= group.id %>"
+                            class="<%= group.isMember 
+                                ? 'ecosystem-node group relative w-full p-5 rounded-2xl border-2 border-blue-500/60 bg-blue-500/10 hover:border-blue-400 hover:bg-blue-500/15 shadow-[0_0_20px_rgba(59,130,246,0.2)] transition-all duration-300 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50' 
+                                : (group.isRoot 
+                                    ? 'ecosystem-node group relative w-full p-5 rounded-2xl border border-neutral-600/50 bg-[#12121a] hover:border-neutral-500/70 transition-all duration-300 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50' 
+                                    : 'ecosystem-node group relative w-full p-5 rounded-2xl border border-neutral-800 bg-[#12121a]/60 hover:border-neutral-700 transition-all duration-300 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50') %>"
+                            aria-expanded="false"
+                            aria-controls="ecosystem-detail-<%= group.id %>">
+
+                        <div class="flex items-center justify-between gap-4">
+                            <div class="flex items-center gap-3 min-w-0">
+                                <span class="shrink-0 w-2.5 h-2.5 rounded-full <%= group.isMember ? 'bg-blue-400 animate-pulse' : (group.isRoot ? 'bg-indigo-400' : 'bg-neutral-400') %>"></span>
+                                <div class="min-w-0">
+                                    <div class="flex items-center gap-2 flex-wrap">
+                                        <span class="font-mono text-sm md:text-base font-semibold <%= group.isMember ? 'text-blue-300' : (group.isRoot ? 'text-indigo-300' : 'text-white') %> truncate"><%= group.name %></span>
+                                        <% if (group.isMember) { %>
+                                        <span class="shrink-0 text-[10px] font-mono font-bold tracking-widest px-2.5 py-0.5 rounded-full bg-blue-500/30 text-blue-300 border border-blue-400/40">
+                                            <%= content.ecosystem.youAreHere %>
+                                        </span>
+                                        <% } %>
+                                    </div>
+                                    <span class="text-xs text-neutral-400 font-mono"><%= group.tier %></span>
+                                </div>
+                            </div>
+                            <svg class="ecosystem-chevron shrink-0 w-4 h-4 text-neutral-400 group-hover:text-white transition-all duration-300"
+                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m6 9 6 6 6-6"/>
+                            </svg>
+                        </div>
+                    </button>
+
+                    <div id="ecosystem-detail-<%= group.id %>"
+                         class="ecosystem-detail w-full overflow-hidden"
+                         style="max-height: 0; transition: max-height 0.4s ease, opacity 0.3s ease; opacity: 0;">
+                        <div class="pt-2 pb-1 px-1">
+                            <div class="p-5 rounded-xl border border-neutral-800/50 bg-[#0d0d18]">
+                                <p class="text-neutral-300 text-sm leading-relaxed mb-4"><%= group.description %></p>
+                                <a href="<%= group.link %>" target="_blank" rel="noopener noreferrer"
+                                   class="inline-flex items-center gap-2 text-xs font-mono text-blue-400 hover:text-blue-300 transition-colors">
+                                    <span>&rarr;</span>
+                                    <%= group.linkLabel %>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <% }) %>
+            </div>
+        </div>
+
+        <!-- Symbology Breakdown -->
+        <div class="mb-12 text-center reveal-on-scroll">
+            <h3 class="text-2xl font-light text-white mb-2"><%= content.ecosystem.symbologyTitle %></h3>
+            <p class="text-neutral-300 text-sm"><%= content.ecosystem.symbologySubtitle %></p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            <div class="p-6 rounded-2xl border border-red-500/20 bg-[#12121a]/60 reveal-on-scroll flex flex-col justify-between hover:border-red-500/40 transition-colors">
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="font-mono text-4xl text-red-400 font-bold">&lt;</span>
+                        <span class="text-[10px] font-mono uppercase tracking-widest text-red-300 px-2 py-0.5 rounded bg-red-500/10"><%= content.ecosystem.chaosLeftTag %></span>
+                    </div>
+                    <h4 class="text-lg font-medium text-white mb-1"><%= content.ecosystem.chaosLeft.title %></h4>
+                    <p class="text-xs font-mono text-neutral-400 mb-3"><%= content.ecosystem.chaosLeft.subtitle %></p>
+                    <p class="text-neutral-300 text-sm leading-relaxed"><%= content.ecosystem.chaosLeft.text %></p>
+                </div>
+            </div>
+
+            <div class="p-6 rounded-2xl border-2 border-blue-500 bg-gradient-to-b from-blue-500/15 via-[#12121a] to-[#12121a] reveal-on-scroll flex flex-col justify-between shadow-[0_0_30px_rgba(59,130,246,0.2)] transform hover:scale-[1.02] transition-all" style="transition-delay: 100ms;">
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="font-mono text-4xl text-blue-400 font-bold">&gt;</span>
+                        <span class="text-[10px] font-mono font-bold uppercase tracking-widest text-blue-300 px-2 py-0.5 rounded bg-blue-500/30 border border-blue-400/50"><%= content.ecosystem.structureTag %></span>
+                    </div>
+                    <h4 class="text-lg font-medium text-white mb-1"><%= content.ecosystem.structure.title %></h4>
+                    <p class="text-xs font-mono text-blue-400 mb-3"><%= content.ecosystem.structure.subtitle %></p>
+                    <p class="text-neutral-200 text-sm leading-relaxed"><%= content.ecosystem.structure.text %></p>
+                </div>
+            </div>
+
+            <div class="p-6 rounded-2xl border border-amber-500/20 bg-[#12121a]/60 reveal-on-scroll flex flex-col justify-between hover:border-amber-500/40 transition-colors" style="transition-delay: 200ms;">
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="font-mono text-4xl text-amber-400 font-bold">&lt;</span>
+                        <span class="text-[10px] font-mono uppercase tracking-widest text-amber-300 px-2 py-0.5 rounded bg-amber-500/10"><%= content.ecosystem.chaosRightTag %></span>
+                    </div>
+                    <h4 class="text-lg font-medium text-white mb-1"><%= content.ecosystem.chaosRight.title %></h4>
+                    <p class="text-xs font-mono text-neutral-400 mb-3"><%= content.ecosystem.chaosRight.subtitle %></p>
+                    <p class="text-neutral-300 text-sm leading-relaxed"><%= content.ecosystem.chaosRight.text %></p>
+                </div>
+            </div>
+
+            <div class="p-6 rounded-2xl border border-indigo-500/20 bg-[#12121a]/60 reveal-on-scroll flex flex-col justify-between hover:border-indigo-500/40 transition-colors" style="transition-delay: 300ms;">
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="font-mono text-3xl text-indigo-400 font-bold">&lt;&gt;&lt;</span>
+                        <span class="text-[10px] font-mono uppercase tracking-widest text-indigo-300 px-2 py-0.5 rounded bg-indigo-500/10"><%= content.ecosystem.structuredChaosTag %></span>
+                    </div>
+                    <h4 class="text-lg font-medium text-white mb-1"><%= content.ecosystem.structuredChaos.title %></h4>
+                    <p class="text-xs font-mono text-neutral-400 mb-3"><%= content.ecosystem.structuredChaos.subtitle %></p>
+                    <p class="text-neutral-300 text-sm leading-relaxed"><%= content.ecosystem.structuredChaos.text %></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Role Card Banner -->
+        <div class="p-8 rounded-2xl border border-blue-500/30 bg-gradient-to-r from-blue-900/20 via-[#12121a] to-blue-900/20 reveal-on-scroll">
+            <div class="flex items-start gap-4">
+                <div class="w-12 h-12 rounded-xl bg-blue-500/20 flex items-center justify-center shrink-0">
+                    <span class="font-mono text-2xl text-blue-400 font-bold">&gt;</span>
+                </div>
+                <div>
+                    <h3 class="text-xl font-medium text-white mb-2"><%= content.ecosystem.roleCard.title %></h3>
+                    <p class="text-neutral-300 leading-relaxed text-sm md:text-base"><%= content.ecosystem.roleCard.text %></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

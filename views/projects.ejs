@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="<%= content.headDetails ? content.headDetails.lang : 'es' %>">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="<%= content.headDetails ? content.headDetails.description : 'Todos los proyectos de Gabrielgsd' %>" />
+    <meta property="og:title" content="<%= content.headDetails ? content.headDetails.ogTitle : 'Gabrielgsd | Proyectos' %>" />
+    <meta property="og:description" content="<%= content.headDetails ? content.headDetails.ogDescription : 'Catálogo de proyectos' %>" />
+    <meta property="og:image" content="/resources/img/Gabri-Watching-Icon.jpg" />
+    <meta property="og:type" content="website" />
+    <title><%= content.headDetails ? content.headDetails.ogTitle : 'Gabrielgsd | Proyectos' %></title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="icon" href="/resources/img/Gabri-Watching-Icon.jpg" type="image/png" />
+    <link rel="stylesheet" href="/resources/css/output-index.css" />
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  </head>
+
+  <body class="bg-gray-200 flex flex-col min-h-screen">
+    <%- include('./partials/header.ejs') %>
+
+    <div class="flex-1 flex flex-col overflow-y-auto">
+      <%- include('partials/sidebar.ejs', {
+        menuItems: [
+          {
+            "href": `/${lang}`,
+            "name": content.main
+          },
+          {
+            "href": "#projects-catalog",
+            "name": content.projectsPage.title
+          }
+        ]
+      }) %>
+
+      <main id="main-content" class="flex-1 flex flex-col justify-between relative transition-all duration-300 ml-0 min-h-screen">
+        
+        <section id="projects-catalog" class="w-full bg-gray-100 p-6 sm:p-10 text-center rounded-lg shadow-lg flex-1">
+          
+          <h1 class="text-3xl sm:text-4xl font-extrabold text-gray-800 mb-4">
+            <%= content.projectsPage.title %>
+          </h1>
+          <p class="text-base sm:text-lg text-gray-600 mb-8 max-w-3xl mx-auto">
+            <%= content.projectsPage.description %>
+          </p>
+
+          <!-- Prominent Search Bar -->
+          <div class="max-w-2xl mx-auto mb-8">
+            <div class="relative w-full">
+              <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-blue-500 text-lg"></i>
+              <input type="text" id="search-input" placeholder="<%= content.projectsPage.searchPlaceholder %>" class="w-full pl-12 pr-4 py-3 bg-white text-gray-800 placeholder-gray-400 font-medium border-2 border-blue-400 rounded-xl shadow-md focus:outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-200 transition-all duration-200 text-base" />
+            </div>
+          </div>
+
+          <!-- Category Filter Buttons -->
+          <div class="flex flex-wrap gap-2 justify-center mb-10" id="category-filters">
+            <button data-filter="all" class="filter-btn active px-5 py-2.5 text-sm font-bold rounded-full transition-all duration-200 bg-blue-500 text-white shadow-md hover:bg-blue-600">
+              <%= content.projectsPage.filters.all %>
+            </button>
+            <button data-filter="web" class="filter-btn px-5 py-2.5 text-sm font-bold rounded-full transition-all duration-200 bg-white text-gray-700 hover:bg-blue-50 hover:text-blue-600 shadow-sm">
+              <%= content.projectsPage.filters.web %>
+            </button>
+            <button data-filter="mobile_desktop" class="filter-btn px-5 py-2.5 text-sm font-bold rounded-full transition-all duration-200 bg-white text-gray-700 hover:bg-blue-50 hover:text-blue-600 shadow-sm">
+              <%= content.projectsPage.filters.mobile_desktop %>
+            </button>
+            <button data-filter="tools_automation" class="filter-btn px-5 py-2.5 text-sm font-bold rounded-full transition-all duration-200 bg-white text-gray-700 hover:bg-blue-50 hover:text-blue-600 shadow-sm">
+              <%= content.projectsPage.filters.tools_automation %>
+            </button>
+            <button data-filter="katas_solid" class="filter-btn px-5 py-2.5 text-sm font-bold rounded-full transition-all duration-200 bg-white text-gray-700 hover:bg-blue-50 hover:text-blue-600 shadow-sm">
+              <%= content.projectsPage.filters.katas_solid %>
+            </button>
+            <button data-filter="vr_3d" class="filter-btn px-5 py-2.5 text-sm font-bold rounded-full transition-all duration-200 bg-white text-gray-700 hover:bg-blue-50 hover:text-blue-600 shadow-sm">
+              <%= content.projectsPage.filters.vr_3d %>
+            </button>
+          </div>
+
+          <!-- Projects Cards Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="projects-grid">
+            <% content.projectsPage.projects.forEach(project => { %>
+              <div data-category="<%= project.category %>" data-search="<%= (project.name + ' ' + project.description + ' ' + (project.skills ? project.skills.join(' ') : '')).toLowerCase() %>" class="project-card group relative block bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 border-t-4 border-blue-500 overflow-hidden flex flex-col justify-between text-center">
+                
+                <div class="absolute inset-0 bg-gradient-to-br from-blue-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+
+                <div class="relative z-10">
+                  <div class="flex justify-between items-center mb-4">
+                    <span class="px-2.5 py-1 text-xs font-bold uppercase tracking-wider rounded-full bg-blue-100 text-blue-700">
+                      <%= content.projectsPage.filters[project.category] || project.category %>
+                    </span>
+                    <% if (project.status && content.projectsPage.statuses[project.status]) { 
+                      const statusBadgeStyles = {
+                        active: 'bg-green-100 text-green-700',
+                        paused: 'bg-amber-100 text-amber-700',
+                        stopped: 'bg-orange-100 text-orange-700',
+                        completed: 'bg-gray-200 text-gray-700'
+                      };
+                    %>
+                      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full <%= statusBadgeStyles[project.status] || 'bg-gray-200 text-gray-700' %>">
+                        <%= content.projectsPage.statuses[project.status] %>
+                      </span>
+                    <% } %>
+                  </div>
+
+                  <!-- Clickable Project Title -->
+                  <a href="<%= project.link %>" target="_blank" class="text-2xl font-bold text-gray-700 group-hover:text-blue-600 transition-colors duration-300 block mb-2 cursor-pointer hover:underline">
+                    <%= project.name %>
+                  </a>
+
+                  <p class="text-gray-500 text-sm mt-2 leading-relaxed break-words">
+                    <%= project.description %>
+                  </p>
+
+                  <!-- SVG Technology Icons (matching Featured Projects style) -->
+                  <% if (project.skills && project.skills.length) { %>
+                    <div class="flex justify-center items-center space-x-3 mt-6">
+                      <% const skillsList = knowledge && knowledge.knowledge ? knowledge.knowledge : (Array.isArray(knowledge) ? knowledge : []);
+                         project.skills.forEach(skillName => {
+                         const skill = skillsList.find(k => k.name === skillName);
+                         if (skill) { %>
+                          <img src="<%= skill.icon %>" alt="<%= skill.name %>" class="w-6 h-6 hover:scale-125 transition-transform duration-200" title="<%= skill.name %>">
+                        <% } else { %>
+                          <span class="px-2 py-0.5 text-xs font-semibold bg-gray-100 text-gray-700 border border-gray-200 rounded">
+                            <%= skillName %>
+                          </span>
+                        <% } %>
+                      <% }) %>
+                    </div>
+                  <% } %>
+                </div>
+
+                <!-- Customized Repository / External Link Button -->
+                <div class="relative z-10 mt-6">
+                  <a href="<%= project.link %>" target="_blank" class="flex items-center justify-center text-blue-600 font-semibold group-hover:gap-2 transition-all duration-300">
+                    <span class="mr-2"><%= project.buttonText || content.projectsPage.seeCode %></span>
+                    <% if (project.iconClass) { %>
+                      <i class="<%= project.iconClass %> text-base"></i>
+                    <% } else { %>
+                      <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                      </svg>
+                    <% } %>
+                  </a>
+                </div>
+              </div>
+            <% }) %>
+          </div>
+
+          <!-- Empty State Container -->
+          <div id="no-results" class="hidden text-center py-16">
+            <i class="fas fa-folder-open text-4xl text-gray-400 mb-3"></i>
+            <p class="text-gray-600 text-base font-semibold">No se encontraron proyectos</p>
+          </div>
+        </section>
+
+        <%- include('./partials/footer.ejs') %>
+      </main>
+    </div>
+
+    <!-- Client-side filtering script -->
+    <script src="../resources/js/templeate.js"></script>
+    <script>
+      /**
+       * Handle interactive category filtering and text search for project cards.
+       */
+      document.addEventListener('DOMContentLoaded', () => {
+        const filterButtons = document.querySelectorAll('#category-filters .filter-btn');
+        const searchInput = document.getElementById('search-input');
+        const projectCards = document.querySelectorAll('.project-card');
+        const noResults = document.getElementById('no-results');
+
+        let activeCategory = 'all';
+        let searchQuery = '';
+
+        function updateFilterState() {
+          let visibleCount = 0;
+
+          projectCards.forEach(card => {
+            const cardCategory = card.getAttribute('data-category');
+            const cardSearchText = card.getAttribute('data-search') || '';
+
+            const matchesCategory = activeCategory === 'all' || cardCategory === activeCategory;
+            const matchesSearch = !searchQuery || cardSearchText.includes(searchQuery.toLowerCase());
+
+            if (matchesCategory && matchesSearch) {
+              card.classList.remove('hidden');
+              visibleCount++;
+            } else {
+              card.classList.add('hidden');
+            }
+          });
+
+          if (visibleCount === 0) {
+            noResults.classList.remove('hidden');
+          } else {
+            noResults.classList.add('hidden');
+          }
+        }
+
+        filterButtons.forEach(button => {
+          button.addEventListener('click', () => {
+            filterButtons.forEach(btn => {
+              btn.classList.remove('active', 'bg-blue-500', 'text-white', 'shadow-md');
+              btn.classList.add('bg-white', 'text-gray-700', 'shadow-sm');
+            });
+            button.classList.remove('bg-white', 'text-gray-700', 'shadow-sm');
+            button.classList.add('active', 'bg-blue-500', 'text-white', 'shadow-md');
+
+            activeCategory = button.getAttribute('data-filter');
+            updateFilterState();
+          });
+        });
+
+        if (searchInput) {
+          searchInput.addEventListener('input', (e) => {
+            searchQuery = e.target.value.trim();
+            updateFilterState();
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

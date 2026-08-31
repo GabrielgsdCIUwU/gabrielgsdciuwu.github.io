@@ -1,0 +1,53 @@
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 left-0 w-full z-50 p-4 md:p-6 flex justify-between items-center bg-gradient-to-b from-[#0a0a0f] via-[#0a0a0f]/80 to-transparent pointer-events-none">
+    <div class="pointer-events-auto flex items-center gap-3">
+        <a href="/<%= lang %>" class="flex items-center gap-2 text-neutral-300 hover:text-white transition-colors bg-[#12121a]/80 backdrop-blur-md px-4 py-2 rounded-full border border-neutral-800 hover:border-blue-500/40" title="<%= content.nav.back %>">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+            <span class="text-xs md:text-sm font-medium"><%= content.nav.back %></span>
+        </a>
+        <a href="/<%= lang === 'es' ? 'en' : 'es' %>/chillfish" class="text-xs font-mono font-bold bg-[#12121a]/80 text-blue-300 hover:text-white px-3 py-2 rounded-full border border-neutral-800 hover:border-blue-500/40 transition-colors backdrop-blur-md" title="<%= content.nav.switchLangTitle %>">
+            <%= content.nav.switchLang %>
+        </a>
+    </div>
+
+    <!-- Desktop ScrollSpy Links Pill -->
+    <nav aria-label="Section Navigation" class="pointer-events-auto hidden xl:flex items-center gap-1 bg-[#12121a]/90 backdrop-blur-md px-3 py-1.5 rounded-full border border-neutral-800 text-xs font-mono shadow-2xl">
+        <a href="#overview-section" class="nav-section-link px-2.5 py-1 text-neutral-400 rounded-full border border-transparent transition-all duration-300"><%= content.nav.quickLinks.sanctuary %></a>
+        <a href="#meetings-section" class="nav-section-link px-2.5 py-1 text-neutral-400 rounded-full border border-transparent transition-all duration-300"><%= content.nav.quickLinks.meetings %></a>
+        <a href="#gallery-section" class="nav-section-link px-2.5 py-1 text-neutral-400 rounded-full border border-transparent transition-all duration-300"><%= content.nav.quickLinks.gallery %></a>
+        <a href="#protocols-section" class="nav-section-link px-2.5 py-1 text-neutral-400 rounded-full border border-transparent transition-all duration-300"><%= content.nav.quickLinks.rules %></a>
+        <a href="#ecosystem-section" class="nav-section-link px-2.5 py-1 text-neutral-400 rounded-full border border-transparent transition-all duration-300"><%= content.nav.quickLinks.ecosystem %></a>
+        <a href="#team-section" class="nav-section-link px-2.5 py-1 text-neutral-400 rounded-full border border-transparent transition-all duration-300"><%= content.nav.quickLinks.team %></a>
+        <a href="#comments-section" class="nav-section-link px-2.5 py-1 text-neutral-400 rounded-full border border-transparent transition-all duration-300"><%= content.nav.quickLinks.comments %></a>
+        <a href="#stats-section" class="nav-section-link px-2.5 py-1 text-neutral-400 rounded-full border border-transparent transition-all duration-300"><%= content.nav.quickLinks.stats %></a>
+    </nav>
+
+    <!-- Right Header Actions (VRChat Group, Discord & Mobile Toggle) -->
+    <div class="pointer-events-auto flex items-center gap-2">
+        <a href="<%= content.hero.link %>" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-white bg-blue-600/80 hover:bg-blue-600 transition-all backdrop-blur-md px-3.5 py-2 rounded-full border border-blue-500/40 hover:shadow-[0_0_15px_rgba(59,130,246,0.4)] text-xs font-medium" title="<%= content.nav.vrchat %>">
+            <img src="/resources/img/chillfish-logo.avif" alt="VRChat" class="w-4 h-4 rounded-full object-cover shrink-0" />
+            <span class="hidden sm:inline"><%= content.nav.vrchat %></span>
+        </a>
+        <a href="<%= content.hero.discordLink %>" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-white bg-[#5865F2]/80 hover:bg-[#5865F2] transition-all backdrop-blur-md px-3.5 py-2 rounded-full border border-[#5865F2]/50 hover:shadow-[0_0_15px_rgba(88,101,242,0.4)] text-xs font-medium" title="<%= content.nav.discord %>">
+            <i class="fab fa-discord text-sm"></i>
+            <span class="hidden sm:inline"><%= content.nav.discord %></span>
+        </a>
+        <button id="mobile-menu-btn" class="xl:hidden flex items-center justify-center w-9 h-9 rounded-full bg-[#12121a]/90 text-neutral-300 hover:text-white border border-neutral-800 backdrop-blur-md transition-colors" aria-label="<%= content.nav.menuToggle %>" aria-expanded="false">
+            <i class="fas fa-bars text-sm"></i>
+        </button>
+    </div>
+</header>
+
+<!-- Mobile Drawer Navigation -->
+<div id="mobile-drawer" class="fixed inset-0 z-40 bg-black/80 backdrop-blur-md hidden transition-opacity duration-300 opacity-0 flex flex-col justify-center items-center p-6">
+    <nav class="flex flex-col items-center gap-4 text-center">
+        <a href="#overview-section" class="mobile-nav-link text-lg font-medium text-neutral-300 hover:text-blue-400 transition-colors py-2"><%= content.nav.quickLinks.sanctuary %></a>
+        <a href="#meetings-section" class="mobile-nav-link text-lg font-medium text-neutral-300 hover:text-blue-400 transition-colors py-2"><%= content.nav.quickLinks.meetings %></a>
+        <a href="#gallery-section" class="mobile-nav-link text-lg font-medium text-neutral-300 hover:text-blue-400 transition-colors py-2"><%= content.nav.quickLinks.gallery %></a>
+        <a href="#protocols-section" class="mobile-nav-link text-lg font-medium text-neutral-300 hover:text-blue-400 transition-colors py-2"><%= content.nav.quickLinks.rules %></a>
+        <a href="#ecosystem-section" class="mobile-nav-link text-lg font-medium text-neutral-300 hover:text-blue-400 transition-colors py-2"><%= content.nav.quickLinks.ecosystem %></a>
+        <a href="#team-section" class="mobile-nav-link text-lg font-medium text-neutral-300 hover:text-blue-400 transition-colors py-2"><%= content.nav.quickLinks.team %></a>
+        <a href="#comments-section" class="mobile-nav-link text-lg font-medium text-neutral-300 hover:text-blue-400 transition-colors py-2"><%= content.nav.quickLinks.comments %></a>
+        <a href="#stats-section" class="mobile-nav-link text-lg font-medium text-neutral-300 hover:text-blue-400 transition-colors py-2"><%= content.nav.quickLinks.stats %></a>
+    </nav>
+</div>

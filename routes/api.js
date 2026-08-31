@@ -548,15 +548,19 @@ router.get("/chillfish/stats/instance", (req, res) => {
     try {
       const parsedData = JSON.parse(data);
 
+      if (Array.isArray(parsedData)) {
+        return res.json(parsedData);
+      }
+
       const flatData = [];
       for (const [meetup, entries] of Object.entries(parsedData)) {
-        if (entries.length > 0 && Array.isArray(entries[0])) {
+        if (Array.isArray(entries) && entries.length > 0 && Array.isArray(entries[0])) {
           entries.forEach((sessionArray, sessionIndex) => {
             for (const entry of sessionArray) {
               flatData.push({ ...entry, meetup: parseInt(meetup, 10), session: sessionIndex });
             }
           });
-        } else {
+        } else if (Array.isArray(entries)) {
           for (const entry of entries) {
             flatData.push({ ...entry, meetup: parseInt(meetup, 10), session: 0 });
           }
@@ -564,7 +568,10 @@ router.get("/chillfish/stats/instance", (req, res) => {
       }
       res.json(flatData);
     }
-    catch (e) { res.json([]); }
+    catch (e) {
+      console.log(`Error processing instance stats: ${e}`);
+      res.json([]);
+    }
   });
 });
 

@@ -1,0 +1,40 @@
+<!-- SCRIPTS -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+<script>
+    window.chillfishStatsi18n = {
+        groupMembers: "<%= content.statistics.groupMembersAxis %>",
+        instanceAttendees: "<%= content.statistics.instanceAttendeesAxis %>",
+        members: "<%= content.statistics.groupMembersAxis %>",
+        time: "<%= content.statistics.timeAxis %>",
+        meetupOption: "<%= content.statistics.meetupOption %>",
+        last4Option: "<%= lang === 'es' ? 'Últimos 4 Meetups (Promedio)' : 'Last 4 Meetups (Avg)' %>",
+        allOption: "<%= lang === 'es' ? 'Todos los Meetups (Promedio)' : 'All Meetups (Avg)' %>"
+    };
+    
+    window.chillfishGalleryi18n = {
+        empty: "<%= content.gallery.empty %>",
+        filterAll: "<%= content.gallery.filterAll %>",
+        euSession: "<%= content.gallery.euSession %>",
+        usSession: "<%= content.gallery.usSession %>",
+        by: "<%= content.gallery.by %>"
+    };
+
+    window.chillfishCommentsi18n = {
+        empty: "<%= content.comments.noComments %>",
+        submitting: "<%= content.comments.form.submitting %>",
+        alerts: {
+            successTitle: "<%= content.comments.alerts.successTitle %>",
+            successMessage: "<%= content.comments.alerts.successMessage %>",
+            errorTitle: "<%= content.comments.alerts.errorTitle %>",
+            errorMessage: "<%= content.comments.alerts.errorMessage %>",
+            networkError: "<%= content.comments.alerts.networkError %>"
+        }
+    };
+</script>
+<script src="/resources/js/chillfish.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="/resources/js/chillfish-stats.js"></script>
+<script src="/resources/js/chillfish-comments.js"></script>

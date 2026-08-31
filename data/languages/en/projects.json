@@ -1,0 +1,712 @@
+{
+  "main": "Home",
+  "sidebar": {
+    "menu": "Menu"
+  },
+  "headDetails": {
+    "lang": "en",
+    "description": "Explore all projects and repositories by Gabrielgsd categorized by technology and domain.",
+    "ogTitle": "Gabrielgsd | Projects",
+    "ogDescription": "Complete catalog of Gabrielgsd projects and code repositories."
+  },
+  "projectsPage": {
+    "title": "All Projects",
+    "description": "Explore the full catalog of projects, public repositories, and private developments.",
+    "searchPlaceholder": "Search project or technology...",
+    "seeCode": "View repository",
+    "statuses": {
+      "active": "Active",
+      "paused": "Paused",
+      "stopped": "Stopped",
+      "completed": "Completed"
+    },
+    "filters": {
+      "all": "All",
+      "web": "Web & Services",
+      "mobile_desktop": "Mobile & Desktop",
+      "tools_automation": "Bots & Automation",
+      "katas_solid": "Katas & SOLID",
+      "vr_3d": "VR & 3D"
+    },
+    "projects": [
+      {
+        "name": "gabrielgsdciuwu.github.io",
+        "category": "web",
+        "description": "Personal portfolio website built with Express, EJS, TailwindCSS, and i18n multi-language support.",
+        "skills": [
+          "JavaScript",
+          "NodeJS",
+          "Tailwindcss",
+          "EJS"
+        ],
+        "link": "https://github.com/GabrielgsdCIUwU/gabrielgsdciuwu.github.io",
+        "status": "active"
+      },
+      {
+        "name": "Fox-Rusk-Bot",
+        "category": "tools_automation",
+        "description": "Custom Discord bot for community automation, moderation, and interactive commands.",
+        "skills": [
+          "NodeJS",
+          "JavaScript"
+        ],
+        "link": "https://github.com/GabrielgsdCIUwU/Fox-Rusk-Bot",
+        "status": "active"
+      },
+      {
+        "name": "Randum-Website",
+        "category": "web",
+        "description": "Community website developed for event broadcasting and news sharing.",
+        "skills": [
+          "JavaScript",
+          "HTML5"
+        ],
+        "link": "https://github.com/RandumUwU/Randum-Website",
+        "status": "active"
+      },
+      {
+        "name": "Rusk-Shack-Archive",
+        "category": "web",
+        "description": "Offline-first web viewer for Discord chat logs exported with DiscordChatExporter, with search filtering and SQLite.",
+        "skills": [
+          "TypeScript",
+          "NodeJS",
+          "Tailwindcss"
+        ],
+        "link": "https://github.com/GabrielgsdCIUwU/Rusk-Shack-Archive",
+        "status": "active"
+      },
+      {
+        "name": "VRCMA",
+        "category": "mobile_desktop",
+        "description": "Multiplatform VRChat automation tool built with Flutter and Dart. Uses Clean Architecture, SOLID principles, and Riverpod state management to handle friend requests, world invites, and filter profiles.",
+        "skills": [
+          "Flutter",
+          "Dart"
+        ],
+        "link": "https://github.com/GabrielgsdCIUwU/VRCMA",
+        "status": "active"
+      },
+      {
+        "name": "presentacion-vrcma",
+        "category": "mobile_desktop",
+        "description": "Interactive presentation created to showcase the architecture and features of VRCMA.",
+        "skills": [
+          "JavaScript",
+          "HTML5"
+        ],
+        "link": "https://github.com/GabrielgsdCIUwU/presentacion-vrcma",
+        "status": "active"
+      },
+      {
+        "name": "timetracker",
+        "category": "web",
+        "description": "Simple and intuitive web tool for task tracking and time management.",
+        "skills": [
+          "JavaScript",
+          "HTML5"
+        ],
+        "link": "https://github.com/GabrielgsdCIUwU/timetracker",
+        "status": "active"
+      },
+      {
+        "name": "soundboard",
+        "category": "web",
+        "description": "Interactive Soundboard web application with real-time synchronized audio playback using WebSockets.",
+        "skills": [
+          "JavaScript",
+          "NodeJS",
+          "HTML5"
+        ],
+        "link": "https://github.com/GabrielgsdCIUwU/soundboard",
+        "status": "active"
+      },
+      {
+        "name": "WIS",
+        "category": "mobile_desktop",
+        "description": "Desktop application in Python that monitors image folders and automatically posts to Webhooks.",
+        "skills": [
+          "Python"
+        ],
+        "link": "https://github.com/GabrielgsdCIUwU/WIS",
+        "status": "active"
+      },
+      {
+        "name": "Cookies4Fish_n8n",
+        "category": "tools_automation",
+        "description": "Workflow automation and Webhook integration built with n8n.",
+        "skills": [
+          "Flutter",
+          "Dart"
+        ],
+        "link": "https://github.com/MMSS99/Cookies4Fish_n8n",
+        "status": "active"
+      },
+      {
+        "name": "ID-QTDesigner-practice",
+        "category": "mobile_desktop",
+        "description": "Professional Desktop ERP & Management System built with Python 3.13 and PyQt6, featuring SQLite and PDF reporting.",
+        "skills": [
+          "Python"
+        ],
+        "link": "https://github.com/GabrielgsdCIUwU/ID-QTDesigner-practice",
+        "status": "active"
+      },
+      {
+        "name": "odoo_basico",
+        "category": "katas_solid",
+        "description": "Custom development modules on the Odoo ERP platform in Python.",
+        "skills": [
+          "Python"
+        ],
+        "link": "https://github.com/GabrielgsdCIUwU/odoo_basico",
+        "status": "active"
+      },
+      {
+        "name": "neurokaraoke-premid",
+        "category": "tools_automation",
+        "description": "Rich Presence integration for PreMiD platform during Karaoke activities.",
+        "skills": [
+          "TypeScript"
+        ],
+        "link": "https://github.com/GabrielgsdCIUwU/neurokaraoke-premid",
+        "status": "active"
+      },
+      {
+        "name": "CFF-BarsForFish",
+        "category": "mobile_desktop",
+        "description": "Simulated management application for bars and hospitality businesses.",
+        "skills": [
+          "Java",
+          "Spring Boot"
+        ],
+        "link": "https://github.com/GabrielgsdCIUwU/CFF-BarsForFish",
+        "status": "active"
+      },
+      {
+        "name": "vote-app",
+        "category": "web",
+        "description": "Voting management web backend application developed using Spring Boot and Java 17.",
+        "skills": [
+          "Java",
+          "Spring Boot"
+        ],
+        "link": "https://github.com/GabrielgsdCIUwU/vote-app",
+        "status": "active"
+      },
+      {
+        "name": "european-currency-converter",
+        "category": "web",
+        "description": "European currency converter with a clean and accessible web interface.",
+        "skills": [
+          "HTML5",
+          "JavaScript",
+          "Java",
+          "Spring Boot"
+        ],
+        "link": "https://github.com/GabrielgsdCIUwU/european-currency-converter",
+        "status": "active"
+      },
+      {
+        "name": "OneBlockDesafio",
+        "category": "mobile_desktop",
+        "description": "Block minigame engine and logic for Java applications and servers.",
+        "skills": [
+          "Java"
+        ],
+        "link": "https://github.com/alvarro71/OneBlockDesafio",
+        "status": "paused"
+      },
+      {
+        "name": "scryfall-api",
+        "category": "tools_automation",
+        "description": "Java integration client for the official Magic: The Gathering (Scryfall) API.",
+        "skills": [
+          "Java"
+        ],
+        "link": "https://github.com/GabrielgsdCIUwU/scryfall-api",
+        "status": "paused"
+      },
+      {
+        "name": "dessert-clicker",
+        "category": "mobile_desktop",
+        "description": "Dessert clicker game developed for the Android platform in Kotlin.",
+        "skills": [
+          "Kotlin"
+        ],
+        "link": "https://github.com/GabrielgsdCIUwU/dessert-clicker",
+        "status": "paused"
+      },
+      {
+        "name": "30-days",
+        "category": "mobile_desktop",
+        "description": "Native Android app focused on UI design best practices with Jetpack Compose.",
+        "skills": [
+          "Kotlin"
+        ],
+        "link": "https://github.com/GabrielgsdCIUwU/30-days",
+        "status": "paused"
+      },
+      {
+        "name": "EstudiantesRDBMS-master",
+        "category": "katas_solid",
+        "description": "Student management system with relational SQL persistence in Java.",
+        "skills": [
+          "Java"
+        ],
+        "link": "https://github.com/GabrielgsdCIUwU/EstudiantesRDBMS-master",
+        "status": "paused"
+      },
+      {
+        "name": "odoo_olamundo",
+        "category": "katas_solid",
+        "description": "Introductory module and setup steps for Odoo development.",
+        "skills": [
+          "Python"
+        ],
+        "link": "https://github.com/GabrielgsdCIUwU/odoo_olamundo",
+        "status": "paused"
+      },
+      {
+        "name": "training-woof",
+        "category": "mobile_desktop",
+        "description": "Native Android app built with Jetpack Compose and Material 3 displaying dog lists and details.",
+        "skills": [
+          "Kotlin"
+        ],
+        "link": "https://github.com/GabrielgsdCIUwU/training-woof",
+        "status": "paused"
+      },
+      {
+        "name": "rick-and-morty-api",
+        "category": "tools_automation",
+        "description": "Client integration for consuming data from the official Rick and Morty API.",
+        "skills": [
+          "Java"
+        ],
+        "link": "https://github.com/GabrielgsdCIUwU/rick-and-morty-api",
+        "status": "paused"
+      },
+      {
+        "name": "art-space",
+        "category": "mobile_desktop",
+        "description": "Interactive mobile art gallery application built with Jetpack Compose.",
+        "skills": [
+          "Kotlin"
+        ],
+        "link": "https://github.com/GabrielgsdCIUwU/art-space",
+        "status": "paused"
+      },
+      {
+        "name": "pokemon-api-xml-to-json",
+        "category": "tools_automation",
+        "description": "Pokémon API consumer that parses, transforms, and outputs data in XML and JSON.",
+        "skills": [
+          "Java"
+        ],
+        "link": "https://github.com/GabrielgsdCIUwU/pokemon-api-xml-to-json",
+        "status": "paused"
+      },
+      {
+        "name": "VRCRM",
+        "category": "mobile_desktop",
+        "description": "VRChat Request Manager application developed in Python featuring MVC architecture, SQLite database integration, and multi-language support.",
+        "skills": [
+          "Python"
+        ],
+        "link": "https://github.com/GabrielgsdCIUwU/VRCRM",
+        "status": "paused"
+      },
+      {
+        "name": "miniprojects",
+        "category": "web",
+        "description": "Collection of interactive web mini-projects and practice prototypes.",
+        "skills": [
+          "JavaScript",
+          "HTML5",
+          "NodeJS"
+        ],
+        "link": "https://github.com/AlexDeveloperUwU/miniprojects",
+        "status": "paused"
+      },
+      {
+        "name": "springfield",
+        "category": "katas_solid",
+        "description": "Character management application themed around the Simpsons applying SOLID architecture.",
+        "skills": [
+          "Java"
+        ],
+        "link": "https://github.com/GabrielgsdCIUwU/springfield",
+        "status": "paused"
+      },
+      {
+        "name": "gilded-rose-kata-java",
+        "category": "katas_solid",
+        "description": "Legacy code refactoring kata Gilded Rose in Java.",
+        "skills": [
+          "Java"
+        ],
+        "link": "https://github.com/GabrielgsdCIUwU/gilded-rose-kata-java",
+        "status": "paused"
+      },
+      {
+        "name": "galley-grub",
+        "category": "katas_solid",
+        "description": "Order and menu management kata in Java applying TDD.",
+        "skills": [
+          "Java"
+        ],
+        "link": "https://github.com/GabrielgsdCIUwU/galley-grub",
+        "status": "paused"
+      },
+      {
+        "name": "team-fortress-2-kata",
+        "category": "katas_solid",
+        "description": "TDD kata on character classes and game logic for Team Fortress 2 in Java.",
+        "skills": [
+          "Java"
+        ],
+        "link": "https://github.com/GabrielgsdCIUwU/team-fortress-2-kata",
+        "status": "paused"
+      },
+      {
+        "name": "romans-go-home",
+        "category": "katas_solid",
+        "description": "Roman numerals TDD conversion kata developed in Java with JUnit5 and AssertJ.",
+        "skills": [
+          "Java"
+        ],
+        "link": "https://github.com/GabrielgsdCIUwU/romans-go-home",
+        "status": "paused"
+      },
+      {
+        "name": "ricksy-business",
+        "category": "tools_automation",
+        "description": "Practical inventory and booking management exercise themed around Rick and Morty in Java.",
+        "skills": [
+          "Java"
+        ],
+        "link": "https://github.com/GabrielgsdCIUwU/ricksy-business",
+        "status": "paused"
+      },
+      {
+        "name": "TheZiverBotJS",
+        "category": "tools_automation",
+        "description": "JavaScript Discord bot developed for TheZivers community server.",
+        "skills": [
+          "JavaScript",
+          "NodeJS"
+        ],
+        "link": "https://github.com/GabrielgsdCIUwU/TheZiverBotJS",
+        "status": "paused"
+      },
+      {
+        "name": "furnace-DIP-kata",
+        "category": "katas_solid",
+        "description": "SOLID principles exercise implementing the Dependency Inversion Principle (DIP) in Java.",
+        "skills": [
+          "Java"
+        ],
+        "link": "https://github.com/GabrielgsdCIUwU/furnace-DIP-kata",
+        "status": "paused"
+      },
+      {
+        "name": "arnold-enum-type",
+        "category": "tools_automation",
+        "description": "Experimental Java library and architecture aimed at dynamic enum extension.",
+        "skills": [
+          "Java"
+        ],
+        "link": "https://github.com/GabrielgsdCIUwU/arnold-enum-type",
+        "status": "paused"
+      },
+      {
+        "name": "cotxox",
+        "category": "katas_solid",
+        "description": "Transport fleet management system applying OOP and design patterns in Java.",
+        "skills": [
+          "Java"
+        ],
+        "link": "https://github.com/GabrielgsdCIUwU/cotxox",
+        "status": "paused"
+      },
+      {
+        "name": "stockx-ascii",
+        "category": "tools_automation",
+        "description": "Console utility to format and render price market data in ASCII art.",
+        "skills": [
+          "Java"
+        ],
+        "link": "https://github.com/GabrielgsdCIUwU/stockx-ascii",
+        "status": "paused"
+      },
+      {
+        "name": "frank-brunos-boxing",
+        "category": "tools_automation",
+        "description": "Console boxing game simulation developed in Java.",
+        "skills": [
+          "Java"
+        ],
+        "link": "https://github.com/GabrielgsdCIUwU/frank-brunos-boxing",
+        "status": "paused"
+      },
+      {
+        "name": "dni-java",
+        "category": "tools_automation",
+        "description": "Spanish DNI letter calculation and verification algorithm written in Java.",
+        "skills": [
+          "Java"
+        ],
+        "link": "https://github.com/GabrielgsdCIUwU/dni-java",
+        "status": "paused"
+      },
+      {
+        "name": "bicipalma",
+        "category": "katas_solid",
+        "description": "Public bicycle station management system applying SOLID principles in Java.",
+        "skills": [
+          "Java"
+        ],
+        "link": "https://github.com/GabrielgsdCIUwU/bicipalma",
+        "status": "paused"
+      },
+      {
+        "name": "CodeHub",
+        "category": "web",
+        "description": "Web platform for storing and sharing reusable code snippets.",
+        "skills": [
+          "JavaScript",
+          "HTML5"
+        ],
+        "link": "https://github.com/GabrielgsdCIUwU/CodeHub",
+        "status": "paused"
+      },
+      {
+        "name": "codewars",
+        "category": "katas_solid",
+        "description": "Collection of programming challenges and katas solved in Python.",
+        "skills": [
+          "Python"
+        ],
+        "link": "https://github.com/GabrielgsdCIUwU/codewars",
+        "status": "paused"
+      },
+      {
+        "name": "python-fundamentals",
+        "category": "katas_solid",
+        "description": "Interactive notebooks and learning exercises covering Python fundamentals.",
+        "skills": [
+          "Python"
+        ],
+        "link": "https://github.com/GabrielgsdCIUwU/python-fundamentals",
+        "status": "stopped"
+      },
+      {
+        "name": "Azirax",
+        "category": "tools_automation",
+        "description": "Multifunctional Spanish Discord bot with music, moderation, and server management features.",
+        "skills": [
+          "NodeJS",
+          "JavaScript",
+          "HTML5"
+        ],
+        "link": "https://azirax.oops.wtf",
+        "repoLink": "https://github.com/AlexDeveloperUwU/Azirax",
+        "status": "stopped"
+      },
+      {
+        "name": "Tennis-Refactoring-Kata",
+        "category": "katas_solid",
+        "description": "Tennis scorekeeper logic refactoring kata in Python.",
+        "skills": [
+          "Python"
+        ],
+        "link": "https://github.com/GabrielgsdCIUwU/Tennis-Refactoring-Kata",
+        "status": "stopped"
+      },
+      {
+        "name": "pedra-papel-tesoira",
+        "category": "katas_solid",
+        "description": "Rock, Paper, Scissors game exercise created for the AI specialization at IES de Teis.",
+        "skills": [
+          "Python"
+        ],
+        "link": "https://github.com/GabrielgsdCIUwU/pedra-papel-tesoira",
+        "status": "stopped"
+      },
+      {
+        "name": "dni",
+        "category": "tools_automation",
+        "description": "DNI calculator and validator implemented using Object-Oriented Programming in Python.",
+        "skills": [
+          "Python"
+        ],
+        "link": "https://github.com/GabrielgsdCIUwU/dni",
+        "status": "stopped"
+      },
+      {
+        "name": "bowling-game-kata-automata",
+        "category": "katas_solid",
+        "description": "Bowling game TDD scoring kata applying finite state automata in Java.",
+        "skills": [
+          "Java"
+        ],
+        "link": "https://github.com/GabrielgsdCIUwU/bowling-game-kata-automata",
+        "status": "stopped"
+      },
+      {
+        "name": "Yatzy",
+        "category": "katas_solid",
+        "description": "Yatzy dice game applying refactoring and OOP best practices in Python.",
+        "skills": [
+          "Python"
+        ],
+        "link": "https://github.com/Desteveco/Yatzy",
+        "status": "stopped"
+      },
+      {
+        "name": "Bonfire Lounge",
+        "category": "web",
+        "description": "Interactive and dynamic website developed for the VRChat Bonfire Lounge community bar.",
+        "skills": [
+          "HTML5",
+          "JavaScript",
+          "NodeJS",
+          "EJS"
+        ],
+        "link": "https://github.com/GabrielgsdCIUwU/BonfireLounge",
+        "status": "stopped"
+      },
+      {
+        "name": "unscrable",
+        "category": "mobile_desktop",
+        "description": "Interactive word scramble game mobile application built in Kotlin.",
+        "skills": [
+          "Kotlin"
+        ],
+        "link": "https://github.com/GabrielgsdCIUwU/unscrable",
+        "status": "stopped"
+      },
+      {
+        "name": "quien-es-quien",
+        "category": "katas_solid",
+        "description": "Interactive 'Guess Who' character guessing game developed in Python.",
+        "skills": [
+          "Python"
+        ],
+        "link": "https://github.com/Valwraek/quien-es-quien",
+        "status": "stopped"
+      },
+      {
+        "name": "chat-app-reflex",
+        "category": "mobile_desktop",
+        "description": "Multiplatform chat application built in Python using the Reflex framework.",
+        "skills": [
+          "Python"
+        ],
+        "link": "https://github.com/Valwraek/chat-app-reflex",
+        "status": "stopped"
+      },
+      {
+        "name": "soundboard-extras",
+        "category": "web",
+        "description": "Additional audio modules and sound effects developed to extend the Soundboard application.",
+        "skills": [
+          "JavaScript",
+          "NodeJS"
+        ],
+        "link": "https://github.com/GabrielgsdCIUwU/soundboard-extras",
+        "status": "stopped"
+      },
+      {
+        "name": "satis-calc",
+        "category": "web",
+        "description": "Interactive web calculator for calculating and optimizing Satisfactory production lines.",
+        "skills": [
+          "JavaScript",
+          "EJS"
+        ],
+        "link": "https://github.com/GabrielgsdCIUwU/satis-calc",
+        "status": "stopped"
+      },
+      {
+        "name": "ChaosLeagueLiveOS-Spanish",
+        "category": "katas_solid",
+        "description": "Interactive real-time system for Twitch live streams built in C#.",
+        "skills": [
+          "C#"
+        ],
+        "link": "https://github.com/GabrielgsdCIUwU/ChaosLeagueLiveOS-Spanish",
+        "status": "stopped"
+      },
+      {
+        "name": "viborax",
+        "category": "tools_automation",
+        "description": "Utility and mini-game interactive Discord bot for community servers.",
+        "skills": [
+          "JavaScript",
+          "NodeJS"
+        ],
+        "link": "https://github.com/GabrielgsdCIUwU/viborax",
+        "status": "completed"
+      },
+      {
+        "name": "DJ.MRN",
+        "category": "tools_automation",
+        "description": "High-fidelity music playback Discord bot for voice channels.",
+        "skills": [
+          "JavaScript",
+          "NodeJS"
+        ],
+        "link": "https://github.com/GabrielgsdCIUwU/DJ.MRN",
+        "status": "completed"
+      },
+      {
+        "name": "botawita",
+        "category": "tools_automation",
+        "description": "Automatic notification and event integration Discord bot.",
+        "skills": [
+          "JavaScript",
+          "NodeJS"
+        ],
+        "link": "https://github.com/GabrielgsdCIUwU/botawita",
+        "status": "completed"
+      },
+      {
+        "name": "bot-ci-web",
+        "category": "web",
+        "description": "Web administration and statistics dashboard for the CI community.",
+        "skills": [
+          "JavaScript",
+          "HTML5"
+        ],
+        "link": "https://github.com/GabrielgsdCIUwU/bot-ci-web",
+        "status": "completed"
+      },
+      {
+        "name": "botci",
+        "category": "tools_automation",
+        "description": "Automation bot and integration tools for the CI community.",
+        "skills": [
+          "JavaScript",
+          "NodeJS"
+        ],
+        "link": "https://github.com/GabrielgsdCIUwU/botci",
+        "status": "completed"
+      },
+      {
+        "name": "Rusky",
+        "category": "vr_3d",
+        "description": "Custom 3D avatar optimized for the VRChat platform, with animations and custom blendshapes.",
+        "skills": [
+          "Unity",
+          "Blender"
+        ],
+        "link": "https://vrchat.com/home/world/wrld_ca06bece-0320-4b7d-815a-e1f188272318",
+        "status": "completed",
+        "buttonText": "View on VRChat",
+        "iconClass": "fas fa-vr-cardboard"
+      }
+    ]
+  }
+}

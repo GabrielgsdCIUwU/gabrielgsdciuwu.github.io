@@ -1,0 +1,82 @@
+<!-- SECTION 03 — MEMORIAS DE LA COMUNIDAD (Galería) -->
+<section id="gallery-section" class="py-20 md:py-28 px-6 relative bg-gradient-to-b from-[#0a0a0f] via-[#0a0d14] to-[#0d0d14]">
+    <div class="max-w-6xl mx-auto">
+        <div class="mb-12 text-center reveal-on-scroll">
+            <span class="text-blue-400 font-mono text-sm tracking-widest uppercase mb-4 block"><%= content.gallery.label %></span>
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-light tracking-tight text-white mb-4"><%= content.gallery.title %></h2>
+            <p class="text-neutral-300 text-lg max-w-2xl mx-auto"><%= content.gallery.description %></p>
+        </div>
+        
+        <!-- Meetup Filter Dropdown -->
+        <div class="flex justify-center mb-10 reveal-on-scroll relative z-30">
+            <div class="relative w-full max-w-md" id="gallery-dropdown-container">
+                <button id="gallery-select-btn" aria-haspopup="listbox" aria-expanded="false" class="w-full flex items-center justify-between bg-[#12121a] p-4 rounded-xl border border-neutral-800 text-sm text-white hover:border-neutral-600 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <span id="gallery-select-text" class="flex items-center gap-3 truncate text-neutral-300">
+                        <i class="fas fa-filter text-blue-400"></i> <span id="gallery-select-label"><%= content.gallery.filterAll %></span>
+                    </span>
+                    <i class="fas fa-chevron-down text-neutral-400 text-xs transition-transform duration-300"></i>
+                </button>
+                <div id="gallery-select-dropdown" role="listbox" class="absolute z-50 left-0 w-full mt-2 bg-[#12121a] border border-neutral-800 rounded-xl shadow-2xl hidden max-h-[350px] flex flex-col origin-top overflow-hidden">
+                    <div class="p-3 border-b border-neutral-800/50 bg-[#0a0a0f] z-10">
+                        <div class="relative">
+                            <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400 text-xs"></i>
+                            <input type="text" id="gallery-search" placeholder="<%= content.gallery.searchPlaceholder %>" class="w-full bg-[#12121a] border border-neutral-800 rounded-lg py-2 pl-8 pr-3 text-sm text-neutral-300 focus:outline-none focus:border-blue-500 transition-colors">
+                        </div>
+                    </div>
+                    <div class="overflow-y-auto custom-scrollbar flex-1">
+                        <div role="option" class="p-4 hover:bg-blue-500/10 cursor-pointer text-sm font-medium transition-all duration-300 text-white flex items-center gap-3 border-b border-neutral-800/50 group" data-filter="all">
+                            <i class="fas fa-layer-group text-neutral-400 group-hover:text-blue-400 transition-colors w-4 text-center"></i> 
+                            <span><%= content.gallery.filterAll %></span>
+                        </div>
+                        <div id="gallery-options-container"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Compact Scrollable Gallery Container with Automatic Background Loading -->
+        <div class="relative reveal-on-scroll">
+            <div id="gallery-container" class="max-h-[480px] sm:max-h-[560px] md:max-h-[620px] overflow-y-auto custom-scrollbar p-3 md:p-5 bg-[#12121a]/50 border border-neutral-800/80 rounded-2xl backdrop-blur-sm shadow-inner transition-all duration-300">
+                <div id="gallery-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 p-2">
+                    <div class="col-span-full text-center py-20 text-neutral-400 hidden" id="gallery-empty-state">
+                        <i class="fas fa-images text-5xl mb-6 opacity-30"></i>
+                        <p class="text-lg"><%= content.gallery.empty %></p>
+                    </div>
+                </div>
+                <!-- Automatic Background Loading Indicator -->
+                <div id="gallery-sentinel" class="py-6 text-center hidden">
+                    <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-[#0a0a0f]/80 border border-neutral-800 text-xs font-mono text-neutral-400 shadow-md">
+                        <i class="fas fa-circle-notch fa-spin text-blue-400"></i>
+                        <span><%= lang === 'es' ? 'Cargando más fotos...' : 'Loading more photos...' %></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Modal Lightbox with Focus Trap -->
+        <div id="gallery-modal" role="dialog" aria-modal="true" class="fixed inset-0 z-[100] bg-black/95 backdrop-blur-xl hidden flex items-center justify-center p-4 md:p-8 opacity-0 transition-opacity duration-300">
+            <button id="gallery-modal-close" aria-label="<%= content.gallery.closeModalAria %>" class="absolute top-6 right-6 text-white hover:text-red-400 transition-all duration-300 w-12 h-12 flex items-center justify-center bg-white/5 rounded-full hover:bg-white/10 z-[102] focus:outline-none focus:ring-2 focus:ring-blue-400">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+
+            <button id="gallery-modal-prev" aria-label="<%= content.gallery.prevModalAria %>" class="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-all duration-300 w-12 h-12 md:w-14 md:h-14 flex items-center justify-center bg-white/5 rounded-full hover:bg-white/15 z-[102] hover:scale-110 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                <i class="fas fa-chevron-left text-2xl"></i>
+            </button>
+
+            <button id="gallery-modal-next" aria-label="<%= content.gallery.nextModalAria %>" class="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-all duration-300 w-12 h-12 md:w-14 md:h-14 flex items-center justify-center bg-white/5 rounded-full hover:bg-white/15 z-[102] hover:scale-110 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                <i class="fas fa-chevron-right text-2xl"></i>
+            </button>
+
+            <div class="relative max-w-full max-h-full w-full h-full flex items-center justify-center">
+                <img id="gallery-modal-img" src="" alt="Meetup Picture" class="max-w-[90%] max-h-[80vh] object-contain rounded-lg shadow-[0_0_50px_rgba(0,0,0,0.5)] scale-95 transition-transform duration-300">
+                <div class="absolute bottom-4 md:bottom-8 left-1/2 -translate-x-1/2 bg-black/70 backdrop-blur-md border border-white/10 rounded-full px-6 py-3 flex items-center gap-3 text-sm text-white transform translate-y-4 opacity-0 transition-all duration-300 whitespace-nowrap" id="gallery-modal-info">
+                    <span id="gallery-modal-meetup" class="font-mono text-blue-400 font-medium"></span>
+                    <span class="w-1.5 h-1.5 rounded-full bg-neutral-600"></span>
+                    <span id="gallery-modal-session" class="text-neutral-300"></span>
+                    <span class="w-1.5 h-1.5 rounded-full bg-neutral-600"></span>
+                    <span id="gallery-modal-author" class="text-neutral-300 italic"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

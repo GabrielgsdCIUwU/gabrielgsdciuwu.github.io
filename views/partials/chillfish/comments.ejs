@@ -1,0 +1,81 @@
+<!-- SECTION 07 — VOCES DE LA COMUNIDAD (Testimonios) -->
+<section id="comments-section" class="py-20 md:py-28 px-6 bg-[#0d0d14] border-t border-neutral-900">
+    <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-16 reveal-on-scroll">
+            <span class="text-blue-400 font-mono text-sm tracking-widest uppercase mb-4 block"><%= content.comments.label %></span>
+            <h2 class="text-3xl md:text-4xl font-light text-white mb-4 text-balance">
+                <%= content.comments.title %>
+            </h2>
+            <p class="text-neutral-300 text-lg max-w-2xl mx-auto">
+                <%= content.comments.description %>
+            </p>
+        </div>
+
+        <div class="grid lg:grid-cols-2 gap-12">
+            <!-- Approved Comments Feed -->
+            <div class="bg-[#12121a] border border-neutral-800 rounded-2xl p-6 lg:p-8 h-fit reveal-on-scroll">
+                <h3 class="text-lg font-medium text-white mb-6 flex items-center gap-2">
+                    <i class="fas fa-check-circle text-green-400"></i>
+                    <%= content.comments.approved %>
+                </h3>
+                
+                <div id="chill-comments-list" class="space-y-4 max-h-[500px] overflow-y-auto pr-2 custom-scrollbar">
+                    <div class="animate-pulse flex space-x-4">
+                        <div class="flex-1 space-y-4 py-1">
+                            <div class="h-24 bg-[#0a0a0f] rounded-xl border border-neutral-800/80"></div>
+                            <div class="h-24 bg-[#0a0a0f] rounded-xl border border-neutral-800/80"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimonial Submission Form -->
+            <div class="bg-[#12121a] border border-neutral-800 rounded-2xl p-6 lg:p-8 h-fit reveal-on-scroll" style="transition-delay: 200ms;">
+                <h3 class="text-lg font-medium text-white mb-6 flex items-center gap-2">
+                    <i class="fas fa-paper-plane text-blue-400"></i>
+                    <%= content.comments.form.title %>
+                </h3>
+
+                <form id="chill-comment-form" class="space-y-5">
+                    <div class="space-y-2">
+                        <label for="cf-name" class="text-neutral-300 text-sm"><%= content.comments.form.nameLabel %></label>
+                        <input type="text" id="cf-name" required maxlength="50"
+                            placeholder="<%= content.comments.form.namePlaceholder %>"
+                            class="w-full bg-[#0a0a0f] border border-neutral-800 rounded-lg p-3 text-white focus:border-blue-500 focus:outline-none transition-colors">
+                    </div>
+
+                    <div class="space-y-2">
+                        <label for="cf-role" class="text-neutral-300 text-sm"><%= content.comments.form.roleLabel %></label>
+                        <div class="relative">
+                            <select id="cf-role" class="w-full bg-[#0a0a0f] border border-neutral-800 rounded-lg p-3 text-white appearance-none focus:border-blue-500 focus:outline-none transition-colors cursor-pointer">
+                                <option value="Member"><%= content.comments.form.roles.member %></option>
+                                <option value="Regular Attendee"><%= content.comments.form.roles.regular %></option>
+                                <option value="Moderator"><%= content.comments.form.roles.moderator %></option>
+                                <option value="Visitor"><%= content.comments.form.roles.visitor %></option>
+                            </select>
+                            <i class="fas fa-chevron-down absolute right-4 top-4 text-neutral-400 pointer-events-none"></i>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label for="cf-comment" class="text-neutral-300 text-sm"><%= content.comments.form.textLabel %></label>
+                        <textarea id="cf-comment" required maxlength="500" rows="4"
+                            placeholder="<%= content.comments.form.textPlaceholder %>"
+                            class="w-full bg-[#0a0a0f] border border-neutral-800 rounded-lg p-3 text-white focus:border-blue-500 focus:outline-none transition-colors resize-none"></textarea>
+                        <p class="text-xs text-neutral-400 text-right">Max 500 chars</p>
+                    </div>
+
+                    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-medium py-3 rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/20 flex items-center justify-center gap-2">
+                        <span><%= content.comments.form.submit %></span>
+                        <i class="fas fa-arrow-right text-xs"></i>
+                    </button>
+
+                    <p class="text-xs text-neutral-300 text-center mt-4 leading-relaxed">
+                        <i class="fas fa-user-shield text-blue-400 mr-1"></i>
+                        <%= content.comments.form.note %>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

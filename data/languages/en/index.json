@@ -36,7 +36,7 @@
       {
         "type": "info",
         "title": "My motivation",
-        "description": "I am driven by a constant desire to learn and acquire new knowledge. I enjoy every opportunity for growth and I am passionate about applying what I learn to help others and create useful solutions."
+        "description": "I am driven by a constant desire to learn, acquire new knowledge, and automate repetitive or tedious tasks to streamline processes. I enjoy every opportunity for growth and I am passionate about applying what I learn to help others and create useful solutions."
       },
       {
         "type": "info",
@@ -136,6 +136,30 @@
         "icon": "/resources/svg/blender-icon.svg",
         "category": "Design & 3D",
         "description": "3D modeling, including creation and editing of shape keys (blendshapes) and adapting models for integration into VTubing platforms like VSeeFace."
+      },
+      {
+        "name": "TypeScript",
+        "icon": "/resources/svg/typescript-icon.svg",
+        "category": "Development",
+        "description": "Development of scalable, strongly typed applications, including offline-first log viewers, high-volume data search modules, and Rich Presence integrations for community platforms."
+      },
+      {
+        "name": "C#",
+        "icon": "/resources/svg/csharp-icon.svg",
+        "category": "Development",
+        "description": "Object-oriented programming in C#, featuring real-time stream interaction tools for Twitch and custom script development within Unity environments."
+      },
+      {
+        "name": "Flutter",
+        "icon": "/resources/svg/flutter-icon.svg",
+        "category": "Development",
+        "description": "Multiplatform application development utilizing Clean Architecture, reactive state management with Riverpod, and background processing for complex workflows."
+      },
+      {
+        "name": "Dart",
+        "icon": "/resources/svg/dart-icon.svg",
+        "category": "Development",
+        "description": "Object-oriented and reactive programming in Dart (v3.x), applying SOLID principles, design patterns, and asynchronous logic for API integrations and rules engines."
       }
     ]
   },
@@ -143,15 +167,20 @@
     "title": "Featured Projects",
     "description": "Explore some of the most notable projects I've developed.",
     "seeProject": "See project",
+    "seeAll": "See all projects",
     "projects": [
       {
-        "title": "Bonfire Lounge",
-        "description": "Website for a VRChat bar.",
-        "date": "21/8/2024 - ⏹️ 13/01/2025",
-        "image": "/resources/img/Bonfire.avif",
-        "alt": "Bonfire lounge",
-        "link": "https://github.com/GabrielgsdCIUwU/BonfireLounge",
-        "skills": ["HTML5", "JavaScript", "NodeJS", "EJS"]
+        "title": "VRCMA",
+        "description": "Smart automation tool for VRChat.",
+        "date": "27/03/2026 - ▶️ Present",
+        "image": "/resources/img/vrcma-logo.png",
+        "imageClass": "object-contain p-4 bg-slate-900",
+        "alt": "VRCMA Logo",
+        "link": "https://github.com/GabrielgsdCIUwU/VRCMA",
+        "skills": [
+          "Flutter",
+          "Dart"
+        ]
       },
       {
         "title": "Rusky",
@@ -160,7 +189,10 @@
         "image": "/resources/img/KofiBanner.avif",
         "alt": "Rusky",
         "link": "https://vrchat.com/home/world/wrld_ca06bece-0320-4b7d-815a-e1f188272318",
-        "skills": ["Unity", "Blender"]
+        "skills": [
+          "Unity",
+          "Blender"
+        ]
       },
       {
         "title": "Azirax",
@@ -169,7 +201,11 @@
         "image": "/resources/img/Azirax.avif",
         "alt": "Azirax Logo",
         "link": "https://azirax.oops.wtf",
-        "skills": ["NodeJS", "JavaScript", "HTML5"]
+        "skills": [
+          "NodeJS",
+          "JavaScript",
+          "HTML5"
+        ]
       }
     ]
   },

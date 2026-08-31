@@ -1,0 +1,31 @@
+<!-- SECTION 01 — EL SANTUARIO / LA EXPERIENCIA -->
+<section id="overview-section" class="py-20 md:py-28 px-6 relative bg-gradient-to-b from-[#0a0a0f] via-[#0d1520] to-[#0a0a0f]">
+    <div class="max-w-5xl mx-auto">
+        <div class="mb-16 text-center reveal-on-scroll">
+            <span class="text-blue-400 font-mono text-sm tracking-widest uppercase mb-4 block"><%= content.overview.label %></span>
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-light tracking-tight text-white mb-4"><%= content.overview.title %></h2>
+            <p class="text-neutral-300 text-lg max-w-2xl mx-auto"><%= content.overview.subtitle %></p>
+        </div>
+
+        <!-- Feature Cards -->
+        <div class="grid md:grid-cols-3 gap-6 md:gap-8">
+            <% content.overview.cards.forEach((card, index) => { %>
+            <div class="p-8 border border-neutral-800/80 rounded-2xl bg-[#12121a]/60 backdrop-blur-sm reveal-on-scroll flex flex-col justify-between hover:border-blue-500/30 transition-all duration-300 hover:-translate-y-1" style="transition-delay: <%= index * 100 %>ms;">
+                <div>
+                    <div class="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center mb-6 border border-blue-500/20">
+                        <% if (index === 0) { %>
+                            <i class="fas fa-fire text-blue-400 text-xl"></i>
+                        <% } else if (index === 1) { %>
+                            <i class="fas fa-music text-blue-400 text-xl"></i>
+                        <% } else { %>
+                            <i class="fas fa-mobile-alt text-blue-400 text-xl"></i>
+                        <% } %>
+                    </div>
+                    <h3 class="text-xl font-medium text-white mb-3"><%= card.title %></h3>
+                    <p class="text-neutral-300 text-sm leading-relaxed"><%= card.content %></p>
+                </div>
+            </div>
+            <% }) %>
+        </div>
+    </div>
+</section>

@@ -13,8 +13,9 @@ function loadLangData(lang, file) {
 export function renderPage(req, res, page) {
     const { lang } = req.params;
     try {
-        const content = loadLangData(lang, page)
-        res.render(`../views/${page}.ejs`, {lang, content});
+        const content = loadLangData(lang, page);
+        const indexData = loadLangData(lang, "index");
+        res.render(`../views/${page}.ejs`, { lang, content, knowledge: indexData.knowledge });
     } catch (error) {
         console.log(error);
         res.status(404).send("Idioma o archivo no encontrado");
