@@ -43,6 +43,17 @@
         "status": "active"
       },
       {
+        "name": "Fox-Rusk-Bot",
+        "category": "tools_automation",
+        "description": "Bot de Discord personalizado para la automatización, moderación y comandos interactivos de la comunidad.",
+        "skills": [
+          "NodeJS",
+          "JavaScript"
+        ],
+        "link": "https://github.com/GabrielgsdCIUwU/Fox-Rusk-Bot",
+        "status": "active"
+      },
+      {
         "name": "Randum-Website",
         "category": "web",
         "description": "Página web comunitaria desarrollada para la difusión de eventos e información.",
@@ -316,17 +327,6 @@
           "NodeJS"
         ],
         "link": "https://github.com/AlexDeveloperUwU/miniprojects",
-        "status": "paused"
-      },
-      {
-        "name": "Fox-Rusk-Bot",
-        "category": "tools_automation",
-        "description": "Bot de Discord personalizado para la automatización, moderación y comandos interactivos de la comunidad.",
-        "skills": [
-          "NodeJS",
-          "JavaScript"
-        ],
-        "link": "https://github.com/GabrielgsdCIUwU/Fox-Rusk-Bot",
         "status": "paused"
       },
       {
