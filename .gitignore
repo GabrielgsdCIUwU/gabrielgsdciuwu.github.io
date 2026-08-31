@@ -20,3 +20,4 @@ sessions
 .vscode
 resources/json/chillfish-stats-instance.json
 resources/json/chillfish-stats-group.json
+resources/json/projects-metadata.json
