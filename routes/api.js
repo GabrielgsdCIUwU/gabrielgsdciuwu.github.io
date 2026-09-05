@@ -609,9 +609,12 @@ router.post("/chillfish/pictures", authenticateBotOrAdmin, upload.single("image"
     const fileName = `${meetupNumber}_${session}_${newId}.webp`;
     const outputPath = path.join(__dirname, "../resources/img/meetups", fileName);
 
-    await sharp(file.path)
+    const inputMetadata = await sharp(file.path).metadata();
+    const isAnimated = (inputMetadata.pages ?? 1) > 1;
+
+    await sharp(file.path, { animated: isAnimated })
       .resize({ width: 1000, withoutEnlargement: true })
-      .webp({ quality: 80 })
+      .webp({ quality: 80, effort: 4 })
       .toFile(outputPath);
 
     const newPic = {
