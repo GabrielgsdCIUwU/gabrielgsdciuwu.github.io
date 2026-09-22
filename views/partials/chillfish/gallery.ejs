@@ -69,7 +69,8 @@
 
             <div class="relative max-w-full max-h-full w-full h-full flex items-center justify-center">
                 <img id="gallery-modal-img" src="" alt="Meetup Picture" class="max-w-[90%] max-h-[80vh] object-contain rounded-lg shadow-[0_0_50px_rgba(0,0,0,0.5)] scale-95 transition-transform duration-300">
-                <div class="absolute bottom-4 md:bottom-8 left-1/2 -translate-x-1/2 bg-black/70 backdrop-blur-md border border-white/10 rounded-full px-6 py-3 flex items-center gap-3 text-sm text-white transform translate-y-4 opacity-0 transition-all duration-300 whitespace-nowrap" id="gallery-modal-info">
+                <div id="gallery-modal-360-container" class="w-[90vw] h-[75vh] max-w-5xl rounded-xl shadow-[0_0_50px_rgba(0,0,0,0.5)] overflow-hidden hidden relative border border-white/10"></div>
+                <div class="absolute bottom-4 md:bottom-8 left-1/2 -translate-x-1/2 bg-black/70 backdrop-blur-md border border-white/10 rounded-full px-6 py-3 flex items-center gap-3 text-sm text-white transform translate-y-4 opacity-0 transition-all duration-300 whitespace-nowrap z-[103]" id="gallery-modal-info">
                     <span id="gallery-modal-meetup" class="font-mono text-blue-400 font-medium"></span>
                     <span class="w-1.5 h-1.5 rounded-full bg-neutral-600"></span>
                     <span id="gallery-modal-session" class="text-neutral-300"></span>

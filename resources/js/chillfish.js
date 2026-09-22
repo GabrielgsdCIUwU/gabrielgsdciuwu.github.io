@@ -275,15 +275,90 @@ function initGalleryController() {
         by: 'by'
     };
 
+    let pannellumLoaderPromise = null;
+    let activePannellumViewer = null;
+
+    function loadPannellumLibrary() {
+        if (window.pannellum) return Promise.resolve();
+        if (pannellumLoaderPromise) return pannellumLoaderPromise;
+
+        pannellumLoaderPromise = new Promise((resolve, reject) => {
+            const cssLink = document.createElement('link');
+            cssLink.rel = 'stylesheet';
+            cssLink.href = 'https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css';
+            document.head.appendChild(cssLink);
+
+            const jsScript = document.createElement('script');
+            jsScript.src = 'https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js';
+            jsScript.onload = () => resolve();
+            jsScript.onerror = (err) => reject(err);
+            document.head.appendChild(jsScript);
+        });
+
+        return pannellumLoaderPromise;
+    }
+
+    function destroy360Viewer() {
+        if (activePannellumViewer) {
+            try {
+                activePannellumViewer.destroy();
+            } catch (e) {}
+            activePannellumViewer = null;
+        }
+        const container360 = document.getElementById('gallery-modal-360-container');
+        if (container360) {
+            container360.innerHTML = '';
+            container360.classList.add('hidden');
+        }
+    }
+
     function updateModalContent(index) {
         if (!currentDisplayedPictures || currentDisplayedPictures.length === 0) return;
 
         currentModalIndex = (index + currentDisplayedPictures.length) % currentDisplayedPictures.length;
         const picture = currentDisplayedPictures[currentModalIndex];
 
-        if (!modalImg) return;
+        const container360 = document.getElementById('gallery-modal-360-container');
 
-        modalImg.src = picture.url;
+        if (picture.is360 && container360) {
+            destroy360Viewer();
+            if (modalImg) modalImg.classList.add('hidden');
+            container360.classList.remove('hidden');
+            container360.innerHTML = `
+                <div class="absolute inset-0 flex items-center justify-center text-blue-400 font-mono text-sm gap-2">
+                    <i class="fas fa-circle-notch fa-spin text-lg"></i>
+                    <span>Loading 360° Panorama...</span>
+                </div>
+            `;
+
+            loadPannellumLibrary().then(() => {
+                container360.innerHTML = '';
+                activePannellumViewer = window.pannellum.viewer(container360, {
+                    type: 'equirectangular',
+                    panorama: picture.url,
+                    autoLoad: true,
+                    autoRotate: -1.5,
+                    compass: false,
+                    showZoomCtrl: true,
+                    mouseZoom: true,
+                    hfov: 110
+                });
+            }).catch(err => {
+                console.error('Failed loading Pannellum 360 viewer:', err);
+                container360.innerHTML = `
+                    <div class="absolute inset-0 flex items-center justify-center text-red-400 font-mono text-sm">
+                        <span>Failed to load 360° viewer</span>
+                    </div>
+                `;
+            });
+        } else {
+            destroy360Viewer();
+            if (modalImg) {
+                modalImg.classList.remove('hidden');
+                modalImg.src = picture.url;
+            }
+        }
+
         if (modalMeetup) modalMeetup.textContent = `Meetup ${picture.meetupNumber}`;
         if (modalSession) modalSession.textContent = picture.session === 0 ? i18nGallery.euSession : i18nGallery.usSession;
 
@@ -302,7 +377,7 @@ function initGalleryController() {
     }
 
     function openModal(index, triggerElement) {
-        if (!modal || !modalImg) return;
+        if (!modal) return;
 
         lastActiveTriggerElement = triggerElement;
         updateModalContent(index);
@@ -313,8 +388,10 @@ function initGalleryController() {
         modal.classList.add('opacity-100');
 
         setTimeout(() => {
-            modalImg.classList.remove('scale-95');
-            modalImg.classList.add('scale-100');
+            if (modalImg && !modalImg.classList.contains('hidden')) {
+                modalImg.classList.remove('scale-95');
+                modalImg.classList.add('scale-100');
+            }
             if (modalInfo) {
                 modalInfo.classList.remove('translate-y-4', 'opacity-0');
                 modalInfo.classList.add('translate-y-0', 'opacity-100');
@@ -326,19 +403,22 @@ function initGalleryController() {
     }
 
     function closeModal() {
-        if (!modal || !modalImg) return;
+        if (!modal) return;
 
         modal.classList.remove('opacity-100');
         modal.classList.add('opacity-0');
 
-        modalImg.classList.remove('scale-100');
-        modalImg.classList.add('scale-95');
+        if (modalImg) {
+            modalImg.classList.remove('scale-100');
+            modalImg.classList.add('scale-95');
+        }
         if (modalInfo) {
             modalInfo.classList.remove('translate-y-0', 'opacity-100');
             modalInfo.classList.add('translate-y-4', 'opacity-0');
         }
 
         setTimeout(() => {
+            destroy360Viewer();
             modal.classList.add('hidden');
             document.body.style.overflow = '';
             lastActiveTriggerElement?.focus();
@@ -365,7 +445,8 @@ function initGalleryController() {
 
     if (modal) {
         modal.addEventListener('click', (e) => {
-            const isClickInsideControls = modalImg?.contains(e.target) || modalInfo?.contains(e.target) || modalPrev?.contains(e.target) || modalNext?.contains(e.target);
+            const container360 = document.getElementById('gallery-modal-360-container');
+            const isClickInsideControls = modalImg?.contains(e.target) || container360?.contains(e.target) || modalInfo?.contains(e.target) || modalPrev?.contains(e.target) || modalNext?.contains(e.target);
             if (!isClickInsideControls) closeModal();
         });
 
@@ -433,6 +514,13 @@ function initGalleryController() {
                 wrapper.setAttribute('type', 'button');
                 wrapper.setAttribute('aria-label', `View photo Meetup ${pic.meetupNumber}`);
                 wrapper.className = 'group relative aspect-video rounded-xl overflow-hidden cursor-pointer bg-[#12121a] border border-neutral-800 transition-all duration-300 hover:border-blue-500/50 hover:shadow-[0_0_30px_rgba(59,130,246,0.15)] focus:outline-none focus:ring-2 focus:ring-blue-500 text-left';
+
+                if (pic.is360) {
+                    const badge360 = document.createElement('div');
+                    badge360.className = 'absolute top-3 right-3 z-10 px-2.5 py-1 rounded-full bg-blue-600/90 text-white text-xs font-mono flex items-center gap-1.5 shadow-lg backdrop-blur-md border border-white/20 pointer-events-none';
+                    badge360.innerHTML = '<i class="fas fa-vr-cardboard"></i> <span>360°</span>';
+                    wrapper.appendChild(badge360);
+                }
 
                 const img = document.createElement('img');
                 img.src = pic.url;
