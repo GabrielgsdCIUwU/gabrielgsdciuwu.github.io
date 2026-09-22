@@ -47,10 +47,11 @@ app.use(helmet({
         "'self'",
         "'unsafe-inline'",
         "cdnjs.cloudflare.com",
-        "fonts.googleapis.com"
+        "fonts.googleapis.com",
+        "cdn.jsdelivr.net"
       ],
       fontSrc: ["'self'", "cdnjs.cloudflare.com", "fonts.gstatic.com", "data:"],
-      imgSrc: ["'self'", "data:", "https:"],
+      imgSrc: ["'self'", "data:", "https:", "blob:"],
       mediaSrc: ["'self'", "https://raw.githubusercontent.com"],
       connectSrc: [
         "'self'", 
@@ -58,8 +59,10 @@ app.use(helmet({
         "wss:", 
         "https://cdnjs.cloudflare.com", 
         "https://raw.githubusercontent.com",
-        "https://gabrielgsd.developer.li"
+        "https://gabrielgsd.developer.li",
+        "https://cdn.jsdelivr.net"
       ],
+      workerSrc: ["'self'", "blob:"]
     },
   },
 }));

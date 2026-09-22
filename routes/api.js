@@ -596,10 +596,27 @@ router.get("/chillfish/pictures", (req, res) => {
 const meetupPicturesQueuePath = path.join(__dirname, "../resources/json/meetup-pictures-queue.json");
 const notificationsPath = path.join(__dirname, "../resources/json/notifications.json");
 
+// GET endpoint for picture notifications & status actions (called by Discord bot)
+router.get("/chillfish/notifications", authenticateBotOrAdmin, (req, res) => {
+  try {
+    if (!fs.existsSync(notificationsPath)) return res.json([]);
+    const data = fs.readFileSync(notificationsPath, "utf8");
+    const notifications = JSON.parse(data || "[]");
+
+    // Clear notifications file once retrieved by the bot
+    fs.writeFileSync(notificationsPath, "[]", "utf8");
+
+    res.json(notifications);
+  } catch (e) {
+    console.error("Error fetching notifications:", e);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 // POST endpoint for meetup pictures (called by Discord bot)
 router.post("/chillfish/pictures", authenticateBotOrAdmin, upload.single("image"), async (req, res) => {
   try {
-    const { meetupNumber, session, timestamp, author, userId, originalUrl } = req.body;
+    const { meetupNumber, session, timestamp, author, userId, originalUrl, is360, messageId, channelId } = req.body;
     const file = req.file;
 
     if (!file) return res.status(400).json({ error: "No image file provided" });
@@ -609,12 +626,21 @@ router.post("/chillfish/pictures", authenticateBotOrAdmin, upload.single("image"
     const fileName = `${meetupNumber}_${session}_${newId}.webp`;
     const outputPath = path.join(__dirname, "../resources/img/meetups", fileName);
 
+    const is360Photo = is360 === 'true' || is360 === true;
     const inputMetadata = await sharp(file.path).metadata();
     const isAnimated = (inputMetadata.pages ?? 1) > 1;
 
+    // 360 photos require 2560px width for sharp WebGL FOV projection; standard photos use 1000px
+    const targetWidth = is360Photo ? 2560 : 1000;
+    const webpQuality = is360Photo ? 82 : 80;
+
     await sharp(file.path, { animated: isAnimated })
-      .resize({ width: 1000, withoutEnlargement: true })
-      .webp({ quality: 80, effort: 4 })
+      .resize({ width: targetWidth, withoutEnlargement: true })
+      .webp({ 
+        quality: webpQuality, 
+        effort: 6,
+        smartSubsampling: true 
+      })
       .toFile(outputPath);
 
     const newPic = {
@@ -625,7 +651,10 @@ router.post("/chillfish/pictures", authenticateBotOrAdmin, upload.single("image"
       timestamp: timestamp || new Date().toISOString(),
       author: author || "Unknown",
       userId: userId || null,
-      originalUrl: originalUrl || null
+      originalUrl: originalUrl || null,
+      is360: is360 === 'true' || is360 === true,
+      messageId: messageId || null,
+      channelId: channelId || null
     };
 
     let pictures = [];
@@ -675,21 +704,35 @@ router.post("/manage/pictures-queue/approve", authenticate, (req, res) => {
     
     const [approvedPic] = queue.splice(index, 1);
     
-    // Read and append to main pictures
     let pictures = [];
     try {
       pictures = JSON.parse(fs.readFileSync(meetupPicturesPath, "utf8"));
     } catch (e) {}
     
-    // We don't need userId and originalUrl in public json, but it doesn't hurt. 
-    // We will clean them up for the public array to save bytes
     const publicPic = { ...approvedPic };
     delete publicPic.userId;
     delete publicPic.originalUrl;
+    delete publicPic.messageId;
+    delete publicPic.channelId;
     
     pictures.push(publicPic);
     fs.writeFileSync(meetupPicturesPath, JSON.stringify(pictures, null, 2), "utf8");
     fs.writeFileSync(meetupPicturesQueuePath, JSON.stringify(queue, null, 2), "utf8");
+
+    // Enqueue internal status event for local bot processing
+    let notifications = [];
+    try {
+      notifications = JSON.parse(fs.readFileSync(notificationsPath, "utf8"));
+    } catch (e) {}
+    
+    notifications.push({
+      type: "picture_status",
+      action: "approve",
+      channelId: approvedPic.channelId || null,
+      messageId: approvedPic.messageId || null,
+      timestamp: new Date().toISOString()
+    });
+    fs.writeFileSync(notificationsPath, JSON.stringify(notifications, null, 2), "utf8");
 
     res.status(200).json({ message: "Picture approved successfully" });
   } catch (error) {
@@ -710,7 +753,6 @@ router.post("/manage/pictures-queue/reject", authenticate, (req, res) => {
     
     const [rejectedPic] = queue.splice(index, 1);
     
-    // Delete file
     const absoluteFilePath = path.join(__dirname, "..", rejectedPic.url);
     try {
       if (fs.existsSync(absoluteFilePath)) {
@@ -720,21 +762,23 @@ router.post("/manage/pictures-queue/reject", authenticate, (req, res) => {
       console.error("Could not delete rejected image file", e);
     }
 
-    // Add to notifications queue if it has a userId
-    if (rejectedPic.userId && reason) {
-      let notifications = [];
-      try {
-        notifications = JSON.parse(fs.readFileSync(notificationsPath, "utf8"));
-      } catch (e) {}
-      
-      notifications.push({
-        userId: rejectedPic.userId,
-        reason: reason,
-        originalUrl: rejectedPic.originalUrl,
-        timestamp: new Date().toISOString()
-      });
-      fs.writeFileSync(notificationsPath, JSON.stringify(notifications, null, 2), "utf8");
-    }
+    // Enqueue internal status event for local bot processing
+    let notifications = [];
+    try {
+      notifications = JSON.parse(fs.readFileSync(notificationsPath, "utf8"));
+    } catch (e) {}
+    
+    notifications.push({
+      type: "picture_status",
+      action: "reject",
+      channelId: rejectedPic.channelId || null,
+      messageId: rejectedPic.messageId || null,
+      userId: rejectedPic.userId || null,
+      reason: reason || null,
+      originalUrl: rejectedPic.originalUrl || null,
+      timestamp: new Date().toISOString()
+    });
+    fs.writeFileSync(notificationsPath, JSON.stringify(notifications, null, 2), "utf8");
 
     fs.writeFileSync(meetupPicturesQueuePath, JSON.stringify(queue, null, 2), "utf8");
 
