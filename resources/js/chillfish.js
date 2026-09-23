@@ -313,15 +313,13 @@ function initGalleryController() {
                     const ctx = canvas.getContext('2d');
                     ctx.drawImage(img, 0, 0, targetWidth, targetHeight);
 
-                    canvas.toBlob((blob) => {
-                        if (blob) {
-                            if (currentBlobUrl) URL.revokeObjectURL(currentBlobUrl);
-                            currentBlobUrl = URL.createObjectURL(blob);
-                            resolve(currentBlobUrl);
-                        } else {
-                            resolve(imageUrl);
-                        }
-                    }, 'image/jpeg', 0.92);
+                    try {
+                        const dataUrl = canvas.toDataURL('image/jpeg', 0.88);
+                        resolve(dataUrl);
+                    } catch (e) {
+                        console.warn('Canvas toDataURL failed:', e);
+                        resolve(imageUrl);
+                    }
                 } else {
                     resolve(imageUrl);
                 }
