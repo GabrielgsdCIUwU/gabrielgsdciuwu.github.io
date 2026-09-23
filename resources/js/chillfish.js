@@ -272,11 +272,66 @@ function initGalleryController() {
         filterAll: 'All Meetups',
         euSession: 'EU Session',
         usSession: 'US Session',
-        by: 'by'
+        by: 'by',
+        viewer360Loading: 'Loading 360° Panorama...',
+        viewer360Error: 'Failed to load 360° viewer'
     };
 
     let pannellumLoaderPromise = null;
     let activePannellumViewer = null;
+    let currentBlobUrl = null;
+
+    function getMaxTextureSize() {
+        try {
+            const canvas = document.createElement('canvas');
+            const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+            if (gl) {
+                const max = gl.getParameter(gl.MAX_TEXTURE_SIZE);
+                if (max && max > 0) return max;
+            }
+        } catch (e) {}
+        return 4096;
+    }
+
+    function preparePanoramaUrl(imageUrl) {
+        return new Promise((resolve) => {
+            const maxTextureSize = getMaxTextureSize();
+            const img = new Image();
+            img.crossOrigin = 'anonymous';
+            img.onload = () => {
+                const width = img.naturalWidth || img.width;
+                const height = img.naturalHeight || img.height;
+
+                if (width > maxTextureSize || height > maxTextureSize) {
+                    const scale = Math.min(maxTextureSize / width, maxTextureSize / height);
+                    const targetWidth = Math.floor(width * scale);
+                    const targetHeight = Math.floor(height * scale);
+
+                    const canvas = document.createElement('canvas');
+                    canvas.width = targetWidth;
+                    canvas.height = targetHeight;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, targetWidth, targetHeight);
+
+                    canvas.toBlob((blob) => {
+                        if (blob) {
+                            if (currentBlobUrl) URL.revokeObjectURL(currentBlobUrl);
+                            currentBlobUrl = URL.createObjectURL(blob);
+                            resolve(currentBlobUrl);
+                        } else {
+                            resolve(imageUrl);
+                        }
+                    }, 'image/jpeg', 0.92);
+                } else {
+                    resolve(imageUrl);
+                }
+            };
+            img.onerror = () => {
+                resolve(imageUrl);
+            };
+            img.src = imageUrl;
+        });
+    }
 
     function loadPannellumLibrary() {
         if (window.pannellum) return Promise.resolve();
@@ -305,6 +360,10 @@ function initGalleryController() {
             } catch (e) {}
             activePannellumViewer = null;
         }
+        if (currentBlobUrl) {
+            URL.revokeObjectURL(currentBlobUrl);
+            currentBlobUrl = null;
+        }
         const container360 = document.getElementById('gallery-modal-360-container');
         if (container360) {
             container360.innerHTML = '';
@@ -327,30 +386,35 @@ function initGalleryController() {
             container360.innerHTML = `
                 <div class="absolute inset-0 flex items-center justify-center text-blue-400 font-mono text-sm gap-2">
                     <i class="fas fa-circle-notch fa-spin text-lg"></i>
-                    <span>Loading 360° Panorama...</span>
+                    <span>${i18nGallery.viewer360Loading}</span>
                 </div>
             `;
 
-            loadPannellumLibrary().then(() => {
-                container360.innerHTML = '';
-                activePannellumViewer = window.pannellum.viewer(container360, {
-                    type: 'equirectangular',
-                    panorama: picture.url,
-                    autoLoad: true,
-                    autoRotate: -1.5,
-                    compass: false,
-                    showZoomCtrl: true,
-                    mouseZoom: true,
-                    hfov: 110
+            const thisIndex = currentModalIndex;
+
+            Promise.all([loadPannellumLibrary(), preparePanoramaUrl(picture.url)])
+                .then(([, readyPanoramaUrl]) => {
+                    if (currentModalIndex !== thisIndex) return; // Modal index changed while loading
+                    container360.innerHTML = '';
+                    activePannellumViewer = window.pannellum.viewer(container360, {
+                        type: 'equirectangular',
+                        panorama: readyPanoramaUrl,
+                        autoLoad: true,
+                        autoRotate: -1.5,
+                        compass: false,
+                        showZoomCtrl: true,
+                        mouseZoom: true,
+                        hfov: 110
+                    });
+                })
+                .catch(err => {
+                    console.error('Failed loading Pannellum 360 viewer:', err);
+                    container360.innerHTML = `
+                        <div class="absolute inset-0 flex items-center justify-center text-red-400 font-mono text-sm">
+                            <span>${i18nGallery.viewer360Error}</span>
+                        </div>
+                    `;
                 });
-            }).catch(err => {
-                console.error('Failed loading Pannellum 360 viewer:', err);
-                container360.innerHTML = `
-                    <div class="absolute inset-0 flex items-center justify-center text-red-400 font-mono text-sm">
-                        <span>Failed to load 360° viewer</span>
-                    </div>
-                `;
-            });
         } else {
             destroy360Viewer();
             if (modalImg) {

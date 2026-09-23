@@ -100,7 +100,9 @@
     "loadMore": "Cargar más fotos",
     "closeModalAria": "Cerrar modal de imagen",
     "prevModalAria": "Imagen anterior",
-    "nextModalAria": "Imagen siguiente"
+    "nextModalAria": "Imagen siguiente",
+    "viewer360Loading": "Cargando panorama 360°...",
+    "viewer360Error": "No se pudo cargar el visor 360°"
   },
   "values": {
     "label": "04 — Principios & Convivencia",
