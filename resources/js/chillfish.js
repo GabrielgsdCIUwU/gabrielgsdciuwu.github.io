@@ -279,7 +279,6 @@ function initGalleryController() {
 
     let pannellumLoaderPromise = null;
     let activePannellumViewer = null;
-    let currentBlobUrl = null;
 
     function getMaxTextureSize() {
         try {
@@ -293,14 +292,30 @@ function initGalleryController() {
         return 4096;
     }
 
-    function preparePanoramaUrl(imageUrl) {
+    /**
+     * Returns { url, haov, vaov } for Pannellum.
+     * - haov/vaov are calculated from the real image aspect ratio.
+     * - If width > MAX_TEXTURE_SIZE, the image is downscaled on a canvas.
+     * - crossOrigin is NOT set for same-origin images to avoid canvas taint on mobile.
+     */
+    function preparePanoramaConfig(imageUrl) {
         return new Promise((resolve) => {
             const maxTextureSize = getMaxTextureSize();
             const img = new Image();
-            img.crossOrigin = 'anonymous';
+            // Only set crossOrigin for external URLs to avoid canvas taint on same-origin
+            const isSameOrigin = imageUrl.startsWith('/') || imageUrl.startsWith(window.location.origin);
+            if (!isSameOrigin) img.crossOrigin = 'anonymous';
+
             img.onload = () => {
                 const width = img.naturalWidth || img.width;
                 const height = img.naturalHeight || img.height;
+
+                // Calculate field-of-view angles from real aspect ratio
+                // A perfect 2:1 equirectangular = haov 360, vaov 180
+                // If ratio is different, adjust vaov so image renders without distortion
+                const aspectRatio = width / height;
+                const haov = 360;
+                const vaov = Math.round((haov / aspectRatio) * 10) / 10;
 
                 if (width > maxTextureSize || height > maxTextureSize) {
                     const scale = Math.min(maxTextureSize / width, maxTextureSize / height);
@@ -311,21 +326,21 @@ function initGalleryController() {
                     canvas.width = targetWidth;
                     canvas.height = targetHeight;
                     const ctx = canvas.getContext('2d');
-                    ctx.drawImage(img, 0, 0, targetWidth, targetHeight);
-
                     try {
+                        ctx.drawImage(img, 0, 0, targetWidth, targetHeight);
                         const dataUrl = canvas.toDataURL('image/jpeg', 0.88);
-                        resolve(dataUrl);
+                        resolve({ url: dataUrl, haov, vaov });
                     } catch (e) {
-                        console.warn('Canvas toDataURL failed:', e);
-                        resolve(imageUrl);
+                        // Canvas tainted (CORS) — fall back to original URL without scaling
+                        console.warn('Canvas tainted, using original URL:', e);
+                        resolve({ url: imageUrl, haov, vaov });
                     }
                 } else {
-                    resolve(imageUrl);
+                    resolve({ url: imageUrl, haov, vaov });
                 }
             };
             img.onerror = () => {
-                resolve(imageUrl);
+                resolve({ url: imageUrl, haov: 360, vaov: 180 });
             };
             img.src = imageUrl;
         });
@@ -358,10 +373,6 @@ function initGalleryController() {
             } catch (e) {}
             activePannellumViewer = null;
         }
-        if (currentBlobUrl) {
-            URL.revokeObjectURL(currentBlobUrl);
-            currentBlobUrl = null;
-        }
         const container360 = document.getElementById('gallery-modal-360-container');
         if (container360) {
             container360.innerHTML = '';
@@ -389,20 +400,24 @@ function initGalleryController() {
             `;
 
             const thisIndex = currentModalIndex;
+            const isMobile = window.innerWidth < 768;
 
-            Promise.all([loadPannellumLibrary(), preparePanoramaUrl(picture.url)])
-                .then(([, readyPanoramaUrl]) => {
+            Promise.all([loadPannellumLibrary(), preparePanoramaConfig(picture.url)])
+                .then(([, panoramaConfig]) => {
                     if (currentModalIndex !== thisIndex) return; // Modal index changed while loading
                     container360.innerHTML = '';
                     activePannellumViewer = window.pannellum.viewer(container360, {
                         type: 'equirectangular',
-                        panorama: readyPanoramaUrl,
+                        panorama: panoramaConfig.url,
+                        haov: panoramaConfig.haov,
+                        vaov: panoramaConfig.vaov,
                         autoLoad: true,
-                        autoRotate: -1.5,
+                        autoRotate: isMobile ? 0 : -1.5,
                         compass: false,
-                        showZoomCtrl: true,
-                        mouseZoom: true,
-                        hfov: 110
+                        showZoomCtrl: !isMobile,
+                        mouseZoom: !isMobile,
+                        hfov: isMobile ? 90 : 110,
+                        ignoreGPanoXMP: true
                     });
                 })
                 .catch(err => {
