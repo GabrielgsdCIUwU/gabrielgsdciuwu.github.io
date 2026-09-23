@@ -100,7 +100,9 @@
     "loadMore": "Load more photos",
     "closeModalAria": "Close image lightbox",
     "prevModalAria": "Previous image",
-    "nextModalAria": "Next image"
+    "nextModalAria": "Next image",
+    "viewer360Loading": "Loading 360° Panorama...",
+    "viewer360Error": "Failed to load 360° viewer"
   },
   "values": {
     "label": "04 — Principles & Harmony",

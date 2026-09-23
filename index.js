@@ -24,7 +24,13 @@ app.set("trust proxy", 1);
 const globalLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 350,
-  message: { error: "Demasiadas peticiones desde esta IP, por favor intenta de nuevo más tarde" },
+  handler: (req, res) => {
+    const lang = req.acceptsLanguages(["es", "en"]) === "es" ? "es" : "en";
+    const errorMsg = lang === "es"
+      ? "Demasiadas peticiones desde esta IP, por favor intenta de nuevo más tarde."
+      : "Too many requests from this IP, please try again later.";
+    res.status(429).json({ error: errorMsg });
+  },
   standardHeaders: true,
   legacyHeaders: false,
 });

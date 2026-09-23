@@ -19,7 +19,13 @@ const upload = multer({
 const uploadLimiter = rateLimit({
   windowMs: 2 * 60 * 60 * 1000, // 2 hours
   max: 10, // Limit each IP to 10 PRs
-  message: { error: "Too many uploads from this IP, please try again after 2 hours" },
+  handler: (req, res) => {
+    const lang = req.acceptsLanguages(["es", "en"]) === "es" ? "es" : "en";
+    const errorMsg = lang === "es"
+      ? "Demasiadas subidas desde esta IP, por favor intenta de nuevo pasadas 2 horas."
+      : "Too many uploads from this IP, please try again after 2 hours.";
+    res.status(429).json({ error: errorMsg });
+  },
   standardHeaders: true,
   legacyHeaders: false,
 });
