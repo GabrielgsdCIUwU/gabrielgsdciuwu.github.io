@@ -1,0 +1,11 @@
+node_modules
+npm-debug.log
+.git
+.github
+.vscode
+*.log
+web-start.log
+server.log
+trajava.ps1
+BrainStorm.txt
+.env
