@@ -11,4 +11,4 @@ services:
       - ./resources/json:/app/resources/json
       - ./resources/img:/app/resources/img
       - ./sessions:/app/sessions
-      - /root/Fox-Rusk-Bot/Data/shared:/root/Fox-Rusk-Bot/Data/shared:ro
+      - /root/Fox-Rusk-Bot/Data/shared:/root/Fox-Rusk-Bot/Data/shared:rw
