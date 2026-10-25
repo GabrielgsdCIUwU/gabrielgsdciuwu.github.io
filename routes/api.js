@@ -720,19 +720,23 @@ router.post("/manage/pictures-queue/approve", authenticate, (req, res) => {
     fs.writeFileSync(meetupPicturesQueuePath, JSON.stringify(queue, null, 2), "utf8");
 
     // Enqueue internal status event for local bot processing
-    let notifications = [];
     try {
-      notifications = JSON.parse(fs.readFileSync(notificationsPath, "utf8"));
-    } catch (e) {}
-    
-    notifications.push({
-      type: "picture_status",
-      action: "approve",
-      channelId: approvedPic.channelId || null,
-      messageId: approvedPic.messageId || null,
-      timestamp: new Date().toISOString()
-    });
-    fs.writeFileSync(notificationsPath, JSON.stringify(notifications, null, 2), "utf8");
+      let notifications = [];
+      try {
+        notifications = JSON.parse(fs.readFileSync(notificationsPath, "utf8"));
+      } catch (e) {}
+      
+      notifications.push({
+        type: "picture_status",
+        action: "approve",
+        channelId: approvedPic.channelId || null,
+        messageId: approvedPic.messageId || null,
+        timestamp: new Date().toISOString()
+      });
+      fs.writeFileSync(notificationsPath, JSON.stringify(notifications, null, 2), "utf8");
+    } catch (notifErr) {
+      console.error("Warning: Could not enqueue approve notification:", notifErr);
+    }
 
     res.status(200).json({ message: "Picture approved successfully" });
   } catch (error) {
@@ -763,22 +767,26 @@ router.post("/manage/pictures-queue/reject", authenticate, (req, res) => {
     }
 
     // Enqueue internal status event for local bot processing
-    let notifications = [];
     try {
-      notifications = JSON.parse(fs.readFileSync(notificationsPath, "utf8"));
-    } catch (e) {}
-    
-    notifications.push({
-      type: "picture_status",
-      action: "reject",
-      channelId: rejectedPic.channelId || null,
-      messageId: rejectedPic.messageId || null,
-      userId: rejectedPic.userId || null,
-      reason: reason || null,
-      originalUrl: rejectedPic.originalUrl || null,
-      timestamp: new Date().toISOString()
-    });
-    fs.writeFileSync(notificationsPath, JSON.stringify(notifications, null, 2), "utf8");
+      let notifications = [];
+      try {
+        notifications = JSON.parse(fs.readFileSync(notificationsPath, "utf8"));
+      } catch (e) {}
+      
+      notifications.push({
+        type: "picture_status",
+        action: "reject",
+        channelId: rejectedPic.channelId || null,
+        messageId: rejectedPic.messageId || null,
+        userId: rejectedPic.userId || null,
+        reason: reason || null,
+        originalUrl: rejectedPic.originalUrl || null,
+        timestamp: new Date().toISOString()
+      });
+      fs.writeFileSync(notificationsPath, JSON.stringify(notifications, null, 2), "utf8");
+    } catch (notifErr) {
+      console.error("Warning: Could not enqueue reject notification:", notifErr);
+    }
 
     fs.writeFileSync(meetupPicturesQueuePath, JSON.stringify(queue, null, 2), "utf8");
 
